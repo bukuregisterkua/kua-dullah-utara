@@ -36,8 +36,8 @@ import { motion, AnimatePresence } from "motion/react";
 import Header from "./components/Header";
 import Hero from "./components/Hero";
 import { Layanan, Pengumuman, Settings, DBState } from "./types";
-import berkasUmum from "./assets/berkas-umum.jpg";
-import berkasKhusus from "./assets/berkas-khusus.jpg";
+import berkasUmum from "./assets/images/berkas_umum_1779246456217.png";
+import berkasKhusus from "./assets/images/berkas_khusus_1779246479558.png";
 
 export default function App() {
   const [db, setDb] = useState<DBState | null>(null);
@@ -63,6 +63,10 @@ export default function App() {
 
   // Custom Modal state for specific image preview
   const [customModalImage, setCustomModalImage] = useState<string | null>(null);
+
+  const openModal = (url: string) => {
+    setCustomModalImage(url);
+  };
 
   // Form states for Admin actions
   const [adminActiveTab, setAdminActiveTab] = useState<"layanan" | "pengumuman" | "settings">("layanan");
@@ -786,10 +790,10 @@ export default function App() {
                         {/* BERKAS UMUM */}
                         <div className="card-berkas">
                           <img
-                            src={berkasUmum}
+                            src={defaultSettings.berkasNikahImg || berkasUmum}
                             alt="Berkas Nikah Umum"
                             referrerPolicy="no-referrer"
-                            onClick={() => setCustomModalImage(berkasUmum)}
+                            onClick={() => openModal(defaultSettings.berkasNikahImg || berkasUmum)}
                           />
                           <div className="judul-card">
                             Berkas Pendaftaran Nikah Umum
@@ -799,10 +803,10 @@ export default function App() {
                         {/* BERKAS KHUSUS */}
                         <div className="card-berkas">
                           <img
-                            src={berkasKhusus}
+                            src={defaultSettings.alurNikahImg || berkasKhusus}
                             alt="Berkas Nikah Khusus"
                             referrerPolicy="no-referrer"
-                            onClick={() => setCustomModalImage(berkasKhusus)}
+                            onClick={() => openModal(defaultSettings.alurNikahImg || berkasKhusus)}
                           />
                           <div className="judul-card">
                             Berkas Pendaftaran Nikah Khusus
@@ -1337,7 +1341,7 @@ export default function App() {
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
                   
                   {/* Form Create / Edit Layanan */}
-                  <div className="lg:col-span-5 bg-white p-6 rounded-3xl border border-emerald-50 shadow-xxs">
+                  <div id="form-layanan-edit" className="lg:col-span-5 bg-white p-6 rounded-3xl border border-emerald-50 shadow-xxs scroll-mt-24">
                     <h3 className="text-sm font-extrabold uppercase tracking-widest text-emerald-800 mb-4 flex items-center justify-between">
                       <span>{editingLayanan?.id ? "Edit Item Layanan" : "Tambah Item Layanan"}</span>
                       {editingLayanan && (
@@ -1358,7 +1362,7 @@ export default function App() {
                           required
                           placeholder="Contoh: Berkas Pas foto Nikah"
                           value={editingLayanan?.title || ""}
-                          onChange={(e) => setEditingLayanan({ ...editingLayanan, title: e.target.value })}
+                          onChange={(e) => setEditingLayanan({ ...(editingLayanan || {}), title: e.target.value })}
                           className="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs focus:ring-1 focus:ring-emerald-500 focus:outline-none"
                         />
                       </div>
@@ -1368,7 +1372,7 @@ export default function App() {
                           <label className="block text-[11px] font-bold text-slate-700 mb-1">Kategori</label>
                           <select
                             value={editingLayanan?.category || "nikah"}
-                            onChange={(e) => setEditingLayanan({ ...editingLayanan, category: e.target.value as any })}
+                            onChange={(e) => setEditingLayanan({ ...(editingLayanan || {}), category: e.target.value as any })}
                             className="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs focus:ring-1 focus:ring-emerald-500 focus:outline-none"
                           >
                             <option value="nikah">💍 Nikah</option>
@@ -1381,7 +1385,7 @@ export default function App() {
                           <label className="block text-[11px] font-bold text-slate-700 mb-1">Tipe Aksi / Rendering</label>
                           <select
                             value={editingLayanan?.type || "info"}
-                            onChange={(e) => setEditingLayanan({ ...editingLayanan, type: e.target.value as any })}
+                            onChange={(e) => setEditingLayanan({ ...(editingLayanan || {}), type: e.target.value as any })}
                             className="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs focus:ring-1 focus:ring-emerald-500 focus:outline-none"
                           >
                             <option value="info">Info / Persyaratan Dokumen</option>
@@ -1397,7 +1401,7 @@ export default function App() {
                         <label className="block text-[11px] font-bold text-slate-700 mb-1">Pilih Icon Tampilan</label>
                         <select
                           value={editingLayanan?.icon || "file-text"}
-                          onChange={(e) => setEditingLayanan({ ...editingLayanan, icon: e.target.value })}
+                          onChange={(e) => setEditingLayanan({ ...(editingLayanan || {}), icon: e.target.value })}
                           className="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs focus:ring-1 focus:ring-emerald-500 focus:outline-none"
                         >
                           <option value="file-text">Memo / Lembar Dokumen</option>
@@ -1416,7 +1420,7 @@ export default function App() {
                           type="text"
                           placeholder="https://..."
                           value={editingLayanan?.url || ""}
-                          onChange={(e) => setEditingLayanan({ ...editingLayanan, url: e.target.value })}
+                          onChange={(e) => setEditingLayanan({ ...(editingLayanan || {}), url: e.target.value })}
                           className="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs focus:ring-1 focus:ring-emerald-500 focus:outline-none"
                         />
                       </div>
@@ -1427,7 +1431,7 @@ export default function App() {
                           rows={2}
                           placeholder="Keterangan singkat tentang relevansi item layanan ini..."
                           value={editingLayanan?.description || ""}
-                          onChange={(e) => setEditingLayanan({ ...editingLayanan, description: e.target.value })}
+                          onChange={(e) => setEditingLayanan({ ...(editingLayanan || {}), description: e.target.value })}
                           className="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs focus:ring-1 focus:ring-emerald-500 focus:outline-none"
                         />
                       </div>
@@ -1453,7 +1457,7 @@ export default function App() {
                             type="file"
                             accept="image/jpeg, image/png, image/jpg"
                             onChange={(e) => handleImageUpload(e, "layanan", (url) => {
-                              setEditingLayanan({ ...editingLayanan, image: url });
+                              setEditingLayanan({ ...(editingLayanan || {}), image: url });
                             })}
                             className="block w-full text-xs text-slate-500 file:mr-2 file:py-1.5 file:px-3 file:rounded-xl file:border-0 file:text-[10px] file:font-semibold file:bg-emerald-50 file:text-emerald-700 hover:file:bg-emerald-100"
                           />
@@ -1462,7 +1466,7 @@ export default function App() {
                           <div className="mt-2 text-[11px] text-green-700 bg-green-50 p-2 rounded-lg flex items-center justify-between">
                             <span className="truncate">Telah terpilih: {editingLayanan.image}</span>
                             <button 
-                              onClick={() => setEditingLayanan({ ...editingLayanan, image: "" })}
+                              onClick={() => setEditingLayanan({ ...(editingLayanan || {}), image: "" })}
                               className="text-red-600 font-bold hover:underline"
                             >
                               Hapus
@@ -1490,42 +1494,58 @@ export default function App() {
                     </h3>
 
                     <div className="space-y-3 max-h-[700px] overflow-y-auto pr-1">
-                      {db?.layanan.map((serv) => (
-                        <div 
-                          key={serv.id}
-                          className="p-4 bg-slate-50 border border-slate-100 rounded-2xl flex items-center justify-between gap-4"
-                        >
-                          <div className="truncate">
-                            <div className="flex items-center space-x-1.5">
-                              <span className="text-xs font-bold text-slate-900 truncate">{serv.title}</span>
-                              <span className="text-[9px] uppercase font-bold bg-emerald-100 text-emerald-800 px-1.5 py-0.5 rounded-sm shrink-0">
-                                {serv.category}
-                              </span>
+                      {db?.layanan.map((serv) => {
+                        const isBeingEdited = editingLayanan?.id === serv.id;
+                        return (
+                          <div 
+                            key={serv.id}
+                            className={`p-4 rounded-2xl flex items-center justify-between gap-4 transition-all duration-200 border ${
+                              isBeingEdited 
+                                ? "bg-emerald-50/50 border-emerald-500 ring-2 ring-emerald-500/20 shadow-xs" 
+                                : "bg-slate-50 border-slate-100"
+                            }`}
+                          >
+                            <div className="truncate">
+                              <div className="flex items-center space-x-1.5 flex-wrap gap-y-1">
+                                <span className={`text-xs font-bold truncate ${isBeingEdited ? "text-emerald-900 font-extrabold" : "text-slate-900"}`}>{serv.title}</span>
+                                <span className="text-[9px] uppercase font-bold bg-emerald-100 text-emerald-800 px-1.5 py-0.5 rounded-sm shrink-0">
+                                  {serv.category}
+                                </span>
+                                {isBeingEdited && (
+                                  <span className="text-[9px] uppercase font-bold bg-amber-100 text-amber-850 px-1.5 py-0.5 rounded-sm shrink-0 animate-pulse">
+                                    ✏️ Sedang Diedit
+                                  </span>
+                                )}
+                              </div>
+                              <p className="text-[10px] text-slate-500 truncate mt-0.5">Tipe-Aksi: <span className="font-mono text-emerald-700">{serv.type}</span> {serv.url ? `| URL: ${serv.url}` : ""}</p>
                             </div>
-                            <p className="text-[10px] text-slate-500 truncate mt-0.5">Tipe-Aksi: <span className="font-mono text-emerald-700">{serv.type}</span> {serv.url ? `| URL: ${serv.url}` : ""}</p>
-                          </div>
 
-                          <div className="flex items-center space-x-1 shrink-0">
-                            <button
-                              onClick={() => {
-                                setEditingLayanan(serv);
-                                setLayananFormContentInput(serv.content ? serv.content.join("\n") : "");
-                              }}
-                              className="p-1.5 hover:bg-emerald-50 text-emerald-700 rounded-lg transition-colors cursor-pointer"
-                              title="Edit Layanan"
-                            >
-                              <Edit className="h-4 w-4" />
-                            </button>
-                            <button
-                              onClick={() => deleteLayanan(serv.id)}
-                              className="p-1.5 hover:bg-rose-50 text-rose-700 rounded-lg transition-colors cursor-pointer"
-                              title="Hapus Layanan"
-                            >
-                              <Trash2 className="h-4 w-4" />
-                            </button>
+                            <div className="flex items-center space-x-1 shrink-0">
+                              <button
+                                onClick={() => {
+                                  setEditingLayanan(serv);
+                                  setLayananFormContentInput(serv.content ? serv.content.join("\n") : "");
+                                  setTimeout(() => {
+                                    const element = document.getElementById("form-layanan-edit");
+                                    element?.scrollIntoView({ behavior: "smooth", block: "start" });
+                                  }, 50);
+                                }}
+                                className="p-1.5 hover:bg-emerald-50 text-emerald-700 rounded-lg transition-colors cursor-pointer"
+                                title="Edit Layanan"
+                              >
+                                <Edit className="h-4 w-4" />
+                              </button>
+                              <button
+                                onClick={() => deleteLayanan(serv.id)}
+                                className="p-1.5 hover:bg-rose-50 text-rose-700 rounded-lg transition-colors cursor-pointer"
+                                title="Hapus Layanan"
+                              >
+                                <Trash2 className="h-4 w-4" />
+                              </button>
+                            </div>
                           </div>
-                        </div>
-                      ))}
+                        );
+                      })}
                     </div>
 
                   </div>
@@ -1751,6 +1771,84 @@ export default function App() {
                         onChange={(e) => setSettingsForm({ ...settingsForm, address: e.target.value })}
                         className="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs focus:ring-1 focus:ring-emerald-500 focus:outline-none"
                       />
+                    </div>
+                  </div>
+
+                  <hr className="border-slate-100 my-6" />
+
+                  {/* Poster uploaders for Berkas Umum & Berkas Khusus */}
+                  <div className="space-y-4 mb-6">
+                    <h4 className="text-xs font-extrabold uppercase text-emerald-950 tracking-wider">Poster Berkas Persyaratan Nikah</h4>
+                    <p className="text-[10px] text-slate-500">Anda dapat mengunggah atau mengganti gambar/poster Syarat Berkas Nikah Umum dan Khusus secara dinamis di sini.</p>
+                    
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                      {/* Upload Berkas Umum */}
+                      <div className="border border-slate-100 rounded-2xl p-4 bg-slate-50/50 space-y-3">
+                        <label className="block text-xs font-bold text-slate-705 mb-1">Poster Berkas Nikah Umum</label>
+                        {settingsForm.berkasNikahImg ? (
+                          <div className="relative group w-32 h-32 mx-auto rounded-lg overflow-hidden border border-slate-200">
+                            <img src={settingsForm.berkasNikahImg} alt="Preview Umum" className="w-full h-full object-cover" />
+                            <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
+                              <button 
+                                type="button" 
+                                onClick={() => setSettingsForm({ ...settingsForm, berkasNikahImg: "" })}
+                                className="text-white text-[10px] font-bold bg-rose-600 px-2 py-1 rounded cursor-pointer"
+                              >
+                                Hapus
+                              </button>
+                            </div>
+                          </div>
+                        ) : (
+                          <div className="w-full h-24 border border-dashed border-slate-300 rounded-xl flex flex-col items-center justify-center bg-white p-2">
+                            <input
+                              type="file"
+                              accept="image/*"
+                              onChange={(e) => handleImageUpload(e, "settings", (url) => setSettingsForm({ ...settingsForm, berkasNikahImg: url }))}
+                              className="hidden"
+                              id="settings-berkas-umum"
+                            />
+                            <label htmlFor="settings-berkas-umum" className="cursor-pointer text-center">
+                              <Upload className="h-5 w-5 mx-auto text-slate-400 mb-1" />
+                              <span className="text-[10px] text-emerald-700 font-bold hover:underline">Unggah Gambar Umum</span>
+                            </label>
+                          </div>
+                        )}
+                        <p className="text-[9px] text-slate-450 text-center">Rekomendasi format: PNG/JPG persegi atau portrait</p>
+                      </div>
+
+                      {/* Upload Berkas Khusus */}
+                      <div className="border border-slate-100 rounded-2xl p-4 bg-slate-50/50 space-y-3">
+                        <label className="block text-xs font-bold text-slate-705 mb-1">Poster Berkas Nikah Khusus</label>
+                        {settingsForm.alurNikahImg ? (
+                          <div className="relative group w-32 h-32 mx-auto rounded-lg overflow-hidden border border-slate-200">
+                            <img src={settingsForm.alurNikahImg} alt="Preview Khusus" className="w-full h-full object-cover" />
+                            <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
+                              <button 
+                                type="button" 
+                                onClick={() => setSettingsForm({ ...settingsForm, alurNikahImg: "" })}
+                                className="text-white text-[10px] font-bold bg-rose-600 px-2 py-1 rounded cursor-pointer"
+                              >
+                                Hapus
+                              </button>
+                            </div>
+                          </div>
+                        ) : (
+                          <div className="w-full h-24 border border-dashed border-slate-300 rounded-xl flex flex-col items-center justify-center bg-white p-2">
+                            <input
+                              type="file"
+                              accept="image/*"
+                              onChange={(e) => handleImageUpload(e, "settings", (url) => setSettingsForm({ ...settingsForm, alurNikahImg: url }))}
+                              className="hidden"
+                              id="settings-berkas-khusus"
+                            />
+                            <label htmlFor="settings-berkas-khusus" className="cursor-pointer text-center">
+                              <Upload className="h-5 w-5 mx-auto text-slate-400 mb-1" />
+                              <span className="text-[10px] text-emerald-700 font-bold hover:underline">Unggah Gambar Khusus</span>
+                            </label>
+                          </div>
+                        )}
+                        <p className="text-[9px] text-slate-450 text-center">Rekomendasi format: PNG/JPG persegi atau portrait</p>
+                      </div>
                     </div>
                   </div>
 
