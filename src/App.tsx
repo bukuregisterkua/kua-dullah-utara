@@ -445,6 +445,7 @@ export default function App() {
         onAdminClick={() => setShowLoginModal(true)}
         isAdmin={isAdminLoggedIn}
         onLogout={handleLogout}
+        logoImg={defaultSettings.logoImg}
       />
 
       {/* Main Container */}
@@ -797,7 +798,7 @@ export default function App() {
                           📂 Dokumen Persyaratan Nikah Terpadu
                         </h3>
                         <p className="text-[11px] text-slate-500 mt-1">
-                          Silakan klik poster atau gambar di bawah untuk memperbesar berkas pendaftaran nikah umum maupun berkas khusus secara presisi.
+                          Silakan klik poster atau gambar di bawah untuk memperbesar berkas pendaftaran nikah umum, berkas khusus, maupun alur pendaftaran secara presisi.
                         </p>
                       </div>
 
@@ -825,6 +826,19 @@ export default function App() {
                           />
                           <div className="judul-card">
                             Berkas Pendaftaran Nikah Khusus
+                          </div>
+                        </div>
+
+                        {/* ALUR PENDAFTARAN NIKAH */}
+                        <div className="card-berkas">
+                          <img
+                            src={defaultSettings.alurProsesNikahImg || berkasKhusus}
+                            alt="Alur Pendaftaran Nikah"
+                            referrerPolicy="no-referrer"
+                            onClick={() => openModal(defaultSettings.alurProsesNikahImg || berkasKhusus)}
+                          />
+                          <div className="judul-card">
+                            Alur Pendaftaran Nikah
                           </div>
                         </div>
                       </div>
@@ -1791,12 +1805,12 @@ export default function App() {
 
                   <hr className="border-slate-100 my-6" />
 
-                  {/* Poster uploaders for Berkas Umum & Berkas Khusus */}
+                  {/* Poster uploaders for Berkas Umum, Berkas Khusus, and Alur Nikah */}
                   <div className="space-y-4 mb-6">
-                    <h4 className="text-xs font-extrabold uppercase text-emerald-950 tracking-wider">Poster Berkas Persyaratan Nikah</h4>
-                    <p className="text-[10px] text-slate-500">Anda dapat mengunggah atau mengganti gambar/poster Syarat Berkas Nikah Umum dan Khusus secara dinamis di sini.</p>
+                    <h4 className="text-xs font-extrabold uppercase text-emerald-950 tracking-wider">Poster Persyaratan & Alur Nikah</h4>
+                    <p className="text-[10px] text-slate-500">Anda dapat mengunggah atau mengganti gambar/poster Syarat Berkas Nikah Umum, Khusus, dan Alur Pendaftaran secara dinamis di sini.</p>
                     
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                       {/* Upload Berkas Umum */}
                       <div className="border border-slate-100 rounded-2xl p-4 bg-slate-50/50 space-y-3">
                         <label className="block text-xs font-bold text-slate-705 mb-1">Poster Berkas Nikah Umum</label>
@@ -1863,6 +1877,118 @@ export default function App() {
                           </div>
                         )}
                         <p className="text-[9px] text-slate-450 text-center">Rekomendasi format: PNG/JPG persegi atau portrait</p>
+                      </div>
+
+                      {/* Upload Alur Pendaftaran Nikah */}
+                      <div className="border border-slate-100 rounded-2xl p-4 bg-slate-50/50 space-y-3">
+                        <label className="block text-xs font-bold text-slate-750 mb-1">Poster Alur Pendaftaran</label>
+                        {settingsForm.alurProsesNikahImg ? (
+                          <div className="relative group w-32 h-32 mx-auto rounded-lg overflow-hidden border border-slate-200">
+                            <img src={settingsForm.alurProsesNikahImg} alt="Preview Alur" className="w-full h-full object-cover" />
+                            <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
+                              <button 
+                                type="button" 
+                                onClick={() => setSettingsForm({ ...settingsForm, alurProsesNikahImg: "" })}
+                                className="text-white text-[10px] font-bold bg-rose-600 px-2 py-1 rounded cursor-pointer"
+                              >
+                                Hapus
+                              </button>
+                            </div>
+                          </div>
+                        ) : (
+                          <div className="w-full h-24 border border-dashed border-slate-300 rounded-xl flex flex-col items-center justify-center bg-white p-2">
+                            <input
+                              type="file"
+                              accept="image/*"
+                              onChange={(e) => handleImageUpload(e, "settings", (url) => setSettingsForm({ ...settingsForm, alurProsesNikahImg: url }))}
+                              className="hidden"
+                              id="settings-alur-proses"
+                            />
+                            <label htmlFor="settings-alur-proses" className="cursor-pointer text-center">
+                              <Upload className="h-5 w-5 mx-auto text-slate-400 mb-1" />
+                              <span className="text-[10px] text-emerald-700 font-bold hover:underline">Unggah Gambar Alur</span>
+                            </label>
+                          </div>
+                        )}
+                        <p className="text-[9px] text-slate-450 text-center">Rekomendasi format: PNG/JPG persegi atau portrait</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <hr className="border-slate-100 my-6" />
+
+                  {/* Logo Kantor & Gambar Latar Beranda (Hero Background) */}
+                  <div className="space-y-4 mb-6">
+                    <h4 className="text-xs font-extrabold uppercase text-emerald-950 tracking-wider">Logo & Latar Belakang Depan</h4>
+                    <p className="text-[10px] text-slate-500">Anda dapat mengubah logo resmi instansi (tampil di navigasi menu) dan gambar latar belakang (background) beranda depan di bawah ini.</p>
+                    
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      {/* Upload Logo Kantor */}
+                      <div className="border border-slate-100 rounded-2xl p-4 bg-slate-50/50 space-y-3">
+                        <label className="block text-xs font-bold text-slate-750 mb-1">Logo Instansi Kantor</label>
+                        {settingsForm.logoImg ? (
+                          <div className="relative group w-32 h-32 mx-auto rounded-lg overflow-hidden border border-slate-200 flex items-center justify-center bg-white p-2">
+                            <img src={settingsForm.logoImg} alt="Preview Logo" className="max-w-full max-h-full object-contain" />
+                            <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
+                              <button 
+                                type="button" 
+                                onClick={() => setSettingsForm({ ...settingsForm, logoImg: "" })}
+                                className="text-white text-[10px] font-bold bg-rose-600 px-2 py-1 rounded cursor-pointer"
+                              >
+                                Hapus
+                              </button>
+                            </div>
+                          </div>
+                        ) : (
+                          <div className="w-full h-24 border border-dashed border-slate-300 rounded-xl flex flex-col items-center justify-center bg-white p-2">
+                            <input
+                              type="file"
+                              accept="image/*"
+                              onChange={(e) => handleImageUpload(e, "settings", (url) => setSettingsForm({ ...settingsForm, logoImg: url }))}
+                              className="hidden"
+                              id="settings-logo-kantor"
+                            />
+                            <label htmlFor="settings-logo-kantor" className="cursor-pointer text-center">
+                              <Upload className="h-5 w-5 mx-auto text-slate-400 mb-1" />
+                              <span className="text-[10px] text-emerald-700 font-bold hover:underline">Unggah Logo Kantor</span>
+                            </label>
+                          </div>
+                        )}
+                        <p className="text-[9px] text-slate-450 text-center">Disarankan format PNG transparan berkualitas tinggi</p>
+                      </div>
+
+                      {/* Upload Latar Belakang Beranda */}
+                      <div className="border border-slate-100 rounded-2xl p-4 bg-slate-50/50 space-y-3">
+                        <label className="block text-xs font-bold text-slate-750 mb-1">Gambar Latar Belakang Beranda (Hero Background)</label>
+                        {settingsForm.heroBgImg ? (
+                          <div className="relative group w-48 h-32 mx-auto rounded-lg overflow-hidden border border-slate-200">
+                            <img src={settingsForm.heroBgImg} alt="Preview Background" className="w-full h-full object-cover" />
+                            <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
+                              <button 
+                                type="button" 
+                                onClick={() => setSettingsForm({ ...settingsForm, heroBgImg: "" })}
+                                className="text-white text-[10px] font-bold bg-rose-600 px-2 py-1 rounded cursor-pointer"
+                              >
+                                Hapus
+                              </button>
+                            </div>
+                          </div>
+                        ) : (
+                          <div className="w-full h-24 border border-dashed border-slate-300 rounded-xl flex flex-col items-center justify-center bg-white p-2">
+                            <input
+                              type="file"
+                              accept="image/*"
+                              onChange={(e) => handleImageUpload(e, "settings", (url) => setSettingsForm({ ...settingsForm, heroBgImg: url }))}
+                              className="hidden"
+                              id="settings-bg-beranda"
+                            />
+                            <label htmlFor="settings-bg-beranda" className="cursor-pointer text-center">
+                              <Upload className="h-5 w-5 mx-auto text-slate-400 mb-1" />
+                              <span className="text-[10px] text-emerald-700 font-bold hover:underline">Unggah Gambar Background</span>
+                            </label>
+                          </div>
+                        )}
+                        <p className="text-[9px] text-slate-450 text-center">Format landscape berkualitas tinggi (min. 1280x720)</p>
                       </div>
                     </div>
                   </div>

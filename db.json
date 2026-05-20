@@ -1,0 +1,167 @@
+{
+  "layanan": [
+    {
+      "id": "nikah-3",
+      "title": "Daftar Nikah Online (SIMKAH)",
+      "category": "nikah",
+      "type": "link",
+      "url": "https://simkah4.kemenag.go.id",
+      "icon": "globe",
+      "description": "Portal pendaftaran nikah online resmi Kementerian Agama RI."
+    },
+    {
+      "id": "nikah-4",
+      "title": "Pengajuan Berkas Nikah (KUA PDU)",
+      "category": "nikah",
+      "type": "link",
+      "url": "https://forms.gle/kuadullahnikah",
+      "icon": "edit-3",
+      "description": "Formulir digital penyerahan berkas awal KUA Kecamatan Pulau Dullah Utara."
+    },
+    {
+      "id": "nikah-5",
+      "title": "Bimwin Online Bina Kami (WhatsApp)",
+      "category": "nikah",
+      "type": "whatsapp",
+      "url": "https://wa.me/6281240912842",
+      "icon": "message-circle",
+      "description": "Hubungi Bimbingan Perkawinan Online via WhatsApp: +62-812-4091-2842"
+    },
+    {
+      "id": "nikah-6",
+      "title": "Video Alur Pendaftaran Nikah",
+      "category": "nikah",
+      "type": "youtube",
+      "url": "https://www.youtube.com/watch?v=RS3Ck7rAkq0",
+      "icon": "youtube",
+      "description": "Panduan video resmi alur pendaftaran dan tata cara nikah."
+    },
+    {
+      "id": "nikah-7",
+      "title": "Pembuatan Surat Rekomendasi Nikah",
+      "category": "nikah",
+      "type": "link",
+      "url": "https://forms.gle/kuadullahrekomendasi",
+      "icon": "send",
+      "description": "Layanan permohonan surat rekomendasi numpang nikah di luar wilayah."
+    },
+    {
+      "id": "wakaf-1",
+      "title": "Berkas Pendaftaran Wakaf",
+      "category": "wakaf",
+      "type": "info",
+      "content": [
+        "Fotokopi KTP Wakif (pemberi wakaf)",
+        "Fotokopi KTP Nadzir (pengelola wakaf, minimal 3 orang)",
+        "Surat Kepengurusan Lembaga Keadilan jika Nadzir Badan Hukum",
+        "Sertifikat Hak Milik (SHM) asli tanah atau surat kepemilikan tanah sah lainnya",
+        "Surat Keterangan Pendaftaran Tanah (SKPT) dari BPN",
+        "Surat Pernyataan Bebas Sengketa dari Kelurahan",
+        "Pasfoto Wakif dan Nadzir ukuran 3x4"
+      ],
+      "image": "",
+      "icon": "file-text"
+    },
+    {
+      "id": "wakaf-2",
+      "title": "Alur Sertifikasi Tanah Wakaf",
+      "category": "wakaf",
+      "type": "flow",
+      "content": [
+        "Pihak Wakif dan Nadzir membawa berkas kepemilikan tanah ke kantor KUA Dullah Utara selaku PPAIW",
+        "Kepala KUA melakukan verifikasi berkas dan memeriksa lokasi fisik tanah bersama saksi-saksi",
+        "Wakif dan Nadzir melangsungkan Ikrar Wakaf di hadapan Kepala KUA selaku PPAIW",
+        "KUA menerbitkan Akta Ikrar Wakaf (AIW) / Surat Pengesahan",
+        "KUA meregistrasikan secara digital di SIWAK Kemenag",
+        "Nadzir mengurus sertifikat tanah wakaf ke Kantor Pertanahan (BPN)"
+      ],
+      "image": "",
+      "icon": "git-commit"
+    },
+    {
+      "id": "wakaf-3",
+      "title": "Sistem Informasi Wakaf (SIWAK)",
+      "category": "wakaf",
+      "type": "link",
+      "url": "https://siwak.kemenag.go.id/",
+      "icon": "globe",
+      "description": "Sistem Manajemen Wakaf Nasional Kementerian Agama RI."
+    },
+    {
+      "id": "wakaf-4",
+      "title": "Konsultasi Wakaf via WhatsApp",
+      "category": "wakaf",
+      "type": "whatsapp",
+      "url": "https://wa.me/6281240912842",
+      "icon": "message-circle",
+      "description": "Hubungi Penyelenggara Syariah KUA Pulau Dullah Utara via WhatsApp."
+    },
+    {
+      "id": "wakaf-5",
+      "title": "Tutorial Pendaftaran Wakaf Online",
+      "category": "wakaf",
+      "type": "youtube",
+      "url": "https://www.youtube.com/watch?v=wrejNPzi2Rc",
+      "icon": "youtube",
+      "description": "Video tutorial tata cara peng inputan SIWAK online."
+    },
+    {
+      "id": "muallaf-1",
+      "title": "Pendaftaran Muallaf Online",
+      "category": "muallaf",
+      "type": "link",
+      "url": "https://forms.gle/kuadullahmuallaf",
+      "icon": "edit-3",
+      "description": "Formulir pendataan dan permohonan pembimbingan ikrar serta pembuatan sertifikat Muallaf."
+    },
+    {
+      "id": "muallaf-2",
+      "title": "Konsultasi Calon Muallaf (WhatsApp)",
+      "category": "muallaf",
+      "type": "whatsapp",
+      "url": "https://wa.me/6281240912842",
+      "icon": "message-circle",
+      "description": "Layanan konseling keagamaan, pembinaan akidah, dan bimbingan membaca Al-Qur'an."
+    }
+  ],
+  "pengumuman": [
+    {
+      "id": "p-1",
+      "title": "Hari Raya Idul Fitri 1447 H",
+      "date": "2026-03-20",
+      "content": "Keluarga besar KUA Kecamatan Pulau Dullah Utara mengucapkan Selamat Hari Raya Idul Fitri 1447 H, Minal Aidin Wal Faizin, Mohon Maaf Lahir dan Batin.",
+      "status": "aktif"
+    },
+    {
+      "id": "p-2",
+      "title": "Pendaftaran Bimwin Gratis Gelombang II",
+      "date": "2026-05-15",
+      "content": "Telah dibuka pendaftaran Bimbingan perkawinan gratis untuk calon pengantin periode nikah Juni-Juli 2026. Buruan daftar, kuota terbatas hanya untuk 15 pasang!",
+      "status": "aktif"
+    }
+  ],
+  "settings": {
+    "whatsappNumber": "6281240912842",
+    "whatsappText": "Halo Admin KUA Pulau Dullah Utara, saya ingin mendapatkan informasi tentang layanan digital KUA.",
+    "youtubeNikahUrl": "https://www.youtube.com/watch?v=RS3Ck7rAkq0",
+    "youtubeWakafUrl": "https://www.youtube.com/watch?v=wrejNPzi2Rc",
+    "googleFormNikah": "https://forms.gle/kuadullahnikah",
+    "googleFormRekomendasi": "https://forms.gle/kuadullahrekomendasi",
+    "googleFormWakaf": "https://forms.gle/kuadullahwakaf",
+    "googleFormMuallaf": "https://forms.gle/kuadullahmuallaf",
+    "bannerTitle": "KUA PULAU DULLAH UTARA",
+    "bannerSubtitle": "Pusat Pelayanan Keagamaan Digital Kecamatan Pulau Dullah Utara, Kota Tual. Nikah, Wakaf, & Bimbingan Ummat Terintegrasi.",
+    "address": "Jl. Panglima Mandala. Desa Fiditan, Pulau Dullah Utara, Kota Tual, Maluku",
+    "email": "kuadullahutara01@gmail.com",
+    "phone": "+62 812 4091 2842",
+    "berkasNikahImg": "/uploads/berkas-umum-1779247388288.png",
+    "alurNikahImg": "/uploads/berkas-khusus-1779247398610.png",
+    "alurProsesNikahImg": "/uploads/alur-pendaftaran-1779250687470.png",
+    "logoImg": "",
+    "heroBgImg": ""
+  },
+  "admin": {
+    "username": "admin",
+    "password": "kuaadmin2026"
+  }
+}

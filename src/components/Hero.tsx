@@ -10,17 +10,28 @@ interface HeroProps {
 
 export default function Hero({ settings, setCurrentTab, onAdminClick }: HeroProps) {
   return (
-    <div className="relative overflow-hidden bg-white pt-8 pb-16 lg:pt-12 lg:pb-20">
+    <div 
+      className="relative overflow-hidden bg-white pt-8 pb-16 lg:pt-12 lg:pb-20 transition-all"
+      style={settings.heroBgImg ? {
+        backgroundImage: `linear-gradient(rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0.55)), url(${settings.heroBgImg})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      } : undefined}
+    >
       
       {/* Background Decorative Circles */}
       <div className="absolute top-0 right-1/4 w-96 h-96 bg-emerald-50 rounded-full blur-3xl opacity-70 -z-10 animate-pulse duration-5000" />
       <div className="absolute bottom-10 left-10 w-80 h-80 bg-emerald-100/50 rounded-full blur-3xl opacity-50 -z-10" />
-
+ 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="lg:grid lg:grid-cols-12 lg:gap-12 items-center">
           
           {/* Main Hero Content */}
-          <div className="sm:text-center md:max-w-2xl md:mx-auto lg:col-span-7 lg:text-left">
+          <div className={`sm:text-center md:max-w-2xl md:mx-auto lg:col-span-7 lg:text-left ${
+            settings.heroBgImg 
+              ? "bg-white/80 backdrop-blur-md p-6 sm:p-8 md:p-10 rounded-3xl border border-white/80 shadow-xl" 
+              : ""
+          }`}>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}

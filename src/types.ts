@@ -36,6 +36,9 @@ export interface Settings {
   alurNikahImg?: string;
   berkasWakafImg?: string;
   alurWakafImg?: string;
+  alurProsesNikahImg?: string;
+  logoImg?: string;
+  heroBgImg?: string;
 }
 
 export interface DBState {

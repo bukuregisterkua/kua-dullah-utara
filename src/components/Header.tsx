@@ -8,9 +8,10 @@ interface HeaderProps {
   onAdminClick: () => void;
   isAdmin: boolean;
   onLogout: () => void;
+  logoImg?: string;
 }
 
-export default function Header({ currentTab, setCurrentTab, onAdminClick, isAdmin, onLogout }: HeaderProps) {
+export default function Header({ currentTab, setCurrentTab, onAdminClick, isAdmin, onLogout, logoImg }: HeaderProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [witTime, setWitTime] = useState("");
   const [currentDate, setCurrentDate] = useState("");
@@ -64,9 +65,20 @@ export default function Header({ currentTab, setCurrentTab, onAdminClick, isAdmi
             onClick={() => setCurrentTab("beranda")}
             id="brand-logo-container"
           >
-            <div className="p-2.5 bg-emerald-700 text-white rounded-xl shadow-md group-hover:bg-emerald-600 transition-colors">
-              <BookOpen className="h-6 w-6" id="brand-logo-icon" />
-            </div>
+            {logoImg ? (
+              <div className="w-12 h-12 bg-white border border-emerald-100 rounded-xl overflow-hidden shadow-xs flex items-center justify-center p-1 group-hover:border-emerald-300 transition-all">
+                <img 
+                  src={logoImg} 
+                  alt="Logo Kantor" 
+                  className="w-full h-full object-contain" 
+                  referrerPolicy="no-referrer"
+                />
+              </div>
+            ) : (
+              <div className="p-2.5 bg-emerald-700 text-white rounded-xl shadow-md group-hover:bg-emerald-600 transition-colors">
+                <BookOpen className="h-6 w-6" id="brand-logo-icon" />
+              </div>
+            )}
             <div>
               <h1 className="text-lg font-bold font-display text-emerald-900 leading-tight tracking-tight">
                 KUA DULLAH UTARA
