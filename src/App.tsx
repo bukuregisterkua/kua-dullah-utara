@@ -83,6 +83,13 @@ export default function App() {
   // Settings form
   const [settingsForm, setSettingsForm] = useState<Partial<Settings>>({});
 
+  // Delete confirmation dialog state
+  const [deleteConfirm, setDeleteConfirm] = useState<{
+    id: string;
+    type: "layanan" | "pengumuman";
+    title: string;
+  } | null>(null);
+
   // Loading indicator
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
@@ -240,17 +247,39 @@ export default function App() {
     }
   };
 
-  const deleteLayanan = async (id: string) => {
-    if (!confirm("Apakah Anda yakin ingin menghapus layanan ini?")) return;
+  const deleteLayanan = (id: string, title: string) => {
+    setDeleteConfirm({
+      id,
+      type: "layanan",
+      title
+    });
+  };
+
+  const deletePengumuman = (id: string, title: string) => {
+    setDeleteConfirm({
+      id,
+      type: "pengumuman",
+      title
+    });
+  };
+
+  const handleConfirmDelete = async () => {
+    if (!deleteConfirm) return;
+    const { id, type } = deleteConfirm;
     try {
-      const res = await fetch(`/api/layanan/${id}`, { method: "DELETE" });
+      setIsSubmitting(true);
+      const endpoint = type === "layanan" ? `/api/layanan/${id}` : `/api/announcements/${id}`;
+      const res = await fetch(endpoint, { method: "DELETE" });
       if (res.ok) {
         await fetchData();
+        setDeleteConfirm(null);
       } else {
-        alert("Gagal menghapus layanan");
+        alert("Gagal menghapus data!");
       }
     } catch (err) {
       alert("Koneksi terganggu!");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -285,20 +314,6 @@ export default function App() {
       alert("Koneksi terganggu!");
     } finally {
       setIsSubmitting(false);
-    }
-  };
-
-  const deletePengumuman = async (id: string) => {
-    if (!confirm("Hapus pengumuman ini?")) return;
-    try {
-      const res = await fetch(`/api/announcements/${id}`, { method: "DELETE" });
-      if (res.ok) {
-        await fetchData();
-      } else {
-        alert("Gagal menghapus pengumuman");
-      }
-    } catch (err) {
-      alert("Koneksi terganggu!");
     }
   };
 
@@ -1536,7 +1551,7 @@ export default function App() {
                                 <Edit className="h-4 w-4" />
                               </button>
                               <button
-                                onClick={() => deleteLayanan(serv.id)}
+                                onClick={() => deleteLayanan(serv.id, serv.title)}
                                 className="p-1.5 hover:bg-rose-50 text-rose-700 rounded-lg transition-colors cursor-pointer"
                                 title="Hapus Layanan"
                               >
@@ -1624,7 +1639,7 @@ export default function App() {
                           className="p-5 bg-slate-50 border border-slate-100 rounded-2xl relative"
                         >
                           <button
-                            onClick={() => deletePengumuman(item.id)}
+                            onClick={() => deletePengumuman(item.id, item.title)}
                             className="absolute top-4 right-4 p-1 hover:bg-rose-50 text-rose-700 rounded-md transition-all cursor-pointer"
                             title="Hapus Pengumuman"
                           >
@@ -1887,7 +1902,7 @@ export default function App() {
                     KUA PULAU DULLAH UTARA
                   </h4>
                   <p className="text-[10px] text-emerald-600 font-extrabold tracking-wider uppercase">
-                    Kementerian Agama Republik Indonesia
+                    Kementerian Agama Kota Tual
                   </p>
                 </div>
               </div>
@@ -2094,30 +2109,112 @@ export default function App() {
       {/* =========================
          CUSTOM SPECIFIC MODAL POPUP
       ========================= */}
-      {customModalImage && (
-        <div 
-          id="imageModal" 
-          className="modal" 
-          style={{ display: "flex" }}
-          onClick={(e) => {
-            // Tutup saat klik background
-            if (e.target === e.currentTarget) {
-              setCustomModalImage(null);
-            }
-          }}
-        >
-          <span className="close" onClick={() => setCustomModalImage(null)}>
-            &times;
-          </span>
-          <img 
-            className="modal-content" 
-            id="modalImage" 
-            src={customModalImage} 
-            alt="Pratinjau Berkas"
-            referrerPolicy="no-referrer"
-          />
-        </div>
-      )}
+      <AnimatePresence>
+        {customModalImage && (
+          <div 
+            id="imageModal" 
+            className="fixed inset-0 bg-slate-950/85 backdrop-blur-sm flex items-center justify-center p-4 z-50 cursor-pointer"
+            onClick={(e) => {
+              // Tutup saat klik background luar
+              if (e.target === e.currentTarget) {
+                setCustomModalImage(null);
+              }
+            }}
+          >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 10 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 10 }}
+              transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+              className="relative max-w-4xl w-full max-h-[90vh] flex flex-col items-center justify-center cursor-default"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Tutup Button */}
+              <button
+                onClick={() => setCustomModalImage(null)}
+                className="absolute -top-12 right-0 md:-top-3 md:-right-12 p-2 bg-white/10 hover:bg-white/20 text-white rounded-full backdrop-blur-sm border border-white/20 transition-all cursor-pointer shadow-lg hover:scale-105"
+                title="Tutup Preview"
+              >
+                <X className="h-6 w-6" />
+              </button>
+
+              {/* Box Image Wrapper */}
+              <div className="bg-white/5 p-1 rounded-3xl border border-white/10 shadow-2xl overflow-hidden flex items-center justify-center max-w-full max-h-[80vh] md:max-h-[85vh]">
+                <img 
+                  className="max-h-[75vh] md:max-h-[80vh] max-w-full object-contain rounded-2xl" 
+                  id="modalImage" 
+                  src={customModalImage} 
+                  alt="Pratinjau Berkas Persyaratan"
+                  referrerPolicy="no-referrer"
+                />
+              </div>
+
+              {/* Footer text preview info */}
+              <span className="text-[11px] text-slate-400 mt-4 text-center font-medium select-none tracking-wide bg-slate-900/50 px-4 py-1.5 rounded-full border border-white/5 backdrop-blur-xs">
+                Klik area luar gambar atau tombol (X) untuk kembali
+              </span>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+
+      {/* =========================
+         CUSTOM DELETE CONFIRMATION MODAL POPUP
+      ========================= */}
+      <AnimatePresence>
+        {deleteConfirm && (
+          <div 
+            className="fixed inset-0 bg-slate-950/70 backdrop-blur-xs flex items-center justify-center p-4 z-50 cursor-pointer animate-fade-in"
+            onClick={() => setDeleteConfirm(null)}
+          >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 15 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 15 }}
+              transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+              className="bg-white rounded-3xl overflow-hidden max-w-sm w-full border border-slate-100 shadow-2xl p-6 relative cursor-default space-y-4"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="flex items-center space-x-3 text-rose-600">
+                <div className="p-3 bg-rose-50 rounded-2xl">
+                  <AlertCircle className="h-6 w-6" />
+                </div>
+                <div>
+                  <h3 className="text-sm font-extrabold text-slate-900">Konfirmasi Hapus</h3>
+                  <p className="text-[10px] text-slate-500 font-medium">Tindakan ini tidak dapat dibatalkan</p>
+                </div>
+              </div>
+
+              <div className="p-3.5 bg-slate-50 border border-slate-100 rounded-2xl">
+                <p className="text-[11px] text-slate-500 font-medium leading-relaxed">
+                  Apakah Anda yakin ingin menghapus {deleteConfirm.type === "layanan" ? "layanan" : "pengumuman"} berikut?
+                </p>
+                <p className="text-xs font-black text-rose-700 mt-1 truncate">
+                  "{deleteConfirm.title}"
+                </p>
+              </div>
+
+              <div className="grid grid-cols-2 gap-3 pt-1">
+                <button
+                  type="button"
+                  onClick={() => setDeleteConfirm(null)}
+                  className="py-2.5 px-4 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold transition-colors cursor-pointer text-center"
+                >
+                  Batalkan
+                </button>
+                <button
+                  type="button"
+                  onClick={handleConfirmDelete}
+                  disabled={isSubmitting}
+                  className="py-2.5 px-4 bg-rose-600 hover:bg-rose-700 disabled:bg-rose-300 text-white rounded-xl text-xs font-bold shadow-md transition-colors cursor-pointer text-center flex items-center justify-center space-x-1"
+                >
+                  <span>{isSubmitting ? "Menghapus..." : "Ya, Hapus"}</span>
+                </button>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
 
     </div>
   );
