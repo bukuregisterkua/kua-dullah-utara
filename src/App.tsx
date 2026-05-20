@@ -428,8 +428,8 @@ export default function App() {
     googleFormRekomendasi: "https://forms.gle/kuadullahrekomendasi",
     googleFormWakaf: "https://forms.gle/kuadullahwakaf",
     googleFormMuallaf: "https://forms.gle/kuadullahmuallaf",
-    bannerTitle: "KUA PULAU DULLAH UTARA",
-    bannerSubtitle: "Pusat Pelayanan Keagamaan Digital Kecamatan Pulau Dullah Utara, Kota Tual. Nikah, Wakaf, & Bimbingan Ummat Terintegrasi.",
+    bannerTitle: "KANTOR URUSAN AGAMA\nPULAU DULLAH UTARA",
+    bannerSubtitle: "Pusat Pelayanan Keagamaan Digital Pulau Dullah Utara, Kota Tual.\nMelayani Administrasi Nikah, Wakaf, Konsultasi Keagamaan, dan Bimbingan Ummat secara Profesional, Mudah, Cepat, dan Terintegrasi.",
     address: "Jl. Pemuda No. 12, Pulau Dullah Utara, Kota Tual, Maluku",
     email: "kuadullahutara01@gmail.com",
     phone: "+62 812 4091 2842"
@@ -1771,9 +1771,9 @@ export default function App() {
                     
                     <div>
                       <label className="block text-[11px] font-bold text-slate-700 mb-1">Judul Banner Utama (Hero)</label>
-                      <input
-                        type="text"
-                        placeholder="KUA KECAMATAN PULAU DULLAH UTARA"
+                      <textarea
+                        rows={2}
+                        placeholder="KANTOR URUSAN AGAMA\nPULAU DULLAH UTARA"
                         value={settingsForm.bannerTitle || ""}
                         onChange={(e) => setSettingsForm({ ...settingsForm, bannerTitle: e.target.value })}
                         className="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs focus:ring-1 focus:ring-emerald-500 focus:outline-none"
@@ -2020,9 +2020,20 @@ export default function App() {
             {/* Identity element */}
             <div className="md:col-span-2 space-y-4">
               <div className="flex items-center space-x-3">
-                <div className="p-2.5 bg-emerald-700 rounded-xl">
-                  <BookOpen className="h-5 w-5 text-white" />
-                </div>
+                {defaultSettings.logoImg ? (
+                  <div className="w-11 h-11 flex items-center justify-center overflow-hidden">
+                    <img 
+                      src={defaultSettings.logoImg} 
+                      alt="Logo Footer" 
+                      className="w-full h-full object-contain"
+                      referrerPolicy="no-referrer"
+                    />
+                  </div>
+                ) : (
+                  <div className="p-2.5 bg-emerald-700 rounded-xl">
+                    <BookOpen className="h-5 w-5 text-white" />
+                  </div>
+                )}
                 <div>
                   <h4 className="text-lg font-bold font-display uppercase tracking-widest text-emerald-300">
                     KUA PULAU DULLAH UTARA

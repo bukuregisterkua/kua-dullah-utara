@@ -1,4 +1,4 @@
-import { Heart, Globe, MessageSquare, ChevronRight, CheckCircle, FileText } from "lucide-react";
+import { Heart, Globe, MessageSquare, ChevronRight, CheckCircle, FileText, Clock } from "lucide-react";
 import { motion } from "motion/react";
 import { Settings } from "../types";
 
@@ -11,9 +11,9 @@ interface HeroProps {
 export default function Hero({ settings, setCurrentTab, onAdminClick }: HeroProps) {
   return (
     <div 
-      className="relative overflow-hidden bg-white pt-8 pb-16 lg:pt-12 lg:pb-20 transition-all"
+      className="relative overflow-hidden bg-white min-h-[calc(100vh-73px)] flex flex-col justify-center items-center transition-all px-4 sm:px-6 lg:px-8 py-10 sm:py-16 md:py-20"
       style={settings.heroBgImg ? {
-        backgroundImage: `linear-gradient(rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0.55)), url(${settings.heroBgImg})`,
+        backgroundImage: `linear-gradient(rgba(242, 249, 245, 0.5), rgba(242, 249, 245, 0.35)), url(${settings.heroBgImg})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
       } : undefined}
@@ -23,173 +23,220 @@ export default function Hero({ settings, setCurrentTab, onAdminClick }: HeroProp
       <div className="absolute top-0 right-1/4 w-96 h-96 bg-emerald-50 rounded-full blur-3xl opacity-70 -z-10 animate-pulse duration-5000" />
       <div className="absolute bottom-10 left-10 w-80 h-80 bg-emerald-100/50 rounded-full blur-3xl opacity-50 -z-10" />
  
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="lg:grid lg:grid-cols-12 lg:gap-12 items-center">
+      <div className="max-w-7xl mx-auto w-full flex flex-col items-center justify-center relative">
+        
+        {/* Main Hero Content - Centered Protected Glass Card */}
+        <div className={`w-full max-w-4xl text-center flex flex-col items-center justify-center p-6 sm:p-10 md:p-14 rounded-[2.5rem] backdrop-blur-md bg-white/85 border border-white/90 shadow-2xl relative z-10 mb-8`}>
           
-          {/* Main Hero Content */}
-          <div className={`sm:text-center md:max-w-2xl md:mx-auto lg:col-span-7 lg:text-left ${
-            settings.heroBgImg 
-              ? "bg-white/80 backdrop-blur-md p-6 sm:p-8 md:p-10 rounded-3xl border border-white/80 shadow-xl" 
-              : ""
-          }`}>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-            >
-              <span className="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 tracking-wide uppercase shadow-xxs">
-                🇮🇩 Pelayanan Sahabat Ummat
-              </span>
-            </motion.div>
+          {/* Banner Utama - Terinspirasi Desain KUA Revitalisasi Nasional */}
+          <div className="w-full bg-gradient-to-br from-emerald-55/80 via-emerald-100/40 to-teal-50/50 rounded-3xl p-6 sm:p-8 md:p-10 border border-emerald-100/70 relative overflow-hidden flex flex-col items-center">
+            {/* Background decorative graphic */}
+            <div className="absolute top-0 right-0 w-40 h-40 bg-emerald-200/10 rounded-full blur-3xl -z-10" />
+            <div className="absolute bottom-0 left-0 w-40 h-40 bg-teal-200/10 rounded-full blur-3xl -z-10" />
 
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
+            {/* Bait Pertama: Selamat Datang di */}
+            <motion.p
+              initial={{ opacity: 0, y: -5 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              className="mt-4 text-4xl sm:text-5xl lg:text-6xl font-extrabold font-display text-emerald-950 tracking-tight leading-none"
+              transition={{ duration: 0.3 }}
+              className="text-slate-800 font-sans font-bold text-sm sm:text-lg md:text-xl tracking-wide select-none"
             >
-              {settings.bannerTitle || "KUA PULAU DULLAH UTARA"}
+              Selamat Datang di
+            </motion.p>
+            
+            {/* Bait Kedua: KUA REVITALISASI */}
+            <motion.h2 
+              initial={{ opacity: 0, scale: 0.96 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.4, delay: 0.08 }}
+              className="mt-1 text-4xl sm:text-5xl lg:text-6xl font-black font-display text-emerald-600 tracking-tight leading-none uppercase select-none filter drop-shadow-[0_2px_8px_rgba(5,150,105,0.08)]"
+            >
+              KUA REVITALISASI
             </motion.h2>
 
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="mt-6 text-base sm:text-lg text-slate-600 font-normal leading-relaxed"
-            >
-              {settings.bannerSubtitle || "Pusat Pelayanan Keagamaan Digital Kecamatan Pulau Dullah Utara, Kota Tual. Nikah, Wakaf, & Bimbingan Ummat Terintegrasi."}
-            </motion.p>
-
-            {/* CTA Option Buttons */}
+            {/* Orange/Amber Rounded Pill Badge to exactly replicate "KUA Kartoharjo Kota Madiun" sticker style */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 5 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-              className="mt-8 sm:flex sm:justify-center lg:justify-start gap-4"
+              transition={{ duration: 0.3, delay: 0.15 }}
+              className="mt-4 bg-[#b2571b] text-white font-extrabold text-[10px] sm:text-xs tracking-wider uppercase px-4 py-1.5 rounded-full inline-flex items-center shadow-xs border border-amber-600/30 select-none font-sans"
             >
-              <button
-                onClick={() => setCurrentTab("nikah")}
-                className="w-full sm:w-auto px-8 py-4 emerald-gradient text-white rounded-2xl text-sm font-bold hover:shadow-lg hover:brightness-110 transition-all cursor-pointer flex items-center justify-center space-x-2"
-                id="hero-layanan-online-btn"
-              >
-                <span>Mulai Layanan Online</span>
-                <ChevronRight className="h-4 w-4" />
-              </button>
-              
-              <button
-                onClick={() => setCurrentTab("kontak")}
-                className="w-full sm:w-auto mt-3 sm:mt-0 px-8 py-4 bg-white text-emerald-900 ring-2 ring-emerald-100 rounded-2xl text-sm font-bold hover:bg-emerald-50 hover:ring-emerald-200 transition-all cursor-pointer flex items-center justify-center space-x-2 shadow-xs"
-                id="hero-hubungi-kami-btn"
-              >
-                <MessageSquare className="h-4 w-4 text-emerald-600" />
-                <span>Hubungi Kantor</span>
-              </button>
-            </motion.div>
-
-            {/* Fast Value Indicators */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.5 }}
-              className="mt-8 pt-8 border-t border-slate-100 grid grid-cols-3 gap-4"
-            >
-              <div className="flex items-center space-x-2 text-slate-700">
-                <CheckCircle className="h-5.5 w-5.5 text-emerald-500 shrink-0" />
-                <span className="text-xs sm:text-sm font-semibold">100% Gratis di KUA</span>
-              </div>
-              <div className="flex items-center space-x-2 text-slate-700">
-                <CheckCircle className="h-5.5 w-5.5 text-emerald-500 shrink-0" />
-                <span className="text-xs sm:text-sm font-semibold">Resmi Kemenag</span>
-              </div>
-              <div className="flex items-center space-x-2 text-slate-700">
-                <CheckCircle className="h-5.5 w-5.5 text-emerald-500 shrink-0" />
-                <span className="text-xs sm:text-sm font-semibold">Cepat & Aman</span>
-              </div>
+              KUA Pulau Dullah Utara
             </motion.div>
           </div>
 
-          {/* Quick Access Sidebar / Beautiful Card Panel representing Integrated Systems */}
-          <div className="mt-12 sm:mt-16 lg:mt-0 lg:col-span-5">
+          {/* Big overlapping circular logo emblem (replaces standard logo view) */}
+          {settings.logoImg && (
             <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
+              initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="bg-emerald-900 text-white rounded-3xl p-6 sm:p-8 shadow-xl relative overflow-hidden emerald-gradient"
+              transition={{ duration: 0.5, delay: 0.22 }}
+              className="relative -mt-10 sm:-mt-12 mb-6 z-20 flex justify-center"
             >
-              {/* Overlay graphics */}
-              <div className="absolute -right-16 -top-16 w-36 h-36 bg-emerald-500/20 rounded-full blur-xl" />
-              <div className="absolute -left-16 -bottom-16 w-36 h-36 bg-emerald-500/20 rounded-full blur-xl" />
-
-              <h3 className="text-lg font-bold font-display uppercase tracking-wider text-emerald-300">
-                Sistem Terintegrasi
-              </h3>
-              <p className="text-xs text-emerald-100 mt-1 mb-6 font-medium">
-                Akses instan ke portal resmi kementrian agama pusat & daerah
-              </p>
-
-              <div className="space-y-4">
-                {/* SIMKAH */}
-                <a
-                  href="https://simkah4.kemenag.go.id"
-                  target="_blank"
-                  referrerPolicy="no-referrer"
-                  className="flex items-start p-4 bg-semibold bg-emerald-800/40 hover:bg-emerald-800/70 border border-emerald-700 rounded-2xl transition-all"
-                >
-                  <Globe className="h-8 w-8 text-emerald-300 shrink-0 mt-0.5 mr-3" />
-                  <div>
-                    <h4 className="text-sm font-bold font-display flex items-center">
-                      <span>SIMKAH Kemenag</span>
-                      <ChevronRight className="h-3.5 w-3.5 ml-1 text-emerald-400" />
-                    </h4>
-                    <p className="text-[11px] text-emerald-200 mt-0.5">
-                      Pendaftaran nikah online, cek ketersediaan tanggal & lokasi pernikahan.
-                    </p>
-                  </div>
-                </a>
-
-                {/* SIWAK */}
-                <a
-                  href="https://siwak.kemenag.go.id"
-                  target="_blank"
-                  referrerPolicy="no-referrer"
-                  className="flex items-start p-4 bg-emerald-800/40 hover:bg-emerald-800/70 border border-emerald-700 rounded-2xl transition-all"
-                >
-                  <FileText className="h-8 w-8 text-emerald-300 shrink-0 mt-0.5 mr-3" />
-                  <div>
-                    <h4 className="text-sm font-bold font-display flex items-center">
-                      <span>SIWAK (Sistem Wakaf)</span>
-                      <ChevronRight className="h-3.5 w-3.5 ml-1 text-emerald-400" />
-                    </h4>
-                    <p className="text-[11px] text-emerald-200 mt-0.5">
-                      Mendaftarkan secara resmi aset wakaf tanah dan bangunan di pangkalan data nasional.
-                    </p>
-                  </div>
-                </a>
-
-                {/* BIMWIN */}
-                <a
-                  href="https://wa.me/6281240912842"
-                  target="_blank"
-                  referrerPolicy="no-referrer"
-                  className="flex items-start p-4 bg-emerald-800/40 hover:bg-emerald-800/70 border border-emerald-700 rounded-2xl transition-all"
-                >
-                  <Heart className="h-8 w-8 text-emerald-300 shrink-0 mt-0.5 mr-3" />
-                  <div>
-                    <h4 className="text-sm font-bold font-display flex items-center">
-                      <span>Bina Kami Bimwin</span>
-                      <ChevronRight className="h-3.5 w-3.5 ml-1 text-emerald-400" />
-                    </h4>
-                    <p className="text-[11px] text-emerald-200 mt-0.5">
-                      Bimbingan perkawinan online calon pengantin terintegrasi WhatsApp.
-                    </p>
-                  </div>
-                </a>
+              {/* Outer bright neon lime gradient ring matches reference image logo ring */}
+              <div className="w-20 h-20 sm:w-24 sm:h-24 bg-gradient-to-br from-[#bef264] via-[#84cc16] to-[#4d7c0f] rounded-full p-1.5 shadow-md flex items-center justify-center">
+                {/* Inner white circular core protecting the logo */}
+                <div className="w-full h-full bg-white rounded-full p-2.5 flex items-center justify-center shadow-inner overflow-hidden">
+                  <img 
+                    src={settings.logoImg} 
+                    alt="Logo Kemenag RI" 
+                    className="w-full h-full object-contain filter drop-shadow-2xs"
+                    referrerPolicy="no-referrer"
+                  />
+                </div>
               </div>
-
             </motion.div>
+          )}
+
+          {/* Lower Typographic Section (Bait Ke-4 & Ke-5) - Modern, sleek & simplified */}
+          <div className="flex flex-col items-center text-center select-none w-full mb-3">
+            {/* Bait Ke-4: KANTOR URUSAN AGAMA */}
+            <motion.span
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.26 }}
+              className="text-[11px] sm:text-xs md:text-sm uppercase tracking-[0.3em] text-slate-500 font-bold select-none font-sans"
+            >
+              KANTOR URUSAN AGAMA
+            </motion.span>
+            
+            {/* Bait Ke-5: PULAU DULLAH UTARA */}
+            <motion.h3
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.32 }}
+              className="mt-1 text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 font-display tracking-wide uppercase select-none leading-none"
+            >
+              PULAU DULLAH UTARA
+            </motion.h3>
           </div>
 
+          {/* Subtitle */}
+          <motion.p
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: 0.2 }}
+            className="mt-5 text-sm sm:text-base lg:text-lg text-slate-700 font-medium leading-relaxed max-w-3xl mx-auto text-center whitespace-pre-line"
+          >
+            {settings.bannerSubtitle || "Pusat Pelayanan Keagamaan Digital Pulau Dullah Utara, Kota Tual.\nMelayani Administrasi Nikah, Wakaf, Konsultasi Keagamaan, dan Bimbingan Ummat secara Profesional, Mudah, Cepat, dan Terintegrasi."}
+          </motion.p>
+
+          {/* CTA Option Buttons */}
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: 0.3 }}
+            className="mt-8 flex flex-col sm:flex-row justify-center items-center gap-4 w-full sm:w-auto"
+          >
+            <button
+              onClick={() => setCurrentTab("nikah")}
+              className="w-full sm:w-auto px-8 py-4 bg-emerald-700 hover:bg-emerald-800 text-white rounded-2xl text-sm font-bold shadow-md hover:shadow-lg transition-all cursor-pointer flex items-center justify-center space-x-2"
+              id="hero-layanan-online-btn"
+            >
+              <span>Mulai Layanan Online</span>
+              <ChevronRight className="h-4 w-4" />
+            </button>
+            
+            <button
+              onClick={() => setCurrentTab("kontak")}
+              className="w-full sm:w-auto px-8 py-4 bg-white text-emerald-900 ring-2 ring-emerald-100 rounded-2xl text-sm font-bold hover:bg-emerald-50 hover:ring-emerald-200 transition-all cursor-pointer flex items-center justify-center space-x-2 shadow-xs"
+              id="hero-hubungi-kami-btn"
+            >
+              <MessageSquare className="h-4 w-4 text-emerald-600" />
+              <span>Hubungi Kantor</span>
+            </button>
+          </motion.div>
+
+          {/* Fast Value Indicators */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.4 }}
+            className="mt-8 pt-6 border-t border-slate-200/60 grid grid-cols-1 sm:grid-cols-3 gap-4 w-full"
+          >
+            <div className="flex items-center justify-center space-x-2 text-slate-700">
+              <CheckCircle className="h-5 w-5 text-emerald-600 shrink-0" />
+              <span className="text-xs sm:text-sm font-bold">100% Gratis di KUA</span>
+            </div>
+            <div className="flex items-center justify-center space-x-2 text-slate-700">
+              <CheckCircle className="h-5 w-5 text-emerald-600 shrink-0" />
+              <span className="text-xs sm:text-sm font-bold">Resmi Kemenag</span>
+            </div>
+            <div className="flex items-center justify-center space-x-2 text-slate-700">
+              <CheckCircle className="h-5 w-5 text-emerald-600 shrink-0" />
+              <span className="text-xs sm:text-sm font-bold">Cepat & Aman</span>
+            </div>
+          </motion.div>
         </div>
+
+        {/* Sesi Pelayanan Kantor KUA */}
+        <div className="w-full max-w-6xl mt-4 relative z-10">
+          <div className="text-center mb-6">
+            <span className="text-xs font-bold uppercase tracking-widest text-emerald-800 bg-emerald-100/90 px-4 py-1.5 rounded-full inline-flex items-center space-x-1.5 shadow-xxs">
+              <Clock className="h-3.5 w-3.5" />
+              <span>Sesi Pelayanan Kantor KUA</span>
+            </span>
+          </div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="grid grid-cols-1 md:grid-cols-3 gap-5"
+          >
+            {/* Senin - Kamis Card */}
+            <div className="bg-white border border-emerald-100 rounded-3xl p-6 shadow-sm flex flex-col justify-between hover:shadow-md transition-all hover:-translate-y-0.5">
+              <div>
+                <span className="text-xs font-bold text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded-md">
+                  Senin s/d Kamis
+                </span>
+                <h4 className="text-lg font-bold font-display text-slate-900 mt-4 leading-relaxed font-sans tracking-tight">Hari Kerja Biasa</h4>
+                <p className="text-[11px] text-slate-500 mt-1 leading-relaxed">
+                  Pelayanan penuh untuk semua urusan administrasi, nikah, wakaf, dan bimbingan ummat.
+                </p>
+              </div>
+              <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-xs">
+                <span className="text-slate-600 font-semibold">Jam Pelayanan:</span>
+                <span className="font-extrabold text-emerald-700 font-mono text-sm">08:00 - 16:30 WIT</span>
+              </div>
+            </div>
+
+            {/* Jumat Card */}
+            <div className="bg-white border border-emerald-100 rounded-3xl p-6 shadow-sm flex flex-col justify-between hover:shadow-md transition-all hover:-translate-y-0.5">
+              <div>
+                <span className="text-xs font-bold text-amber-800 bg-amber-50 px-2.5 py-1 rounded-md">
+                  Hari Jumat
+                </span>
+                <h4 className="text-lg font-bold font-display text-slate-900 mt-4 leading-relaxed font-sans tracking-tight">Hari Kerja Pendek</h4>
+                <p className="text-[11px] text-slate-500 mt-1 leading-relaxed">
+                  Pelayanan administrasi diselingi jeda ibadah Shalat Jumat. Disarankan datang lebih pagi.
+                </p>
+              </div>
+              <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-xs">
+                <span className="text-slate-600 font-semibold">Jam Pelayanan:</span>
+                <span className="font-extrabold text-amber-700 font-mono text-sm">08:30 - 17:00 WIT</span>
+              </div>
+            </div>
+
+            {/* Sabtu - Minggu Card */}
+            <div className="bg-white border border-red-100 rounded-3xl p-6 shadow-sm flex flex-col justify-between hover:shadow-md transition-all hover:-translate-y-0.5">
+              <div>
+                <span className="text-xs font-bold text-red-800 bg-red-50 px-2.5 py-1 rounded-md">
+                  Sabtu & Minggu
+                </span>
+                <h4 className="text-lg font-bold font-display text-slate-900 mt-4 leading-relaxed font-sans tracking-tight">Akhir Pekan</h4>
+                <p className="text-[11px] text-slate-500 mt-1 leading-relaxed">
+                  Kantor tutup untuk pelayanan reguler tatap muka. Anda tetap dapat mengajukan pendaftaran online 24 jam.
+                </p>
+              </div>
+              <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-xs">
+                <span className="text-slate-600 font-semibold">Jam Pelayanan:</span>
+                <span className="font-bold text-red-500 font-mono text-sm">Tutup Pelayanan</span>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+
       </div>
     </div>
   );

@@ -209,8 +209,8 @@ function initDatabase() {
         googleFormRekomendasi: "https://forms.gle/kuadullahrekomendasi",
         googleFormWakaf: "https://forms.gle/kuadullahwakaf",
         googleFormMuallaf: "https://forms.gle/kuadullahmuallaf",
-        bannerTitle: "KUA PULAU DULLAH UTARA",
-        bannerSubtitle: "Pusat Pelayanan Keagamaan Digital Kecamatan Pulau Dullah Utara, Kota Tual. Nikah, Wakaf, & Bimbingan Ummat Terintegrasi.",
+        bannerTitle: "KANTOR URUSAN AGAMA\nPULAU DULLAH UTARA",
+        bannerSubtitle: "Pusat Pelayanan Keagamaan Digital Pulau Dullah Utara, Kota Tual.\nMelayani Administrasi Nikah, Wakaf, Konsultasi Keagamaan, dan Bimbingan Ummat secara Profesional, Mudah, Cepat, dan Terintegrasi.",
         address: "Jl. Pemuda No. 12, Pulau Dullah Utara, Kota Tual, Maluku",
         email: "kuadullahutara01@gmail.com",
         phone: "+62 812 4091 2842"

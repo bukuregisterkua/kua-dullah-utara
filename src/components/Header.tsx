@@ -66,7 +66,7 @@ export default function Header({ currentTab, setCurrentTab, onAdminClick, isAdmi
             id="brand-logo-container"
           >
             {logoImg ? (
-              <div className="w-12 h-12 bg-white border border-emerald-100 rounded-xl overflow-hidden shadow-xs flex items-center justify-center p-1 group-hover:border-emerald-300 transition-all">
+              <div className="w-12 h-12 flex items-center justify-center transition-all overflow-hidden">
                 <img 
                   src={logoImg} 
                   alt="Logo Kantor" 
