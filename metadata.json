@@ -1,0 +1,6 @@
+{
+  "name": "KUA Pulau Dullah Utara",
+  "description": "Layanan Digital Kantor Urusan Agama Kecamatan Pulau Dullah Utara - Nikah, Wakaf, Muallaf Center, dan Admin Panel.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
