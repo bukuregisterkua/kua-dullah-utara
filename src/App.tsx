@@ -36,6 +36,8 @@ import { motion, AnimatePresence } from "motion/react";
 import Header from "./components/Header";
 import Hero from "./components/Hero";
 import { Layanan, Pengumuman, Settings, DBState } from "./types";
+import berkasUmum from "./assets/berkas-umum.jpg";
+import berkasKhusus from "./assets/berkas-khusus.jpg";
 
 export default function App() {
   const [db, setDb] = useState<DBState | null>(null);
@@ -784,10 +786,10 @@ export default function App() {
                         {/* BERKAS UMUM */}
                         <div className="card-berkas">
                           <img
-                            src="/berkas-umum.jpg"
+                            src={berkasUmum}
                             alt="Berkas Nikah Umum"
                             referrerPolicy="no-referrer"
-                            onClick={() => setCustomModalImage("/berkas-umum.jpg")}
+                            onClick={() => setCustomModalImage(berkasUmum)}
                           />
                           <div className="judul-card">
                             Berkas Pendaftaran Nikah Umum
@@ -797,10 +799,10 @@ export default function App() {
                         {/* BERKAS KHUSUS */}
                         <div className="card-berkas">
                           <img
-                            src="/berkas-khusus.jpg"
+                            src={berkasKhusus}
                             alt="Berkas Nikah Khusus"
                             referrerPolicy="no-referrer"
-                            onClick={() => setCustomModalImage("/berkas-khusus.jpg")}
+                            onClick={() => setCustomModalImage(berkasKhusus)}
                           />
                           <div className="judul-card">
                             Berkas Pendaftaran Nikah Khusus
