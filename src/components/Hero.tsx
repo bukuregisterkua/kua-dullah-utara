@@ -1,4 +1,4 @@
-import { Heart, Globe, MessageSquare, ChevronRight, CheckCircle, FileText, Clock } from "lucide-react";
+import { Heart, Globe, MessageSquare, ChevronRight, CheckCircle, FileText, Clock, Facebook, Instagram, Twitter, Youtube, Music } from "lucide-react";
 import { motion } from "motion/react";
 import { Settings } from "../types";
 
@@ -53,16 +53,6 @@ export default function Hero({ settings, setCurrentTab, onAdminClick }: HeroProp
             >
               KUA REVITALISASI
             </motion.h2>
-
-            {/* Orange/Amber Rounded Pill Badge to exactly replicate "KUA Kartoharjo Kota Madiun" sticker style */}
-            <motion.div
-              initial={{ opacity: 0, y: 5 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3, delay: 0.15 }}
-              className="mt-4 bg-[#b2571b] text-white font-extrabold text-[10px] sm:text-xs tracking-wider uppercase px-4 py-1.5 rounded-full inline-flex items-center shadow-xs border border-amber-600/30 select-none font-sans"
-            >
-              KUA Pulau Dullah Utara
-            </motion.div>
           </div>
 
           {/* Big overlapping circular logo emblem (replaces standard logo view) */}
@@ -120,6 +110,75 @@ export default function Hero({ settings, setCurrentTab, onAdminClick }: HeroProp
           >
             {settings.bannerSubtitle || "Pusat Pelayanan Keagamaan Digital Pulau Dullah Utara, Kota Tual.\nMelayani Administrasi Nikah, Wakaf, Konsultasi Keagamaan, dan Bimbingan Ummat secara Profesional, Mudah, Cepat, dan Terintegrasi."}
           </motion.p>
+
+          {/* Social Media Row for Visitors */}
+          {(settings.facebookUrl || settings.instagramUrl || settings.twitterUrl || settings.tiktokUrl || settings.youtubeUrl) && (
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.25 }}
+              className="mt-6 flex flex-col items-center space-y-2 select-none"
+            >
+              <span className="text-[10px] font-extrabold uppercase tracking-widest text-[#15803d]">Hubungi & Ikuti Media Sosial Resmi KUA:</span>
+              <div className="flex items-center space-x-3.5 pt-1">
+                {settings.facebookUrl && (
+                  <a 
+                    href={settings.facebookUrl.startsWith("http") ? settings.facebookUrl : `https://${settings.facebookUrl}`} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="w-10 h-10 rounded-full bg-white hover:bg-emerald-600 border border-emerald-150 flex items-center justify-center text-emerald-800 hover:text-white transition-all duration-300 shadow-sm hover:shadow-md cursor-pointer hover:-translate-y-0.5"
+                    title="Facebook Resmi"
+                  >
+                    <Facebook className="h-4.5 w-4.5" />
+                  </a>
+                )}
+                {settings.instagramUrl && (
+                  <a 
+                    href={settings.instagramUrl.startsWith("http") ? settings.instagramUrl : `https://${settings.instagramUrl}`} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="w-10 h-10 rounded-full bg-white hover:bg-emerald-600 border border-emerald-150 flex items-center justify-center text-emerald-800 hover:text-white transition-all duration-300 shadow-sm hover:shadow-md cursor-pointer hover:-translate-y-0.5"
+                    title="Instagram Resmi"
+                  >
+                    <Instagram className="h-4.5 w-4.5" />
+                  </a>
+                )}
+                {settings.twitterUrl && (
+                  <a 
+                    href={settings.twitterUrl.startsWith("http") ? settings.twitterUrl : `https://${settings.twitterUrl}`} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="w-10 h-10 rounded-full bg-white hover:bg-emerald-600 border border-emerald-150 flex items-center justify-center text-emerald-800 hover:text-white transition-all duration-300 shadow-sm hover:shadow-md cursor-pointer hover:-translate-y-0.5"
+                    title="Twitter / X Resmi"
+                  >
+                    <Twitter className="h-4.5 w-4.5" />
+                  </a>
+                )}
+                {settings.tiktokUrl && (
+                  <a 
+                    href={settings.tiktokUrl.startsWith("http") ? settings.tiktokUrl : `https://${settings.tiktokUrl}`} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="w-10 h-10 rounded-full bg-white hover:bg-emerald-600 border border-emerald-150 flex items-center justify-center text-emerald-800 hover:text-white transition-all duration-300 shadow-sm hover:shadow-md cursor-pointer hover:-translate-y-0.5"
+                    title="TikTok Resmi"
+                  >
+                    <Music className="h-4.5 w-4.5" />
+                  </a>
+                )}
+                {settings.youtubeUrl && (
+                  <a 
+                    href={settings.youtubeUrl.startsWith("http") ? settings.youtubeUrl : `https://${settings.youtubeUrl}`} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="w-10 h-10 rounded-full bg-white hover:bg-emerald-600 border border-emerald-150 flex items-center justify-center text-emerald-800 hover:text-white transition-all duration-300 shadow-sm hover:shadow-md cursor-pointer hover:-translate-y-0.5"
+                    title="YouTube Resmi"
+                  >
+                    <Youtube className="h-4.5 w-4.5" />
+                  </a>
+                )}
+              </div>
+            </motion.div>
+          )}
 
           {/* CTA Option Buttons */}
           <motion.div

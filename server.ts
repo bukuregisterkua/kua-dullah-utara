@@ -213,7 +213,12 @@ function initDatabase() {
         bannerSubtitle: "Pusat Pelayanan Keagamaan Digital Pulau Dullah Utara, Kota Tual.\nMelayani Administrasi Nikah, Wakaf, Konsultasi Keagamaan, dan Bimbingan Ummat secara Profesional, Mudah, Cepat, dan Terintegrasi.",
         address: "Jl. Pemuda No. 12, Pulau Dullah Utara, Kota Tual, Maluku",
         email: "kuadullahutara01@gmail.com",
-        phone: "+62 812 4091 2842"
+        phone: "+62 812 4091 2842",
+        facebookUrl: "https://facebook.com/kua.dullahutara",
+        instagramUrl: "https://instagram.com/kua.dullahutara",
+        twitterUrl: "",
+        tiktokUrl: "",
+        youtubeUrl: "https://youtube.com/@kua.dullahutara"
       },
       admin: {
         username: "admin",

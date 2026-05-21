@@ -9,9 +9,10 @@ interface HeaderProps {
   isAdmin: boolean;
   onLogout: () => void;
   logoImg?: string;
+  secondaryLogoImg?: string;
 }
 
-export default function Header({ currentTab, setCurrentTab, onAdminClick, isAdmin, onLogout, logoImg }: HeaderProps) {
+export default function Header({ currentTab, setCurrentTab, onAdminClick, isAdmin, onLogout, logoImg, secondaryLogoImg }: HeaderProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [witTime, setWitTime] = useState("");
   const [currentDate, setCurrentDate] = useState("");
@@ -65,7 +66,16 @@ export default function Header({ currentTab, setCurrentTab, onAdminClick, isAdmi
             onClick={() => setCurrentTab("beranda")}
             id="brand-logo-container"
           >
-            {logoImg ? (
+            {secondaryLogoImg ? (
+              <div className="w-12 h-12 flex items-center justify-center transition-all overflow-hidden">
+                <img 
+                  src={secondaryLogoImg} 
+                  alt="Logo Kantor" 
+                  className="w-full h-full object-contain" 
+                  referrerPolicy="no-referrer"
+                />
+              </div>
+            ) : logoImg ? (
               <div className="w-12 h-12 flex items-center justify-center transition-all overflow-hidden">
                 <img 
                   src={logoImg} 

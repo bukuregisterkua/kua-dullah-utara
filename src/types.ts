@@ -38,7 +38,13 @@ export interface Settings {
   alurWakafImg?: string;
   alurProsesNikahImg?: string;
   logoImg?: string;
+  secondaryLogoImg?: string;
   heroBgImg?: string;
+  facebookUrl?: string;
+  instagramUrl?: string;
+  twitterUrl?: string;
+  tiktokUrl?: string;
+  youtubeUrl?: string;
 }
 
 export interface DBState {

@@ -30,7 +30,12 @@ import {
   Layers,
   Sparkles,
   BookOpen,
-  Calendar
+  Calendar,
+  Facebook,
+  Instagram,
+  Twitter,
+  Youtube,
+  Music
 } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import Header from "./components/Header";
@@ -432,7 +437,12 @@ export default function App() {
     bannerSubtitle: "Pusat Pelayanan Keagamaan Digital Pulau Dullah Utara, Kota Tual.\nMelayani Administrasi Nikah, Wakaf, Konsultasi Keagamaan, dan Bimbingan Ummat secara Profesional, Mudah, Cepat, dan Terintegrasi.",
     address: "Jl. Pemuda No. 12, Pulau Dullah Utara, Kota Tual, Maluku",
     email: "kuadullahutara01@gmail.com",
-    phone: "+62 812 4091 2842"
+    phone: "+62 812 4091 2842",
+    facebookUrl: "",
+    instagramUrl: "",
+    twitterUrl: "",
+    tiktokUrl: "",
+    youtubeUrl: ""
   };
 
   return (
@@ -446,6 +456,7 @@ export default function App() {
         isAdmin={isAdminLoggedIn}
         onLogout={handleLogout}
         logoImg={defaultSettings.logoImg}
+        secondaryLogoImg={defaultSettings.secondaryLogoImg}
       />
 
       {/* Main Container */}
@@ -1765,6 +1776,73 @@ export default function App() {
 
                   <hr className="border-slate-100 my-6" />
 
+                  {/* Integrasi Akun Media Sosial */}
+                  <div className="space-y-4 mb-6">
+                    <div className="border border-emerald-100/50 rounded-2xl p-4 bg-emerald-50/10">
+                      <h4 className="text-xs font-extrabold uppercase text-emerald-950 mb-1 tracking-wider">Integrasi Media Sosial Resmi KUA</h4>
+                      <p className="text-[10px] text-slate-500 mb-4 font-sans">Koneksikan platform media sosial resmi KUA agar pengguna dapat mengeklik ikon media sosial langsung di bagian kanan/bawah halaman depan.</p>
+                      
+                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <div>
+                          <label className="block text-[11px] font-bold text-slate-700 mb-1">URL Facebook KUA</label>
+                          <input
+                            type="text"
+                            placeholder="https://facebook.com/..."
+                            value={settingsForm.facebookUrl || ""}
+                            onChange={(e) => setSettingsForm({ ...settingsForm, facebookUrl: e.target.value })}
+                            className="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs focus:ring-1 focus:ring-emerald-500 focus:outline-none"
+                          />
+                        </div>
+
+                        <div>
+                          <label className="block text-[11px] font-bold text-slate-700 mb-1">URL Instagram KUA</label>
+                          <input
+                            type="text"
+                            placeholder="https://instagram.com/..."
+                            value={settingsForm.instagramUrl || ""}
+                            onChange={(e) => setSettingsForm({ ...settingsForm, instagramUrl: e.target.value })}
+                            className="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs focus:ring-1 focus:ring-emerald-500 focus:outline-none"
+                          />
+                        </div>
+
+                        <div>
+                          <label className="block text-[11px] font-bold text-slate-700 mb-1">URL Twitter / X KUA</label>
+                          <input
+                            type="text"
+                            placeholder="https://twitter.com/..."
+                            value={settingsForm.twitterUrl || ""}
+                            onChange={(e) => setSettingsForm({ ...settingsForm, twitterUrl: e.target.value })}
+                            className="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs focus:ring-1 focus:ring-emerald-500 focus:outline-none"
+                          />
+                        </div>
+
+                        <div>
+                          <label className="block text-[11px] font-bold text-slate-700 mb-1">URL TikTok KUA</label>
+                          <input
+                            type="text"
+                            placeholder="https://tiktok.com/@..."
+                            value={settingsForm.tiktokUrl || ""}
+                            onChange={(e) => setSettingsForm({ ...settingsForm, tiktokUrl: e.target.value })}
+                            className="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs focus:ring-1 focus:ring-emerald-500 focus:outline-none"
+                          />
+                        </div>
+
+                        <div>
+                          <label className="block text-[11px] font-bold text-slate-700 mb-1">URL YouTube KUA</label>
+                          <input
+                            type="text"
+                            placeholder="https://youtube.com/@..."
+                            value={settingsForm.youtubeUrl || ""}
+                            onChange={(e) => setSettingsForm({ ...settingsForm, youtubeUrl: e.target.value })}
+                            className="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs focus:ring-1 focus:ring-emerald-500 focus:outline-none"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <hr className="border-slate-100 my-6" />
+
                   {/* Banner config */}
                   <div className="space-y-4 mb-6">
                     <h4 className="text-xs font-extrabold uppercase text-emerald-950 tracking-wider">Personalisasi Teks Landing</h4>
@@ -1920,12 +1998,12 @@ export default function App() {
                   {/* Logo Kantor & Gambar Latar Beranda (Hero Background) */}
                   <div className="space-y-4 mb-6">
                     <h4 className="text-xs font-extrabold uppercase text-emerald-950 tracking-wider">Logo & Latar Belakang Depan</h4>
-                    <p className="text-[10px] text-slate-500">Anda dapat mengubah logo resmi instansi (tampil di navigasi menu) dan gambar latar belakang (background) beranda depan di bawah ini.</p>
+                    <p className="text-[10px] text-slate-500">Anda dapat mengubah logo instansi (logo utama bulat di tengah & logo pendamping pojok atas/bawah) serta gambar latar belakang (background) beranda depan di bawah ini.</p>
                     
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                       {/* Upload Logo Kantor */}
                       <div className="border border-slate-100 rounded-2xl p-4 bg-slate-50/50 space-y-3">
-                        <label className="block text-xs font-bold text-slate-750 mb-1">Logo Instansi Kantor</label>
+                        <label className="block text-xs font-bold text-slate-750 mb-1">Logo Instansi Utama (Bulat Tengah)</label>
                         {settingsForm.logoImg ? (
                           <div className="relative group w-32 h-32 mx-auto rounded-lg overflow-hidden border border-slate-200 flex items-center justify-center bg-white p-2">
                             <img src={settingsForm.logoImg} alt="Preview Logo" className="max-w-full max-h-full object-contain" />
@@ -1950,11 +2028,45 @@ export default function App() {
                             />
                             <label htmlFor="settings-logo-kantor" className="cursor-pointer text-center">
                               <Upload className="h-5 w-5 mx-auto text-slate-400 mb-1" />
-                              <span className="text-[10px] text-emerald-700 font-bold hover:underline">Unggah Logo Kantor</span>
+                              <span className="text-[10px] text-emerald-700 font-bold hover:underline">Unggah Logo Utama</span>
                             </label>
                           </div>
                         )}
                         <p className="text-[9px] text-slate-450 text-center">Disarankan format PNG transparan berkualitas tinggi</p>
+                      </div>
+
+                      {/* Upload Logo Pojok Instansi */}
+                      <div className="border border-slate-100 rounded-2xl p-4 bg-slate-50/50 space-y-3">
+                        <label className="block text-xs font-bold text-slate-750 mb-1">Logo Pendamping Pojok (Header & Footer)</label>
+                        {settingsForm.secondaryLogoImg ? (
+                          <div className="relative group w-32 h-32 mx-auto rounded-lg overflow-hidden border border-slate-200 flex items-center justify-center bg-white p-2">
+                            <img src={settingsForm.secondaryLogoImg} alt="Preview Logo Pojok" className="max-w-full max-h-full object-contain" />
+                            <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
+                              <button 
+                                type="button" 
+                                onClick={() => setSettingsForm({ ...settingsForm, secondaryLogoImg: "" })}
+                                className="text-white text-[10px] font-bold bg-rose-600 px-2 py-1 rounded cursor-pointer"
+                              >
+                                Hapus
+                              </button>
+                            </div>
+                          </div>
+                        ) : (
+                          <div className="w-full h-24 border border-dashed border-slate-300 rounded-xl flex flex-col items-center justify-center bg-white p-2">
+                            <input
+                              type="file"
+                              accept="image/*"
+                              onChange={(e) => handleImageUpload(e, "settings", (url) => setSettingsForm({ ...settingsForm, secondaryLogoImg: url }))}
+                              className="hidden"
+                              id="settings-logo-secondary"
+                            />
+                            <label htmlFor="settings-logo-secondary" className="cursor-pointer text-center">
+                              <Upload className="h-5 w-5 mx-auto text-slate-400 mb-1" />
+                              <span className="text-[10px] text-emerald-700 font-bold hover:underline">Unggah Logo Pojok</span>
+                            </label>
+                          </div>
+                        )}
+                        <p className="text-[9px] text-slate-450 text-center">Tampil di header samping teks & footer</p>
                       </div>
 
                       {/* Upload Latar Belakang Beranda */}
@@ -2020,10 +2132,10 @@ export default function App() {
             {/* Identity element */}
             <div className="md:col-span-2 space-y-4">
               <div className="flex items-center space-x-3">
-                {defaultSettings.logoImg ? (
+                {defaultSettings.secondaryLogoImg || defaultSettings.logoImg ? (
                   <div className="w-11 h-11 flex items-center justify-center overflow-hidden">
                     <img 
-                      src={defaultSettings.logoImg} 
+                      src={defaultSettings.secondaryLogoImg || defaultSettings.logoImg} 
                       alt="Logo Footer" 
                       className="w-full h-full object-contain"
                       referrerPolicy="no-referrer"
@@ -2046,6 +2158,70 @@ export default function App() {
               <p className="text-xs text-slate-400 leading-relaxed max-w-sm">
                 Portal Pelayanan Terpadu Digital Mandiri Kecamatan Pulau Dullah Utara, Kota Tual. Nikah, Wakaf dan Konseling Muallaf Center berbasis keterbukaan teknologi publik.
               </p>
+
+              {/* Clickable Social Media Links */}
+              {(defaultSettings.facebookUrl || defaultSettings.instagramUrl || defaultSettings.twitterUrl || defaultSettings.tiktokUrl || defaultSettings.youtubeUrl) && (
+                <div className="flex flex-col space-y-2 pt-2">
+                  <span className="text-[9px] font-extrabold uppercase tracking-widest text-emerald-400">Media Sosial Kami:</span>
+                  <div className="flex items-center space-x-2.5">
+                    {defaultSettings.facebookUrl && (
+                      <a 
+                        href={defaultSettings.facebookUrl.startsWith("http") ? defaultSettings.facebookUrl : `https://${defaultSettings.facebookUrl}`} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="w-8 h-8 rounded-full bg-slate-800 hover:bg-emerald-600 flex items-center justify-center text-slate-300 hover:text-white transition-all duration-300 border border-slate-700/50 shadow-sm"
+                        title="Facebook Resmi KUA"
+                      >
+                        <Facebook className="h-4 w-4" />
+                      </a>
+                    )}
+                    {defaultSettings.instagramUrl && (
+                      <a 
+                        href={defaultSettings.instagramUrl.startsWith("http") ? defaultSettings.instagramUrl : `https://${defaultSettings.instagramUrl}`} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="w-8 h-8 rounded-full bg-slate-800 hover:bg-emerald-600 flex items-center justify-center text-slate-300 hover:text-white transition-all duration-300 border border-slate-700/50 shadow-sm"
+                        title="Instagram Resmi KUA"
+                      >
+                        <Instagram className="h-4 w-4" />
+                      </a>
+                    )}
+                    {defaultSettings.twitterUrl && (
+                      <a 
+                        href={defaultSettings.twitterUrl.startsWith("http") ? defaultSettings.twitterUrl : `https://${defaultSettings.twitterUrl}`} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="w-8 h-8 rounded-full bg-slate-800 hover:bg-emerald-600 flex items-center justify-center text-slate-300 hover:text-white transition-all duration-300 border border-slate-700/50 shadow-sm"
+                        title="Twitter / X Resmi KUA"
+                      >
+                        <Twitter className="h-4 w-4" />
+                      </a>
+                    )}
+                    {defaultSettings.tiktokUrl && (
+                      <a 
+                        href={defaultSettings.tiktokUrl.startsWith("http") ? defaultSettings.tiktokUrl : `https://${defaultSettings.tiktokUrl}`} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="w-8 h-8 rounded-full bg-slate-800 hover:bg-emerald-600 flex items-center justify-center text-slate-300 hover:text-white transition-all duration-300 border border-slate-700/50 shadow-sm"
+                        title="TikTok Resmi KUA"
+                      >
+                        <Music className="h-4 w-4" />
+                      </a>
+                    )}
+                    {defaultSettings.youtubeUrl && (
+                      <a 
+                        href={defaultSettings.youtubeUrl.startsWith("http") ? defaultSettings.youtubeUrl : `https://${defaultSettings.youtubeUrl}`} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="w-8 h-8 rounded-full bg-slate-800 hover:bg-emerald-600 flex items-center justify-center text-slate-300 hover:text-white transition-all duration-300 border border-slate-700/50 shadow-sm"
+                        title="YouTube Resmi KUA"
+                      >
+                        <Youtube className="h-4 w-4" />
+                      </a>
+                    )}
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* Quick map links */}

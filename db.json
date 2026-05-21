@@ -154,11 +154,17 @@
     "address": "Jl. Panglima Mandala. Desa Fiditan, Pulau Dullah Utara, Kota Tual, Maluku",
     "email": "kuadullahutara01@gmail.com",
     "phone": "+62 812 4091 2842",
-    "berkasNikahImg": "/uploads/berkas-umum-1779247388288.png",
-    "alurNikahImg": "/uploads/berkas-khusus-1779247398610.png",
-    "alurProsesNikahImg": "/uploads/alur-pendaftaran-1779250687470.png",
-    "logoImg": "/uploads/logokuadullut-1779257275722.png",
-    "heroBgImg": "/uploads/assan-1779252678132.png"
+    "berkasNikahImg": "/uploads/berkas-umum-1779329726146.png",
+    "alurNikahImg": "/uploads/berkas-khusus-1779329739536.png",
+    "alurProsesNikahImg": "/uploads/alur-pendaftaran-1779329750379.png",
+    "logoImg": "/uploads/logokuadullut-1779329775050.png",
+    "heroBgImg": "/uploads/assan-1779329765500.png",
+    "secondaryLogoImg": "/uploads/logo-kemenag-png-1png-1779332004143.png",
+    "facebookUrl": "https://facebook.com/kua.dullahutara",
+    "instagramUrl": "https://instagram.com/kua.dullahutara",
+    "twitterUrl": "",
+    "tiktokUrl": "",
+    "youtubeUrl": "https://youtube.com/@kua.dullahutara"
   },
   "admin": {
     "username": "admin",
