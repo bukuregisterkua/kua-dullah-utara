@@ -257,8 +257,8 @@ function initDatabase() {
         kepalaKuaImg: ""
       },
       admin: {
-        username: "admin",
-        password: "kuaadmin2026"
+        username: "kuadulut",
+        password: "kuanamser18"
       }
     };
     fs.writeFileSync(DB_PATH, JSON.stringify(initialData, null, 2), "utf-8");
