@@ -10,7 +10,7 @@ import { createServer as createViteServer } from "vite";
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 3000;
 // Determine persistent data directory (for Render, Railway, absolute paths, etc.)
 const DATA_DIR = fs.existsSync("/data") ? "/data" : process.cwd();
 const DB_PATH = path.join(DATA_DIR, "db.json");
