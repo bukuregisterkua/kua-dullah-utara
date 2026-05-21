@@ -12,9 +12,23 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 3000;
 // Determine persistent data directory (for Render, Railway, absolute paths, etc.)
-const DATA_DIR = fs.existsSync("/data") ? "/data" : process.cwd();
+let DATA_DIR = process.cwd();
+if (fs.existsSync("/data")) {
+  try {
+    const testPath = path.join("/data", ".write-test");
+    fs.writeFileSync(testPath, "test");
+    fs.unlinkSync(testPath);
+    DATA_DIR = "/data";
+  } catch (e) {
+    console.warn("Directory /data exists but is not writable, falling back to process.cwd():", e);
+  }
+}
 const DB_PATH = path.join(DATA_DIR, "db.json");
-const UPLOADS_DIR = fs.existsSync("/data") ? path.join("/data", "uploads") : path.join(process.cwd(), "public", "uploads");
+
+let UPLOADS_DIR = path.join(process.cwd(), "public", "uploads");
+if (DATA_DIR === "/data") {
+  UPLOADS_DIR = path.join("/data", "uploads");
+}
 
 // Enable CORS
 app.use(cors());
