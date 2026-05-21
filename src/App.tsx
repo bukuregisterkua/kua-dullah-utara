@@ -635,7 +635,7 @@ export default function App() {
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                   <div className="flex flex-col md:flex-row md:items-end justify-between mb-12">
                     <div>
-                      <span className="text-xs font-bold text-emerald-700 uppercase tracking-widest bg-emerald-100/60 px-3 py-10 rounded-full">
+                      <span className="text-[10px] sm:text-xs font-bold text-emerald-700 uppercase tracking-widest bg-emerald-100/60 px-2.5 py-1 rounded-full inline-block">
                         Informasi Penting
                       </span>
                       <h3 className="text-3xl font-extrabold font-display text-slate-900 mt-2.5">
@@ -1190,10 +1190,10 @@ export default function App() {
                   )}
 
                   {/* Standard bottom safety card */}
-                  <div className="p-6 bg-emerald-900 rounded-3xl text-white relative overflow-hidden shadow-md">
+                  <div className="p-4 sm:p-5 bg-emerald-900 rounded-2xl text-white relative overflow-hidden shadow-md">
                     <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-700/30 rounded-full blur-xl" />
-                    <h5 className="font-bold font-display text-lg mb-1 uppercase tracking-wide">PENTING BAGI WARGA</h5>
-                    <p className="text-xs text-emerald-100 font-normal leading-relaxed">
+                    <h5 className="font-extrabold font-display text-xs mb-1 uppercase tracking-wider">PENTING BAGI WARGA</h5>
+                    <p className="text-[10px] sm:text-[11px] text-emerald-100 font-normal leading-relaxed">
                       Segala pengurusan naskah, berkas dsb di Kantor KUA Pulau Dullah Utara **SAMA SEKALI TIDAK DIKENAKAN BIAYA (RP 0,-)** jika dilangsungkan di dalam kantor pada jam kerja operasional madani. Segera laporkan penyalahgunaan melalui link WhatsApp aduan kami.
                     </p>
                   </div>
