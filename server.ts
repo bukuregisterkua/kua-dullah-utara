@@ -309,6 +309,100 @@ function initDatabase() {
 
 initDatabase();
 
+// Copy 3D claymation assets to UPLOADS_DIR if not present
+const assetsSrcDir = path.join(process.cwd(), "src", "assets", "images");
+const assetsToCopy = [
+  "penyuluh_pria_1_1779371506296.png",
+  "penyuluh_pria_2_1779371547245.png",
+  "penyuluh_pria_3_1779372465474.png",
+  "penyuluh_wanita_1_1779371527770.png",
+  "penyuluh_wanita_2_1779371567528.png",
+  "penyuluh_wanita_3_1779372486923.png",
+  "penyuluh_wanita_4_1779372505456.png"
+];
+
+for (const assetName of assetsToCopy) {
+  const srcFile = path.join(assetsSrcDir, assetName);
+  const destFile = path.join(UPLOADS_DIR, assetName);
+  if (fs.existsSync(srcFile) && !fs.existsSync(destFile)) {
+    try {
+      fs.copyFileSync(srcFile, destFile);
+      console.log(`Copied placeholder asset ${assetName} to ${UPLOADS_DIR}`);
+    } catch (err) {
+      console.error(`Error copying asset ${assetName}:`, err);
+    }
+  }
+}
+
+// Migrate database to pre-populate the 7 Penyuluh Agama Islam (3 male, 4 female)
+try {
+  const dbForMigration = readDB();
+  if (!dbForMigration.penyuluh || !Array.isArray(dbForMigration.penyuluh) || dbForMigration.penyuluh.length !== 7) {
+    dbForMigration.penyuluh = [
+      {
+        id: "p1",
+        name: "H. Kamaruddin, SH",
+        role: "Penyuluh Agama Islam",
+        gender: "male",
+        phone: "6281240912842",
+        photo: "/uploads/penyuluh_pria_1_1779371506296.png"
+      },
+      {
+        id: "p2",
+        name: "Khadijah Al-Munawwarah, M.Ag",
+        role: "Penyuluh Agama Islam",
+        gender: "female",
+        phone: "6281240912842",
+        photo: "/uploads/penyuluh_wanita_1_1779371527770.png"
+      },
+      {
+        id: "p3",
+        name: "Ustadz H. Abdullah, Lc",
+        role: "Penyuluh Agama Islam",
+        gender: "male",
+        phone: "6281240912842",
+        photo: "/uploads/penyuluh_pria_3_1779372465474.png"
+      },
+      {
+        id: "p4",
+        name: "Siti Rahmawati, S.Sos",
+        role: "Penyuluh Agama Islam",
+        gender: "female",
+        phone: "6281240912842",
+        photo: "/uploads/penyuluh_wanita_3_1779372486923.png"
+      },
+      {
+        id: "p5",
+        name: "Ahmad Fauzan, S.Pd.I",
+        role: "Penyuluh Agama Islam",
+        gender: "male",
+        phone: "6281240912842",
+        photo: "/uploads/penyuluh_pria_2_1779371547245.png"
+      },
+      {
+        id: "p6",
+        name: "Dr. Maryam Shofia, S.Th.I",
+        role: "Penyuluh Agama Islam",
+        gender: "female",
+        phone: "6281240912842",
+        photo: "/uploads/penyuluh_wanita_2_1779371567528.png"
+      },
+      {
+        id: "p7",
+        name: "Aisyah Humaira, S.Th.I",
+        role: "Penyuluh Agama Islam",
+        gender: "female",
+        phone: "6281240912842",
+        photo: "/uploads/penyuluh_wanita_4_1779372505456.png"
+      }
+    ];
+    writeDB(dbForMigration);
+    console.log("Pre-populated 7 Penyuluh Agama Islam (3 male, 4 female) successfully!");
+  }
+} catch (migError) {
+  console.error("Migration error for penyuluh list:", migError);
+}
+
 // Load Database
 function readDB() {
   if (fs.existsSync(DB_PATH)) {
@@ -373,6 +467,7 @@ app.post("/api/save", (req, res) => {
     if (newDB.layanan) db.layanan = newDB.layanan;
     if (newDB.pengumuman) db.pengumuman = newDB.pengumuman;
     if (newDB.settings) db.settings = { ...db.settings, ...newDB.settings };
+    if (newDB.penyuluh) db.penyuluh = newDB.penyuluh;
     
     if (newDB.admin) {
       db.admin = {

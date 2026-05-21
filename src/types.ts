@@ -55,4 +55,5 @@ export interface DBState {
   layanan: Layanan[];
   pengumuman: Pengumuman[];
   settings: Settings;
+  penyuluh?: any[];
 }

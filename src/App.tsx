@@ -47,6 +47,79 @@ import berkasUmum from "./assets/images/berkas_umum_1779246456217.png";
 import berkasKhusus from "./assets/images/berkas_khusus_1779246479558.png";
 import kepalaKuaPlaceholder from "./assets/images/kepala_kua_1779336160767.png";
 import statistikKuaPlaceholder from "./assets/images/statistik_kua_1779338497688.png";
+import penyuluhPria1 from "./assets/images/penyuluh_pria_1_1779371506296.png";
+import penyuluhWanita1 from "./assets/images/penyuluh_wanita_1_1779371527770.png";
+import penyuluhPria2 from "./assets/images/penyuluh_pria_2_1779371547245.png";
+import penyuluhWanita2 from "./assets/images/penyuluh_wanita_2_1779371567528.png";
+import penyuluhPria3 from "./assets/images/penyuluh_pria_3_1779372465474.png";
+import penyuluhWanita3 from "./assets/images/penyuluh_wanita_3_1779372486923.png";
+import penyuluhWanita4 from "./assets/images/penyuluh_wanita_4_1779372505456.png";
+
+export const PENYULUH_AGAMA_LIST = [
+  {
+    id: "p1",
+    name: "H. Kamaruddin, SH",
+    role: "Penyuluh Agama Islam",
+    gender: "male",
+    phone: "6281240912842",
+    photo: "/uploads/penyuluh_pria_1_1779371506296.png",
+    fallbackPhoto: penyuluhPria1
+  },
+  {
+    id: "p2",
+    name: "Khadijah Al-Munawwarah, M.Ag",
+    role: "Penyuluh Agama Islam",
+    gender: "female",
+    phone: "6281240912842",
+    photo: "/uploads/penyuluh_wanita_1_1779371527770.png",
+    fallbackPhoto: penyuluhWanita1
+  },
+  {
+    id: "p3",
+    name: "Ustadz H. Abdullah, Lc",
+    role: "Penyuluh Agama Islam",
+    gender: "male",
+    phone: "6281240912842",
+    photo: "/uploads/penyuluh_pria_3_1779372465474.png",
+    fallbackPhoto: penyuluhPria3
+  },
+  {
+    id: "p4",
+    name: "Siti Rahmawati, S.Sos",
+    role: "Penyuluh Agama Islam",
+    gender: "female",
+    phone: "6281240912842",
+    photo: "/uploads/penyuluh_wanita_3_1779372486923.png",
+    fallbackPhoto: penyuluhWanita3
+  },
+  {
+    id: "p5",
+    name: "Ahmad Fauzan, S.Pd.I",
+    role: "Penyuluh Agama Islam",
+    gender: "male",
+    phone: "6281240912842",
+    photo: "/uploads/penyuluh_pria_2_1779371547245.png",
+    fallbackPhoto: penyuluhPria2
+  },
+  {
+    id: "p6",
+    name: "Dr. Maryam Shofia, S.Th.I",
+    role: "Penyuluh Agama Islam",
+    gender: "female",
+    phone: "6281240912842",
+    photo: "/uploads/penyuluh_wanita_2_1779371567528.png",
+    fallbackPhoto: penyuluhWanita2
+  },
+  {
+    id: "p7",
+    name: "Aisyah Humaira, S.Th.I",
+    role: "Penyuluh Agama Islam",
+    gender: "female",
+    phone: "6281240912842",
+    photo: "/uploads/penyuluh_wanita_4_1779372505456.png",
+    fallbackPhoto: penyuluhWanita4
+  }
+];
 
 export default function App() {
   const [db, setDb] = useState<DBState | null>(null);
@@ -78,7 +151,14 @@ export default function App() {
   };
 
   // Form states for Admin actions
-  const [adminActiveTab, setAdminActiveTab] = useState<"layanan" | "pengumuman" | "settings">("layanan");
+  const [adminActiveTab, setAdminActiveTab] = useState<"layanan" | "pengumuman" | "settings" | "penyuluh">("layanan");
+  
+  // State for Penyuluh editing
+  const [editingPenyuluh, setEditingPenyuluh] = useState<any | null>(null);
+  const [editingPenyuluhName, setEditingPenyuluhName] = useState("");
+  const [editingPenyuluhPhone, setEditingPenyuluhPhone] = useState("");
+  const [editingPenyuluhPhoto, setEditingPenyuluhPhoto] = useState("");
+  const [isSubmittingPenyuluh, setIsSubmittingPenyuluh] = useState(false);
   
   // Layanan form
   const [editingLayanan, setEditingLayanan] = useState<Partial<Layanan> | null>(null);
@@ -110,6 +190,14 @@ export default function App() {
   const [contactName, setContactName] = useState("");
   const [contactSubject, setContactSubject] = useState("");
   const [contactMessage, setContactMessage] = useState("");
+
+  // Penyuluh Agama Custom Consultation Form State
+  const [penyuluhSenderName, setPenyuluhSenderName] = useState("");
+  const [penyuluhSenderWa, setPenyuluhSenderWa] = useState("");
+  const [penyuluhSelectedId, setPenyuluhSelectedId] = useState("p1");
+  const [penyuluhTopic, setPenyuluhTopic] = useState("Bimbingan Perkawinan");
+  const [penyuluhQuery, setPenyuluhQuery] = useState("");
+  const [penyuluhSubmitted, setPenyuluhSubmitted] = useState(false);
 
   // Fetch complete database state
   const fetchData = async () => {
@@ -371,6 +459,124 @@ export default function App() {
     setContactName("");
     setContactSubject("");
     setContactMessage("");
+  };
+
+  // Derived list of Islamic religious educators (reactive to db changes)
+  const penyuluhList = db?.penyuluh || PENYULUH_AGAMA_LIST;
+
+  // Forward custom Penyuluh consultation form inputs to WhatsApp of target educator
+  const handlePenyuluhSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!penyuluhSenderName || !penyuluhSenderWa || !penyuluhQuery) {
+      alert("Harap lengkapi nama, nomor WhatsApp, dan isi pertanyaan Anda!");
+      return;
+    }
+
+    const educator = penyuluhList.find(p => p.id === penyuluhSelectedId) || penyuluhList[0];
+    const textFormatted = `Assalamu'alaikum Warahmatullahi Wabarakatuh,\n\nYth. *${educator.name}*\n(Penyuluh KUA Pulau Dullah Utara)\n\nPerihal: *Konsultasi ${penyuluhTopic}*\n\nBerikut adalah identitas saya:\n- Nama: *${penyuluhSenderName}*\n- No. WA: *${penyuluhSenderWa}*\n\nPertanyaan/Detail Konsultasi:\n_"${penyuluhQuery}"_\n\nMohon petunjuk dan bimbingannya. Terima kasih.`;
+    
+    const waUrl = `https://wa.me/${educator.phone}?text=${encodeURIComponent(textFormatted)}`;
+    
+    // Set status to true to show elegant success visual feedback
+    setPenyuluhSubmitted(true);
+    
+    // Open WA Link
+    window.open(waUrl, "_blank");
+  };
+
+  // Handle uploading photos specifically for a profile change
+  const handlePenyuluhPhotoUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    if (!file.type.match("image.*")) {
+      alert("Harap pilih file gambar (JPG/PNG/WEBP)!");
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = async () => {
+      const base64Data = reader.result as string;
+      try {
+        setIsSubmittingPenyuluh(true);
+        const uploadRes = await fetch("/api/upload", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            filename: file.name,
+            base64Data
+          })
+        });
+        const uploadData = await uploadRes.json();
+        if (uploadRes.ok && uploadData.url) {
+          setEditingPenyuluhPhoto(uploadData.url);
+        } else {
+          alert("Gagal mengunggah foto: " + (uploadData.error || "Ukurannya mungkin terlalu besar"));
+        }
+      } catch (err) {
+        console.error("Photo upload error:", err);
+        alert("Gagal menghubungi server untuk mengunggah foto.");
+      } finally {
+        setIsSubmittingPenyuluh(false);
+      }
+    };
+    reader.readAsDataURL(file);
+  };
+
+  // Persist updated educator profile details
+  const handleSavePenyuluh = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!editingPenyuluh) return;
+    if (!editingPenyuluhName || !editingPenyuluhPhone) {
+      alert("Nama dan Nomor WA wajib diisi!");
+      return;
+    }
+
+    try {
+      setIsSubmittingPenyuluh(true);
+      const updatedList = penyuluhList.map((p) => {
+        if (p.id === editingPenyuluh.id) {
+          return {
+            ...p,
+            name: editingPenyuluhName,
+            phone: editingPenyuluhPhone,
+            photo: editingPenyuluhPhoto
+          };
+        }
+        return p;
+      });
+
+      // Save to server
+      const res = await fetch("/api/save", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          penyuluh: updatedList
+        })
+      });
+
+      if (res.ok) {
+        // Refresh local state
+        setDb(prev => prev ? { ...prev, penyuluh: updatedList } : null as any);
+        setEditingPenyuluh(null);
+        alert("Profil Penyuluh Agama berhasil diperbarui!");
+      } else {
+        alert("Gagal menyimpan profil penyuluh.");
+      }
+    } catch (err) {
+      console.error("Error saving penyuluh:", err);
+      alert("Terjadi kesalahan koneksi saat menyimpan.");
+    } finally {
+      setIsSubmittingPenyuluh(false);
+    }
+  };
+
+  // Populate form states to edit a religious educator's metadata
+  const handleEditPenyuluh = (educator: any) => {
+    setEditingPenyuluh(educator);
+    setEditingPenyuluhName(educator.name || "");
+    setEditingPenyuluhPhone(educator.phone || "");
+    setEditingPenyuluhPhoto(educator.photo || "");
   };
 
   // Safe renderer for dynamic icons
@@ -982,6 +1188,265 @@ export default function App() {
                       </div>
                     );
                   })()}
+
+                  {currentTab === "penyuluhan" && (
+                    <div className="space-y-6">
+                      {/* Banner Info */}
+                      <div className="bg-[#f0fdf4] border border-emerald-100 rounded-3xl p-6 relative overflow-hidden">
+                        <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-100/50 rounded-full blur-xl pointer-events-none" />
+                        <div className="relative z-10 flex flex-col md:flex-row items-center gap-5">
+                          <div className="w-14 h-14 bg-emerald-700 text-white rounded-2xl flex items-center justify-center shadow-md grow-0 shrink-0">
+                            <Sparkles className="h-7 w-7 animate-pulse" />
+                          </div>
+                          <div>
+                            <span className="text-[10px] sm:text-xs font-bold text-emerald-800 bg-emerald-100/80 px-2.5 py-1 rounded-full uppercase tracking-wider">
+                              DIREKTORI RESMI KUA
+                            </span>
+                            <h3 className="text-lg font-extrabold text-emerald-950 mt-1 font-display">
+                              Penyuluh Agama Islam KUA Pulau Dullah Utara
+                            </h3>
+                            <p className="text-xs text-emerald-800/80 mt-1 leading-relaxed">
+                              Konsultasikan problematika keagamaan, bimbingan keluarga sakinah, muallaf, zakat/infak, waris, dan pembelajaran Al-Qur'an secara gratis langsung ke penyuluh tersertifikasi kami.
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Educators Grid */}
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        {penyuluhList.map((educator) => (
+                          <div 
+                            key={educator.id}
+                            className="bg-white rounded-3xl border border-slate-150 shadow-xxs hover:shadow-md hover:border-emerald-250 transition-all overflow-hidden flex flex-col justify-between"
+                            id={`educator-card-${educator.id}`}
+                          >
+                            {/* Profile Header & Picture */}
+                            <div className="p-5 flex gap-4 items-center">
+                              {/* 3D Passport Photo */}
+                              <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl overflow-hidden bg-slate-50 border border-slate-200 shadow-xs grow-0 shrink-0 relative group">
+                                <img 
+                                  src={educator.photo || educator.fallbackPhoto} 
+                                  alt={educator.name} 
+                                  className="w-full h-full object-cover select-none"
+                                  onError={(e) => {
+                                    if (educator.fallbackPhoto) {
+                                      e.currentTarget.src = educator.fallbackPhoto;
+                                    }
+                                  }}
+                                  referrerPolicy="no-referrer"
+                                />
+                                <div className="absolute inset-0 bg-emerald-950/10 opacity-0 group-hover:opacity-100 transition-opacity" />
+                              </div>
+
+                              {/* Details */}
+                              <div className="space-y-1 truncate flex-1">
+                                <h4 className="text-xs sm:text-sm font-extrabold text-slate-900 leading-snug whitespace-normal">
+                                  {educator.name}
+                                </h4>
+                                <p className="text-[10px] sm:text-[11px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-md inline-block max-w-full truncate">
+                                  {educator.role || "Penyuluh Agama Islam"}
+                                </p>
+                                <p className="text-[10px] text-slate-450 font-mono">
+                                  WhatsApp: +{educator.phone}
+                                </p>
+                              </div>
+                            </div>
+
+                            {/* Contact Action row */}
+                            <div className="px-5 pb-5 pt-3 border-t border-slate-100 bg-slate-50/50 flex flex-col md:flex-row items-center gap-2">
+                              <a
+                                href={`https://wa.me/${educator.phone}?text=Assalamu%27alaikum%20Warahmatullahi%20Wabarakatuh.%20Yth.%20${encodeURIComponent(educator.name)}.%20Saya%20ingin%2520berkonsultasi%2520mengenai%2520masalah%2520keagamaan.`}
+                                target="_blank"
+                                referrerPolicy="no-referrer"
+                                className="w-full md:flex-1 py-1.5 px-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-[11px] font-bold flex items-center justify-center space-x-1 shadow-xxs transition-colors"
+                              >
+                                <Phone className="h-3 w-3" />
+                                <span>Hubungi WA</span>
+                              </a>
+                              <div className="flex w-full md:w-auto items-center gap-2">
+                                <button
+                                  onClick={() => {
+                                    setPenyuluhSelectedId(educator.id);
+                                    const element = document.getElementById("form-konsultasi-penyuluh");
+                                    element?.scrollIntoView({ behavior: "smooth", block: "start" });
+                                  }}
+                                  className="flex-1 md:flex-none px-3 py-1.5 bg-slate-100 hover:bg-emerald-50 text-slate-750 hover:text-emerald-800 rounded-xl text-[11px] font-bold transition-all shadow-xxs flex items-center justify-center cursor-pointer border border-transparent"
+                                  title="Pilih untuk Konsultasi"
+                                >
+                                  <FileText className="h-3.5 w-3.5 mr-1" />
+                                  <span>Pilih</span>
+                                </button>
+                                
+                                {isAdminLoggedIn && (
+                                  <button
+                                    onClick={() => handleEditPenyuluh(educator)}
+                                    className="flex-1 md:flex-none px-3 py-1.5 bg-amber-50 hover:bg-amber-100 border border-amber-200 text-amber-800 rounded-xl text-[11px] font-bold transition-all shadow-xxs flex items-center justify-center cursor-pointer"
+                                    title="Edit Profil Penyuluh"
+                                  >
+                                    <Edit className="h-3.5 w-3.5 mr-1" />
+                                    <span>Edit</span>
+                                  </button>
+                                )}
+                              </div>
+                            </div>
+
+                          </div>
+                        ))}
+                      </div>
+
+                      {/* Interactive Consultation Form */}
+                      <div 
+                        id="form-konsultasi-penyuluh" 
+                        className="bg-white rounded-3xl border border-slate-150 p-6 md:p-8 shadow-xs relative overflow-hidden"
+                      >
+                        <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/5 rounded-bl-full pointer-events-none" />
+                        
+                        <div className="mb-6">
+                          <span className="text-[10px] font-extrabold uppercase tracking-widest text-[#15803d] bg-emerald-50 px-2.5 py-1 rounded-md inline-block">
+                            FORM KONSULTASI ONLINE
+                          </span>
+                          <h3 className="text-lg font-extrabold font-display text-emerald-950 mt-1.5">
+                            Konsultasi Langsung dengan Penyuluh Agama
+                          </h3>
+                          <p className="text-xs text-slate-500 mt-1 leading-normal">
+                            Isi formulir bimbingan rohani di bawah ini. Tombol kirim akan memformat pesan Anda secara rapi dan meneruskannya langsung via chat WhatsApp ke Penyuluh pilihan Anda.
+                          </p>
+                        </div>
+
+                        {penyuluhSubmitted ? (
+                          <motion.div 
+                            initial={{ opacity: 0, scale: 0.95 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            className="p-6 bg-[#f0fdf4] border border-emerald-100 rounded-2xl text-center space-y-4"
+                          >
+                            <div className="w-12 h-12 bg-emerald-105 text-emerald-700 rounded-full flex items-center justify-center mx-auto shadow-md">
+                              <CheckCircle2 className="h-6 w-6 text-emerald-600 animate-bounce" />
+                            </div>
+                            <div>
+                              <h4 className="font-extrabold text-emerald-950 text-sm">Draft Konsultasi Berhasil Dibuat!</h4>
+                              <p className="text-xs text-emerald-800 mt-1 max-w-md mx-auto leading-relaxed">
+                                Teks konsultasi Anda telah diformat secara otomatis. Silakan selesaikan pengiriman chat di aplikasi WhatsApp yang baru saja terbuka.
+                              </p>
+                            </div>
+                            <div className="pt-2 flex justify-center gap-2">
+                              <button
+                                onClick={() => {
+                                  const educator = penyuluhList.find(p => p.id === penyuluhSelectedId) || penyuluhList[0];
+                                  const textFormatted = `Assalamu'alaikum Warahmatullahi Wabarakatuh,\n\nYth. *${educator.name}*\n(Penyuluh KUA Pulau Dullah Utara)\n\nPerihal: *Konsultasi ${penyuluhTopic}*\n\nBerikut adalah identitas saya:\n- Nama: *${penyuluhSenderName}*\n- No. WA: *${penyuluhSenderWa}*\n\nPertanyaan/Detail Konsultasi:\n_"${penyuluhQuery}"_\n\nMohon petunjuk dan bimbingannya. Terima kasih.`;
+                                  const waUrl = `https://wa.me/${educator.phone}?text=${encodeURIComponent(textFormatted)}`;
+                                  window.open(waUrl, "_blank");
+                                }}
+                                className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold flex items-center gap-1 shadow-xxs transition-colors cursor-pointer"
+                              >
+                                <ExternalLink className="h-3.5 w-3.5" />
+                                <span>Kirim Ulang / Buka Lagi</span>
+                              </button>
+                              <button
+                                onClick={() => {
+                                  setPenyuluhSubmitted(false);
+                                  setPenyuluhQuery("");
+                                }}
+                                className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold cursor-pointer"
+                              >
+                                Buat Pertanyaan Baru
+                              </button>
+                            </div>
+                          </motion.div>
+                        ) : (
+                          <form onSubmit={handlePenyuluhSubmit} className="space-y-4">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                              <div>
+                                <label className="block text-[10px] font-bold text-slate-705 uppercase mb-1">Nama Lengkap</label>
+                                <input
+                                  type="text"
+                                  required
+                                  placeholder="Contoh: Husin Bugis"
+                                  value={penyuluhSenderName}
+                                  onChange={(e) => setPenyuluhSenderName(e.target.value)}
+                                  className="w-full px-3 py-2 border border-slate-200 rounded-xl text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 bg-slate-50/50"
+                                />
+                              </div>
+
+                              <div>
+                                <label className="block text-[10px] font-bold text-slate-705 uppercase mb-1">Nomor WhatsApp Anda</label>
+                                <input
+                                  type="text"
+                                  required
+                                  placeholder="Contoh: 081234xxxx"
+                                  value={penyuluhSenderWa}
+                                  onChange={(e) => setPenyuluhSenderWa(e.target.value)}
+                                  className="w-full px-3 py-2 border border-slate-200 rounded-xl text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 bg-slate-50/50"
+                                />
+                              </div>
+                            </div>
+
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                              <div>
+                                <label className="block text-[10px] font-bold text-slate-705 uppercase mb-1">Pilih Penyuluh Agama</label>
+                                <select
+                                  value={penyuluhSelectedId}
+                                  onChange={(e) => setPenyuluhSelectedId(e.target.value)}
+                                  className="w-full px-3 py-2 border border-slate-200 rounded-xl text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 bg-white"
+                                >
+                                  {penyuluhList.map((educator) => (
+                                    <option key={educator.id} value={educator.id}>
+                                      {educator.name}
+                                    </option>
+                                  ))}
+                                </select>
+                              </div>
+
+                              <div>
+                                <label className="block text-[10px] font-bold text-slate-705 uppercase mb-1">Topik Bimbingan</label>
+                                <select
+                                  value={penyuluhTopic}
+                                  onChange={(e) => setPenyuluhTopic(e.target.value)}
+                                  className="w-full px-3 py-2 border border-slate-200 rounded-xl text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 bg-white"
+                                >
+                                  <option value="Bimbingan Perkawinan">Bimbingan Pernikahan / Pranikah</option>
+                                  <option value="Keluarga Sakinah">Hukum Syariah & Keluarga Sakinah</option>
+                                  <option value="Muallaf Center">Bimbingan Muallaf & Pembinaan Aqidah</option>
+                                  <option value="Zakat, Waris & Wakaf">Konsultasi Zakat, Waris, & Wakaf</option>
+                                  <option value="Pembelajaran Al-Quran">Pembelajaran Al-Qur'an / Buta Aksara Huruf</option>
+                                  <option value="Konsultasi Syariah Umum">Konsultasi Keagamaan / Syariah Umum</option>
+                                </select>
+                              </div>
+                            </div>
+
+                            <div>
+                              <label className="block text-[10px] font-bold text-slate-705 uppercase mb-1">Detail Pertanyaan / Konsultasi</label>
+                              <textarea
+                                rows={4}
+                                required
+                                placeholder="Silakan tulis detail persoalan atau bimbingan yang ingin dikonsultasikan secara santun..."
+                                value={penyuluhQuery}
+                                onChange={(e) => setPenyuluhQuery(e.target.value)}
+                                className="w-full px-3 py-2 border border-slate-200 rounded-xl text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 bg-slate-50/50"
+                              />
+                            </div>
+
+                            <button
+                              type="submit"
+                              className="w-full py-2.5 bg-emerald-700 hover:bg-emerald-800 text-white rounded-xl text-xs font-bold transition-all shadow-md flex items-center justify-center space-x-1 cursor-pointer"
+                            >
+                              <MessageSquare className="h-4 w-4" />
+                              <span>Hubungi via WhatsApp &rarr;</span>
+                            </button>
+                          </form>
+                        )}
+                      </div>
+
+                      {/* Header for supplementary materials */}
+                      {currentLayanans.length > 0 && (
+                        <div className="pt-6 border-t border-slate-100">
+                          <h4 className="text-xs font-extrabold uppercase tracking-wider text-slate-400 mb-3">
+                            Materi Pendukung & Program Kerja Penyuluhan:
+                          </h4>
+                        </div>
+                      )}
+                    </div>
+                  )}
+
                   {currentLayanans.length === 0 ? (
                     <div className="p-8 border border-dashed border-slate-350 rounded-2xl text-center text-slate-400">
                       <AlertCircle className="h-8 w-8 mx-auto text-slate-300 mb-2" />
@@ -1572,7 +2037,7 @@ export default function App() {
                 >
                   Kelola Pengumuman
                 </button>
-                <button
+                 <button
                   onClick={() => setAdminActiveTab("settings")}
                   className={`px-6 py-3 font-semibold text-xs tracking-wider uppercase border-b-2 transition-all cursor-pointer ${
                     adminActiveTab === "settings"
@@ -1581,6 +2046,16 @@ export default function App() {
                   }`}
                 >
                   Pengaturan Umum Website
+                </button>
+                <button
+                  onClick={() => setAdminActiveTab("penyuluh")}
+                  className={`px-6 py-3 font-semibold text-xs tracking-wider uppercase border-b-2 transition-all cursor-pointer ${
+                    adminActiveTab === "penyuluh"
+                      ? "border-emerald-700 text-emerald-800 font-extrabold"
+                      : "border-transparent text-slate-500 hover:text-emerald-700"
+                  }`}
+                >
+                  Kelola Penyuluh Agama
                 </button>
               </div>
 
@@ -2431,6 +2906,61 @@ export default function App() {
                 </div>
               )}
 
+              {/* VIEW 4: KELOLA PENYULUH AGAMA */}
+              {adminActiveTab === "penyuluh" && (
+                <div className="bg-white p-6 sm:p-8 rounded-3xl border border-emerald-50 shadow-xxs max-w-4xl mx-auto">
+                  <div className="mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-100">
+                    <div>
+                      <h3 className="text-sm font-extrabold uppercase tracking-widest text-emerald-800">
+                        Kelola Profil Penyuluh Agama Islam
+                      </h3>
+                      <p className="text-[10px] text-slate-500 mt-1">
+                        Daftar lengkap 7 penyuluh agama (4 perempuan, 3 laki-laki) yang terdaftar aktif dalam pangkalan data KUA. Hubungkan foto 3D dan atur nomor WA aktif masing-masing.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {penyuluhList.map((p) => (
+                      <div 
+                        key={p.id}
+                        className="bg-slate-50/50 p-4 rounded-2xl border border-slate-200 flex items-center justify-between gap-4 hover:border-emerald-250 transition-all"
+                      >
+                        <div className="flex items-center gap-3 min-w-0">
+                          <div className="w-12 h-12 rounded-xl overflow-hidden bg-white border border-slate-200 grow-0 shrink-0">
+                            <img 
+                              src={p.photo || p.fallbackPhoto} 
+                              alt={p.name} 
+                              className="w-full h-full object-cover"
+                              onError={(e) => {
+                                if (p.fallbackPhoto) {
+                                  e.currentTarget.src = p.fallbackPhoto;
+                                }
+                              }}
+                              referrerPolicy="no-referrer"
+                            />
+                          </div>
+                          <div className="min-w-0">
+                            <h4 className="text-xs font-bold text-slate-900 truncate">{p.name}</h4>
+                            <p className="text-[10px] text-emerald-700 font-semibold">{p.gender === "L" ? "Laki-laki" : "Perempuan"}</p>
+                            <p className="text-[9px] text-slate-550 font-mono truncate">WA: +{p.phone}</p>
+                          </div>
+                        </div>
+
+                        <button
+                          type="button"
+                          onClick={() => handleEditPenyuluh(p)}
+                          className="px-3 py-1.5 bg-white hover:bg-amber-50 text-amber-850 hover:text-amber-900 border border-slate-200 hover:border-amber-200 rounded-xl text-[10px] font-bold transition-all shadow-xxs cursor-pointer flex items-center space-x-1"
+                        >
+                          <Edit className="h-3.5 w-3.5" />
+                          <span>Edit</span>
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
             </motion.div>
           )}
 
@@ -2840,6 +3370,107 @@ export default function App() {
                   <span>{isSubmitting ? "Menghapus..." : "Ya, Hapus"}</span>
                 </button>
               </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+
+      {/* =========================
+         EDIT PROFIL PENYULUH MODAL POPUP
+      ========================= */}
+      <AnimatePresence>
+        {editingPenyuluh && (
+          <div 
+            className="fixed inset-0 bg-slate-950/70 backdrop-blur-xs flex items-center justify-center p-4 z-50 cursor-pointer animate-fade-in"
+            onClick={() => setEditingPenyuluh(null)}
+          >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 15 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 15 }}
+              transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+              className="bg-white rounded-3xl overflow-hidden max-w-md w-full border border-slate-100 shadow-2xl p-6 relative cursor-default space-y-4"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+                <div className="flex items-center space-x-2 text-emerald-800">
+                  <Edit className="h-5 w-5" />
+                  <h3 className="text-sm font-extrabold text-slate-900">Edit Profil Penyuluh Agama</h3>
+                </div>
+                <button 
+                  onClick={() => setEditingPenyuluh(null)}
+                  className="p-1 hover:bg-slate-100 rounded-lg text-slate-400 hover:text-slate-650 cursor-pointer"
+                >
+                  <X className="h-4 w-4" />
+                </button>
+              </div>
+
+              <form onSubmit={handleSavePenyuluh} className="space-y-4">
+                {/* Photo Upload and Preview section */}
+                <div className="flex flex-col items-center space-y-3 bg-slate-50 border border-slate-150 rounded-2xl p-4">
+                  <div className="w-24 h-24 rounded-2xl overflow-hidden border border-slate-200 bg-white relative group shadow-sm">
+                    <img 
+                      src={editingPenyuluhPhoto || editingPenyuluh.fallbackPhoto} 
+                      alt="Preview Foto" 
+                      className="w-full h-full object-cover"
+                      referrerPolicy="no-referrer"
+                    />
+                  </div>
+                  
+                  <div className="w-full">
+                    <label className="block text-center text-[10px] font-bold text-slate-500 uppercase mb-1">Unggah / Ganti Foto Penyuluh</label>
+                    <input 
+                      type="file"
+                      accept="image/*"
+                      onChange={handlePenyuluhPhotoUpload}
+                      className="block w-full text-xs text-slate-550 file:mr-3 file:py-1.5 file:px-3 file:rounded-xl file:border-0 file:text-[10px] file:font-bold file:bg-emerald-50 file:text-emerald-700 hover:file:bg-emerald-100 cursor-pointer"
+                    />
+                  </div>
+                </div>
+
+                {/* Name field */}
+                <div>
+                  <label className="block text-[10px] font-bold text-slate-600 uppercase mb-1">Nama Penyuluh</label>
+                  <input 
+                    type="text"
+                    required
+                    value={editingPenyuluhName}
+                    onChange={(e) => setEditingPenyuluhName(e.target.value)}
+                    className="w-full px-3 py-2 border border-slate-200 rounded-xl text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 bg-slate-50/50"
+                    placeholder="Contoh: Khadijah Al-Munawwarah, M.Ag"
+                  />
+                </div>
+
+                {/* WhatsApp field */}
+                <div>
+                  <label className="block text-[10px] font-bold text-slate-600 uppercase mb-1">Nomor WhatsApp (Kode Negara, Tanpa '+')</label>
+                  <input 
+                    type="text"
+                    required
+                    value={editingPenyuluhPhone}
+                    onChange={(e) => setEditingPenyuluhPhone(e.target.value)}
+                    className="w-full px-3 py-2 border border-slate-200 rounded-xl text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 font-mono bg-slate-50/50"
+                    placeholder="Contoh: 6281240912842"
+                  />
+                </div>
+
+                <div className="grid grid-cols-2 gap-3 pt-2">
+                  <button
+                    type="button"
+                    onClick={() => setEditingPenyuluh(null)}
+                    className="py-2.5 px-4 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold transition-colors cursor-pointer text-center"
+                  >
+                    Batalkan
+                  </button>
+                  <button
+                    type="submit"
+                    disabled={isSubmittingPenyuluh}
+                    className="py-2.5 px-4 bg-emerald-600 hover:bg-emerald-700 disabled:bg-emerald-300 text-white rounded-xl text-xs font-bold shadow-md transition-colors cursor-pointer text-center flex items-center justify-center"
+                  >
+                    <span>{isSubmittingPenyuluh ? "Menyimpan..." : "Simpan"}</span>
+                  </button>
+                </div>
+              </form>
             </motion.div>
           </div>
         )}
