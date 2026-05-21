@@ -588,14 +588,19 @@ export default function App() {
               {/* STATISTIK SECTION */}
               <section className="bg-emerald-950 py-8 text-white relative overflow-hidden" id="section-statistik">
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(16,185,129,0.15),transparent_40%)] pointer-events-none" />
-                <div className="max-w-7xl mx-auto relative z-10 flex flex-col items-center px-4">
-                  <div className="w-full flex justify-center">
+                <div className="max-w-5xl mx-auto relative z-10 flex flex-col items-center px-4 sm:px-6">
+                  <div className="w-full relative overflow-hidden rounded-2xl border border-emerald-800/30 shadow-2xl bg-emerald-950 flex justify-center">
                     <img 
                       src={defaultSettings.statistikImg || statistikKuaPlaceholder} 
                       alt="Statistik Pelayanan KUA" 
-                      className="w-full h-auto md:max-w-5xl lg:max-w-6xl select-none"
+                      className="w-full h-auto select-none block"
                       referrerPolicy="no-referrer"
                     />
+                    {/* Subtle micro blend overlays on the extreme outer edges for flawless background integration */}
+                    <div className="absolute inset-0 pointer-events-none z-10">
+                      <div className="absolute left-0 top-0 bottom-0 w-4 sm:w-8 bg-gradient-to-r from-emerald-950 to-transparent" />
+                      <div className="absolute right-0 top-0 bottom-0 w-4 sm:w-8 bg-gradient-to-l from-emerald-950 to-transparent" />
+                    </div>
                   </div>
                 </div>
               </section>
