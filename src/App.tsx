@@ -14,6 +14,7 @@ import {
   User, 
   Users,
   ClipboardList,
+  Printer,
   Lock, 
   Settings as SettingsIcon, 
   LogOut, 
@@ -203,14 +204,45 @@ export default function App() {
   const [showConsultationForm, setShowConsultationForm] = useState(false);
   const [selectedPhotoViewer, setSelectedPhotoViewer] = useState<any | null>(null);
 
-  // States for Kuesioner Evaluasi Layanan Pembinaan
+  // States for Kuesioner Evaluasi Layanan Pembinaan (Kemenag PDF Format)
   const [showEvaluasiModal, setShowEvaluasiModal] = useState(false);
-  const [evaluasiCatinName, setEvaluasiCatinName] = useState("");
-  const [evaluasiCatinPhone, setEvaluasiCatinPhone] = useState("");
-  const [evaluasiSatisfied, setEvaluasiSatisfied] = useState<number>(5);
-  const [evaluasiMateriRating, setEvaluasiMateriRating] = useState<number>(5);
+  const [evaluasiTahun, setEvaluasiTahun] = useState("2025");
+  const [evaluasiCatinPria, setEvaluasiCatinPria] = useState("RAHMANI");
+  const [evaluasiCatinWanita, setEvaluasiCatinWanita] = useState("SIFA AZAHRA TEMARWUT");
+  const [evaluasiHariTanggal, setEvaluasiHariTanggal] = useState("Selasa, 10 Februari Tahun 2026");
+  const [evaluasiCatinPhone, setEvaluasiCatinPhone] = useState("081240912842");
+  const [evaluasiKegiatan, setEvaluasiKegiatan] = useState("Bimbingan Perkawinan");
+  const [evaluasiTema, setEvaluasiTema] = useState("Psikologi Keluarga");
+  
+  // Identitas Penyuluh Agama
   const [evaluasiPenyuluhId, setEvaluasiPenyuluhId] = useState("");
-  const [evaluasiFeedback, setEvaluasiFeedback] = useState("");
+  const [evaluasiPenyuluhName, setEvaluasiPenyuluhName] = useState("Dodi, S.HI");
+  const [evaluasiPenyuluhNip, setEvaluasiPenyuluhNip] = useState("198501272025211002");
+  const [evaluasiPenyuluhPangkat, setEvaluasiPenyuluhPangkat] = useState("IX");
+  const [evaluasiPenyuluhJabatan, setEvaluasiPenyuluhJabatan] = useState("Penyuluh Agama Islam");
+  const [evaluasiPenyuluhTempatTugas, setEvaluasiPenyuluhTempatTugas] = useState("Kantor Kementerian Agama Kota Tual");
+  const [evaluasiPenyuluhUnitKerja, setEvaluasiPenyuluhUnitKerja] = useState("KUA Pulau Dullah Utara");
+
+  // Ratings for 6 instruments (Q3 to Q8)
+  const [evaluasiRatings, setEvaluasiRatings] = useState<Record<string, string>>({
+    q3: "Cukup Baik",
+    q4: "Sangat Baik",
+    q5: "Sangat Baik",
+    q6: "Cukup Baik",
+    q7: "Cukup Baik",
+    q8: "Sangat Baik"
+  });
+
+  // Comments / Hasil Pemantauan for each instrument
+  const [evaluasiComments, setEvaluasiComments] = useState<Record<string, string>>({
+    q3: "Sesuai dengan kebutuhan penyuluhan",
+    q4: "Sangat sistematis dan interaktif",
+    q5: "Pesan sangat jelas dan mendidik",
+    q6: "Sarana bimbingan sangat memadai",
+    q7: "Sangat bersemangat dan komunikatif",
+    q8: "Sangat bermanfaat untuk kehidupan sakinah"
+  });
+
   const [evaluasiSubmitted, setEvaluasiSubmitted] = useState(false);
 
   // Fetch complete database state
@@ -498,25 +530,59 @@ export default function App() {
     window.open(waUrl, "_blank");
   };
 
+  const handlePenyuluhSelectForEvaluasi = (id: string) => {
+    setEvaluasiPenyuluhId(id);
+    if (!id) return;
+    const p = (db?.penyuluh || PENYULUH_AGAMA_LIST).find(item => item.id === id);
+    if (p) {
+      setEvaluasiPenyuluhName(p.name);
+      // Give realistic stable NIPS for our default ones
+      const nips: Record<string, string> = {
+        p1: "197208152003121001",
+        p2: "198004122008012015",
+        p3: "197811052006041003",
+        p4: "198305142010012022",
+        p5: "198501272025211002", // Matches Dodi
+        p6: "197509202005012008",
+        p7: "198812252014022011"
+      };
+      setEvaluasiPenyuluhNip(nips[id] || "198501272025211002");
+      setEvaluasiPenyuluhPangkat(id === "p1" || id === "p3" ? "IV/a" : "IX");
+      setEvaluasiPenyuluhJabatan("Penyuluh Agama Islam");
+      setEvaluasiPenyuluhTempatTugas("Kantor Kementerian Agama Kota Tual");
+      setEvaluasiPenyuluhUnitKerja("KUA Pulau Dullah Utara");
+    }
+  };
+
   const handleEvaluasiSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!evaluasiCatinName || !evaluasiCatinPhone || !evaluasiPenyuluhId || !evaluasiFeedback) {
+    if (!evaluasiCatinPria || !evaluasiCatinWanita || !evaluasiCatinPhone || !evaluasiPenyuluhName) {
       alert("Harap lengkapi semua isian formulir evaluasi!");
       return;
     }
-    const selectedPenyuluhName = penyuluhList.find(p => p.id === evaluasiPenyuluhId)?.name || "Penyuluh";
-    const satisfactionStars = "⭐".repeat(evaluasiSatisfied);
-    const materiStars = "⭐".repeat(evaluasiMateriRating);
     
-    const formattedText = `*KUESIONER EVALUASI LAYANAN PEMBINAAN KUA PULAU DULLAH UTARA*\n\n` +
-      `Saya telah mengisi formulir evaluasi layanan bimbingan rohani/keluarga sakinah catin:\n\n` +
-      `- *Nama Catin/Responden:* ${evaluasiCatinName}\n` +
+    // Create detailed rating text summary
+    const ratingSummary = `3. Kesesuaian materi: ${evaluasiRatings.q3 || "Sangat Baik"}\n` +
+      `4. Sistematis penyampaian: ${evaluasiRatings.q4 || "Sangat Baik"}\n` +
+      `5. Ketercapaian pesan: ${evaluasiRatings.q5 || "Sangat Baik"}\n` +
+      `6. Sarana prasarana: ${evaluasiRatings.q6 || "Sangat Baik"}\n` +
+      `7. Sikap penasihat/sumber: ${evaluasiRatings.q7 || "Sangat Baik"}\n` +
+      `8. Manfaat materi rumah tangga: ${evaluasiRatings.q8 || "Sangat Baik"}`;
+
+    const formattedText = `*KUESIONER MONITORING & EVALUASI BIMWIN KUA PULAU DULLAH UTARA TAHUN ${evaluasiTahun}*\n\n` +
+      `Saya telah mengisi laporan kuesioner evaluasi bimbingan perkawinan/keluarga sakinah:\n\n` +
+      `*Identitas Peserta:*\n` +
+      `- *Peserta Pria:* ${evaluasiCatinPria}\n` +
+      `- *Peserta Wanita:* ${evaluasiCatinWanita}\n` +
       `- *No. WA / HP:* ${evaluasiCatinPhone}\n` +
-      `- *Penyuluh Pembimbing:* ${selectedPenyuluhName}\n` +
-      `- *Kepuasan Layanan Pembinaan:* ${satisfactionStars} (${evaluasiSatisfied}/5)\n` +
-      `- *Kualitas Kelayakan Materi:* ${materiStars} (${evaluasiMateriRating}/5)\n` +
-      `- *Ulasan/Kesan & Masukan:* _"${evaluasiFeedback}"_\n\n` +
-      `Terima kasih atas pelayanan prima dari KUA Pulau Dullah Utara. Semoga kami menjadi keluarga yang sakinah, mawaddah, warahmah.`;
+      `- *Hari & Tanggal:* ${evaluasiHariTanggal}\n` +
+      `- *Kegiatan:* ${evaluasiKegiatan} - Tema: ${evaluasiTema}\n\n` +
+      `*Identitas Narasumber:*\n` +
+      `- *Nama Penyuluh:* ${evaluasiPenyuluhName}\n` +
+      `- *NIP:* ${evaluasiPenyuluhNip}\n` +
+      `- *Jabatan:* ${evaluasiPenyuluhJabatan}\n\n` +
+      `*Penilaian Instrumen:*\n${ratingSummary}\n\n` +
+      `Kuesioner siap dicetak resmi sebagai arsip KUA Pulau Dullah Utara.`;
 
     const waUrl = `https://wa.me/${defaultSettings.whatsappNumber}?text=${encodeURIComponent(formattedText)}`;
     
@@ -702,7 +768,8 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col justify-between">
+    <>
+      <div className="min-h-screen flex flex-col justify-between no-print">
       
       {/* Dynamic Header */}
       <Header 
@@ -3661,216 +3728,587 @@ export default function App() {
             onClick={() => setShowEvaluasiModal(false)}
           >
             <motion.div
-              initial={{ opacity: 0, scale: 0.95, y: 15 }}
+              initial={{ opacity: 0, scale: 0.97, y: 15 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: 15 }}
+              exit={{ opacity: 0, scale: 0.97, y: 15 }}
               transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-              className="bg-white rounded-3xl overflow-hidden max-w-lg w-full border border-slate-100 shadow-2xl p-6 sm:p-8 relative cursor-default space-y-4 max-h-[90vh] overflow-y-auto"
+              className="bg-slate-50 rounded-3xl overflow-hidden max-w-6xl w-full border border-slate-150 shadow-2xl p-4 sm:p-6 relative cursor-default max-h-[92vh] flex flex-col"
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-                <div className="flex items-center space-x-2 text-amber-800">
-                  <ClipboardList className="h-5 w-5" />
-                  <h3 className="text-sm font-extrabold text-slate-900">Kuesioner Evaluasi Layanan Pembinaan KUA</h3>
+              {/* Header */}
+              <div className="flex items-center justify-between border-b border-slate-200 pb-3 mb-4 no-print">
+                <div className="flex items-center space-x-2 text-emerald-800">
+                  <ClipboardList className="h-5 w-5 text-emerald-600" />
+                  <h3 className="text-sm font-extrabold text-slate-900">Penyesuaian Format & Cetak PDF Kuesioner Evaluasi KUA</h3>
                 </div>
                 <button 
                   onClick={() => setShowEvaluasiModal(false)}
-                  className="p-1 hover:bg-slate-100 rounded-lg text-slate-400 hover:text-slate-650 cursor-pointer"
+                  className="p-1 hover:bg-slate-200 rounded-lg text-slate-400 hover:text-slate-650 cursor-pointer"
                 >
                   <X className="h-4 w-4" />
                 </button>
               </div>
 
-              {!evaluasiSubmitted ? (
-                <form onSubmit={handleEvaluasiSubmit} className="space-y-4 pt-2">
-                  <p className="text-[11px] text-slate-500 leading-relaxed bg-amber-50/50 p-3 rounded-xl border border-amber-100">
-                    Mohon isi data di bawah ini secara objektif terkait program pembinaan pendampingan keluarga sakinah catin oleh Penyuluh Agama Islam kami. Penilaian Anda langsung terkirim sebagai perbaikan layanan.
-                  </p>
+              {/* Split Content */}
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 overflow-y-auto flex-grow pr-1 no-print">
+                {/* COLUMN 1: EDIT LAYOUT DETAILS (LEFT) */}
+                <div className="lg:col-span-5 space-y-4 max-h-[75vh] overflow-y-auto pr-1">
+                  <div className="bg-amber-50/70 border border-amber-200/60 p-3 rounded-2xl text-[11px] text-amber-900 leading-relaxed">
+                    <strong>Petunjuk Format KUA:</strong> Sesuaikan isian di bawah ini. Tabel pratinjau di sebelah kanan akan berubah secara langsung. Anda dapat langsung mengunduh/mencetak dokumen hasil bimbingan perkawinan berupa PDF.
+                  </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    {/* Responden Name */}
+                  {/* SECTION 1: IDENTITAS PESERTA */}
+                  <div className="bg-white p-4 rounded-2xl border border-slate-200 space-y-3">
+                    <h4 className="text-[11px] font-extrabold text-slate-900 uppercase tracking-wider pb-1.5 border-b border-slate-100 flex items-center gap-1">
+                      <Users className="h-3.5 w-3.5 text-slate-600" />
+                      <span>Identitas Pasangan (Catin)</span>
+                    </h4>
+                    
+                    <div className="grid grid-cols-2 gap-3">
+                      <div>
+                        <label className="block text-[9px] font-bold text-slate-500 uppercase mb-0.5">Nama Peserta Pria</label>
+                        <input 
+                          type="text"
+                          value={evaluasiCatinPria}
+                          onChange={(e) => setEvaluasiCatinPria(e.target.value)}
+                          className="w-full px-2.5 py-1.5 border border-slate-250 rounded-lg text-xs font-bold text-slate-800 bg-slate-50"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-[9px] font-bold text-slate-500 uppercase mb-0.5">Nama Peserta Wanita</label>
+                        <input 
+                          type="text"
+                          value={evaluasiCatinWanita}
+                          onChange={(e) => setEvaluasiCatinWanita(e.target.value)}
+                          className="w-full px-2.5 py-1.5 border border-slate-250 rounded-lg text-xs font-bold text-slate-800 bg-slate-50"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-3">
+                      <div>
+                        <label className="block text-[9px] font-bold text-slate-500 uppercase mb-0.5">No. WhatsApp / HP</label>
+                        <input 
+                          type="text"
+                          value={evaluasiCatinPhone}
+                          onChange={(e) => setEvaluasiCatinPhone(e.target.value)}
+                          className="w-full px-2.5 py-1.5 border border-slate-250 rounded-lg text-xs font-mono text-slate-800 bg-slate-50"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-[9px] font-bold text-slate-500 uppercase mb-0.5">Tahun Kegiatan</label>
+                        <input 
+                          type="text"
+                          value={evaluasiTahun}
+                          onChange={(e) => setEvaluasiTahun(e.target.value)}
+                          className="w-full px-2.5 py-1.5 border border-slate-250 rounded-lg text-xs font-bold text-slate-800 bg-slate-50"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* SECTION 2: IDENTITAS PENYULUH / NARASUMBER */}
+                  <div className="bg-white p-4 rounded-2xl border border-slate-200 space-y-3">
+                    <h4 className="text-[11px] font-extrabold text-slate-900 uppercase tracking-wider pb-1.5 border-b border-slate-100 flex items-center gap-1">
+                      <User className="h-3.5 w-3.5 text-slate-600" />
+                      <span>Penyuluh / Narasumber</span>
+                    </h4>
+
                     <div>
-                      <label className="block text-[10px] font-bold text-slate-600 uppercase mb-1">Nama Responden / Catin</label>
+                      <label className="block text-[9px] font-bold text-slate-500 uppercase mb-1">Pilih Cepat dari Database</label>
+                      <select
+                        value={evaluasiPenyuluhId}
+                        onChange={(e) => handlePenyuluhSelectForEvaluasi(e.target.value)}
+                        className="w-full px-2.5 py-1.5 border border-slate-250 rounded-lg text-xs text-slate-800 bg-slate-50 font-bold"
+                      >
+                        <option value="">-- Pilih & Gunakan Data Penyuluh --</option>
+                        {penyuluhList.map((p) => (
+                          <option key={p.id} value={p.id}>{p.name}</option>
+                        ))}
+                      </select>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-3">
+                      <div>
+                        <label className="block text-[9px] font-bold text-slate-500 uppercase mb-0.5">Nama Lengkap & Gelar</label>
+                        <input 
+                          type="text"
+                          value={evaluasiPenyuluhName}
+                          onChange={(e) => setEvaluasiPenyuluhName(e.target.value)}
+                          className="w-full px-2.5 py-1.5 border border-slate-250 rounded-lg text-xs text-slate-800 font-bold"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-[9px] font-bold text-slate-500 uppercase mb-0.5">NIP</label>
+                        <input 
+                          type="text"
+                          value={evaluasiPenyuluhNip}
+                          onChange={(e) => setEvaluasiPenyuluhNip(e.target.value)}
+                          className="w-full px-2.5 py-1.5 border border-slate-250 rounded-lg text-xs font-mono text-slate-800"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-3">
+                      <div>
+                        <label className="block text-[9px] font-bold text-slate-500 uppercase mb-0.5">Pangkat/Golongan</label>
+                        <input 
+                          type="text"
+                          value={evaluasiPenyuluhPangkat}
+                          onChange={(e) => setEvaluasiPenyuluhPangkat(e.target.value)}
+                          className="w-full px-2.5 py-1.5 border border-slate-250 rounded-lg text-xs text-slate-800"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-[9px] font-bold text-slate-500 uppercase mb-0.5">Jabatan Pokok</label>
+                        <input 
+                          type="text"
+                          value={evaluasiPenyuluhJabatan}
+                          onChange={(e) => setEvaluasiPenyuluhJabatan(e.target.value)}
+                          className="w-full px-2.5 py-1.5 border border-slate-250 rounded-lg text-xs text-slate-800"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-3">
+                      <div>
+                        <label className="block text-[9px] font-bold text-slate-500 uppercase mb-0.5">Tempat Tugas</label>
+                        <input 
+                          type="text"
+                          value={evaluasiPenyuluhTempatTugas}
+                          onChange={(e) => setEvaluasiPenyuluhTempatTugas(e.target.value)}
+                          className="w-full px-2.5 py-1.5 border border-slate-250 rounded-lg text-xs text-slate-800"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-[9px] font-bold text-slate-500 uppercase mb-0.5">Unit Kerja KUA</label>
+                        <input 
+                          type="text"
+                          value={evaluasiPenyuluhUnitKerja}
+                          onChange={(e) => setEvaluasiPenyuluhUnitKerja(e.target.value)}
+                          className="w-full px-2.5 py-1.5 border border-slate-250 rounded-lg text-xs text-slate-800 font-bold"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* SECTION 3: KEGIATAN & TEMA */}
+                  <div className="bg-white p-4 rounded-2xl border border-slate-200 space-y-3">
+                    <h4 className="text-[11px] font-extrabold text-slate-900 uppercase tracking-wider pb-1.5 border-b border-slate-100">Kegiatan & Tanggal</h4>
+                    
+                    <div>
+                      <label className="block text-[9px] font-bold text-slate-500 uppercase mb-0.5">Nama Kegiatan</label>
                       <input 
                         type="text"
-                        required
-                        value={evaluasiCatinName}
-                        onChange={(e) => setEvaluasiCatinName(e.target.value)}
-                        className="w-full px-3 py-2 border border-slate-200 rounded-xl text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 bg-slate-50/50"
-                        placeholder="Masukkan nama lengkap Anda"
+                        value={evaluasiKegiatan}
+                        onChange={(e) => setEvaluasiKegiatan(e.target.value)}
+                        className="w-full px-2.5 py-1.5 border border-slate-250 rounded-lg text-xs text-slate-800"
                       />
                     </div>
 
-                    {/* Responden Whatsapp */}
                     <div>
-                      <label className="block text-[10px] font-bold text-slate-600 uppercase mb-1">No. WhatsApp / HP</label>
+                      <label className="block text-[9px] font-bold text-slate-500 uppercase mb-0.5">Tema Penataran</label>
                       <input 
-                        type="tel"
-                        required
-                        value={evaluasiCatinPhone}
-                        onChange={(e) => setEvaluasiCatinPhone(e.target.value)}
-                        className="w-full px-3 py-2 border border-slate-200 rounded-xl text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 font-mono bg-slate-50/50"
-                        placeholder="Contoh: 0812..."
+                        type="text"
+                        value={evaluasiTema}
+                        onChange={(e) => setEvaluasiTema(e.target.value)}
+                        className="w-full px-2.5 py-1.5 border border-slate-250 rounded-lg text-xs text-slate-800 font-bold"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-[9px] font-bold text-slate-500 uppercase mb-0.5">Waktu Pelaksanaan (Hari, Tanggal Bulan Tahun)</label>
+                      <input 
+                        type="text"
+                        value={evaluasiHariTanggal}
+                        onChange={(e) => setEvaluasiHariTanggal(e.target.value)}
+                        className="w-full px-2.5 py-1.5 border border-slate-250 rounded-lg text-xs text-slate-800"
                       />
                     </div>
                   </div>
 
-                  {/* Choose Penyuluh */}
-                  <div>
-                    <label className="block text-[10px] font-bold text-slate-600 uppercase mb-1">Penyuluh yang Mendampingi</label>
-                    <select
-                      required
-                      value={evaluasiPenyuluhId}
-                      onChange={(e) => setEvaluasiPenyuluhId(e.target.value)}
-                      className="w-full px-3 py-2 border border-slate-200 rounded-xl text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 bg-slate-50/50 cursor-pointer"
-                    >
-                      <option value="">-- Pilih Nama Penyuluh Agama --</option>
-                      {penyuluhList.map((p) => (
-                        <option key={p.id} value={p.id}>
-                          {p.name}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-
-                  {/* Rating 1: Kepuasan Layanan */}
-                  <div>
-                    <label className="block text-[10px] font-bold text-slate-600 uppercase mb-1">
-                      Bagaimana kepuasan Anda terhadap Layanan Pembinaan?
-                    </label>
-                    <div className="flex items-center space-x-2 mt-1 bg-slate-50 p-3 border border-slate-150 rounded-xl justify-center">
-                      {[1, 2, 3, 4, 5].map((stars) => (
-                        <button
-                          key={stars}
-                          type="button"
-                          onClick={() => setEvaluasiSatisfied(stars)}
-                          className="focus:outline-none hover:scale-110 active:scale-95 transition-transform"
-                        >
-                          <Heart 
-                            className={`h-7 w-7 transition-all ${
-                              stars <= evaluasiSatisfied 
-                                ? "fill-rose-500 text-rose-500 stroke-rose-600" 
-                                : "text-slate-350 hover:text-rose-400"
-                            }`} 
+                  {/* SECTION 4: PEMANTAUAN & RATING INSTRUMEN */}
+                  <div className="bg-white p-4 rounded-2xl border border-slate-200 space-y-4">
+                    <h4 className="text-[11px] font-extrabold text-slate-900 uppercase tracking-wider pb-1.5 border-b border-slate-100">Hasil Penilaian Ceklist</h4>
+                    
+                    {[
+                      { key: "q3", num: "3", text: "Kesesuaian penyampaian materi dengan tema:" },
+                      { key: "q4", num: "4", text: "Kesesuaian metode penyampaian secara sistematis:" },
+                      { key: "q5", num: "5", text: "Kejelasan pesan tema tersampaikan ke peserta:" },
+                      { key: "q6", num: "6", text: "Kelayakan sarana prasarana penunjang kegiatan:" },
+                      { key: "q7", num: "7", text: "Antusiasme narasumber, motivasi, dan keaktifan:" },
+                      { key: "q8", num: "8", text: "Kelayakan manfaat materi bimbingan di masa depan:" }
+                    ].map((item) => (
+                      <div key={item.key} className="p-3 bg-slate-50 border border-slate-200/80 rounded-xl space-y-2">
+                        <div className="text-xs">
+                          <span className="font-bold text-emerald-800 font-mono">{item.num}.</span> <span className="text-slate-700 font-medium">{item.text}</span>
+                        </div>
+                        {/* Rating scale radio list */}
+                        <div className="flex flex-wrap gap-1">
+                          {["Cukup", "Sedang", "Baik", "Cukup Baik", "Sangat Baik"].map((scale) => (
+                            <button
+                              key={scale}
+                              type="button"
+                              onClick={() => setEvaluasiRatings(prev => ({ ...prev, [item.key]: scale }))}
+                              className={`px-2 py-1 text-[9px] font-bold rounded-md border transition-all cursor-pointer ${
+                                evaluasiRatings[item.key] === scale 
+                                  ? "bg-emerald-600 text-white border-emerald-600 scale-102" 
+                                  : "bg-white text-slate-600 border-slate-250 hover:bg-slate-100"
+                              }`}
+                            >
+                              {scale}
+                            </button>
+                          ))}
+                        </div>
+                        {/* Comments */}
+                        <div>
+                          <label className="block text-[8px] font-bold text-slate-400 uppercase mb-0.5">Hasil Pemantauan / Penjelasan</label>
+                          <input 
+                            type="text"
+                            placeholder="Tulis hasil pemantauan untuk item ini..."
+                            value={evaluasiComments[item.key] || ""}
+                            onChange={(e) => setEvaluasiComments(prev => ({ ...prev, [item.key]: e.target.value }))}
+                            className="w-full px-2 py-1 border border-slate-200 rounded text-[10px] text-slate-800"
                           />
-                        </button>
-                      ))}
-                      <span className="text-xs font-bold text-slate-600 ml-2">
-                        {evaluasiSatisfied === 5 && "Sangat Puas ⭐ 5"}
-                        {evaluasiSatisfied === 4 && "Puas ⭐ 4"}
-                        {evaluasiSatisfied === 3 && "Cukup ⭐ 3"}
-                        {evaluasiSatisfied === 2 && "Kurang Puas ⭐ 2"}
-                        {evaluasiSatisfied === 1 && "Tidak Puas ⭐ 1"}
-                      </span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* COLUMN 2: PRATINJAU KERTAS DOKUMEN RESMI (RIGHT) */}
+                <div className="lg:col-span-7 flex flex-col gap-3">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Lembar Fisik Dokumen KUA (Pratinjau)</span>
+                    <span className="text-[10px] bg-slate-200 text-slate-700 font-bold px-2 py-0.5 rounded-full uppercase">Pristine A4 Layout</span>
+                  </div>
+
+                  {/* VIRTUAL PAPER CARD */}
+                  <div className="bg-white shadow-inner border border-slate-300 text-black leading-snug p-6 sm:p-10 font-serif text-[10.5px] max-h-[64vh] overflow-y-auto rounded-2xl select-none select-text cursor-default space-y-4">
+                    {/* Header */}
+                    <div className="text-center font-bold tracking-tight uppercase space-y-0.5 select-text">
+                      <h4 className="text-[11px] font-bold font-sans">MONITORING DAN EVALUASI PELAKSANAAN BIMBINGAN PERKAWINAN</h4>
+                      <h4 className="text-[11px] font-bold font-sans">KANTOR KEMENTERIAN AGAMA KOTA TUAL</h4>
+                      <h4 className="text-[11px] font-bold font-sans">KANTOR URUSAN AGAMA PULAU DULLAH UTARA</h4>
+                      <p className="text-[9px] lowercase italic font-normal normal-case font-sans">Alamat : Jl. Panglima Mandala, Fiditan, Kota Tual</p>
                     </div>
-                  </div>
-
-                  {/* Rating 2: Kualitas Materi / Penyampaian */}
-                  <div>
-                    <label className="block text-[10px] font-bold text-slate-600 uppercase mb-1">
-                      Bagaimana pendapat Anda tentang kualitas kelayakan Materi Bimbingan?
-                    </label>
-                    <div className="flex items-center space-x-2 mt-1 bg-slate-50 p-3 border border-slate-150 rounded-xl justify-center">
-                      {[1, 2, 3, 4, 5].map((stars) => (
-                        <button
-                          key={stars}
-                          type="button"
-                          onClick={() => setEvaluasiMateriRating(stars)}
-                          className="focus:outline-none hover:scale-110 active:scale-95 transition-transform"
-                        >
-                          <Sparkles 
-                            className={`h-7 w-7 transition-all ${
-                              stars <= evaluasiMateriRating 
-                                ? "fill-amber-400 text-amber-500 stroke-amber-600" 
-                                : "text-slate-350 hover:text-amber-400"
-                            }`} 
-                          />
-                        </button>
-                      ))}
-                      <span className="text-xs font-bold text-slate-600 ml-2">
-                        {evaluasiMateriRating === 5 && "Sangat Bagus ⭐ 5"}
-                        {evaluasiMateriRating === 4 && "Bagus ⭐ 4"}
-                        {evaluasiMateriRating === 3 && "Cukup ⭐ 3"}
-                        {evaluasiMateriRating === 2 && "Kurang Baik ⭐ 2"}
-                        {evaluasiMateriRating === 1 && "Sangat Buruk ⭐ 1"}
-                      </span>
+                    
+                    {/* double rule */}
+                    <div className="border-b-[3px] border-double border-black my-2" />
+                    
+                    {/* Title box */}
+                    <div className="border border-black p-2.5 text-center uppercase font-bold my-3 space-y-0.5 text-[10px] font-sans">
+                      <p>PELAKSANAAN MONITORING DAN EVALUASI TAHUN {evaluasiTahun}</p>
+                      <p>NAMA PESERTA BIMWIN {evaluasiCatinPria} & {evaluasiCatinWanita}</p>
+                      <p className="normal-case font-normal italic text-[9.5px] font-serif">{evaluasiHariTanggal}</p>
                     </div>
+
+                    {/* Identitas Penyuluh */}
+                    <div className="space-y-1">
+                      <h5 className="font-bold underline text-[10.5px] mb-1 font-sans">Identitas Penyuluh Agama</h5>
+                      <div className="grid grid-cols-12 gap-x-1 pl-1 leading-normal font-sans">
+                        <div className="col-span-3">Nama Lengkap</div>
+                        <div className="col-span-1">:</div>
+                        <div className="col-span-8 font-bold">{evaluasiPenyuluhName || "-"}</div>
+
+                        <div className="col-span-3">NIP</div>
+                        <div className="col-span-1">:</div>
+                        <div className="col-span-8">{evaluasiPenyuluhNip || "-"}</div>
+
+                        <div className="col-span-3">Pangkat/Golongan</div>
+                        <div className="col-span-1">:</div>
+                        <div className="col-span-8">{evaluasiPenyuluhPangkat || "-"}</div>
+
+                        <div className="col-span-3">Jabatan</div>
+                        <div className="col-span-1">:</div>
+                        <div className="col-span-8">{evaluasiPenyuluhJabatan || "-"}</div>
+
+                        <div className="col-span-3">Tempat tugas</div>
+                        <div className="col-span-1">:</div>
+                        <div className="col-span-8">{evaluasiPenyuluhTempatTugas || "-"}</div>
+
+                        <div className="col-span-3">Unit Kerja</div>
+                        <div className="col-span-1">:</div>
+                        <div className="col-span-8">{evaluasiPenyuluhUnitKerja || "-"}</div>
+                      </div>
+                    </div>
+
+                    <p className="font-bold italic text-[10px] my-2 font-sans">Mohon diisi dengan baik dan benar sesuai kegiatan yang baru saja Anda ikuti saat ini!</p>
+
+                    <div className="border border-black/25 p-2 bg-slate-50/20 my-2 space-y-0.5 text-[10px] font-sans">
+                      <p><span className="font-bold">1. Kegiatan</span> : {evaluasiKegiatan}</p>
+                      <p><span className="font-bold">2. Tema</span> : {evaluasiTema}</p>
+                    </div>
+
+                    <p className="font-bold text-center uppercase my-2 underline font-sans text-[10px]">HASIL LAPORAN BERDASARKAN INSTRUMEN YANG DIISI OLEH PESERTA</p>
+
+                    {/* Table */}
+                    <table className="w-full border-collapse border border-black my-2 font-sans text-[9px]">
+                      <thead>
+                        <tr className="bg-slate-50/50">
+                          <th className="border border-black text-center py-1 w-[6%]" rowSpan={2}>No.</th>
+                          <th className="border border-black text-left px-2 py-1 w-[54%]" rowSpan={2}>Pertanyaan Instrumen</th>
+                          <th className="border border-black text-center py-0.5" colSpan={5}>Jumlah</th>
+                        </tr>
+                        <tr className="bg-slate-50/50">
+                          <th className="border border-black text-center py-0.5 w-[8%] text-[8px]">Cukup</th>
+                          <th className="border border-black text-center py-0.5 w-[8%] text-[8px]">Sedang</th>
+                          <th className="border border-black text-center py-0.5 w-[8%] text-[8px]">Baik</th>
+                          <th className="border border-black text-center py-0.5 w-[8%] text-[8px]">Cukup Baik</th>
+                          <th className="border border-black text-center py-0.5 w-[8%] text-[8px]">Sangat Baik</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {[
+                          { key: "q3", num: "3.", q: "Bagaimanakah penyampaian materi apakah sudah sesuai dengan tema?" },
+                          { key: "q4", num: "4.", q: "Bagaimana langkah penyampaian materi apakah sudah sistematis?" },
+                          { key: "q5", num: "5.", q: "Bagaimanakah pesan dari tema apakah sudah tersampaikan?" },
+                          { key: "q6", num: "6.", q: "Bagaimanakah penggunaan sarana dan prasarana selama kegiatan, apakah sudah membantu?" },
+                          { key: "q7", num: "7.", q: "Bagaimana penilaian peserta terhadap sikap narasumber,apakah narasumber menyampaikan materi dengan antusias, semangat, dan memberikan motivasi yang baik?" }
+                        ].map((m) => (
+                          <tr key={m.key}>
+                            <td className="border border-black text-center font-bold py-1">{m.num}</td>
+                            <td className="border border-black px-2 py-1">
+                              <span className="font-bold">{m.q}</span>
+                              <div className="text-[8px] italic font-serif text-slate-650 mt-0.5">Hasil Pemantauan : {evaluasiComments[m.key] || "-"}</div>
+                            </td>
+                            {["Cukup", "Sedang", "Baik", "Cukup Baik", "Sangat Baik"].map((scale) => (
+                              <td key={scale} className="border border-black text-center font-bold text-emerald-800 text-[11px]">
+                                {evaluasiRatings[m.key] === scale ? "✓" : ""}
+                              </td>
+                            ))}
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+
+                    <div className="text-center text-[8px] text-slate-400 italic font-sans my-1">--- Bersambung ke halaman berikutnya (Lembar Fisik ke-2) ---</div>
                   </div>
 
-                  {/* Feedback / Suggestions */}
-                  <div>
-                    <label className="block text-[10px] font-bold text-slate-600 uppercase mb-1">Testimoni, Ulasan, dan Saran Perbaikan</label>
-                    <textarea 
-                      required
-                      rows={3}
-                      value={evaluasiFeedback}
-                      onChange={(e) => setEvaluasiFeedback(e.target.value)}
-                      className="w-full px-3 py-2 border border-slate-200 rounded-xl text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 bg-slate-50/50"
-                      placeholder="Masukkan ulasan, testimoni, atau saran Anda..."
-                    />
-                  </div>
-
-                  {/* Buttons */}
-                  <div className="grid grid-cols-2 gap-3 pt-2">
+                  {/* Buttons below inside Modal */}
+                  <div className="grid grid-cols-2 gap-3 mt-1 no-print">
                     <button
                       type="button"
-                      onClick={() => setShowEvaluasiModal(false)}
-                      className="py-2.5 px-4 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold transition-colors cursor-pointer text-center"
+                      onClick={handleEvaluasiSubmit}
+                      className="py-2.5 px-4 bg-slate-900 hover:bg-slate-850 text-white rounded-xl text-xs font-bold transition-transform cursor-pointer text-center flex items-center justify-center space-x-1.5 active:scale-98 shadow-md"
                     >
-                      Batal
+                      <Save className="h-4 w-4 text-emerald-400" />
+                      <span>Kirim Laporan & WA</span>
                     </button>
-                    <button
-                      type="submit"
-                      className="py-2.5 px-4 bg-amber-600 hover:bg-amber-700 text-white rounded-xl text-xs font-bold shadow-md transition-colors cursor-pointer text-center flex items-center justify-center space-x-1.5"
-                    >
-                      <Save className="h-3.5 w-3.5" />
-                      <span>Kirim Evaluasi</span>
-                    </button>
-                  </div>
-                </form>
-              ) : (
-                <div className="py-6 text-center space-y-4">
-                  <div className="w-16 h-16 bg-emerald-100 text-emerald-700 rounded-full flex items-center justify-center mx-auto text-2xl font-bold border border-emerald-200 shadow-xs">
-                    ✓
-                  </div>
-                  <div className="space-y-1">
-                    <h4 className="text-base font-bold text-slate-900">Terima Kasih Banyak!</h4>
-                    <p className="text-xs text-slate-500 max-w-sm mx-auto">
-                      Kuesioner evaluasi pembinaan keluarga sakinah catin Anda telah berhasil dipaketkan dan siap diteruskan melalui sistem WhatsApp / Database KUA.
-                    </p>
-                  </div>
-                  <div className="bg-slate-50 p-4 rounded-2xl border border-slate-150 text-left max-w-md mx-auto space-y-1.5 font-mono text-[10px] text-slate-650 leading-relaxed shadow-xxs">
-                    <p className="font-bold text-slate-800 text-[11px] mb-2 font-sans border-b border-slate-200 pb-1">Review Isian Anda:</p>
-                    <p>• Responden: <span className="font-bold text-slate-800">{evaluasiCatinName}</span></p>
-                    <p>• Kepuasan Layanan: <span className="text-rose-600 font-bold">{"⭐".repeat(evaluasiSatisfied)}</span> ({evaluasiSatisfied}/5)</p>
-                    <p>• Kualitas Materi: <span className="text-amber-600 font-bold">{"⭐".repeat(evaluasiMateriRating)}</span> ({evaluasiMateriRating}/5)</p>
-                    <p>• Saran: <span className="italic text-slate-900 border-l-2 border-emerald-500 pl-1.5 inline-block">"{evaluasiFeedback}"</span></p>
-                  </div>
-                  <div className="pt-2 flex justify-center gap-3">
+                    
                     <button
                       type="button"
-                      onClick={() => {
-                        setEvaluasiCatinName("");
-                        setEvaluasiCatinPhone("");
-                        setEvaluasiSatisfied(5);
-                        setEvaluasiMateriRating(5);
-                        setEvaluasiPenyuluhId("");
-                        setEvaluasiFeedback("");
-                        setEvaluasiSubmitted(false);
-                        setShowEvaluasiModal(false);
-                      }}
-                      className="py-2.5 px-6 bg-slate-950 text-white hover:bg-slate-850 rounded-xl text-xs font-bold cursor-pointer transition-colors"
+                      onClick={() => window.print()}
+                      className="py-2.5 px-4 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold transition-transform cursor-pointer text-center flex items-center justify-center space-x-1.5 active:scale-98 shadow-md"
                     >
-                      Selesai & Tutup
+                      <Printer className="h-4 w-4 text-emerald-100" />
+                      <span>Cetak PDF / Print</span>
                     </button>
                   </div>
                 </div>
-              )}
+              </div>
             </motion.div>
           </div>
         )}
       </AnimatePresence>
 
     </div>
+
+    {/* ========================================================
+        HIGH-FIDELITY FLUID 2-PAGE PRINTABLE OFFICIAL KUA FORM
+        ======================================================== */}
+    <div className="print-document hidden bg-white text-black p-[15mm] font-serif max-w-[210mm] min-h-[297mm] mx-auto leading-relaxed text-[11.5px] select-text">
+      {/* PAGE 1 CONTENT */}
+      <div className="text-center font-bold tracking-tight uppercase space-y-0.5 select-text">
+        <h2 className="text-[13px] font-bold">MONITORING DAN EVALUASI PELAKSANAAN BIMBINGAN PERKAWINAN</h2>
+        <h2 className="text-[13px] font-bold">KANTOR KEMENTERIAN AGAMA KOTA TUAL</h2>
+        <h2 className="text-[13px] font-bold">KANTOR URUSAN AGAMA PULAU DULLAH UTARA</h2>
+        <p className="text-[10px] lowercase italic font-normal normal-case font-serif">Alamat : Jl. Panglima Mandala, Fiditan, Kota Tual</p>
+      </div>
+      
+      {/* Thick double line */}
+      <div className="border-b-[3px] border-double border-black my-3" />
+      
+      {/* Title Box */}
+      <div className="border border-black p-3 text-center uppercase font-bold my-4 space-y-1">
+        <p className="text-[11.5px]">PELAKSANAAN MONITORING DAN EVALUASI TAHUN {evaluasiTahun}</p>
+        <p className="text-[11.5px]">NAMA PESERTA BIMWIN {evaluasiCatinPria} & {evaluasiCatinWanita}</p>
+        <p className="text-[10.5px] normal-case font-normal italic">{evaluasiHariTanggal}</p>
+      </div>
+
+      {/* Identitas Penyuluh */}
+      <div className="my-4 space-y-1">
+        <h4 className="font-bold underline text-[11.5px] mb-2 font-serif">Identitas Penyuluh Agama</h4>
+        <table className="w-full border-none text-[11px] table-fixed">
+          <tbody className="border-none">
+            <tr className="border-none">
+              <td className="w-[180px] border-none py-0.5 pl-0 pr-4 font-normal">Nama Lengkap</td>
+              <td className="w-[15px] border-none py-0.5 px-0 font-normal">:</td>
+              <td className="border-none py-0.5 px-0 font-bold">{evaluasiPenyuluhName}</td>
+            </tr>
+            <tr className="border-none">
+              <td className="border-none py-0.5 pl-0 pr-4 font-normal">NIP</td>
+              <td className="border-none py-0.5 px-0 font-normal">:</td>
+              <td className="border-none py-0.5 px-0">{evaluasiPenyuluhNip}</td>
+            </tr>
+            <tr className="border-none">
+              <td className="border-none py-0.5 pl-0 pr-4 font-normal">Pangkat/Golongan</td>
+              <td className="border-none py-0.5 px-0 font-normal">:</td>
+              <td className="border-none py-0.5 px-0">{evaluasiPenyuluhPangkat}</td>
+            </tr>
+            <tr className="border-none">
+              <td className="border-none py-0.5 pl-0 pr-4 font-normal">Jabatan</td>
+              <td className="border-none py-0.5 px-0 font-normal">:</td>
+              <td className="border-none py-0.5 px-0">{evaluasiPenyuluhJabatan}</td>
+            </tr>
+            <tr className="border-none">
+              <td className="border-none py-0.5 pl-0 pr-4 font-normal">Tempat tugas</td>
+              <td className="border-none py-0.5 px-0 font-normal">:</td>
+              <td className="border-none py-0.5 px-0">{evaluasiPenyuluhTempatTugas}</td>
+            </tr>
+            <tr className="border-none">
+              <td className="border-none py-0.5 pl-0 pr-4 font-normal">Unit Kerja</td>
+              <td className="border-none py-0.5 px-0 font-normal">:</td>
+              <td className="border-none py-0.5 px-0">{evaluasiPenyuluhUnitKerja}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p className="font-bold text-[11px] italic my-3">Mohon diisi dengan baik dan benar sesuai kegiatan yang baru saja Anda ikuti saat ini!</p>
+
+      {/* 1 & 2 */}
+      <table className="w-full border-none my-2 text-[11px]">
+        <tbody className="border-none">
+          <tr className="border-none">
+            <td className="border-none py-0.5 pl-0 w-[120px] font-bold">1. Kegiatan</td>
+            <td className="border-none py-0.5 px-0 w-[15px]">:</td>
+            <td className="border-none py-0.5 px-0">{evaluasiKegiatan}</td>
+          </tr>
+          <tr className="border-none">
+            <td className="border-none py-0.5 pl-0 font-bold">2. Tema</td>
+            <td className="border-none py-0.5 px-0">:</td>
+            <td className="border-none py-0.5 px-0">{evaluasiTema}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      {/* Centered table title */}
+      <p className="font-bold underline text-center uppercase my-4">HASIL LAPORAN BERDASARKAN INSTRUMEN YANG DIISI OLEH PESERTA</p>
+
+      {/* Evaluation Table Page 1 */}
+      <table className="w-full border-collapse border border-black my-4 text-[10.5px]">
+        <thead>
+          <tr className="bg-slate-50/20">
+            <th className="border border-black text-center py-2 px-1 w-[8%]" rowSpan={2}>No.</th>
+            <th className="border border-black text-center py-2 px-2 w-[52%]" rowSpan={2}>Pertanyaan Instrumen</th>
+            <th className="border border-black text-center py-1 colSpan={5} w-[40%]" colSpan={5}>Jumlah</th>
+          </tr>
+          <tr className="bg-slate-50/20">
+            <th className="border border-black text-center text-[9px] py-1">Cukup</th>
+            <th className="border border-black text-center text-[9px] py-1">Sedang</th>
+            <th className="border border-black text-center text-[9px] py-1">Baik</th>
+            <th className="border border-black text-center text-[9px] py-1">Cukup Baik</th>
+            <th className="border border-black text-center text-[9px] py-1">Sangat Baik</th>
+          </tr>
+        </thead>
+        <tbody>
+          {[
+            { key: "q3", num: "3.", q: "Bagaimanakah penyampaian materi apakah sudah sesuai dengan tema?" },
+            { key: "q4", num: "4.", q: "Bagaimana langkah penyampaian materi apakah sudah sistematis?" },
+            { key: "q5", num: "5.", q: "Bagaimanakah pesan dari tema apakah sudah tersampaikan?" },
+            { key: "q6", num: "6.", q: "Bagaimanakah penggunaan sarana dan prasarana selama kegiatan, apakah sudah membantu?" },
+            { key: "q7", num: "7.", q: "Bagaimana penilaian peserta terhadap sikap narasumber,apakah narasumber menyampaikan materi dengan antusias, semangat, dan memberikan motivasi yang baik?" }
+          ].map((item) => (
+            <tr key={item.key}>
+              <td className="border border-black text-center font-bold py-2.5">{item.num}</td>
+              <td className="border border-black px-3 py-2">
+                <span className="font-bold">{item.q}</span>
+                <div className="text-[9.5px] italic mt-1 font-serif">Hasil Pemantauan : {evaluasiComments[item.key] || ""}</div>
+              </td>
+              {["Cukup", "Sedang", "Baik", "Cukup Baik", "Sangat Baik"].map((scale) => (
+                <td key={scale} className="border border-black text-center font-bold text-[14px] w-[8%]">
+                  {evaluasiRatings[item.key] === scale ? "✓" : ""}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
+      {/* PAGE 2 BREAK */}
+      <div className="page-break" />
+
+      {/* PAGE 2 HEADER */}
+      <div className="text-center font-bold tracking-tight uppercase space-y-0.5 invisible select-none h-4">
+        {/* Empty space matching header top */}
+      </div>
+
+      <table className="w-full border-collapse border border-black my-4 text-[10.5px]">
+        <thead>
+          <tr className="bg-slate-50/20">
+            <th className="border border-black text-center py-2 px-1 w-[8%]" rowSpan={2}>No.</th>
+            <th className="border border-black text-center py-2 px-2 w-[52%]" rowSpan={2}>Pertanyaan Instrumen</th>
+            <th className="border border-black text-center py-1 colSpan={5} w-[40%]" colSpan={5}>Jumlah</th>
+          </tr>
+          <tr className="bg-slate-50/20">
+            <th className="border border-black text-center text-[9px] py-1">Cukup</th>
+            <th className="border border-black text-center text-[9px] py-1">Sedang</th>
+            <th className="border border-black text-center text-[9px] py-1">Baik</th>
+            <th className="border border-black text-center text-[9px] py-1">Cukup Baik</th>
+            <th className="border border-black text-center text-[9px] py-1">Sangat Baik</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td className="border border-black text-center font-bold py-2.5">8.</td>
+            <td className="border border-black px-3 py-2">
+              <span className="font-bold">Apakah materi yang disampaikan memberikan manfaat bagi kehidupan rumah tangga nantinya?</span>
+              <div className="text-[9.5px] italic mt-1 font-serif">Hasil Pemantauan : {evaluasiComments.q8 || ""}</div>
+            </td>
+            {["Cukup", "Sedang", "Baik", "Cukup Baik", "Sangat Baik"].map((scale) => (
+              <td key={scale} className="border border-black text-center font-bold text-[14px] w-[8%]">
+                {evaluasiRatings.q8 === scale ? "✓" : ""}
+              </td>
+            ))}
+          </tr>
+        </tbody>
+      </table>
+
+      {/* Signature Area */}
+      <div className="mt-12 text-center text-[11pt]">
+        <div className="flex justify-end mr-6 mb-8 font-serif text-[11pt]">
+          <p>Fiditan, {evaluasiHariTanggal.replace(/^(Senin|Selasa|Rabu|Kamis|Jumat|Sabtu|Minggu),\s*/i, "") || "10 Februari 2026"}</p>
+        </div>
+        
+        <div className="grid grid-cols-3 gap-2 content-center mt-6">
+          <div>
+            <p className="font-bold">Peserta Pria</p>
+            <div className="h-20 flex items-center justify-center">
+              <div className="border-b border-dashed border-slate-400 w-28 h-1 italic text-emerald-800 text-[10px] -mb-6 select-none opacity-40">TMT_P_SIGNED_SECURE</div>
+            </div>
+            <p className="font-bold underline uppercase">{evaluasiCatinPria}</p>
+          </div>
+
+          <div>
+            <p className="font-bold">Peserta Wanita</p>
+            <div className="h-20 flex items-center justify-center">
+              <div className="border-b border-dashed border-slate-400 w-28 h-1 italic text-emerald-800 text-[10px] -mb-6 select-none opacity-40">TMT_W_SIGNED_SECURE</div>
+            </div>
+            <p className="font-bold underline uppercase">{evaluasiCatinWanita}</p>
+          </div>
+
+          <div>
+            <p className="font-bold">Mengetahui<br />Narasumber</p>
+            <div className="h-20 flex items-center justify-center">
+              <div className="border-b border-dashed border-slate-400 w-32 h-1 italic text-emerald-800 text-[10px] -mb-6 select-none opacity-40">KEMENAG_NR_AUTHORIZED</div>
+            </div>
+            <p className="font-bold underline">{evaluasiPenyuluhName}</p>
+            <p className="text-[10px]">NIP. {evaluasiPenyuluhNip}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    </>
   );
 }

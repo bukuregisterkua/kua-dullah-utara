@@ -140,3 +140,59 @@ body {
   }
 }
 
+/* Print Styles for Kuesioner Evaluasi */
+@media print {
+  body {
+    background-color: white !important;
+    background-image: none !important;
+    color: black !important;
+    font-family: "Times New Roman", Times, Georgia, serif !important;
+    font-size: 11pt !important;
+    line-height: 1.3 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .no-print, header, footer, nav, button, [role="dialog"], .fixed, .modal-backdrop {
+    display: none !important;
+  }
+
+  .print-document {
+    display: block !important;
+    visibility: visible !important;
+    background: white !important;
+    color: black !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 15mm 15mm 15mm 15mm !important;
+    margin: 0 !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
+
+  table {
+    border-collapse: collapse !important;
+    width: 100% !important;
+  }
+
+  th, td {
+    border: 1px solid black !important;
+    padding: 6px 8px !important;
+    text-align: left !important;
+    font-size: 10pt !important;
+  }
+
+  .page-break {
+    page-break-before: always !important;
+    break-before: page !important;
+    margin-top: 20mm !important;
+  }
+}
+
+@media screen {
+  .print-document {
+    display: none; /* Hidden on screen by default */
+  }
+}
+
+
