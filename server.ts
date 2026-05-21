@@ -4,7 +4,6 @@ import fs from "fs";
 import cors from "cors";
 import dotenv from "dotenv";
 import multer from "multer";
-import { createServer as createViteServer } from "vite";
 
 // Load environment variables
 dotenv.config();
@@ -543,6 +542,7 @@ app.get("/api/ping", (req, res) => {
 // Vite Integration Setup & Static Serving
 async function startServer() {
   if (process.env.NODE_ENV !== "production") {
+    const { createServer: createViteServer } = await import("vite");
     const vite = await createViteServer({
       server: { middlewareMode: true },
       appType: "spa",
