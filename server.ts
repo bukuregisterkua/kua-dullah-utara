@@ -182,6 +182,39 @@ function initDatabase() {
           url: "https://wa.me/6281240912842",
           icon: "message-circle",
           description: "Layanan konseling keagamaan, pembinaan akidah, dan bimbingan membaca Al-Qur'an."
+        },
+        // ====== PENYULUHAN AGAMA ======
+        {
+          id: "penyuluhan-1",
+          title: "Penyuluhan & Bimbingan Keagamaan Online",
+          category: "penyuluhan",
+          type: "link",
+          url: "https://forms.gle/kuadullahpenyuluhan",
+          icon: "edit-3",
+          description: "Formulir pendaftaran Penyuluhan Agama Islam, bimbingan keagamaan, majelis taklim, dan kegiatan syiar Islam."
+        },
+        {
+          id: "penyuluhan-2",
+          title: "Konsultasi Syariah & Keluarga Sakinah (WhatsApp)",
+          category: "penyuluhan",
+          type: "whatsapp",
+          url: "https://wa.me/6281240912842",
+          icon: "message-circle",
+          description: "Layanan konsultasi syariah, masalah waris, zakat infaq sadaqah, dan bimbingan pasangan keluarga sakinah via WhatsApp."
+        },
+        {
+          id: "penyuluhan-3",
+          title: "Program Kerja Penyuluh Agama",
+          category: "penyuluhan",
+          type: "info",
+          content: [
+            "Penyuluhan Peningkatan Kerukunan Umat Beragama (PKUB)",
+            "Sosialisasi sertifikasi produk jaminan halal untuk UMKM Kecamatan",
+            "Pembinaan spiritual berkala bagi kelompok majelis taklim",
+            "Edukasi pencegahan pernikahan dini & bimbingan sakinah remaja",
+            "Gerakan pemberantasan buta aksara Al-Qur'an teritorial"
+          ],
+          icon: "file-text"
         }
       ],
       pengumuman: [
@@ -209,6 +242,7 @@ function initDatabase() {
         googleFormRekomendasi: "https://forms.gle/kuadullahrekomendasi",
         googleFormWakaf: "https://forms.gle/kuadullahwakaf",
         googleFormMuallaf: "https://forms.gle/kuadullahmuallaf",
+        googleFormPenyuluhan: "https://forms.gle/kuadullahpenyuluhan",
         bannerTitle: "KANTOR URUSAN AGAMA\nPULAU DULLAH UTARA",
         bannerSubtitle: "Pusat Pelayanan Keagamaan Digital Pulau Dullah Utara, Kota Tual.\nMelayani Administrasi Nikah, Wakaf, Konsultasi Keagamaan, dan Bimbingan Ummat secara Profesional, Mudah, Cepat, dan Terintegrasi.",
         address: "Jl. Pemuda No. 12, Pulau Dullah Utara, Kota Tual, Maluku",

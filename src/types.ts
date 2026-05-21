@@ -1,7 +1,7 @@
 export interface Layanan {
   id: string;
   title: string;
-  category: "nikah" | "wakaf" | "muallaf";
+  category: "nikah" | "wakaf" | "muallaf" | "penyuluhan";
   type: "flow" | "info" | "link" | "whatsapp" | "youtube";
   content?: string[];
   image?: string;
@@ -27,6 +27,7 @@ export interface Settings {
   googleFormRekomendasi: string;
   googleFormWakaf: string;
   googleFormMuallaf: string;
+  googleFormPenyuluhan?: string;
   bannerTitle: string;
   bannerSubtitle: string;
   address: string;

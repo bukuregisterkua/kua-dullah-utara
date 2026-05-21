@@ -505,11 +505,11 @@ export default function App() {
                     </p>
                   </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
                     {/* Layanan Nikah Category Card */}
                     <div 
                       onClick={() => setCurrentTab("nikah")}
-                      className="group bg-white rounded-3xl p-8 border border-emerald-50 shadow-xs hover:shadow-lg hover:border-emerald-200 transition-all cursor-pointer relative overflow-hidden"
+                      className="group bg-white rounded-3xl p-6 border border-emerald-50 shadow-xs hover:shadow-lg hover:border-emerald-200 transition-all cursor-pointer relative overflow-hidden"
                       id="shortcut-nikah-box"
                     >
                       <div className="absolute top-0 right-0 w-24 h-24 bg-emerald-50 rounded-bl-full group-hover:bg-emerald-100 transition-colors -z-1" />
@@ -518,7 +518,7 @@ export default function App() {
                         <Heart className="h-7 w-7 group-hover:text-white" />
                       </div>
                       
-                      <h4 className="text-xl font-bold font-display text-slate-900 mt-6 group-hover:text-emerald-800 transition-colors">
+                      <h4 className="text-lg font-bold font-display text-slate-900 mt-6 group-hover:text-emerald-800 transition-colors">
                         💍 LAYANAN NIKAH
                       </h4>
                       <p className="text-xs text-slate-500 mt-2 leading-relaxed">
@@ -534,7 +534,7 @@ export default function App() {
                     {/* Layanan Wakaf Category Card */}
                     <div 
                       onClick={() => setCurrentTab("wakaf")}
-                      className="group bg-white rounded-3xl p-8 border border-emerald-50 shadow-xs hover:shadow-lg hover:border-emerald-200 transition-all cursor-pointer relative overflow-hidden"
+                      className="group bg-white rounded-3xl p-6 border border-emerald-50 shadow-xs hover:shadow-lg hover:border-emerald-200 transition-all cursor-pointer relative overflow-hidden"
                       id="shortcut-wakaf-box"
                     >
                       <div className="absolute top-0 right-0 w-24 h-24 bg-teal-50 rounded-bl-full group-hover:bg-teal-100 transition-colors -z-1" />
@@ -543,7 +543,7 @@ export default function App() {
                         <FileText className="h-7 w-7 group-hover:text-white" />
                       </div>
                       
-                      <h4 className="text-xl font-bold font-display text-slate-900 mt-6 group-hover:text-emerald-800 transition-colors">
+                      <h4 className="text-lg font-bold font-display text-slate-900 mt-6 group-hover:text-emerald-800 transition-colors">
                         📜 LAYANAN WAKAF
                       </h4>
                       <p className="text-xs text-slate-500 mt-2 leading-relaxed">
@@ -559,7 +559,7 @@ export default function App() {
                     {/* Muallaf Center Category Card */}
                     <div 
                       onClick={() => setCurrentTab("muallaf")}
-                      className="group bg-white rounded-3xl p-8 border border-emerald-50 shadow-xs hover:shadow-lg hover:border-emerald-200 transition-all cursor-pointer relative overflow-hidden"
+                      className="group bg-white rounded-3xl p-6 border border-emerald-50 shadow-xs hover:shadow-lg hover:border-emerald-200 transition-all cursor-pointer relative overflow-hidden"
                       id="shortcut-muallaf-box"
                     >
                       <div className="absolute top-0 right-0 w-24 h-24 bg-sky-50 rounded-bl-full group-hover:bg-sky-100 transition-colors -z-1" />
@@ -568,7 +568,7 @@ export default function App() {
                         <Globe className="h-7 w-7 group-hover:text-white" />
                       </div>
                       
-                      <h4 className="text-xl font-bold font-display text-slate-900 mt-6 group-hover:text-emerald-800 transition-colors">
+                      <h4 className="text-lg font-bold font-display text-slate-900 mt-6 group-hover:text-emerald-800 transition-colors">
                         🕌 MUALLAF CENTER
                       </h4>
                       <p className="text-xs text-slate-500 mt-2 leading-relaxed">
@@ -577,6 +577,31 @@ export default function App() {
                       
                       <div className="flex items-center space-x-1.5 text-xs font-bold text-sky-700 mt-6 group-hover:translate-x-1.5 transition-transform">
                         <span>Pendaftaran Muallaf</span>
+                        <ArrowRight className="h-3.5 w-3.5" />
+                      </div>
+                    </div>
+
+                    {/* Penyuluhan Agama Category Card */}
+                    <div 
+                      onClick={() => setCurrentTab("penyuluhan")}
+                      className="group bg-white rounded-3xl p-6 border border-emerald-50 shadow-xs hover:shadow-lg hover:border-emerald-200 transition-all cursor-pointer relative overflow-hidden"
+                      id="shortcut-penyuluhan-box"
+                    >
+                      <div className="absolute top-0 right-0 w-24 h-24 bg-amber-50 rounded-bl-full group-hover:bg-amber-100 transition-colors -z-1" />
+                      
+                      <div className="w-14 h-14 bg-amber-50 group-hover:bg-emerald-700 text-amber-700 rounded-2xl flex items-center justify-center transition-all shadow-xxs">
+                        <BookOpen className="h-7 w-7 group-hover:text-white" />
+                      </div>
+                      
+                      <h4 className="text-lg font-bold font-display text-slate-900 mt-6 group-hover:text-emerald-800 transition-colors">
+                        📢 PENYULUHAN AGAMA
+                      </h4>
+                      <p className="text-xs text-slate-500 mt-2 leading-relaxed">
+                        Penyandaran bimbingan keagamaan syiar Islam, penyuluhan keluarga sakinah, konsultasi syariah digital, dan pendaftaran kegiatannya.
+                      </p>
+                      
+                      <div className="flex items-center space-x-1.5 text-xs font-bold text-amber-700 mt-6 group-hover:translate-x-1.5 transition-transform">
+                        <span>Layanan Konseling & Syiar</span>
                         <ArrowRight className="h-3.5 w-3.5" />
                       </div>
                     </div>
@@ -786,7 +811,7 @@ export default function App() {
           )}
 
           {/* TAB 3, 4, 5: LAYANAN DIGITALS (NIKAH, WAKAF, MUALLAF) */}
-          {["nikah", "wakaf", "muallaf"].includes(currentTab) && (
+          {["nikah", "wakaf", "muallaf", "penyuluhan"].includes(currentTab) && (
             <motion.div
               key={currentTab}
               initial={{ opacity: 0 }}
@@ -800,12 +825,15 @@ export default function App() {
                   <div className="flex items-center space-x-1.5 text-xs text-slate-500 mb-2">
                     <span className="hover:underline cursor-pointer" onClick={() => setCurrentTab("beranda")}>Beranda</span>
                     <span>/</span>
-                    <span className="font-semibold text-emerald-700 capitalize">Layanan {currentTab === "muallaf" ? "Muallaf" : currentTab}</span>
+                    <span className="font-semibold text-emerald-700 capitalize">
+                      {currentTab === "muallaf" ? "Muallaf" : currentTab === "penyuluhan" ? "Penyuluhan Agama Islam" : currentTab}
+                    </span>
                   </div>
                   <h2 className="text-3xl font-extrabold font-display text-emerald-950 uppercase tracking-tight">
                     {currentTab === "nikah" && "💍 Layanan Nikah Terpadu"}
                     {currentTab === "wakaf" && "📜 Layanan Manajemen Wakaf"}
                     {currentTab === "muallaf" && "🕌 Muallaf Center Pulau Dullah Utara"}
+                    {currentTab === "penyuluhan" && "📢 Penyuluhan Agama Islam"}
                   </h2>
                 </div>
                 
@@ -1066,7 +1094,7 @@ export default function App() {
                               {isInfo && serv.content && (
                                 <div className="mt-4 space-y-2 bg-slate-50 p-4 rounded-xl border border-slate-100">
                                   <p className="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1 flex items-center gap-1">
-                                    <Info className="h-3 w-3" /> berkas persyaratan yang wajib disediakan:
+                                    <Info className="h-3 w-3" /> {currentTab === "penyuluhan" ? "detail program & materi bimbingan:" : "berkas persyaratan yang wajib disediakan:"}
                                   </p>
                                   <ul className="grid grid-cols-1 md:grid-cols-2 gap-2">
                                     {serv.content.map((doc, idx) => (
@@ -1230,21 +1258,47 @@ export default function App() {
                             </div>
                           </>
                         )}
+
+                        {currentTab === "penyuluhan" && (
+                          <>
+                            <div className="space-y-2">
+                              <p className="text-xs font-bold text-slate-700">Form Penyuluhan / Bimbingan Agama: </p>
+                              <a
+                                href={defaultSettings.googleFormPenyuluhan}
+                                target="_blank"
+                                className="block p-3 bg-[#fffbeb] hover:bg-[#fef3c7] border border-amber-200 rounded-xl text-xs font-bold text-amber-800 text-center shadow-xs"
+                              >
+                                ✏️ Google Form Penyuluhan
+                              </a>
+                            </div>
+                            <div className="space-y-2">
+                              <p className="text-xs font-bold text-slate-700">Konsultasi Penyuluh Agama Islam: </p>
+                              <a
+                                href={`https://wa.me/${defaultSettings.whatsappNumber}`}
+                                target="_blank"
+                                className="block p-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold text-center flex items-center justify-center space-x-1 shadow-sm"
+                              >
+                                <MessageSquare className="h-4 w-4 animate-bounce" />
+                                <span>Konseling Agama & Syariah</span>
+                              </a>
+                            </div>
+                          </>
+                        )}
                       </div>
                     </div>
                   )}
 
                   {/* Operation Hour Badge */}
                   {currentTab !== "nikah" && (
-                    <div className="p-5 bg-slate-50 border border-slate-100 rounded-3xl">
-                      <h4 className="text-xs font-bold uppercase text-emerald-900 tracking-wider mb-2 flex items-center space-x-1">
-                        <Clock className="h-4 w-4" />
+                    <div className="p-3 bg-slate-50 border border-slate-100 rounded-2xl">
+                      <h4 className="text-[10px] font-extrabold uppercase text-emerald-950 tracking-wider mb-1.5 flex items-center space-x-1">
+                        <Clock className="h-3.5 w-3.5 text-emerald-800" />
                         <span>Sesi Pelayanan Kantor</span>
                       </h4>
-                      <ul className="space-y-1.5 text-xs text-slate-600 font-mono">
-                        <li className="flex justify-between"><span>Senin - Kamis</span> <span className="font-bold">08:00 - 16:30 WIT</span></li>
-                        <li className="flex justify-between"><span>Jumat</span> <span className="font-bold">08:30 - 17:00 WIT</span></li>
-                        <li className="flex justify-between"><span>Sabtu - Minggu</span> <span className="text-red-500 font-bold">Tutup</span></li>
+                      <ul className="space-y-1 text-[11px] text-slate-600 font-mono">
+                        <li className="flex justify-between"><span>Senin - Kamis</span> <span className="font-bold text-slate-800">08:00 - 16:30 WIT</span></li>
+                        <li className="flex justify-between"><span>Jumat</span> <span className="font-bold text-slate-800">08:30 - 17:00 WIT</span></li>
+                        <li className="flex justify-between"><span>Sabtu - Minggu</span> <span className="text-rose-600 font-bold">Tutup</span></li>
                       </ul>
                     </div>
                   )}
@@ -1572,6 +1626,7 @@ export default function App() {
                             <option value="nikah">💍 Nikah</option>
                             <option value="wakaf">📜 Wakaf</option>
                             <option value="muallaf">🕌 Muallaf</option>
+                            <option value="penyuluhan">📢 Penyuluhan Agama Islam</option>
                           </select>
                         </div>
 
@@ -1871,6 +1926,17 @@ export default function App() {
                             placeholder="https://forms.gle/..."
                             value={settingsForm.googleFormMuallaf || ""}
                             onChange={(e) => setSettingsForm({ ...settingsForm, googleFormMuallaf: e.target.value })}
+                            className="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs focus:ring-1 focus:ring-emerald-500 focus:outline-none"
+                          />
+                        </div>
+
+                        <div>
+                          <label className="block text-[11px] font-bold text-slate-700 mb-1">Form Penyuluhan Agama Islam</label>
+                          <input
+                            type="text"
+                            placeholder="https://forms.gle/..."
+                            value={settingsForm.googleFormPenyuluhan || ""}
+                            onChange={(e) => setSettingsForm({ ...settingsForm, googleFormPenyuluhan: e.target.value })}
                             className="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs focus:ring-1 focus:ring-emerald-500 focus:outline-none"
                           />
                         </div>
@@ -2480,6 +2546,7 @@ export default function App() {
                 <li><button onClick={() => setCurrentTab("nikah")} className="hover:text-emerald-300">💍 Layanan Nikah Online</button></li>
                 <li><button onClick={() => setCurrentTab("wakaf")} className="hover:text-emerald-300">📜 Sertifikasi Tanah Wakaf</button></li>
                 <li><button onClick={() => setCurrentTab("muallaf")} className="hover:text-emerald-300">🕌 Persyaratan Ikrar Muallaf</button></li>
+                <li><button onClick={() => setCurrentTab("penyuluhan")} className="hover:text-emerald-300">📢 Penyuluhan Agama Islam</button></li>
                 <li><button onClick={() => setCurrentTab("pengumuman")} className="hover:text-emerald-300">📢 Papan Maklumat Umum</button></li>
               </ul>
             </div>

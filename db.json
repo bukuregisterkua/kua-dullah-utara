@@ -122,6 +122,38 @@
       "url": "https://wa.me/6281240912842",
       "icon": "message-circle",
       "description": "Layanan konseling keagamaan, pembinaan akidah, dan bimbingan membaca Al-Qur'an."
+    },
+    {
+      "id": "penyuluhan-1",
+      "title": "Penyuluhan & Bimbingan Keagamaan Online",
+      "category": "penyuluhan",
+      "type": "link",
+      "url": "https://forms.gle/kuadullahpenyuluhan",
+      "icon": "edit-3",
+      "description": "Formulir pendaftaran Penyuluhan Agama Islam, bimbingan keagamaan, majelis taklim, dan kegiatan syiar Islam."
+    },
+    {
+      "id": "penyuluhan-2",
+      "title": "Konsultasi Syariah & Keluarga Sakinah (WhatsApp)",
+      "category": "penyuluhan",
+      "type": "whatsapp",
+      "url": "https://wa.me/6281240912842",
+      "icon": "message-circle",
+      "description": "Layanan konsultasi syariah, masalah waris, zakat infaq sadaqah, dan bimbingan pasangan keluarga sakinah via WhatsApp."
+    },
+    {
+      "id": "penyuluhan-3",
+      "title": "Program Kerja Penyuluh Agama",
+      "category": "penyuluhan",
+      "type": "info",
+      "content": [
+        "Penyuluhan Peningkatan Kerukunan Umat Beragama (PKUB)",
+        "Sosialisasi sertifikasi produk jaminan halal untuk UMKM Kecamatan",
+        "Pembinaan spiritual berkala bagi kelompok majelis taklim",
+        "Edukasi pencegahan pernikahan dini & bimbingan sakinah remaja",
+        "Gerakan pemberantasan buta aksara Al-Qur'an teritorial"
+      ],
+      "icon": "file-text"
     }
   ],
   "pengumuman": [
@@ -149,6 +181,7 @@
     "googleFormRekomendasi": "https://forms.gle/kuadullahrekomendasi",
     "googleFormWakaf": "https://forms.gle/kuadullahwakaf",
     "googleFormMuallaf": "https://forms.gle/kuadullahmuallaf",
+    "googleFormPenyuluhan": "https://forms.gle/kuadullahpenyuluhan",
     "bannerTitle": "KANTOR URUSAN AGAMA\nPULAU DULLAH UTARA",
     "bannerSubtitle": "Pusat Pelayanan Keagamaan Digital Pulau Dullah Utara, Kota Tual.\nMelayani Administrasi Nikah, Wakaf, Konsultasi Keagamaan, dan Bimbingan Ummat secara Profesional, Mudah, Cepat, dan Terintegrasi.",
     "address": "Jl. Panglima Mandala. Desa Fiditan, Pulau Dullah Utara, Kota Tual, Maluku",
@@ -165,8 +198,9 @@
     "twitterUrl": "",
     "tiktokUrl": "https://www.tiktok.com/@kuadullut02?_r=1&_t=ZS-96XFNHXa9iq",
     "youtubeUrl": "",
-    "kepalaKuaName": "H. Ahmad, S.Ag.",
-    "kepalaKuaImg": ""
+    "kepalaKuaName": "H. KAMARUDDIN, SH",
+    "kepalaKuaImg": "/uploads/KEPALAKUA-1779337231161.png",
+    "statistikImg": "/uploads/flayerwebsitekua1-1779338646460.png"
   },
   "admin": {
     "username": "admin",
