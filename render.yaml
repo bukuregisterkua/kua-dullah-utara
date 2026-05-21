@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: kua-pulau-dullah-utara
+    env: node
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: npm run start
+    healthCheckPath: /api/db
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: ADMIN_USER
+        placeholder: "Masukkan username admin untuk login, contoh: kuadulut"
+      - key: ADMIN_PASS
+        placeholder: "Masukkan password admin untuk login, contoh: kuanamser18"
+    disk:
+      name: kua-db-uploads
+      mountPath: /data
+      sizeGB: 1

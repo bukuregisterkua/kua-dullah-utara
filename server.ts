@@ -1,17 +1,46 @@
 import express from "express";
 import path from "path";
 import fs from "fs";
+import cors from "cors";
+import dotenv from "dotenv";
+import multer from "multer";
 import { createServer as createViteServer } from "vite";
+
+// Load environment variables
+dotenv.config();
 
 const app = express();
 const PORT = 3000;
-const DB_PATH = path.join(process.cwd(), "db.json");
-const UPLOADS_DIR = path.join(process.cwd(), "public", "uploads");
+// Determine persistent data directory (for Render, Railway, absolute paths, etc.)
+const DATA_DIR = fs.existsSync("/data") ? "/data" : process.cwd();
+const DB_PATH = path.join(DATA_DIR, "db.json");
+const UPLOADS_DIR = fs.existsSync("/data") ? path.join("/data", "uploads") : path.join(process.cwd(), "public", "uploads");
+
+// Enable CORS
+app.use(cors());
+
+// Configure Multer for local uploads
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, UPLOADS_DIR);
+  },
+  filename: (req, file, cb) => {
+    const ext = path.extname(file.originalname) || ".jpg";
+    const base = path.basename(file.originalname, ext).replace(/[^a-zA-Z0-9_-]/g, "");
+    cb(null, `${base}-${Date.now()}${ext}`);
+  }
+});
+
+const upload = multer({
+  storage,
+  limits: { fileSize: 10 * 1024 * 1024 } // 10MB limit
+});
 
 // Ensure uploads directory exists
 if (!fs.existsSync(UPLOADS_DIR)) {
   fs.mkdirSync(UPLOADS_DIR, { recursive: true });
 }
+
 
 // Ensure database file exists with initial data
 function initDatabase() {
@@ -304,10 +333,47 @@ app.get("/api/db", (req, res) => {
 app.post("/api/login", (req, res) => {
   const { username, password } = req.body;
   const db = readDB();
-  if (username === db.admin.username && password === db.admin.password) {
+  
+  // Read expected credentials from environment variables or static database fallback
+  const expectedUser = process.env.ADMIN_USER || (db.admin && db.admin.username) || "kuadulut";
+  const expectedPass = process.env.ADMIN_PASS || (db.admin && db.admin.password) || "kuanamser18";
+
+  if (username === expectedUser && password === expectedPass) {
     res.json({ success: true, token: "kua-auth-token-2026", username });
   } else {
     res.status(401).json({ success: false, message: "Username atau password salah!" });
+  }
+});
+
+// POST /api/save - Save whole or partial KUA database safely
+app.post("/api/save", (req, res) => {
+  try {
+    const db = readDB();
+    const newDB = req.body;
+    if (!newDB) {
+      return res.status(400).json({ error: "Data payload kosong!" });
+    }
+
+    // Preserve existing admin password if not provided explicitly
+    const adminBackup = db.admin || { username: "kuadulut", password: "kuanamser18" };
+
+    if (newDB.layanan) db.layanan = newDB.layanan;
+    if (newDB.pengumuman) db.pengumuman = newDB.pengumuman;
+    if (newDB.settings) db.settings = { ...db.settings, ...newDB.settings };
+    
+    if (newDB.admin) {
+      db.admin = {
+        username: newDB.admin.username || adminBackup.username,
+        password: newDB.admin.password || adminBackup.password
+      };
+    } else {
+      db.admin = adminBackup;
+    }
+
+    writeDB(db);
+    res.json({ success: true, message: "Seluruh data KUA berhasil disimpan!" });
+  } catch (err: any) {
+    res.status(500).json({ error: err.message });
   }
 });
 
@@ -418,19 +484,29 @@ app.put("/api/settings", (req, res) => {
   }
 });
 
-// POST /api/upload - Single JPG upload base64 or form payload
-app.post("/api/upload", (req, res) => {
+// POST /api/upload - Single JPG upload base64 or form payload (hybrid Multer / Base64 handler)
+app.post("/api/upload", upload.any(), (req, res) => {
   try {
-    const { filename, base64Data } = req.body;
+    // 1. Check if files were uploaded via multipart form data using Multer
+    const files = req.files as Express.Multer.File[];
+    if (files && files.length > 0) {
+      const firstFile = files[0];
+      return res.json({
+        success: true,
+        url: `/uploads/${firstFile.filename}`
+      });
+    }
+
+    // 2. Fallback to base64 JSON payload
+    const { filename, base64Data } = req.body || {};
     if (!filename || !base64Data) {
-      return res.status(400).json({ error: "filename & base64Data wajib dikirim" });
+      return res.status(400).json({ error: "File atau base64Data tidak ditemukan!" });
     }
 
     // Clean up base64 prefix
     const base64Clean = base64Data.replace(/^data:image\/\w+;base64,/, "");
     const fileBuffer = Buffer.from(base64Clean, "base64");
     
-    // Ensure filename ends safely and contains a unique suffix to prevent concurrency issues
     const ext = path.extname(filename) || ".jpg";
     const base = path.basename(filename, ext).replace(/[^a-zA-Z0-9_-]/g, "");
     const safeFilename = `${base}-${Date.now()}${ext}`;
@@ -438,7 +514,6 @@ app.post("/api/upload", (req, res) => {
 
     fs.writeFileSync(destination, fileBuffer);
     
-    // Return relative url accessible from /uploads/<filename>
     res.json({ success: true, url: `/uploads/${safeFilename}` });
   } catch (err: any) {
     res.status(500).json({ error: err.message });
