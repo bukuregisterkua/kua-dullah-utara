@@ -9,6 +9,7 @@ import {
   Trash2, 
   Save, 
   Upload, 
+  Download,
   Clock, 
   Shield, 
   User, 
@@ -43,6 +44,8 @@ import {
   Music
 } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
+// @ts-ignore
+import html2pdf from "html2pdf.js";
 import Header from "./components/Header";
 import Hero from "./components/Hero";
 import { Layanan, Pengumuman, Settings, DBState } from "./types";
@@ -588,6 +591,370 @@ export default function App() {
     
     setEvaluasiSubmitted(true);
     window.open(waUrl, "_blank");
+  };
+
+  // Programmatic high-fidelity PDF download with offscreen rendering to prevent flicker
+  const handleDownloadPDF = () => {
+    const element = document.getElementById("kua-print-document");
+    if (!element) {
+      alert("Elemen dokumen cetak tidak ditemukan!");
+      return;
+    }
+    
+    const origStyle = element.getAttribute("style") || "";
+    // Render off-screen to ensure html2canvas can capture it while maintaining standard screen hidden behavior
+    element.setAttribute("style", "display: block !important; position: absolute; left: -9999px; top: -9999px; background: white; color: black;");
+    
+    // Check key variables to form clean filenames
+    const cleanPria = evaluasiCatinPria ? evaluasiCatinPria.replace(/[^a-zA-Z0-9]/g, "_") : "Pria";
+    const cleanWanita = evaluasiCatinWanita ? evaluasiCatinWanita.replace(/[^a-zA-Z0-9]/g, "_") : "Wanita";
+    
+    const opt = {
+      margin:       [10, 10, 10, 10],
+      filename:     `Kuesioner_Evaluasi_KUA_${cleanPria}_&_${cleanWanita}.pdf`,
+      image:        { type: "jpeg", quality: 0.98 },
+      html2canvas:  { scale: 2, useCORS: true, logging: false, dpi: 192 },
+      jsPDF:        { unit: "mm", format: "a4", orientation: "portrait" },
+      pagebreak:    { mode: 'css', before: '.page-break' }
+    };
+    
+    // Run html2pdf download
+    html2pdf()
+      .from(element)
+      .set(opt)
+      .save()
+      .then(() => {
+        element.setAttribute("style", origStyle);
+      })
+      .catch((err: any) => {
+        console.error("Gagal mengunduh dokumen PDF:", err);
+        element.setAttribute("style", origStyle);
+        alert("Gagal mengunduh PDF! Silakan coba lagi atau gunakan tombol Cetak/Print.");
+      });
+  };
+
+  // Dynamic Print Pop-up that bypasses all iframe sandbox print constraints
+  const handlePrintDirect = () => {
+    const printWindow = window.open("", "_blank");
+    if (!printWindow) {
+      alert("Popup diblokir oleh browser! Harap izinkan popup di peramban Anda untuk mengaktifkan cetak langsung.");
+      return;
+    }
+
+    const items = [
+      { key: "q3", num: "3.", q: "Bagaimanakah penyampaian materi apakah sudah sesuai dengan tema?" },
+      { key: "q4", num: "4.", q: "Bagaimana langkah penyampaian materi apakah sudah sistematis?" },
+      { key: "q5", num: "5.", q: "Bagaimanakah pesan dari tema apakah sudah tersampaikan?" },
+      { key: "q6", num: "6.", q: "Bagaimanakah penggunaan sarana dan prasarana selama kegiatan, apakah sudah membantu?" },
+      { key: "q7", num: "7.", q: "Bagaimana penilaian peserta terhadap sikap narasumber, apakah narasumber menyampaikan materi dengan antusias, semangat, dan memberikan motivasi yang baik?" },
+      { key: "q8", num: "8.", q: "Apakah materi yang disampaikan memberikan manfaat bagi kehidupan rumah tangga nantinya?" }
+    ];
+
+    const generateRowsHTML = (list: typeof items) => {
+      return list.map((item) => {
+        const selectedRating = evaluasiRatings[item.key] || "";
+        const comment = evaluasiComments[item.key] || "-";
+        
+        return `
+          <tr>
+            <td style="border: 1px solid black; text-align: center; font-weight: bold; padding: 6px 4px;">${item.num}</td>
+            <td style="border: 1px solid black; padding: 6px 8px; text-align: left;">
+              <span style="font-weight: bold;">${item.q}</span>
+              <div style="font-size: 8.5pt; font-style: italic; color: #4b5563; margin-top: 4px; font-family: 'Times New Roman', serif;">
+                Hasil Pemantauan : ${comment}
+              </div>
+            </td>
+            <td style="border: 1px solid black; text-align: center; font-weight: bold; font-size: 11pt; color: #047857; width: 8%;">${selectedRating === "Cukup" ? "✓" : ""}</td>
+            <td style="border: 1px solid black; text-align: center; font-weight: bold; font-size: 11pt; color: #047857; width: 8%;">${selectedRating === "Sedang" ? "✓" : ""}</td>
+            <td style="border: 1px solid black; text-align: center; font-weight: bold; font-size: 11pt; color: #047857; width: 8%;">${selectedRating === "Baik" ? "✓" : ""}</td>
+            <td style="border: 1px solid black; text-align: center; font-weight: bold; font-size: 11pt; color: #047857; width: 8%;">${selectedRating === "Cukup Baik" ? "✓" : ""}</td>
+            <td style="border: 1px solid black; text-align: center; font-weight: bold; font-size: 11pt; color: #047857; width: 8%;">${selectedRating === "Sangat Baik" ? "✓" : ""}</td>
+          </tr>
+        `;
+      }).join("");
+    };
+
+    const parentDate = evaluasiHariTanggal ? evaluasiHariTanggal.replace(/^(Senin|Selasa|Rabu|Kamis|Jumat|Sabtu|Minggu),\s*/i, "") : "10 Februari 2026";
+
+    const popupHtml = `
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <title>Cetak Kuesioner Evaluasi KUA Dullah Utara</title>
+          <style>
+            @page {
+              size: A4;
+              margin: 15mm 12mm 15mm 12mm;
+            }
+            body {
+              font-family: "Times New Roman", Times, Georgia, serif;
+              font-size: 11pt;
+              line-height: 1.4;
+              color: black;
+              background-color: white;
+              margin: 0;
+              padding: 0;
+              -webkit-print-color-adjust: exact;
+              print-color-adjust: exact;
+            }
+            .paper-container {
+              padding: 5px;
+            }
+            .text-center {
+              text-align: center;
+            }
+            .font-bold {
+              font-weight: bold;
+            }
+            .uppercase {
+              text-transform: uppercase;
+            }
+            .header-kua {
+              text-align: center;
+              font-weight: bold;
+              text-transform: uppercase;
+              font-family: Arial, sans-serif;
+              font-size: 11pt;
+              margin: 0;
+              line-height: 1.35;
+            }
+            .double-line {
+              border-bottom: 3.5px double black;
+              margin: 10px 0 15px 0;
+            }
+            .doc-title-box {
+              border: 1px solid black;
+              padding: 8px 10px;
+              text-align: center;
+              font-family: Arial, sans-serif;
+              font-weight: bold;
+              text-transform: uppercase;
+              font-size: 10pt;
+              margin-bottom: 20px;
+              line-height: 1.4;
+            }
+            .section-header {
+              font-weight: bold;
+              text-decoration: underline;
+              font-size: 11pt;
+              font-family: "Times New Roman", Times, serif;
+              margin-top: 15px;
+              margin-bottom: 6px;
+              display: block;
+            }
+            .identity-table {
+              width: 100%;
+              border-collapse: collapse;
+              margin-bottom: 12px;
+            }
+            .identity-table td {
+              padding: 2.5px 0;
+              font-size: 11pt;
+              font-family: "Times New Roman", Times, serif;
+              border: none !important;
+            }
+            .instrumen-table {
+              width: 100%;
+              border-collapse: collapse;
+              margin: 15px 0;
+              font-family: Arial, sans-serif;
+              font-size: 9pt;
+            }
+            .instrumen-table th, .instrumen-table td {
+              border: 1px solid black;
+            }
+            .instrumen-table th {
+              background-color: #f3f4f6 !important;
+              font-weight: bold;
+              text-align: center;
+              padding: 6px 4px;
+            }
+            .page-break {
+              page-break-before: always;
+              break-before: page;
+            }
+            .signatures-grid {
+              display: grid;
+              grid-template-columns: repeat(3, 1fr);
+              gap: 10px;
+              margin-top: 20px;
+              font-family: "Times New Roman", Times, serif;
+              font-size: 11pt;
+            }
+            .sig-col {
+              text-align: center;
+              display: flex;
+              flex-direction: column;
+              justify-content: space-between;
+              height: 120px;
+            }
+            .sig-title {
+              font-weight: bold;
+              line-height: 1.2;
+            }
+            .sig-name {
+              font-weight: bold;
+              text-decoration: underline;
+              text-transform: uppercase;
+            }
+          </style>
+        </head>
+        <body>
+          <div class="paper-container">
+            <!-- PAGE 1 -->
+            <div class="header-kua">MONITORING DAN EVALUASI PELAKSANAAN BIMBINGAN PERKAWINAN</div>
+            <div class="header-kua">KANTOR KEMENTERIAN AGAMA KOTA TUAL</div>
+            <div class="header-kua">KANTOR URUSAN AGAMA PULAU DULLAH UTARA</div>
+            <div class="header-kua" style="font-size: 9pt; font-weight: normal; text-transform: none; font-style: italic;">
+              Alamat : Jl. Panglima Mandala, Fiditan, Kota Tual
+            </div>
+
+            <div class="double-line"></div>
+
+            <div class="doc-title-box">
+              PELAKSANAAN MONITORING DAN EVALUASI TAHUN ${evaluasiTahun}<br>
+              NAMA PESERTA BIMWIN ${evaluasiCatinPria} & ${evaluasiCatinWanita}<br>
+              <span style="font-family: 'Times New Roman', Times, serif; font-style: italic; font-weight: normal; text-transform: none; font-size: 9.5pt;">
+                ${evaluasiHariTanggal}
+              </span>
+            </div>
+
+            <div class="section-header">Identitas Penyuluh Agama</div>
+            <table class="identity-table">
+              <tr>
+                <td style="width: 170px;">Nama Lengkap</td>
+                <td style="width: 15px;">:</td>
+                <td style="font-weight: bold;">${evaluasiPenyuluhName || "-"}</td>
+              </tr>
+              <tr>
+                <td>NIP</td>
+                <td>:</td>
+                <td>${evaluasiPenyuluhNip || "-"}</td>
+              </tr>
+              <tr>
+                <td>Pangkat/Golongan</td>
+                <td>:</td>
+                <td>${evaluasiPenyuluhPangkat || "-"}</td>
+              </tr>
+              <tr>
+                <td>Jabatan</td>
+                <td>:</td>
+                <td>${evaluasiPenyuluhJabatan || "-"}</td>
+              </tr>
+              <tr>
+                <td>Tempat tugas</td>
+                <td>:</td>
+                <td>${evaluasiPenyuluhTempatTugas || "-"}</td>
+              </tr>
+              <tr>
+                <td>Unit Kerja</td>
+                <td>:</td>
+                <td>${evaluasiPenyuluhUnitKerja || "-"}</td>
+              </tr>
+            </table>
+
+            <p style="font-weight: bold; font-style: italic; font-size: 10.5pt; margin: 12px 0 8px 0;">
+              Mohon diisi dengan baik dan benar sesuai kegiatan yang baru saja Anda ikuti saat ini!
+            </p>
+
+            <table class="identity-table" style="margin-bottom: 12px;">
+              <tr>
+                <td style="width: 120px; font-weight: bold;">1. Kegiatan</td>
+                <td style="width: 15px;">:</td>
+                <td>${evaluasiKegiatan}</td>
+              </tr>
+              <tr>
+                <td style="font-weight: bold;">2. Tema</td>
+                <td>:</td>
+                <td>${evaluasiTema}</td>
+              </tr>
+            </table>
+
+            <div class="header-kua" style="text-align: center; text-decoration: underline; margin: 15px 0 10px 0; font-family: 'Times New Roman', Times, serif;">
+              HASIL LAPORAN BERDASARKAN INSTRUMEN YANG DIISI OLEH PESERTA
+            </div>
+
+            <table class="instrumen-table">
+              <thead>
+                <tr>
+                  <th style="width: 6%;" rowspan="2">No.</th>
+                  <th style="width: 54%; text-align: left;" rowspan="2">Pertanyaan Instrumen</th>
+                  <th style="width: 40%;" colspan="5">Jumlah</th>
+                </tr>
+                <tr>
+                  <th style="font-size: 8pt; width: 8%;">Cukup</th>
+                  <th style="font-size: 8pt; width: 8%;">Sedang</th>
+                  <th style="font-size: 8pt; width: 8%;">Baik</th>
+                  <th style="font-size: 8pt; width: 8%;">Cukup Baik</th>
+                  <th style="font-size: 8pt; width: 8%;">Sangat Baik</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${generateRowsHTML(items.slice(0, 5))}
+              </tbody>
+            </table>
+
+            <div class="page-break"></div>
+
+            <!-- PAGE 2 -->
+            <table class="instrumen-table" style="margin-top: 15px;">
+              <thead>
+                <tr>
+                  <th style="width: 6%;" rowspan="2">No.</th>
+                  <th style="width: 54%; text-align: left;" rowspan="2">Pertanyaan Instrumen</th>
+                  <th style="width: 40%;" colspan="5">Jumlah</th>
+                </tr>
+                <tr>
+                  <th style="font-size: 8pt; width: 8%;">Cukup</th>
+                  <th style="font-size: 8pt; width: 8%;">Sedang</th>
+                  <th style="font-size: 8pt; width: 8%;">Baik</th>
+                  <th style="font-size: 8pt; width: 8%;">Cukup Baik</th>
+                  <th style="font-size: 8pt; width: 8%;">Sangat Baik</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${generateRowsHTML(items.slice(5))}
+              </tbody>
+            </table>
+
+            <!-- Footnote Info / Signature Section -->
+            <div style="display: flex; justify-content: flex-end; margin-top: 30px; font-family: 'Times New Roman', Times, serif; font-size: 11pt;">
+              Fiditan, ${parentDate}
+            </div>
+
+            <div class="signatures-grid">
+              <div class="sig-col">
+                <div class="sig-title">Peserta Pria</div>
+                <div class="sig-name">${evaluasiCatinPria}</div>
+              </div>
+              <div class="sig-col">
+                <div class="sig-title">Peserta Wanita</div>
+                <div class="sig-name">${evaluasiCatinWanita}</div>
+              </div>
+              <div class="sig-col">
+                <div class="sig-title">Mengetahui<br>Narasumber</div>
+                <div>
+                  <div class="sig-name" style="text-decoration: underline; text-transform: none;">${evaluasiPenyuluhName}</div>
+                  <div style="font-size: 9.5pt; margin-top: 2px;">NIP. ${evaluasiPenyuluhNip}</div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <script>
+            window.onload = function() {
+              setTimeout(function() {
+                window.print();
+              }, 300);
+            };
+          </script>
+        </body>
+      </html>
+    `;
+
+    printWindow.document.write(popupHtml);
+    printWindow.document.close();
   };
 
   // Handle uploading photos specifically for a profile change
