@@ -12,6 +12,8 @@ import {
   Clock, 
   Shield, 
   User, 
+  Users,
+  ClipboardList,
   Lock, 
   Settings as SettingsIcon, 
   LogOut, 
@@ -194,10 +196,22 @@ export default function App() {
   // Penyuluh Agama Custom Consultation Form State
   const [penyuluhSenderName, setPenyuluhSenderName] = useState("");
   const [penyuluhSenderWa, setPenyuluhSenderWa] = useState("");
-  const [penyuluhSelectedId, setPenyuluhSelectedId] = useState("p1");
+  const [penyuluhSelectedId, setPenyuluhSelectedId] = useState("");
   const [penyuluhTopic, setPenyuluhTopic] = useState("Bimbingan Perkawinan");
   const [penyuluhQuery, setPenyuluhQuery] = useState("");
   const [penyuluhSubmitted, setPenyuluhSubmitted] = useState(false);
+  const [showConsultationForm, setShowConsultationForm] = useState(false);
+  const [selectedPhotoViewer, setSelectedPhotoViewer] = useState<any | null>(null);
+
+  // States for Kuesioner Evaluasi Layanan Pembinaan
+  const [showEvaluasiModal, setShowEvaluasiModal] = useState(false);
+  const [evaluasiCatinName, setEvaluasiCatinName] = useState("");
+  const [evaluasiCatinPhone, setEvaluasiCatinPhone] = useState("");
+  const [evaluasiSatisfied, setEvaluasiSatisfied] = useState<number>(5);
+  const [evaluasiMateriRating, setEvaluasiMateriRating] = useState<number>(5);
+  const [evaluasiPenyuluhId, setEvaluasiPenyuluhId] = useState("");
+  const [evaluasiFeedback, setEvaluasiFeedback] = useState("");
+  const [evaluasiSubmitted, setEvaluasiSubmitted] = useState(false);
 
   // Fetch complete database state
   const fetchData = async () => {
@@ -481,6 +495,32 @@ export default function App() {
     setPenyuluhSubmitted(true);
     
     // Open WA Link
+    window.open(waUrl, "_blank");
+  };
+
+  const handleEvaluasiSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!evaluasiCatinName || !evaluasiCatinPhone || !evaluasiPenyuluhId || !evaluasiFeedback) {
+      alert("Harap lengkapi semua isian formulir evaluasi!");
+      return;
+    }
+    const selectedPenyuluhName = penyuluhList.find(p => p.id === evaluasiPenyuluhId)?.name || "Penyuluh";
+    const satisfactionStars = "⭐".repeat(evaluasiSatisfied);
+    const materiStars = "⭐".repeat(evaluasiMateriRating);
+    
+    const formattedText = `*KUESIONER EVALUASI LAYANAN PEMBINAAN KUA PULAU DULLAH UTARA*\n\n` +
+      `Saya telah mengisi formulir evaluasi layanan bimbingan rohani/keluarga sakinah catin:\n\n` +
+      `- *Nama Catin/Responden:* ${evaluasiCatinName}\n` +
+      `- *No. WA / HP:* ${evaluasiCatinPhone}\n` +
+      `- *Penyuluh Pembimbing:* ${selectedPenyuluhName}\n` +
+      `- *Kepuasan Layanan Pembinaan:* ${satisfactionStars} (${evaluasiSatisfied}/5)\n` +
+      `- *Kualitas Kelayakan Materi:* ${materiStars} (${evaluasiMateriRating}/5)\n` +
+      `- *Ulasan/Kesan & Masukan:* _"${evaluasiFeedback}"_\n\n` +
+      `Terima kasih atas pelayanan prima dari KUA Pulau Dullah Utara. Semoga kami menjadi keluarga yang sakinah, mawaddah, warahmah.`;
+
+    const waUrl = `https://wa.me/${defaultSettings.whatsappNumber}?text=${encodeURIComponent(formattedText)}`;
+    
+    setEvaluasiSubmitted(true);
     window.open(waUrl, "_blank");
   };
 
@@ -1052,10 +1092,10 @@ export default function App() {
               </div>
 
               {/* Dynamic Categories Services Grid */}
-              <div className={`grid grid-cols-1 gap-6 md:gap-8 ${currentTab === "nikah" ? "max-w-4xl mx-auto w-full" : "lg:grid-cols-12"}`}>
+              <div className={`grid grid-cols-1 gap-6 md:gap-8 ${(currentTab === "nikah" || currentTab === "penyuluhan") ? "max-w-4xl mx-auto w-full" : "lg:grid-cols-12"}`}>
                 
                 {/* Left side checklist / files & instructions */}
-                <div className={`${currentTab === "nikah" ? "" : "lg:col-span-8"} space-y-5 sm:space-y-6`}>
+                <div className={`${(currentTab === "nikah" || currentTab === "penyuluhan") ? "" : "lg:col-span-8"} space-y-5 sm:space-y-6`}>
                   {/* LAYANAN NIKAH TERPADU - CUSTOM CARS MODULE */}
                   {currentTab === "nikah" && (() => {
                     const nikahSlides = [
@@ -1223,11 +1263,15 @@ export default function App() {
                             {/* Profile Header & Picture */}
                             <div className="p-5 flex gap-4 items-center">
                               {/* 3D Passport Photo */}
-                              <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl overflow-hidden bg-slate-50 border border-slate-200 shadow-xs grow-0 shrink-0 relative group">
+                              <div 
+                                onClick={() => setSelectedPhotoViewer(educator)}
+                                className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl overflow-hidden bg-slate-50 border border-slate-200 shadow-xs grow-0 shrink-0 relative group cursor-zoom-in"
+                                title="Klik untuk memperbesar foto profil"
+                              >
                                 <img 
                                   src={educator.photo || educator.fallbackPhoto} 
                                   alt={educator.name} 
-                                  className="w-full h-full object-cover select-none"
+                                  className="w-full h-full object-cover select-none transition-transform duration-300 group-hover:scale-110"
                                   onError={(e) => {
                                     if (educator.fallbackPhoto) {
                                       e.currentTarget.src = educator.fallbackPhoto;
@@ -1235,7 +1279,9 @@ export default function App() {
                                   }}
                                   referrerPolicy="no-referrer"
                                 />
-                                <div className="absolute inset-0 bg-emerald-950/10 opacity-0 group-hover:opacity-100 transition-opacity" />
+                                <div className="absolute inset-0 bg-emerald-950/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                  <Maximize2 className="h-4 w-4 text-white drop-shadow-sm" />
+                                </div>
                               </div>
 
                               {/* Details */}
@@ -1267,8 +1313,11 @@ export default function App() {
                                 <button
                                   onClick={() => {
                                     setPenyuluhSelectedId(educator.id);
-                                    const element = document.getElementById("form-konsultasi-penyuluh");
-                                    element?.scrollIntoView({ behavior: "smooth", block: "start" });
+                                    setShowConsultationForm(true);
+                                    setTimeout(() => {
+                                      const element = document.getElementById("form-konsultasi-penyuluh");
+                                      element?.scrollIntoView({ behavior: "smooth", block: "start" });
+                                    }, 150);
                                   }}
                                   className="flex-1 md:flex-none px-3 py-1.5 bg-slate-100 hover:bg-emerald-50 text-slate-750 hover:text-emerald-800 rounded-xl text-[11px] font-bold transition-all shadow-xxs flex items-center justify-center cursor-pointer border border-transparent"
                                   title="Pilih untuk Konsultasi"
@@ -1294,147 +1343,166 @@ export default function App() {
                         ))}
                       </div>
 
-                      {/* Interactive Consultation Form */}
-                      <div 
-                        id="form-konsultasi-penyuluh" 
-                        className="bg-white rounded-3xl border border-slate-150 p-6 md:p-8 shadow-xs relative overflow-hidden"
-                      >
-                        <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/5 rounded-bl-full pointer-events-none" />
-                        
-                        <div className="mb-6">
-                          <span className="text-[10px] font-extrabold uppercase tracking-widest text-[#15803d] bg-emerald-50 px-2.5 py-1 rounded-md inline-block">
-                            FORM KONSULTASI ONLINE
-                          </span>
-                          <h3 className="text-lg font-extrabold font-display text-emerald-950 mt-1.5">
-                            Konsultasi Langsung dengan Penyuluh Agama
-                          </h3>
-                          <p className="text-xs text-slate-500 mt-1 leading-normal">
-                            Isi formulir bimbingan rohani di bawah ini. Tombol kirim akan memformat pesan Anda secara rapi dan meneruskannya langsung via chat WhatsApp ke Penyuluh pilihan Anda.
-                          </p>
-                        </div>
-
-                        {penyuluhSubmitted ? (
+                      {/* Interactive Consultation Form with Modern Reveal */}
+                      <AnimatePresence>
+                        {showConsultationForm && (
                           <motion.div 
-                            initial={{ opacity: 0, scale: 0.95 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            className="p-6 bg-[#f0fdf4] border border-emerald-100 rounded-2xl text-center space-y-4"
+                            id="form-konsultasi-penyuluh" 
+                            initial={{ opacity: 0, height: 0, y: 20 }}
+                            animate={{ opacity: 1, height: "auto", y: 0 }}
+                            exit={{ opacity: 0, height: 0, y: 20 }}
+                            transition={{ duration: 0.3, ease: "easeOut" }}
+                            className="bg-white rounded-3xl border border-slate-150 p-6 md:p-8 shadow-xs relative overflow-hidden mb-4"
                           >
-                            <div className="w-12 h-12 bg-emerald-105 text-emerald-700 rounded-full flex items-center justify-center mx-auto shadow-md">
-                              <CheckCircle2 className="h-6 w-6 text-emerald-600 animate-bounce" />
-                            </div>
-                            <div>
-                              <h4 className="font-extrabold text-emerald-950 text-sm">Draft Konsultasi Berhasil Dibuat!</h4>
-                              <p className="text-xs text-emerald-800 mt-1 max-w-md mx-auto leading-relaxed">
-                                Teks konsultasi Anda telah diformat secara otomatis. Silakan selesaikan pengiriman chat di aplikasi WhatsApp yang baru saja terbuka.
-                              </p>
-                            </div>
-                            <div className="pt-2 flex justify-center gap-2">
+                            <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/5 rounded-bl-full pointer-events-none" />
+                            
+                            <div className="mb-6 flex justify-between items-start gap-4">
+                              <div>
+                                <span className="text-[10px] font-extrabold uppercase tracking-widest text-[#15803d] bg-emerald-50 px-2.5 py-1 rounded-md inline-block">
+                                  FORM KONSULTASI ONLINE
+                                </span>
+                                <h3 className="text-lg font-extrabold font-display text-emerald-950 mt-1.5 font-display">
+                                  Konsultasi Langsung dengan Penyuluh Agama
+                                </h3>
+                                <p className="text-xs text-slate-500 mt-1 leading-normal">
+                                  Isi formulir bimbingan rohani di bawah ini. Tombol kirim akan memformat pesan Anda secara rapi dan meneruskannya langsung via chat WhatsApp ke Penyuluh pilihan Anda.
+                                </p>
+                              </div>
                               <button
-                                onClick={() => {
-                                  const educator = penyuluhList.find(p => p.id === penyuluhSelectedId) || penyuluhList[0];
-                                  const textFormatted = `Assalamu'alaikum Warahmatullahi Wabarakatuh,\n\nYth. *${educator.name}*\n(Penyuluh KUA Pulau Dullah Utara)\n\nPerihal: *Konsultasi ${penyuluhTopic}*\n\nBerikut adalah identitas saya:\n- Nama: *${penyuluhSenderName}*\n- No. WA: *${penyuluhSenderWa}*\n\nPertanyaan/Detail Konsultasi:\n_"${penyuluhQuery}"_\n\nMohon petunjuk dan bimbingannya. Terima kasih.`;
-                                  const waUrl = `https://wa.me/${educator.phone}?text=${encodeURIComponent(textFormatted)}`;
-                                  window.open(waUrl, "_blank");
-                                }}
-                                className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold flex items-center gap-1 shadow-xxs transition-colors cursor-pointer"
+                                type="button"
+                                onClick={() => setShowConsultationForm(false)}
+                                className="p-1.5 hover:bg-slate-100 rounded-xl text-slate-400 hover:text-slate-600 transition-colors cursor-pointer shrink-0"
+                                title="Sembunyikan Form"
                               >
-                                <ExternalLink className="h-3.5 w-3.5" />
-                                <span>Kirim Ulang / Buka Lagi</span>
-                              </button>
-                              <button
-                                onClick={() => {
-                                  setPenyuluhSubmitted(false);
-                                  setPenyuluhQuery("");
-                                }}
-                                className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold cursor-pointer"
-                              >
-                                Buat Pertanyaan Baru
+                                <X className="h-4 w-4" />
                               </button>
                             </div>
+
+                            {penyuluhSubmitted ? (
+                              <motion.div 
+                                initial={{ opacity: 0, scale: 0.95 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                className="p-6 bg-[#f0fdf4] border border-emerald-100 rounded-2xl text-center space-y-4"
+                              >
+                                <div className="w-12 h-12 bg-emerald-105 text-emerald-700 rounded-full flex items-center justify-center mx-auto shadow-md">
+                                  <CheckCircle2 className="h-6 w-6 text-emerald-600 animate-bounce" />
+                                </div>
+                                <div>
+                                  <h4 className="font-extrabold text-emerald-950 text-sm">Draft Konsultasi Berhasil Dibuat!</h4>
+                                  <p className="text-xs text-emerald-800 mt-1 max-w-md mx-auto leading-relaxed">
+                                    Teks konsultasi Anda telah diformat secara otomatis. Silakan selesaikan pengiriman chat di aplikasi WhatsApp yang baru saja terbuka.
+                                  </p>
+                                </div>
+                                <div className="pt-2 flex justify-center gap-2">
+                                  <button
+                                    onClick={() => {
+                                      const educator = penyuluhList.find(p => p.id === penyuluhSelectedId) || penyuluhList[0];
+                                      const textFormatted = `Assalamu'alaikum Warahmatullahi Wabarakatuh,\n\nYth. *${educator.name}*\n(Penyuluh KUA Pulau Dullah Utara)\n\nPerihal: *Konsultasi ${penyuluhTopic}*\n\nBerikut adalah identitas saya:\n- Nama: *${penyuluhSenderName}*\n- No. WA: *${penyuluhSenderWa}*\n\nPertanyaan/Detail Konsultasi:\n_"${penyuluhQuery}"_\n\nMohon petunjuk dan bimbingannya. Terima kasih.`;
+                                      const waUrl = `https://wa.me/${educator.phone}?text=${encodeURIComponent(textFormatted)}`;
+                                      window.open(waUrl, "_blank");
+                                    }}
+                                    className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold flex items-center gap-1 shadow-xxs transition-colors cursor-pointer"
+                                  >
+                                    <ExternalLink className="h-3.5 w-3.5" />
+                                    <span>Kirim Ulang / Buka Lagi</span>
+                                  </button>
+                                  <button
+                                    onClick={() => {
+                                      setPenyuluhSubmitted(false);
+                                      setPenyuluhQuery("");
+                                    }}
+                                    className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold cursor-pointer"
+                                  >
+                                    Buat Pertanyaan Baru
+                                  </button>
+                                </div>
+                              </motion.div>
+                            ) : (
+                              <form onSubmit={handlePenyuluhSubmit} className="space-y-4">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                  <div>
+                                    <label className="block text-[10px] font-bold text-slate-705 uppercase mb-1">Nama Lengkap</label>
+                                    <input
+                                      type="text"
+                                      required
+                                      placeholder="Contoh: Husin Bugis"
+                                      value={penyuluhSenderName}
+                                      onChange={(e) => setPenyuluhSenderName(e.target.value)}
+                                      className="w-full px-3 py-2 border border-slate-200 rounded-xl text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 bg-slate-50/50"
+                                    />
+                                  </div>
+
+                                  <div>
+                                    <label className="block text-[10px] font-bold text-slate-705 uppercase mb-1">Nomor WhatsApp Anda</label>
+                                    <input
+                                      type="text"
+                                      required
+                                      placeholder="Contoh: 081234xxxx"
+                                      value={penyuluhSenderWa}
+                                      onChange={(e) => setPenyuluhSenderWa(e.target.value)}
+                                      className="w-full px-3 py-2 border border-slate-200 rounded-xl text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 bg-slate-50/50"
+                                    />
+                                  </div>
+                                </div>
+
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                  <div>
+                                    <label className="block text-[10px] font-bold text-slate-705 uppercase mb-1">Pilih Penyuluh Agama</label>
+                                    <select
+                                      value={penyuluhSelectedId}
+                                      onChange={(e) => setPenyuluhSelectedId(e.target.value)}
+                                      className="w-full px-3 py-2 border border-slate-200 rounded-xl text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 bg-white"
+                                    >
+                                      <option value="" disabled>-- Pilih Penyuluh --</option>
+                                      {penyuluhList.map((educator) => (
+                                        <option key={educator.id} value={educator.id}>
+                                          {educator.name}
+                                        </option>
+                                      ))}
+                                    </select>
+                                  </div>
+
+                                  <div>
+                                    <label className="block text-[10px] font-bold text-slate-705 uppercase mb-1">Topik Bimbingan</label>
+                                    <select
+                                      value={penyuluhTopic}
+                                      onChange={(e) => setPenyuluhTopic(e.target.value)}
+                                      className="w-full px-3 py-2 border border-slate-200 rounded-xl text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 bg-white"
+                                    >
+                                      <option value="Bimbingan Perkawinan">Bimbingan Pernikahan / Pranikah</option>
+                                      <option value="Keluarga Sakinah">Hukum Syariah & Keluarga Sakinah</option>
+                                      <option value="Muallaf Center">Bimbingan Muallaf & Pembinaan Aqidah</option>
+                                      <option value="Zakat, Waris & Wakaf">Konsultasi Zakat, Waris, & Wakaf</option>
+                                      <option value="Pembelajaran Al-Quran">Pembelajaran Al-Qur'an / Buta Aksara Huruf</option>
+                                      <option value="Konsultasi Syariah Umum">Konsultasi Keagamaan / Syariah Umum</option>
+                                    </select>
+                                  </div>
+                                </div>
+
+                                <div>
+                                  <label className="block text-[10px] font-bold text-slate-705 uppercase mb-1">Detail Pertanyaan / Konsultasi</label>
+                                  <textarea
+                                    rows={4}
+                                    required
+                                    placeholder="Silakan tulis detail persoalan atau bimbingan yang ingin dikonsultasikan secara santun..."
+                                    value={penyuluhQuery}
+                                    onChange={(e) => setPenyuluhQuery(e.target.value)}
+                                    className="w-full px-3 py-2 border border-slate-200 rounded-xl text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 bg-slate-50/50"
+                                  />
+                                </div>
+
+                                <button
+                                  type="submit"
+                                  className="w-full py-2.5 bg-emerald-700 hover:bg-emerald-800 text-white rounded-xl text-xs font-bold transition-all shadow-md flex items-center justify-center space-x-1 cursor-pointer"
+                                >
+                                  <MessageSquare className="h-4 w-4" />
+                                  <span>Hubungi via WhatsApp &rarr;</span>
+                                </button>
+                              </form>
+                            )}
                           </motion.div>
-                        ) : (
-                          <form onSubmit={handlePenyuluhSubmit} className="space-y-4">
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                              <div>
-                                <label className="block text-[10px] font-bold text-slate-705 uppercase mb-1">Nama Lengkap</label>
-                                <input
-                                  type="text"
-                                  required
-                                  placeholder="Contoh: Husin Bugis"
-                                  value={penyuluhSenderName}
-                                  onChange={(e) => setPenyuluhSenderName(e.target.value)}
-                                  className="w-full px-3 py-2 border border-slate-200 rounded-xl text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 bg-slate-50/50"
-                                />
-                              </div>
-
-                              <div>
-                                <label className="block text-[10px] font-bold text-slate-705 uppercase mb-1">Nomor WhatsApp Anda</label>
-                                <input
-                                  type="text"
-                                  required
-                                  placeholder="Contoh: 081234xxxx"
-                                  value={penyuluhSenderWa}
-                                  onChange={(e) => setPenyuluhSenderWa(e.target.value)}
-                                  className="w-full px-3 py-2 border border-slate-200 rounded-xl text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 bg-slate-50/50"
-                                />
-                              </div>
-                            </div>
-
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                              <div>
-                                <label className="block text-[10px] font-bold text-slate-705 uppercase mb-1">Pilih Penyuluh Agama</label>
-                                <select
-                                  value={penyuluhSelectedId}
-                                  onChange={(e) => setPenyuluhSelectedId(e.target.value)}
-                                  className="w-full px-3 py-2 border border-slate-200 rounded-xl text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 bg-white"
-                                >
-                                  {penyuluhList.map((educator) => (
-                                    <option key={educator.id} value={educator.id}>
-                                      {educator.name}
-                                    </option>
-                                  ))}
-                                </select>
-                              </div>
-
-                              <div>
-                                <label className="block text-[10px] font-bold text-slate-705 uppercase mb-1">Topik Bimbingan</label>
-                                <select
-                                  value={penyuluhTopic}
-                                  onChange={(e) => setPenyuluhTopic(e.target.value)}
-                                  className="w-full px-3 py-2 border border-slate-200 rounded-xl text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 bg-white"
-                                >
-                                  <option value="Bimbingan Perkawinan">Bimbingan Pernikahan / Pranikah</option>
-                                  <option value="Keluarga Sakinah">Hukum Syariah & Keluarga Sakinah</option>
-                                  <option value="Muallaf Center">Bimbingan Muallaf & Pembinaan Aqidah</option>
-                                  <option value="Zakat, Waris & Wakaf">Konsultasi Zakat, Waris, & Wakaf</option>
-                                  <option value="Pembelajaran Al-Quran">Pembelajaran Al-Qur'an / Buta Aksara Huruf</option>
-                                  <option value="Konsultasi Syariah Umum">Konsultasi Keagamaan / Syariah Umum</option>
-                                </select>
-                              </div>
-                            </div>
-
-                            <div>
-                              <label className="block text-[10px] font-bold text-slate-705 uppercase mb-1">Detail Pertanyaan / Konsultasi</label>
-                              <textarea
-                                rows={4}
-                                required
-                                placeholder="Silakan tulis detail persoalan atau bimbingan yang ingin dikonsultasikan secara santun..."
-                                value={penyuluhQuery}
-                                onChange={(e) => setPenyuluhQuery(e.target.value)}
-                                className="w-full px-3 py-2 border border-slate-200 rounded-xl text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 bg-slate-50/50"
-                              />
-                            </div>
-
-                            <button
-                              type="submit"
-                              className="w-full py-2.5 bg-emerald-700 hover:bg-emerald-800 text-white rounded-xl text-xs font-bold transition-all shadow-md flex items-center justify-center space-x-1 cursor-pointer"
-                            >
-                              <MessageSquare className="h-4 w-4" />
-                              <span>Hubungi via WhatsApp &rarr;</span>
-                            </button>
-                          </form>
                         )}
-                      </div>
+                      </AnimatePresence>
 
                       {/* Header for supplementary materials */}
                       {currentLayanans.length > 0 && (
@@ -1447,12 +1515,13 @@ export default function App() {
                     </div>
                   )}
 
-                  {currentLayanans.length === 0 ? (
-                    <div className="p-8 border border-dashed border-slate-350 rounded-2xl text-center text-slate-400">
-                      <AlertCircle className="h-8 w-8 mx-auto text-slate-300 mb-2" />
-                      <p className="text-sm">Belum ada item layanan terdaftar di kategori ini.</p>
-                    </div>
-                  ) : currentTab === "nikah" ? (
+                  {currentTab !== "penyuluhan" && (
+                    currentLayanans.length === 0 ? (
+                      <div className="p-8 border border-dashed border-slate-350 rounded-2xl text-center text-slate-400">
+                        <AlertCircle className="h-8 w-8 mx-auto text-slate-300 mb-2" />
+                        <p className="text-sm">Belum ada item layanan terdaftar di kategori ini.</p>
+                      </div>
+                    ) : currentTab === "nikah" ? (
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                       {currentLayanans.map((serv) => {
                         const isLink = serv.type === "link";
@@ -1584,19 +1653,20 @@ export default function App() {
                                         <span className="absolute -left-[25px] top-0.5 w-4 h-4 rounded-full bg-white ring-2 ring-emerald-500 text-[10px] font-bold text-emerald-800 flex items-center justify-center font-mono">
                                           {idx + 1}
                                         </span>
-                                        <p className="text-xs text-slate-700 font-medium">{step}</p>
+                                        <div className="space-y-0.5">
+                                          <h5 className="text-xs font-bold text-emerald-950">{step}</h5>
+                                        </div>
                                       </div>
                                     ))}
                                   </div>
                                 </div>
                               )}
 
-                              {/* Dynamic Image Display if present */}
                               {serv.image && (
-                                <div className="mt-4 relative group rounded-2xl overflow-hidden border border-slate-200 bg-slate-50 max-h-60 flex justify-center items-center">
+                                <div className="mt-4 overflow-hidden rounded-xl border border-slate-150 bg-slate-50 relative group">
                                   <img 
                                     src={serv.image} 
-                                    alt={serv.title}
+                                    alt={serv.title} 
                                     className="object-contain max-h-60 w-full"
                                   />
                                   <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
@@ -1652,7 +1722,7 @@ export default function App() {
                         </div>
                       );
                     })
-                  )}
+                  ))}
 
                   {/* Standard bottom safety card */}
                   <div className="p-4 sm:p-5 bg-emerald-900 rounded-2xl text-white relative overflow-hidden shadow-md">
@@ -1670,7 +1740,9 @@ export default function App() {
                   {/* Category Fast Information Form */}
                   {currentTab !== "nikah" && (
                     <div className="bg-white rounded-3xl p-6 border border-slate-150 shadow-xs">
-                      <h4 className="text-sm font-extrabold uppercase tracking-wide text-slate-400 mb-4">Layanan Cepat</h4>
+                      <h4 className="text-sm font-extrabold uppercase tracking-wide text-slate-400 mb-4">
+                        {currentTab === "penyuluhan" ? "Pembinaan & Evaluasi" : "Layanan Cepat"}
+                      </h4>
                       <div className="space-y-4">
                         {currentTab === "wakaf" && (
                           <>
@@ -1725,29 +1797,63 @@ export default function App() {
                         )}
 
                         {currentTab === "penyuluhan" && (
-                          <>
-                            <div className="space-y-2">
-                              <p className="text-xs font-bold text-slate-700">Form Penyuluhan / Bimbingan Agama: </p>
-                              <a
-                                href={defaultSettings.googleFormPenyuluhan}
-                                target="_blank"
-                                className="block p-3 bg-[#fffbeb] hover:bg-[#fef3c7] border border-amber-200 rounded-xl text-xs font-bold text-amber-800 text-center shadow-xs"
+                          <div className="space-y-4">
+                            {/* Card 1: Pembinaan Catin */}
+                            <div className="bg-emerald-50/40 p-4 border border-emerald-100 rounded-2xl">
+                              <div className="flex items-center gap-2 mb-2">
+                                <div className="w-8 h-8 rounded-lg bg-emerald-100 flex items-center justify-center text-emerald-800">
+                                  <Users className="h-4 w-4" />
+                                </div>
+                                <h5 className="text-[11px] font-extrabold text-emerald-950 uppercase tracking-wide">
+                                  Pembinaan & Pendampingan Catin
+                                </h5>
+                              </div>
+                              <p className="text-[11px] text-slate-650 leading-relaxed mb-3">
+                                Pembinaan keluarga sakinah untuk calon pengantin (catin) secara terkonsep melalui bimbingan tatap muka atau konsultasi online bersama Penyuluh Agama Islam.
+                              </p>
+                              <button
+                                onClick={() => {
+                                  if (penyuluhList.length > 0) {
+                                    setPenyuluhSelectedId(penyuluhList[0].id);
+                                  }
+                                  setShowConsultationForm(true);
+                                  setTimeout(() => {
+                                    const el = document.getElementById("form-konsultasi-penyuluh");
+                                    el?.scrollIntoView({ behavior: "smooth", block: "start" });
+                                  }, 150);
+                                }}
+                                className="w-full py-2 bg-emerald-700 hover:bg-emerald-800 text-white rounded-xl text-[10px] font-bold shadow-xs transition-colors cursor-pointer text-center flex items-center justify-center gap-1.5"
                               >
-                                ✏️ Google Form Penyuluhan
-                              </a>
+                                <MessageSquare className="h-3 w-3" />
+                                <span>Hubungi Penyuluh Pembimbing</span>
+                              </button>
                             </div>
-                            <div className="space-y-2">
-                              <p className="text-xs font-bold text-slate-700">Konsultasi Penyuluh Agama Islam: </p>
-                              <a
-                                href={`https://wa.me/${defaultSettings.whatsappNumber}`}
-                                target="_blank"
-                                className="block p-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold text-center flex items-center justify-center space-x-1 shadow-sm"
+
+                            {/* Card 2: Kuisioner Evaluasi */}
+                            <div className="bg-[#fffbeb] p-4 border border-amber-200 rounded-2xl">
+                              <div className="flex items-center gap-2 mb-2">
+                                <div className="w-8 h-8 rounded-lg bg-amber-100 flex items-center justify-center text-amber-800">
+                                  <ClipboardList className="h-4 w-4" />
+                                </div>
+                                <h5 className="text-[11px] font-extrabold text-amber-950 uppercase tracking-wide">
+                                  Kuesioner Evaluasi Layanan
+                                </h5>
+                              </div>
+                              <p className="text-[11px] text-slate-650 leading-relaxed mb-3">
+                                Berikan umpan balik evaluasi pelaksanaan bimbingan demi peningkatan mutu pembinaan kemasyarakatan di Pulau Dullah Utara.
+                              </p>
+                              <button
+                                onClick={() => {
+                                  setEvaluasiSubmitted(false);
+                                  setShowEvaluasiModal(true);
+                                }}
+                                className="w-full py-2 bg-amber-600 hover:bg-amber-700 text-white rounded-xl text-[10px] font-bold shadow-xs transition-colors cursor-pointer text-center flex items-center justify-center gap-1.5"
                               >
-                                <MessageSquare className="h-4 w-4 animate-bounce" />
-                                <span>Konseling Agama & Syariah</span>
-                              </a>
+                                <ClipboardList className="h-3 w-3" />
+                                <span>Mulai Isi Kuesioner</span>
+                              </button>
                             </div>
-                          </>
+                          </div>
                         )}
                       </div>
                     </div>
@@ -2942,7 +3048,6 @@ export default function App() {
                           </div>
                           <div className="min-w-0">
                             <h4 className="text-xs font-bold text-slate-900 truncate">{p.name}</h4>
-                            <p className="text-[10px] text-emerald-700 font-semibold">{p.gender === "L" ? "Laki-laki" : "Perempuan"}</p>
                             <p className="text-[9px] text-slate-550 font-mono truncate">WA: +{p.phone}</p>
                           </div>
                         </div>
@@ -3317,6 +3422,81 @@ export default function App() {
         )}
       </AnimatePresence>
 
+      {/* PENYULUH PHOTO LIGHTBOX POPUP */}
+      <AnimatePresence>
+        {selectedPhotoViewer && (
+          <div 
+            className="fixed inset-0 bg-slate-950/85 backdrop-blur-sm flex items-center justify-center p-4 z-50 cursor-pointer"
+            onClick={() => setSelectedPhotoViewer(null)}
+          >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              transition={{ duration: 0.3 }}
+              className="relative max-w-md w-full flex flex-col items-center bg-white rounded-3xl overflow-hidden border border-slate-100 shadow-2xl p-6 cursor-default"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Close Button */}
+              <button
+                onClick={() => setSelectedPhotoViewer(null)}
+                className="absolute top-4 right-4 p-1.5 bg-slate-100 hover:bg-slate-200 text-slate-500 rounded-full transition-all cursor-pointer"
+                title="Tutup"
+              >
+                <X className="h-4 w-4" />
+              </button>
+
+              <div className="text-center w-full mt-2">
+                <span className="text-[10px] font-extrabold uppercase tracking-widest text-[#15803d] bg-emerald-50 px-2.5 py-1 rounded-md inline-block mb-3">
+                  Profil Penyuluh Agama Islam
+                </span>
+                <h3 className="text-base font-extrabold text-slate-900 font-display">
+                  {selectedPhotoViewer.name}
+                </h3>
+                <p className="text-xs text-emerald-600 font-bold mt-0.5">
+                  {selectedPhotoViewer.role || "Penyuluh Agama Islam"}
+                </p>
+              </div>
+
+              {/* Photo Frame with 3D passport feel & border */}
+              <div className="w-56 h-56 sm:w-64 sm:h-64 rounded-2xl overflow-hidden bg-slate-50 border-4 border-slate-100 shadow-lg mt-4 mb-4 relative">
+                <img 
+                  src={selectedPhotoViewer.photo || selectedPhotoViewer.fallbackPhoto} 
+                  alt={selectedPhotoViewer.name}
+                  className="w-full h-full object-cover select-none"
+                  onError={(e) => {
+                    if (selectedPhotoViewer.fallbackPhoto) {
+                      e.currentTarget.src = selectedPhotoViewer.fallbackPhoto;
+                    }
+                  }}
+                  referrerPolicy="no-referrer"
+                />
+              </div>
+
+              <div className="w-full bg-slate-50 hover:bg-emerald-50/50 p-3 rounded-2xl border border-slate-100 flex items-center justify-between text-xs transition-colors">
+                <div className="text-left font-mono">
+                  <p className="text-[10px] text-slate-450 font-bold uppercase">Nomor WhatsApp</p>
+                  <p className="font-bold text-slate-800">+{selectedPhotoViewer.phone}</p>
+                </div>
+                <a
+                  href={`https://wa.me/${selectedPhotoViewer.phone}?text=Assalamu%27alaikum%20Warahmatullahi%20Wabarakatuh.%20Yth.%20${encodeURIComponent(selectedPhotoViewer.name)}.%20Saya%20ingin%2520berkonsultasi.`}
+                  target="_blank"
+                  referrerPolicy="no-referrer"
+                  className="px-3.5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-bold flex items-center gap-1.5 shadow-xxs transition-colors"
+                >
+                  <Phone className="h-3 w-3" />
+                  <span>Kirim Pesan</span>
+                </a>
+              </div>
+
+              <span className="text-[10px] text-slate-400 mt-3 text-center">
+                Klik area mana saja di luar untuk kembali
+              </span>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+
       {/* =========================
          CUSTOM DELETE CONFIRMATION MODAL POPUP
       ========================= */}
@@ -3471,6 +3651,221 @@ export default function App() {
                   </button>
                 </div>
               </form>
+            </motion.div>
+          </div>
+        )}
+
+        {showEvaluasiModal && (
+          <div 
+            className="fixed inset-0 bg-slate-950/70 backdrop-blur-xs flex items-center justify-center p-4 z-50 cursor-pointer animate-fade-in"
+            onClick={() => setShowEvaluasiModal(false)}
+          >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 15 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 15 }}
+              transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+              className="bg-white rounded-3xl overflow-hidden max-w-lg w-full border border-slate-100 shadow-2xl p-6 sm:p-8 relative cursor-default space-y-4 max-h-[90vh] overflow-y-auto"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+                <div className="flex items-center space-x-2 text-amber-800">
+                  <ClipboardList className="h-5 w-5" />
+                  <h3 className="text-sm font-extrabold text-slate-900">Kuesioner Evaluasi Layanan Pembinaan KUA</h3>
+                </div>
+                <button 
+                  onClick={() => setShowEvaluasiModal(false)}
+                  className="p-1 hover:bg-slate-100 rounded-lg text-slate-400 hover:text-slate-650 cursor-pointer"
+                >
+                  <X className="h-4 w-4" />
+                </button>
+              </div>
+
+              {!evaluasiSubmitted ? (
+                <form onSubmit={handleEvaluasiSubmit} className="space-y-4 pt-2">
+                  <p className="text-[11px] text-slate-500 leading-relaxed bg-amber-50/50 p-3 rounded-xl border border-amber-100">
+                    Mohon isi data di bawah ini secara objektif terkait program pembinaan pendampingan keluarga sakinah catin oleh Penyuluh Agama Islam kami. Penilaian Anda langsung terkirim sebagai perbaikan layanan.
+                  </p>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {/* Responden Name */}
+                    <div>
+                      <label className="block text-[10px] font-bold text-slate-600 uppercase mb-1">Nama Responden / Catin</label>
+                      <input 
+                        type="text"
+                        required
+                        value={evaluasiCatinName}
+                        onChange={(e) => setEvaluasiCatinName(e.target.value)}
+                        className="w-full px-3 py-2 border border-slate-200 rounded-xl text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 bg-slate-50/50"
+                        placeholder="Masukkan nama lengkap Anda"
+                      />
+                    </div>
+
+                    {/* Responden Whatsapp */}
+                    <div>
+                      <label className="block text-[10px] font-bold text-slate-600 uppercase mb-1">No. WhatsApp / HP</label>
+                      <input 
+                        type="tel"
+                        required
+                        value={evaluasiCatinPhone}
+                        onChange={(e) => setEvaluasiCatinPhone(e.target.value)}
+                        className="w-full px-3 py-2 border border-slate-200 rounded-xl text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 font-mono bg-slate-50/50"
+                        placeholder="Contoh: 0812..."
+                      />
+                    </div>
+                  </div>
+
+                  {/* Choose Penyuluh */}
+                  <div>
+                    <label className="block text-[10px] font-bold text-slate-600 uppercase mb-1">Penyuluh yang Mendampingi</label>
+                    <select
+                      required
+                      value={evaluasiPenyuluhId}
+                      onChange={(e) => setEvaluasiPenyuluhId(e.target.value)}
+                      className="w-full px-3 py-2 border border-slate-200 rounded-xl text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 bg-slate-50/50 cursor-pointer"
+                    >
+                      <option value="">-- Pilih Nama Penyuluh Agama --</option>
+                      {penyuluhList.map((p) => (
+                        <option key={p.id} value={p.id}>
+                          {p.name}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  {/* Rating 1: Kepuasan Layanan */}
+                  <div>
+                    <label className="block text-[10px] font-bold text-slate-600 uppercase mb-1">
+                      Bagaimana kepuasan Anda terhadap Layanan Pembinaan?
+                    </label>
+                    <div className="flex items-center space-x-2 mt-1 bg-slate-50 p-3 border border-slate-150 rounded-xl justify-center">
+                      {[1, 2, 3, 4, 5].map((stars) => (
+                        <button
+                          key={stars}
+                          type="button"
+                          onClick={() => setEvaluasiSatisfied(stars)}
+                          className="focus:outline-none hover:scale-110 active:scale-95 transition-transform"
+                        >
+                          <Heart 
+                            className={`h-7 w-7 transition-all ${
+                              stars <= evaluasiSatisfied 
+                                ? "fill-rose-500 text-rose-500 stroke-rose-600" 
+                                : "text-slate-350 hover:text-rose-400"
+                            }`} 
+                          />
+                        </button>
+                      ))}
+                      <span className="text-xs font-bold text-slate-600 ml-2">
+                        {evaluasiSatisfied === 5 && "Sangat Puas ⭐ 5"}
+                        {evaluasiSatisfied === 4 && "Puas ⭐ 4"}
+                        {evaluasiSatisfied === 3 && "Cukup ⭐ 3"}
+                        {evaluasiSatisfied === 2 && "Kurang Puas ⭐ 2"}
+                        {evaluasiSatisfied === 1 && "Tidak Puas ⭐ 1"}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Rating 2: Kualitas Materi / Penyampaian */}
+                  <div>
+                    <label className="block text-[10px] font-bold text-slate-600 uppercase mb-1">
+                      Bagaimana pendapat Anda tentang kualitas kelayakan Materi Bimbingan?
+                    </label>
+                    <div className="flex items-center space-x-2 mt-1 bg-slate-50 p-3 border border-slate-150 rounded-xl justify-center">
+                      {[1, 2, 3, 4, 5].map((stars) => (
+                        <button
+                          key={stars}
+                          type="button"
+                          onClick={() => setEvaluasiMateriRating(stars)}
+                          className="focus:outline-none hover:scale-110 active:scale-95 transition-transform"
+                        >
+                          <Sparkles 
+                            className={`h-7 w-7 transition-all ${
+                              stars <= evaluasiMateriRating 
+                                ? "fill-amber-400 text-amber-500 stroke-amber-600" 
+                                : "text-slate-350 hover:text-amber-400"
+                            }`} 
+                          />
+                        </button>
+                      ))}
+                      <span className="text-xs font-bold text-slate-600 ml-2">
+                        {evaluasiMateriRating === 5 && "Sangat Bagus ⭐ 5"}
+                        {evaluasiMateriRating === 4 && "Bagus ⭐ 4"}
+                        {evaluasiMateriRating === 3 && "Cukup ⭐ 3"}
+                        {evaluasiMateriRating === 2 && "Kurang Baik ⭐ 2"}
+                        {evaluasiMateriRating === 1 && "Sangat Buruk ⭐ 1"}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Feedback / Suggestions */}
+                  <div>
+                    <label className="block text-[10px] font-bold text-slate-600 uppercase mb-1">Testimoni, Ulasan, dan Saran Perbaikan</label>
+                    <textarea 
+                      required
+                      rows={3}
+                      value={evaluasiFeedback}
+                      onChange={(e) => setEvaluasiFeedback(e.target.value)}
+                      className="w-full px-3 py-2 border border-slate-200 rounded-xl text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 bg-slate-50/50"
+                      placeholder="Masukkan ulasan, testimoni, atau saran Anda..."
+                    />
+                  </div>
+
+                  {/* Buttons */}
+                  <div className="grid grid-cols-2 gap-3 pt-2">
+                    <button
+                      type="button"
+                      onClick={() => setShowEvaluasiModal(false)}
+                      className="py-2.5 px-4 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold transition-colors cursor-pointer text-center"
+                    >
+                      Batal
+                    </button>
+                    <button
+                      type="submit"
+                      className="py-2.5 px-4 bg-amber-600 hover:bg-amber-700 text-white rounded-xl text-xs font-bold shadow-md transition-colors cursor-pointer text-center flex items-center justify-center space-x-1.5"
+                    >
+                      <Save className="h-3.5 w-3.5" />
+                      <span>Kirim Evaluasi</span>
+                    </button>
+                  </div>
+                </form>
+              ) : (
+                <div className="py-6 text-center space-y-4">
+                  <div className="w-16 h-16 bg-emerald-100 text-emerald-700 rounded-full flex items-center justify-center mx-auto text-2xl font-bold border border-emerald-200 shadow-xs">
+                    ✓
+                  </div>
+                  <div className="space-y-1">
+                    <h4 className="text-base font-bold text-slate-900">Terima Kasih Banyak!</h4>
+                    <p className="text-xs text-slate-500 max-w-sm mx-auto">
+                      Kuesioner evaluasi pembinaan keluarga sakinah catin Anda telah berhasil dipaketkan dan siap diteruskan melalui sistem WhatsApp / Database KUA.
+                    </p>
+                  </div>
+                  <div className="bg-slate-50 p-4 rounded-2xl border border-slate-150 text-left max-w-md mx-auto space-y-1.5 font-mono text-[10px] text-slate-650 leading-relaxed shadow-xxs">
+                    <p className="font-bold text-slate-800 text-[11px] mb-2 font-sans border-b border-slate-200 pb-1">Review Isian Anda:</p>
+                    <p>• Responden: <span className="font-bold text-slate-800">{evaluasiCatinName}</span></p>
+                    <p>• Kepuasan Layanan: <span className="text-rose-600 font-bold">{"⭐".repeat(evaluasiSatisfied)}</span> ({evaluasiSatisfied}/5)</p>
+                    <p>• Kualitas Materi: <span className="text-amber-600 font-bold">{"⭐".repeat(evaluasiMateriRating)}</span> ({evaluasiMateriRating}/5)</p>
+                    <p>• Saran: <span className="italic text-slate-900 border-l-2 border-emerald-500 pl-1.5 inline-block">"{evaluasiFeedback}"</span></p>
+                  </div>
+                  <div className="pt-2 flex justify-center gap-3">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setEvaluasiCatinName("");
+                        setEvaluasiCatinPhone("");
+                        setEvaluasiSatisfied(5);
+                        setEvaluasiMateriRating(5);
+                        setEvaluasiPenyuluhId("");
+                        setEvaluasiFeedback("");
+                        setEvaluasiSubmitted(false);
+                        setShowEvaluasiModal(false);
+                      }}
+                      className="py-2.5 px-6 bg-slate-950 text-white hover:bg-slate-850 rounded-xl text-xs font-bold cursor-pointer transition-colors"
+                    >
+                      Selesai & Tutup
+                    </button>
+                  </div>
+                </div>
+              )}
             </motion.div>
           </div>
         )}
