@@ -18,6 +18,8 @@ import {
   CheckCircle2, 
   ArrowRight, 
   ChevronRight, 
+  ChevronLeft,
+  Maximize2,
   MapPin, 
   Mail, 
   Phone, 
@@ -43,6 +45,8 @@ import Hero from "./components/Hero";
 import { Layanan, Pengumuman, Settings, DBState } from "./types";
 import berkasUmum from "./assets/images/berkas_umum_1779246456217.png";
 import berkasKhusus from "./assets/images/berkas_khusus_1779246479558.png";
+import kepalaKuaPlaceholder from "./assets/images/kepala_kua_1779336160767.png";
+import statistikKuaPlaceholder from "./assets/images/statistik_kua_1779338497688.png";
 
 export default function App() {
   const [db, setDb] = useState<DBState | null>(null);
@@ -87,6 +91,9 @@ export default function App() {
 
   // Settings form
   const [settingsForm, setSettingsForm] = useState<Partial<Settings>>({});
+
+  // Active Nikah Slide Carousel
+  const [activeNikahSlide, setActiveNikahSlide] = useState(0);
 
   // Delete confirmation dialog state
   const [deleteConfirm, setDeleteConfirm] = useState<{
@@ -442,7 +449,10 @@ export default function App() {
     instagramUrl: "",
     twitterUrl: "",
     tiktokUrl: "",
-    youtubeUrl: ""
+    youtubeUrl: "",
+    kepalaKuaName: "H. Ahmad, S.Ag.",
+    kepalaKuaImg: kepalaKuaPlaceholder,
+    statistikImg: statistikKuaPlaceholder
   };
 
   return (
@@ -576,26 +586,16 @@ export default function App() {
               </section>
 
               {/* STATISTIK SECTION */}
-              <section className="bg-emerald-950 py-16 text-white relative overflow-hidden">
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(16,185,129,0.15),transparent_40%)]" />
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                  <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 text-center">
-                    <div className="p-4" id="stat-nikah">
-                      <p className="text-4xl sm:text-5xl font-extrabold font-display text-emerald-400">987+</p>
-                      <p className="text-xs text-slate-300 font-semibold uppercase tracking-wider mt-2">Pernikahan Tercatat</p>
-                    </div>
-                    <div className="p-4" id="stat-wakaf">
-                      <p className="text-4xl sm:text-5xl font-extrabold font-display text-emerald-400">120+</p>
-                      <p className="text-xs text-slate-300 font-semibold uppercase tracking-wider mt-2">Hektar Tanah Wakaf</p>
-                    </div>
-                    <div className="p-4" id="stat-muallaf">
-                      <p className="text-4xl sm:text-5xl font-extrabold font-display text-emerald-400">45+</p>
-                      <p className="text-xs text-slate-300 font-semibold uppercase tracking-wider mt-2">Binaan Muallaf</p>
-                    </div>
-                    <div className="p-4" id="stat-layanan">
-                      <p className="text-4xl sm:text-5xl font-extrabold font-display text-emerald-400">100%</p>
-                      <p className="text-xs text-slate-300 font-semibold uppercase tracking-wider mt-2">Pelayanan KUA Digital</p>
-                    </div>
+              <section className="bg-emerald-950 py-8 text-white relative overflow-hidden" id="section-statistik">
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(16,185,129,0.15),transparent_40%)] pointer-events-none" />
+                <div className="max-w-7xl mx-auto relative z-10 flex flex-col items-center px-4">
+                  <div className="w-full flex justify-center">
+                    <img 
+                      src={defaultSettings.statistikImg || statistikKuaPlaceholder} 
+                      alt="Statistik Pelayanan KUA" 
+                      className="w-full h-auto md:max-w-5xl lg:max-w-6xl select-none"
+                      referrerPolicy="no-referrer"
+                    />
                   </div>
                 </div>
               </section>
@@ -672,16 +672,35 @@ export default function App() {
 
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center mb-20">
                 <div className="lg:col-span-5 relative">
-                  <div className="absolute inset-0 bg-emerald-100 rounded-3xl -rotate-3 transform -z-10 scale-95" />
-                  <div className="bg-emerald-900 rounded-3xl p-8 text-white relative shadow-xl overflow-hidden min-h-[350px] flex flex-col justify-end">
-                    <div className="absolute top-6 left-6 text-emerald-300">
-                      <Sparkles className="h-8 w-8 animate-pulse" />
+                  <div className="bg-emerald-950 rounded-3xl text-white relative shadow-xl overflow-hidden min-h-[510px] max-w-[325px] mx-auto w-full flex flex-col justify-between group select-none border border-emerald-800/25">
+                    {/* Background Subtle Gradient */}
+                    <div className="absolute inset-0 bg-gradient-to-tr from-emerald-950 via-emerald-900 to-emerald-950/90 -z-10" />
+                    
+                    {/* Vertically elongated photo integrated directly at the top of the card (narrower and taller) */}
+                    <div className="w-full h-[320px] relative overflow-hidden bg-emerald-900/30">
+                      <img 
+                        src={defaultSettings.kepalaKuaImg || kepalaKuaPlaceholder} 
+                        alt={defaultSettings.kepalaKuaName || "Kepala Kantor KUA"} 
+                        className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-103"
+                        referrerPolicy="no-referrer"
+                      />
+                      {/* Elegant dark gradient blending the portrait bottom edge smoothly into the dark card background */}
+                      <div className="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-emerald-950 to-transparent" />
                     </div>
-                    <div>
-                      <h4 className="text-2xl font-bold font-display">Kepala Kantor KUA</h4>
-                      <p className="text-xs text-emerald-300 mt-1 uppercase font-semibold tracking-wider">Kecamatan Pulau Dullah Utara</p>
-                      <hr className="border-emerald-700 my-4" />
-                      <p className="text-sm text-slate-200 italic leading-relaxed">
+                    
+                    {/* Writing content - identical to the beautiful dark design */}
+                    <div className="relative z-10 text-center px-6 pb-6 pt-2">
+                      <h4 className="text-xl sm:text-2xl font-black font-display tracking-tight text-white drop-shadow-sm">
+                        {defaultSettings.kepalaKuaName || "H. Ahmad, S.Ag."}
+                      </h4>
+                      <p className="text-xs text-emerald-300 mt-1 uppercase font-extrabold tracking-widest drop-shadow-xs">
+                        Kepala Kantor Urusan Agama
+                      </p>
+                      <p className="text-[10px] text-emerald-400 font-bold uppercase tracking-widest mt-0.5">
+                        Pulau Dullah Utara
+                      </p>
+                      <hr className="border-emerald-700/60 my-3" />
+                      <p className="text-[11px] text-slate-300 italic leading-relaxed font-sans drop-shadow-xs max-w-sm mx-auto px-1">
                         "Pelayanan digital modern ini diluncurkan untuk mempermudah, mempercepat, dan menjamin keterbukaan urusan dokumen keagamaan bagi seluruh ummat di Pulau Dullah Utara."
                       </p>
                     </div>
@@ -794,71 +813,222 @@ export default function App() {
               </div>
 
               {/* Dynamic Categories Services Grid */}
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+              <div className={`grid grid-cols-1 gap-6 md:gap-8 ${currentTab === "nikah" ? "max-w-4xl mx-auto w-full" : "lg:grid-cols-12"}`}>
                 
                 {/* Left side checklist / files & instructions */}
-                <div className="lg:col-span-8 space-y-6">
+                <div className={`${currentTab === "nikah" ? "" : "lg:col-span-8"} space-y-5 sm:space-y-6`}>
                   {/* LAYANAN NIKAH TERPADU - CUSTOM CARS MODULE */}
-                  {currentTab === "nikah" && (
-                    <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-100 shadow-xxs">
-                      <div className="text-center max-w-xl mx-auto mb-6">
-                        <span className="text-[10px] font-bold uppercase tracking-widest text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-full">
-                          Kanal Dokumen Utama Warga
-                        </span>
-                        <h3 className="text-xl font-extrabold font-display text-emerald-950 mt-1.5">
-                          📂 Dokumen Persyaratan Nikah Terpadu
-                        </h3>
-                        <p className="text-[11px] text-slate-500 mt-1">
-                          Silakan klik poster atau gambar di bawah untuk memperbesar berkas pendaftaran nikah umum, berkas khusus, maupun alur pendaftaran secara presisi.
-                        </p>
+                  {currentTab === "nikah" && (() => {
+                    const nikahSlides = [
+                      {
+                        title: "Berkas Pendaftaran Nikah Umum",
+                        subtitle: "Dokumen Persyaratan Umum WNI",
+                        description: "Dokumen esensial yang wajib dipenuhi oleh calon pengantin Warga Negara Indonesia (WNI) seperti KTP, Kartu Keluarga, ijazah, akta lahir, rekomendasi nikah luar daerah, dsb.",
+                        img: defaultSettings.berkasNikahImg || berkasUmum,
+                        badgeColor: "bg-emerald-50 text-emerald-700 border-emerald-100",
+                      },
+                      {
+                        title: "Berkas Pendaftaran Nikah Khusus",
+                        subtitle: "Persyaratan Kondisional Pasangan",
+                        description: "Persyaratan tambahan khusus bagi calon pengantin dengan status tertentu seperti anggota TNI/POLRI, Warga Negara Asing (WNA), status janda/duda cerai, izin poligami, maupun dispensasi nikah.",
+                        img: defaultSettings.alurNikahImg || berkasKhusus,
+                        badgeColor: "bg-blue-50 text-blue-700 border-blue-100",
+                      },
+                      {
+                        title: "Alur Proses Pendaftaran Nikah",
+                        subtitle: "Langkah Prosedural Resmi Kemenag",
+                        description: "Bagan langkah demi langkah pengurusan nikah: dari pengajuan berkas di Kelurahan, pendaftaran online SIMKAH di KUA, verifikasi dokumen oleh Penghulu, s/d pelaksanaan ijab kabul akad nikah.",
+                        img: defaultSettings.alurProsesNikahImg || berkasKhusus,
+                        badgeColor: "bg-amber-50 text-amber-700 border-amber-100",
+                      }
+                    ];
+
+                    const currentSlide = nikahSlides[activeNikahSlide] || nikahSlides[0];
+
+                    return (
+                      <div className="bg-white rounded-3xl p-4 sm:p-6 border border-slate-100 shadow-xxs">
+                        {/* Header Slide Info */}
+                        <div className="text-center max-w-xl mx-auto mb-4">
+                          <span className="text-[10px] font-extrabold uppercase tracking-widest text-[#15803d] bg-emerald-50 px-2.5 py-0.5 rounded-full">
+                            Kanal Dokumen Utama Warga
+                          </span>
+                          <h3 className="text-lg font-extrabold font-display text-emerald-950 mt-1">
+                            📂 Dokumen & Alur Pendaftaran Nikah
+                          </h3>
+                          <p className="text-[11px] text-slate-500 mt-0.5">
+                            Gunakan tombol navigasi &larr; &rarr; di bawah untuk beralih antara berkas umum, berkas khusus, dan alur pendaftaran secara praktis.
+                          </p>
+                        </div>
+
+                        {/* Slide Display Container */}
+                        <div className="relative bg-slate-50 border border-slate-100 rounded-2xl overflow-hidden p-3 sm:p-4.5 transition-all">
+                          
+                          {/* Inner Slide Layout */}
+                          <div className="grid grid-cols-1 md:grid-cols-12 gap-5 items-center">
+                            
+                            {/* Image Part */}
+                            <div className="md:col-span-6 relative group flex flex-col justify-center">
+                              <div className="overflow-hidden rounded-xl border border-slate-200 shadow-xs bg-white h-[200px] sm:h-[250px] w-full flex items-center justify-center relative">
+                                <motion.img
+                                  key={activeNikahSlide}
+                                  initial={{ opacity: 0, scale: 0.98 }}
+                                  animate={{ opacity: 1, scale: 1 }}
+                                  exit={{ opacity: 0, scale: 0.98 }}
+                                  transition={{ duration: 0.3 }}
+                                  src={currentSlide.img}
+                                  alt={currentSlide.title}
+                                  referrerPolicy="no-referrer"
+                                  className="w-full h-full object-contain cursor-zoom-in transition-transform duration-300 hover:scale-101"
+                                  onClick={() => openModal(currentSlide.img)}
+                                />
+                                
+                                {/* Live Hover Overlay badge to zoom */}
+                                <div className="absolute top-3 right-3 bg-black/60 text-white font-semibold text-[10px] px-2.5 py-1 rounded-full flex items-center space-x-1 backdrop-blur-xs select-none pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity">
+                                  <Maximize2 className="h-3 w-3" />
+                                  <span>Klik Untuk Memperbesar</span>
+                                </div>
+                              </div>
+                            </div>
+
+                            {/* Info text Part */}
+                            <div className="md:col-span-6 flex flex-col justify-between h-full py-1 space-y-3">
+                              <div className="space-y-2.5">
+                                <div className="flex items-center space-x-2">
+                                  <span className={`text-[9px] font-extrabold tracking-wider uppercase px-2 py-0.5 rounded-md border ${currentSlide.badgeColor}`}>
+                                    {currentSlide.subtitle}
+                                  </span>
+                                  <span className="text-[9px] text-slate-400 font-mono">
+                                    Slide {activeNikahSlide + 1} dari {nikahSlides.length}
+                                  </span>
+                                </div>
+                                <h4 className="text-base font-extrabold text-emerald-950 font-display leading-snug">
+                                  {currentSlide.title}
+                                </h4>
+                                <p className="text-[11px] text-slate-500 leading-relaxed font-sans">
+                                  {currentSlide.description}
+                                </p>
+                              </div>
+
+                              {/* Navigation Controls */}
+                              <div className="flex items-center justify-between pt-3 border-t border-slate-200/50 mt-1">
+                                <div className="flex space-x-1">
+                                  {nikahSlides.map((_, idx) => (
+                                    <button
+                                      key={idx}
+                                      onClick={() => setActiveNikahSlide(idx)}
+                                      className={`w-2 h-2 rounded-full transition-all duration-300 cursor-pointer ${
+                                        activeNikahSlide === idx ? "bg-emerald-700 w-4.5" : "bg-slate-300 hover:bg-slate-400"
+                                      }`}
+                                      aria-label={`Ke slide ${idx + 1}`}
+                                    />
+                                  ))}
+                                </div>
+
+                                <div className="flex space-x-1.5">
+                                  <button
+                                    onClick={() => setActiveNikahSlide((prev) => (prev === 0 ? nikahSlides.length - 1 : prev - 1))}
+                                    className="w-7 h-7 rounded-full border border-slate-200 bg-white text-slate-700 hover:bg-emerald-50 hover:text-emerald-700 flex items-center justify-center transition-all cursor-pointer shadow-xs"
+                                    title="Slide Sebelumnya"
+                                  >
+                                    <ChevronLeft className="h-3.5 w-3.5" />
+                                  </button>
+                                  <button
+                                    onClick={() => setActiveNikahSlide((prev) => (prev === nikahSlides.length - 1 ? 0 : prev + 1))}
+                                    className="w-7 h-7 rounded-full border border-slate-200 bg-white text-slate-700 hover:bg-emerald-50 hover:text-emerald-700 flex items-center justify-center transition-all cursor-pointer shadow-xs"
+                                    title="Slide Selanjutnya"
+                                  >
+                                    <ChevronRight className="h-3.5 w-3.5" />
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+
+                          </div>
+
+                        </div>
                       </div>
-
-                      <div className="layanan-container">
-                        {/* BERKAS UMUM */}
-                        <div className="card-berkas">
-                          <img
-                            src={defaultSettings.berkasNikahImg || berkasUmum}
-                            alt="Berkas Nikah Umum"
-                            referrerPolicy="no-referrer"
-                            onClick={() => openModal(defaultSettings.berkasNikahImg || berkasUmum)}
-                          />
-                          <div className="judul-card">
-                            Berkas Pendaftaran Nikah Umum
-                          </div>
-                        </div>
-
-                        {/* BERKAS KHUSUS */}
-                        <div className="card-berkas">
-                          <img
-                            src={defaultSettings.alurNikahImg || berkasKhusus}
-                            alt="Berkas Nikah Khusus"
-                            referrerPolicy="no-referrer"
-                            onClick={() => openModal(defaultSettings.alurNikahImg || berkasKhusus)}
-                          />
-                          <div className="judul-card">
-                            Berkas Pendaftaran Nikah Khusus
-                          </div>
-                        </div>
-
-                        {/* ALUR PENDAFTARAN NIKAH */}
-                        <div className="card-berkas">
-                          <img
-                            src={defaultSettings.alurProsesNikahImg || berkasKhusus}
-                            alt="Alur Pendaftaran Nikah"
-                            referrerPolicy="no-referrer"
-                            onClick={() => openModal(defaultSettings.alurProsesNikahImg || berkasKhusus)}
-                          />
-                          <div className="judul-card">
-                            Alur Pendaftaran Nikah
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  )}
+                    );
+                  })()}
                   {currentLayanans.length === 0 ? (
                     <div className="p-8 border border-dashed border-slate-350 rounded-2xl text-center text-slate-400">
                       <AlertCircle className="h-8 w-8 mx-auto text-slate-300 mb-2" />
                       <p className="text-sm">Belum ada item layanan terdaftar di kategori ini.</p>
+                    </div>
+                  ) : currentTab === "nikah" ? (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                      {currentLayanans.map((serv) => {
+                        const isLink = serv.type === "link";
+                        const isYoutube = serv.type === "youtube";
+                        const isWhatsapp = serv.type === "whatsapp";
+
+                        return (
+                          <div 
+                            key={serv.id}
+                            className="bg-white rounded-2xl p-4 sm:p-5 border border-slate-150 shadow-xxs hover:border-emerald-500 hover:shadow-xs hover:-translate-y-0.5 transition-all duration-300 flex flex-col justify-between h-full min-h-[180px]"
+                          >
+                            <div className="space-y-3">
+                              {/* Top Icon & Badge Row */}
+                              <div className="flex items-center justify-between">
+                                <div className="w-9 h-9 bg-emerald-50 text-emerald-700 rounded-lg flex items-center justify-center shrink-0">
+                                  {renderLayananIcon(serv.icon)}
+                                </div>
+                                {isLink && <span className="text-[9px] bg-slate-100 text-slate-600 font-extrabold px-2 py-0.5 rounded-sm uppercase tracking-wider text-right">Web</span>}
+                                {isYoutube && <span className="text-[9px] bg-rose-50 text-rose-700 font-extrabold px-2 py-0.5 rounded-sm uppercase tracking-wider text-right">Video</span>}
+                                {isWhatsapp && <span className="text-[9px] bg-emerald-50 text-emerald-700 font-extrabold px-2 py-0.5 rounded-sm uppercase tracking-wider text-right">WhatsApp</span>}
+                              </div>
+
+                              {/* Title & Description */}
+                              <div className="space-y-1">
+                                <h4 className="text-xs sm:text-sm font-extrabold text-slate-900 leading-snug">
+                                  {serv.title}
+                                </h4>
+                                {serv.description && (
+                                  <p className="text-[11px] text-slate-500 leading-normal line-clamp-2">
+                                    {serv.description}
+                                  </p>
+                                )}
+                              </div>
+                            </div>
+
+                            {/* Action Button at the bottom */}
+                            <div className="pt-3 mt-auto border-t border-slate-100/50">
+                              {isLink && serv.url && (
+                                <a
+                                  href={serv.url}
+                                  target="_blank"
+                                  referrerPolicy="no-referrer"
+                                  className="w-full py-2 px-3 bg-emerald-700 hover:bg-emerald-800 text-white rounded-xl text-[10px] font-bold flex items-center justify-center space-x-1 transition-colors"
+                                >
+                                  <span>Buka Link Layanan</span>
+                                  <ExternalLink className="h-3 w-3" />
+                                </a>
+                              )}
+
+                              {isYoutube && serv.url && (
+                                <button
+                                  onClick={() => playYoutubeVideo(serv.url!, serv.title)}
+                                  className="w-full py-2 px-3 bg-rose-600 hover:bg-rose-700 text-white rounded-xl text-[10px] font-bold flex items-center justify-center space-x-1 cursor-pointer transition-colors"
+                                >
+                                  <span>Tonton Panduan</span>
+                                  <Video className="h-3 w-3" />
+                                </button>
+                              )}
+
+                              {isWhatsapp && serv.url && (
+                                <a
+                                  href={`${serv.url}?text=Assalamu%27alaikum%20Admin%20KUA%20Pulau%20Dullah%20Utara.%20Mohon%20konsultasi%20layanan%20${currentTab}.`}
+                                  target="_blank"
+                                  referrerPolicy="no-referrer"
+                                  className="w-full py-1.5 px-3 bg-emerald-600 hover:bg-emerald-750 text-white rounded-xl text-[10px] font-bold flex items-center justify-center space-x-1.5 transition-colors"
+                                >
+                                  <MessageSquare className="h-3.5 w-3.5" />
+                                  <span>Mulai Konsultasi WA</span>
+                                </a>
+                              )}
+                            </div>
+                          </div>
+                        );
+                      })}
                     </div>
                   ) : (
                     currentLayanans.map((serv) => {
@@ -1000,100 +1170,79 @@ export default function App() {
                 <div className="lg:col-span-4 space-y-6">
                   
                   {/* Category Fast Information Form */}
-                  <div className="bg-white rounded-3xl p-6 border border-slate-150 shadow-xs">
-                    <h4 className="text-sm font-extrabold uppercase tracking-wide text-slate-400 mb-4">Layanan Cepat</h4>
-                    <div className="space-y-4">
-                      {currentTab === "nikah" && (
-                        <>
-                          <div className="space-y-2">
-                            <p className="text-xs font-bold text-slate-700">Pendaftaran Nikah Cepat: </p>
-                            <a
-                              href="https://simkah4.kemenag.go.id"
-                              target="_blank"
-                              className="block p-3 bg-emerald-50 hover:bg-emerald-100 border border-emerald-100 rounded-xl text-xs font-bold text-emerald-800 text-center"
-                            >
-                              🚀 Klik SIMKAH online4
-                            </a>
-                          </div>
-                          <div className="space-y-2">
-                            <p className="text-xs font-bold text-slate-700">Kirim Berkas awal KUA: </p>
-                            <a
-                              href={defaultSettings.googleFormNikah}
-                              target="_blank"
-                              className="block p-3 bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-xl text-xs font-bold text-slate-800 text-center"
-                            >
-                              📂 Isi Google Form Berkas
-                            </a>
-                          </div>
-                        </>
-                      )}
+                  {currentTab !== "nikah" && (
+                    <div className="bg-white rounded-3xl p-6 border border-slate-150 shadow-xs">
+                      <h4 className="text-sm font-extrabold uppercase tracking-wide text-slate-400 mb-4">Layanan Cepat</h4>
+                      <div className="space-y-4">
+                        {currentTab === "wakaf" && (
+                          <>
+                            <div className="space-y-2">
+                              <p className="text-xs font-bold text-slate-700">Portal Wakaf Nasional: </p>
+                              <a
+                                href="https://siwak.kemenag.go.id"
+                                target="_blank"
+                                className="block p-3 bg-emerald-50 hover:bg-emerald-100 border border-emerald-100 rounded-xl text-xs font-bold text-emerald-800 text-center"
+                              >
+                                🌍 Daftar Online di SIWAK
+                              </a>
+                            </div>
+                            <div className="space-y-2">
+                              <p className="text-xs font-bold text-slate-700">Konsultasi Syariah Wakaf: </p>
+                              <a
+                                href={`https://wa.me/${defaultSettings.whatsappNumber}`}
+                                target="_blank"
+                                className="block p-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold text-center flex items-center justify-center space-x-1"
+                              >
+                                <MessageSquare className="h-4 w-4" />
+                                <span>Hubungi Adm. Wakaf (WA)</span>
+                              </a>
+                            </div>
+                          </>
+                        )}
 
-                      {currentTab === "wakaf" && (
-                        <>
-                          <div className="space-y-2">
-                            <p className="text-xs font-bold text-slate-700">Portal Wakaf Nasional: </p>
-                            <a
-                              href="https://siwak.kemenag.go.id"
-                              target="_blank"
-                              className="block p-3 bg-emerald-50 hover:bg-emerald-100 border border-emerald-100 rounded-xl text-xs font-bold text-emerald-800 text-center"
-                            >
-                              🌍 Daftar Online di SIWAK
-                            </a>
-                          </div>
-                          <div className="space-y-2">
-                            <p className="text-xs font-bold text-slate-700">Konsultasi Syariah Wakaf: </p>
-                            <a
-                              href={`https://wa.me/${defaultSettings.whatsappNumber}`}
-                              target="_blank"
-                              className="block p-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold text-center flex items-center justify-center space-x-1"
-                            >
-                              <MessageSquare className="h-4 w-4" />
-                              <span>Hubungi Adm. Wakaf (WA)</span>
-                            </a>
-                          </div>
-                        </>
-                      )}
-
-                      {currentTab === "muallaf" && (
-                        <>
-                          <div className="space-y-2">
-                            <p className="text-xs font-bold text-slate-700">Form Pendaftaran Calon Muallaf: </p>
-                            <a
-                              href={defaultSettings.googleFormMuallaf}
-                              target="_blank"
-                              className="block p-3 bg-sky-50 hover:bg-sky-100 border border-sky-150 rounded-xl text-xs font-bold text-sky-800 text-center"
-                            >
-                              ✏️ Google Form Pendaftaran
-                            </a>
-                          </div>
-                          <div className="space-y-2">
-                            <p className="text-xs font-bold text-slate-700">Hubungi Ustadz Pembimbing: </p>
-                            <a
-                              href={`https://wa.me/${defaultSettings.whatsappNumber}`}
-                              target="_blank"
-                              className="block p-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold text-center flex items-center justify-center space-x-1"
-                            >
-                              <MessageSquare className="h-4 w-4 animate-bounce" />
-                              <span>Bimbingan & Konseling</span>
-                            </a>
-                          </div>
-                        </>
-                      )}
+                        {currentTab === "muallaf" && (
+                          <>
+                            <div className="space-y-2">
+                              <p className="text-xs font-bold text-slate-700">Form Pendaftaran Calon Muallaf: </p>
+                              <a
+                                href={defaultSettings.googleFormMuallaf}
+                                target="_blank"
+                                className="block p-3 bg-sky-50 hover:bg-sky-100 border border-sky-150 rounded-xl text-xs font-bold text-sky-800 text-center"
+                              >
+                                ✏️ Google Form Pendaftaran
+                              </a>
+                            </div>
+                            <div className="space-y-2">
+                              <p className="text-xs font-bold text-slate-700">Hubungi Ustadz Pembimbing: </p>
+                              <a
+                                href={`https://wa.me/${defaultSettings.whatsappNumber}`}
+                                target="_blank"
+                                className="block p-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold text-center flex items-center justify-center space-x-1"
+                              >
+                                <MessageSquare className="h-4 w-4 animate-bounce" />
+                                <span>Bimbingan & Konseling</span>
+                              </a>
+                            </div>
+                          </>
+                        )}
+                      </div>
                     </div>
-                  </div>
+                  )}
 
                   {/* Operation Hour Badge */}
-                  <div className="p-5 bg-slate-50 border border-slate-100 rounded-3xl">
-                    <h4 className="text-xs font-bold uppercase text-emerald-900 tracking-wider mb-2 flex items-center space-x-1">
-                      <Clock className="h-4 w-4" />
-                      <span>Sesi Pelayanan Kantor</span>
-                    </h4>
-                    <ul className="space-y-1.5 text-xs text-slate-600 font-mono">
-                      <li className="flex justify-between"><span>Senin - Kamis</span> <span className="font-bold">08:00 - 16:30 WIT</span></li>
-                      <li className="flex justify-between"><span>Jumat</span> <span className="font-bold">08:30 - 17:00 WIT</span></li>
-                      <li className="flex justify-between"><span>Sabtu - Minggu</span> <span className="text-red-500 font-bold">Tutup</span></li>
-                    </ul>
-                  </div>
+                  {currentTab !== "nikah" && (
+                    <div className="p-5 bg-slate-50 border border-slate-100 rounded-3xl">
+                      <h4 className="text-xs font-bold uppercase text-emerald-900 tracking-wider mb-2 flex items-center space-x-1">
+                        <Clock className="h-4 w-4" />
+                        <span>Sesi Pelayanan Kantor</span>
+                      </h4>
+                      <ul className="space-y-1.5 text-xs text-slate-600 font-mono">
+                        <li className="flex justify-between"><span>Senin - Kamis</span> <span className="font-bold">08:00 - 16:30 WIT</span></li>
+                        <li className="flex justify-between"><span>Jumat</span> <span className="font-bold">08:30 - 17:00 WIT</span></li>
+                        <li className="flex justify-between"><span>Sabtu - Minggu</span> <span className="text-red-500 font-bold">Tutup</span></li>
+                      </ul>
+                    </div>
+                  )}
 
                 </div>
 
@@ -1878,6 +2027,101 @@ export default function App() {
                         onChange={(e) => setSettingsForm({ ...settingsForm, address: e.target.value })}
                         className="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs focus:ring-1 focus:ring-emerald-500 focus:outline-none"
                       />
+                    </div>
+                  </div>
+
+                  <hr className="border-slate-100 my-6" />
+
+                  {/* Kepala KUA config */}
+                  <div className="space-y-4 mb-6">
+                    <h4 className="text-xs font-extrabold uppercase text-emerald-950 tracking-wider">Identitas Kepala Kantor KUA</h4>
+                    <p className="text-[10px] text-slate-500">Sesuaikan nama resmi dan foto/gambar Kepala Kantor Urusan Agama Kecamatan Pulau Dullah Utara yang akan tampil pada halaman profil.</p>
+                    
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-[11px] font-bold text-slate-700 mb-1">Nama Lengkap Kepala KUA (Beserta Gelar)</label>
+                        <input
+                          type="text"
+                          placeholder="H. Ahmad, S.Ag."
+                          value={settingsForm.kepalaKuaName || ""}
+                          onChange={(e) => setSettingsForm({ ...settingsForm, kepalaKuaName: e.target.value })}
+                          className="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs focus:ring-1 focus:ring-emerald-500 focus:outline-none"
+                        />
+                      </div>
+
+                      {/* Photo upload for Kepala KUA */}
+                      <div className="space-y-1.5">
+                        <label className="block text-[11px] font-bold text-slate-700 mb-1">Foto Kepala KUA</label>
+                        {settingsForm.kepalaKuaImg ? (
+                          <div className="flex items-center space-x-3 bg-slate-50 p-2 border border-slate-200 rounded-xl">
+                            <div className="w-12 h-12 rounded-full overflow-hidden border border-slate-300">
+                              <img src={settingsForm.kepalaKuaImg} alt="Kepala KUA Preview" className="w-full h-full object-cover" />
+                            </div>
+                            <button 
+                              type="button" 
+                              onClick={() => setSettingsForm({ ...settingsForm, kepalaKuaImg: "" })}
+                              className="text-white text-[10px] font-bold bg-rose-600 px-2.5 py-1 rounded cursor-pointer hover:bg-rose-700 transition"
+                            >
+                              Hapus Foto
+                            </button>
+                          </div>
+                        ) : (
+                          <div className="relative border border-dashed border-slate-300 rounded-xl bg-white p-3 hover:bg-slate-50 transition flex items-center justify-center">
+                            <input
+                              type="file"
+                              accept="image/*"
+                              onChange={(e) => handleImageUpload(e, "settings", (url) => setSettingsForm({ ...settingsForm, kepalaKuaImg: url }))}
+                              className="hidden"
+                              id="settings-kepala-kua-img"
+                            />
+                            <label htmlFor="settings-kepala-kua-img" className="cursor-pointer text-center flex items-center space-x-1.5">
+                              <Upload className="h-4 w-4 text-emerald-700" />
+                              <span className="text-[11px] text-emerald-700 font-bold hover:underline">Unggah Foto Kepala KUA</span>
+                            </label>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+
+                  <hr className="border-slate-100 my-6" />
+
+                  {/* Statistik KUA Image Config */}
+                  <div className="space-y-4 mb-6">
+                    <h4 className="text-xs font-extrabold uppercase text-emerald-950 tracking-wider">Gambar Infografis Statistik KUA</h4>
+                    <p className="text-[10px] text-slate-500">Gunakan fitur ini untuk merubah gambar data/statistik yang tampil di halaman beranda. Anda dapat mengunggah gambar buatan sendiri yang memuat informasi statistik secara visual.</p>
+                    
+                    <div className="border border-slate-100 rounded-2xl p-4 bg-slate-50/50 space-y-4 max-w-lg">
+                      <label className="block text-xs font-bold text-slate-700 mb-1">Gambar Banner Statistik</label>
+                      {settingsForm.statistikImg ? (
+                        <div className="relative group rounded-xl overflow-hidden border border-slate-200 bg-emerald-950 max-h-56">
+                          <img src={settingsForm.statistikImg} alt="Preview Statistik" className="w-full h-auto object-cover max-h-56" referrerPolicy="no-referrer" />
+                          <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
+                            <button 
+                              type="button" 
+                              onClick={() => setSettingsForm({ ...settingsForm, statistikImg: "" })}
+                              className="text-white text-[10px] font-bold bg-rose-600 px-3 py-1.5 rounded cursor-pointer hover:bg-rose-700 transition"
+                            >
+                              Ganti / Hapus Gambar
+                            </button>
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="w-full h-32 border border-dashed border-slate-300 rounded-xl flex flex-col items-center justify-center bg-white p-3">
+                          <input
+                            type="file"
+                            accept="image/*"
+                            onChange={(e) => handleImageUpload(e, "settings", (url) => setSettingsForm({ ...settingsForm, statistikImg: url }))}
+                            className="hidden"
+                            id="settings-statistik-img"
+                          />
+                          <label htmlFor="settings-statistik-img" className="cursor-pointer text-center">
+                            <Upload className="h-6 w-6 mx-auto text-slate-400 mb-1.5" />
+                            <span className="text-xs text-emerald-700 font-bold hover:underline">Unggah Gambar Statistik Baru</span>
+                          </label>
+                        </div>
+                      )}
+                      <p className="text-[9px] text-slate-450">Rekomendasi format: PNG/JPG memanjang ke samping (landscape) dengan resolusi tajam agar teks terbaca jelas.</p>
                     </div>
                   </div>
 

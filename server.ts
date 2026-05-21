@@ -218,7 +218,9 @@ function initDatabase() {
         instagramUrl: "https://instagram.com/kua.dullahutara",
         twitterUrl: "",
         tiktokUrl: "",
-        youtubeUrl: "https://youtube.com/@kua.dullahutara"
+        youtubeUrl: "https://youtube.com/@kua.dullahutara",
+        kepalaKuaName: "H. Ahmad, S.Ag.",
+        kepalaKuaImg: ""
       },
       admin: {
         username: "admin",

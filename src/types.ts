@@ -45,6 +45,9 @@ export interface Settings {
   twitterUrl?: string;
   tiktokUrl?: string;
   youtubeUrl?: string;
+  kepalaKuaName?: string;
+  kepalaKuaImg?: string;
+  statistikImg?: string;
 }
 
 export interface DBState {
