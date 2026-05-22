@@ -610,12 +610,12 @@ export default function App() {
     const cleanWanita = evaluasiCatinWanita ? evaluasiCatinWanita.replace(/[^a-zA-Z0-9]/g, "_") : "Wanita";
     
     const opt = {
-      margin:       [10, 10, 10, 10],
+      margin:       10,
       filename:     `Kuesioner_Evaluasi_KUA_${cleanPria}_&_${cleanWanita}.pdf`,
-      image:        { type: "jpeg", quality: 0.98 },
+      image:        { type: "jpeg" as const, quality: 0.98 },
       html2canvas:  { scale: 2, useCORS: true, logging: false, dpi: 192 },
-      jsPDF:        { unit: "mm", format: "a4", orientation: "portrait" },
-      pagebreak:    { mode: 'css', before: '.page-break' }
+      jsPDF:        { unit: "mm", format: "a4" as const, orientation: "portrait" as const },
+      pagebreak:    { mode: 'css' as const, before: '.page-break' }
     };
     
     // Run html2pdf download
@@ -684,7 +684,7 @@ export default function App() {
           <style>
             @page {
               size: A4;
-              margin: 15mm 12mm 15mm 12mm;
+              margin: 0 !important;
             }
             body {
               font-family: "Times New Roman", Times, Georgia, serif;
@@ -693,7 +693,7 @@ export default function App() {
               color: black;
               background-color: white;
               margin: 0;
-              padding: 0;
+              padding: 20mm 15mm 20mm 15mm !important;
               -webkit-print-color-adjust: exact;
               print-color-adjust: exact;
             }
@@ -4453,7 +4453,7 @@ export default function App() {
                   </div>
 
                   {/* Buttons below inside Modal */}
-                  <div className="grid grid-cols-2 gap-3 mt-1 no-print">
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mt-1 no-print">
                     <button
                       type="button"
                       onClick={handleEvaluasiSubmit}
@@ -4465,11 +4465,20 @@ export default function App() {
                     
                     <button
                       type="button"
-                      onClick={() => window.print()}
+                      onClick={handlePrintDirect}
                       className="py-2.5 px-4 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold transition-transform cursor-pointer text-center flex items-center justify-center space-x-1.5 active:scale-98 shadow-md"
                     >
                       <Printer className="h-4 w-4 text-emerald-100" />
                       <span>Cetak PDF / Print</span>
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={handleDownloadPDF}
+                      className="py-2.5 px-4 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold transition-transform cursor-pointer text-center flex items-center justify-center space-x-1.5 active:scale-98 shadow-md"
+                    >
+                      <Download className="h-4 w-4 text-blue-100" />
+                      <span>Unduh / Download PDF</span>
                     </button>
                   </div>
                 </div>
@@ -4484,7 +4493,7 @@ export default function App() {
     {/* ========================================================
         HIGH-FIDELITY FLUID 2-PAGE PRINTABLE OFFICIAL KUA FORM
         ======================================================== */}
-    <div className="print-document hidden bg-white text-black p-[15mm] font-serif max-w-[210mm] min-h-[297mm] mx-auto leading-relaxed text-[11.5px] select-text">
+    <div id="kua-print-document" className="print-document hidden bg-white text-black p-[15mm] font-serif max-w-[210mm] min-h-[297mm] mx-auto leading-relaxed text-[11.5px] select-text">
       {/* PAGE 1 CONTENT */}
       <div className="text-center font-bold tracking-tight uppercase space-y-0.5 select-text">
         <h2 className="text-[13px] font-bold">MONITORING DAN EVALUASI PELAKSANAAN BIMBINGAN PERKAWINAN</h2>
@@ -4652,7 +4661,7 @@ export default function App() {
           <div>
             <p className="font-bold">Peserta Pria</p>
             <div className="h-20 flex items-center justify-center">
-              <div className="border-b border-dashed border-slate-400 w-28 h-1 italic text-emerald-800 text-[10px] -mb-6 select-none opacity-40">TMT_P_SIGNED_SECURE</div>
+              <div className="border-b border-dashed border-slate-400 w-28 h-1 -mb-6"></div>
             </div>
             <p className="font-bold underline uppercase">{evaluasiCatinPria}</p>
           </div>
@@ -4660,7 +4669,7 @@ export default function App() {
           <div>
             <p className="font-bold">Peserta Wanita</p>
             <div className="h-20 flex items-center justify-center">
-              <div className="border-b border-dashed border-slate-400 w-28 h-1 italic text-emerald-800 text-[10px] -mb-6 select-none opacity-40">TMT_W_SIGNED_SECURE</div>
+              <div className="border-b border-dashed border-slate-400 w-28 h-1 -mb-6"></div>
             </div>
             <p className="font-bold underline uppercase">{evaluasiCatinWanita}</p>
           </div>
@@ -4668,7 +4677,7 @@ export default function App() {
           <div>
             <p className="font-bold">Mengetahui<br />Narasumber</p>
             <div className="h-20 flex items-center justify-center">
-              <div className="border-b border-dashed border-slate-400 w-32 h-1 italic text-emerald-800 text-[10px] -mb-6 select-none opacity-40">KEMENAG_NR_AUTHORIZED</div>
+              <div className="border-b border-dashed border-slate-400 w-32 h-1 -mb-6"></div>
             </div>
             <p className="font-bold underline">{evaluasiPenyuluhName}</p>
             <p className="text-[10px]">NIP. {evaluasiPenyuluhNip}</p>

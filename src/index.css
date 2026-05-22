@@ -142,6 +142,9 @@ body {
 
 /* Print Styles for Kuesioner Evaluasi */
 @media print {
+  @page {
+    margin: 0 !important;
+  }
   body {
     background-color: white !important;
     background-image: none !important;
