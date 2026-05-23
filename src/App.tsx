@@ -49,6 +49,7 @@ import { motion, AnimatePresence } from "motion/react";
 import html2pdf from "html2pdf.js";
 import Header from "./components/Header";
 import Hero from "./components/Hero";
+import SplashScreen from "./components/SplashScreen";
 import { SignaturePad } from "./components/SignaturePad";
 import { Layanan, Pengumuman, Settings, DBState } from "./types";
 import berkasUmum from "./assets/images/berkas_umum_1779246456217.png";
@@ -135,6 +136,10 @@ export default function App() {
   const [isAdminLoggedIn, setIsAdminLoggedIn] = useState<boolean>(false);
   const [adminToken, setAdminToken] = useState<string | null>(null);
   const [showLoginModal, setShowLoginModal] = useState<boolean>(false);
+  
+  // Custom premium splash states
+  const [showSplash, setShowSplash] = useState<boolean>(true);
+  const [isEnteringApp, setIsEnteringApp] = useState<boolean>(false);
   
   // Login credentials state
   const [username, setUsername] = useState("");
@@ -1271,8 +1276,46 @@ export default function App() {
     statistikImg: statistikKuaPlaceholder
   };
 
+  if (showSplash) {
+    return (
+      <SplashScreen 
+        logoUrl={defaultSettings.logoImg} 
+        onComplete={() => {
+          setIsEnteringApp(true);
+          setTimeout(() => {
+            setShowSplash(false);
+            setIsEnteringApp(false);
+          }, 1100);
+        }} 
+      />
+    );
+  }
+
+  if (isEnteringApp) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-950 via-emerald-950 to-slate-950 flex flex-col justify-center items-center p-6 select-none">
+        <div className="text-center space-y-4 max-w-sm">
+          <div className="relative flex items-center justify-center h-16 w-16 mx-auto">
+            <div className="absolute animate-spin rounded-full h-12 w-12 border-2 border-emerald-500/20 border-t-emerald-400"></div>
+            <div className="absolute animate-ping rounded-full h-6 w-6 bg-amber-400/15"></div>
+          </div>
+          <h4 className="text-xs font-bold text-slate-305 font-mono tracking-widest uppercase">
+            Mempersiapkan Beranda
+          </h4>
+          <p className="text-[10px] text-emerald-400 font-medium">
+            Memuat Sistem KUA Revitalisasi...
+          </p>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 1.2, ease: "easeOut" }}
+    >
       <div className="min-h-screen flex flex-col justify-between no-print">
       
       {/* Dynamic Header */}
@@ -4950,6 +4993,6 @@ export default function App() {
         </motion.div>
       )}
     </AnimatePresence>
-    </>
+    </motion.div>
   );
 }
