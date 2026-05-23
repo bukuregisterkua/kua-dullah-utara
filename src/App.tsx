@@ -16,6 +16,7 @@ import {
   Users,
   ClipboardList,
   Printer,
+  PenTool,
   Lock, 
   Settings as SettingsIcon, 
   LogOut, 
@@ -48,6 +49,7 @@ import { motion, AnimatePresence } from "motion/react";
 import html2pdf from "html2pdf.js";
 import Header from "./components/Header";
 import Hero from "./components/Hero";
+import { SignaturePad } from "./components/SignaturePad";
 import { Layanan, Pengumuman, Settings, DBState } from "./types";
 import berkasUmum from "./assets/images/berkas_umum_1779246456217.png";
 import berkasKhusus from "./assets/images/berkas_khusus_1779246479558.png";
@@ -216,6 +218,11 @@ export default function App() {
   const [evaluasiCatinPhone, setEvaluasiCatinPhone] = useState("081240912842");
   const [evaluasiKegiatan, setEvaluasiKegiatan] = useState("Bimbingan Perkawinan");
   const [evaluasiTema, setEvaluasiTema] = useState("Psikologi Keluarga");
+  
+  // Digital / manual signature states for Evaluasi Form
+  const [evaluasiSigPria, setEvaluasiSigPria] = useState<string>("");
+  const [evaluasiSigWanita, setEvaluasiSigWanita] = useState<string>("");
+  const [evaluasiSigPenyuluh, setEvaluasiSigPenyuluh] = useState<string>("");
   
   // Identitas Penyuluh Agama
   const [evaluasiPenyuluhId, setEvaluasiPenyuluhId] = useState("");
@@ -4471,6 +4478,45 @@ export default function App() {
                       </div>
                     ))}
                   </div>
+
+                  {/* SECTION 5: OTORISASI TANDA TANGAN DIGITAL */}
+                  <div className="bg-white p-4 rounded-2xl border border-slate-200 space-y-3">
+                    <div>
+                      <h4 className="text-[11px] font-extrabold text-slate-900 uppercase tracking-wider pb-1.5 border-b border-slate-100 flex items-center gap-1.5 font-sans">
+                        <PenTool className="h-3.5 w-3.5 text-emerald-600" />
+                        <span>Otorisasi & Tanda Tangan</span>
+                      </h4>
+                      <p className="text-[9.5px] text-slate-500 mt-1 leading-relaxed">
+                        Bubuhkan tanda tangan resmi langsung memakai jari (pada HP Android) atau mouse. Klik tombol <strong>Simpan TTD</strong> agar tanda tangan otomatis tampil pada laporan akhir dan siap dicetak.
+                      </p>
+                    </div>
+
+                    <div className="grid grid-cols-1 gap-3">
+                      <SignaturePad 
+                        label={`1. Peserta Pria (${evaluasiCatinPria || "Pria"})`}
+                        savedValue={evaluasiSigPria}
+                        onSave={(dataUrl) => setEvaluasiSigPria(dataUrl)}
+                        onClear={() => setEvaluasiSigPria("")}
+                        placeholderText="Goreskan tanda tangan Catin Pria di sini..."
+                      />
+
+                      <SignaturePad 
+                        label={`2. Peserta Wanita (${evaluasiCatinWanita || "Wanita"})`}
+                        savedValue={evaluasiSigWanita}
+                        onSave={(dataUrl) => setEvaluasiSigWanita(dataUrl)}
+                        onClear={() => setEvaluasiSigWanita("")}
+                        placeholderText="Goreskan tanda tangan Catin Wanita di sini..."
+                      />
+
+                      <SignaturePad 
+                        label={`3. Narasumber / Penyuluh (${evaluasiPenyuluhName || "Penyuluh"})`}
+                        savedValue={evaluasiSigPenyuluh}
+                        onSave={(dataUrl) => setEvaluasiSigPenyuluh(dataUrl)}
+                        onClear={() => setEvaluasiSigPenyuluh("")}
+                        placeholderText="Goreskan tanda tangan Penyuluh Agama di sini..."
+                      />
+                    </div>
+                  </div>
                 </div>
 
                 {/* COLUMN 2: PRATINJAU KERTAS DOKUMEN RESMI (RIGHT) */}
@@ -4580,6 +4626,48 @@ export default function App() {
                     </table>
 
                     <div className="text-center text-[8px] text-slate-400 italic font-sans my-1">--- Bersambung ke halaman berikutnya (Lembar Fisik ke-2) ---</div>
+
+                    {/* Integrated Signature Pratinjau Block */}
+                    <div className="pt-3.5 border-t border-slate-105 mt-4 leading-normal select-none">
+                      <p className="text-[8.5px] font-bold text-slate-505 uppercase tracking-wider mb-2 font-sans">Otorisasi Tanda Tangan Tersemat (Pratinjau)</p>
+                      <div className="grid grid-cols-3 gap-2 text-center text-[9px] font-sans">
+                        <div className="bg-slate-50 border border-slate-200 rounded-xl p-2 h-24 flex flex-col justify-between">
+                          <span className="font-bold text-slate-500 block text-[7.5px] uppercase">Peserta Pria</span>
+                          <div className="flex-grow flex items-center justify-center p-0.5">
+                            {evaluasiSigPria ? (
+                              <img src={evaluasiSigPria} alt="TTD Pria" className="max-h-12 max-w-[80px] object-contain cursor-default" referrerPolicy="no-referrer" />
+                            ) : (
+                              <span className="text-slate-300 italic text-[7.5px]">Belum TTD</span>
+                            )}
+                          </div>
+                          <span className="font-semibold block truncate text-[7.5px] text-slate-700 uppercase">{evaluasiCatinPria || "-"}</span>
+                        </div>
+
+                        <div className="bg-slate-50 border border-slate-200 rounded-xl p-2 h-24 flex flex-col justify-between">
+                          <span className="font-bold text-slate-500 block text-[7.5px] uppercase">Peserta Wanita</span>
+                          <div className="flex-grow flex items-center justify-center p-0.5">
+                            {evaluasiSigWanita ? (
+                              <img src={evaluasiSigWanita} alt="TTD Wanita" className="max-h-12 max-w-[80px] object-contain cursor-default" referrerPolicy="no-referrer" />
+                            ) : (
+                              <span className="text-slate-300 italic text-[7.5px]">Belum TTD</span>
+                            )}
+                          </div>
+                          <span className="font-semibold block truncate text-[7.5px] text-slate-700 uppercase">{evaluasiCatinWanita || "-"}</span>
+                        </div>
+
+                        <div className="bg-slate-50 border border-slate-200 rounded-xl p-2 h-24 flex flex-col justify-between">
+                          <span className="font-bold text-slate-500 block text-[7.5px] uppercase">Narasumber</span>
+                          <div className="flex-grow flex items-center justify-center p-0.5">
+                            {evaluasiSigPenyuluh ? (
+                              <img src={evaluasiSigPenyuluh} alt="TTD Penyuluh" className="max-h-12 max-w-[80px] object-contain cursor-default" referrerPolicy="no-referrer" />
+                            ) : (
+                              <span className="text-slate-300 italic text-[7.5px]">Belum TTD</span>
+                            )}
+                          </div>
+                          <span className="font-semibold block truncate text-[7.5px] text-slate-700">{evaluasiPenyuluhName || "-"}</span>
+                        </div>
+                      </div>
+                    </div>
                   </div>
 
                   {/* Buttons below inside Modal - Streamlined to Cetak Dokumen & Kembali as requested */}
@@ -4779,29 +4867,43 @@ export default function App() {
         </div>
         
         <div className="grid grid-cols-3 gap-2 content-center mt-6">
-          <div>
-            <p className="font-bold">Peserta Pria</p>
-            <div className="h-20 flex items-center justify-center">
-              <div className="border-b border-dashed border-slate-400 w-28 h-1 -mb-6"></div>
+          <div className="flex flex-col items-center justify-between min-h-[120px]">
+            <p className="font-bold text-[11px]">Peserta Pria</p>
+            <div className="h-16 flex items-center justify-center my-1 select-none">
+              {evaluasiSigPria ? (
+                <img src={evaluasiSigPria} alt="Sign Pria" className="max-h-16 max-w-[140px] object-contain" referrerPolicy="no-referrer" />
+              ) : (
+                <div className="border-b border-dashed border-slate-400 w-28 h-6"></div>
+              )}
             </div>
-            <p className="font-bold underline uppercase">{evaluasiCatinPria}</p>
+            <p className="font-bold underline uppercase text-[10.5px]">{evaluasiCatinPria}</p>
           </div>
 
-          <div>
-            <p className="font-bold">Peserta Wanita</p>
-            <div className="h-20 flex items-center justify-center">
-              <div className="border-b border-dashed border-slate-400 w-28 h-1 -mb-6"></div>
+          <div className="flex flex-col items-center justify-between min-h-[120px]">
+            <p className="font-bold text-[11px]">Peserta Wanita</p>
+            <div className="h-16 flex items-center justify-center my-1 select-none">
+              {evaluasiSigWanita ? (
+                <img src={evaluasiSigWanita} alt="Sign Wanita" className="max-h-16 max-w-[140px] object-contain" referrerPolicy="no-referrer" />
+              ) : (
+                <div className="border-b border-dashed border-slate-400 w-28 h-6"></div>
+              )}
             </div>
-            <p className="font-bold underline uppercase">{evaluasiCatinWanita}</p>
+            <p className="font-bold underline uppercase text-[10.5px]">{evaluasiCatinWanita}</p>
           </div>
 
-          <div>
-            <p className="font-bold">Mengetahui<br />Narasumber</p>
-            <div className="h-20 flex items-center justify-center">
-              <div className="border-b border-dashed border-slate-400 w-32 h-1 -mb-6"></div>
+          <div className="flex flex-col items-center justify-between min-h-[120px]">
+            <p className="font-bold text-[11px] text-center">Mengetahui<br />Narasumber</p>
+            <div className="h-16 flex items-center justify-center my-1 select-none">
+              {evaluasiSigPenyuluh ? (
+                <img src={evaluasiSigPenyuluh} alt="Sign Penyuluh" className="max-h-16 max-w-[150px] object-contain" referrerPolicy="no-referrer" />
+              ) : (
+                <div className="border-b border-dashed border-slate-400 w-32 h-6"></div>
+              )}
             </div>
-            <p className="font-bold underline">{evaluasiPenyuluhName}</p>
-            <p className="text-[10px]">NIP. {evaluasiPenyuluhNip}</p>
+            <div>
+              <p className="font-bold underline text-[10.5px] text-center">{evaluasiPenyuluhName}</p>
+              <p className="text-[9.5px] text-center">NIP. {evaluasiPenyuluhNip}</p>
+            </div>
           </div>
         </div>
       </div>
