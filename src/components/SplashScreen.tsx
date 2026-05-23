@@ -140,9 +140,6 @@ export default function SplashScreen({ logoUrl, onComplete }: SplashScreenProps)
           transition={{ delay: 0.3, duration: 0.6 }}
           className="mt-8 space-y-2 pointer-events-none"
         >
-          <span className="text-[10px] tracking-widest font-mono font-extrabold text-amber-400 bg-amber-500/10 border border-amber-500/20 px-3.5 py-1.5 rounded-full uppercase">
-            REVITALISASI KUA DIGITAL Kemenag
-          </span>
           <h1 className="text-3xl sm:text-4xl font-black font-display text-white tracking-wider pt-2 uppercase drop-shadow-md">
             KUA REVITALISASI
           </h1>
@@ -188,7 +185,7 @@ export default function SplashScreen({ logoUrl, onComplete }: SplashScreenProps)
         transition={{ delay: 0.5 }}
         className="absolute bottom-6 text-[9.5px] tracking-widest text-slate-400 uppercase font-mono pointer-events-none"
       >
-        Kementerian Agama Republik Indonesia
+        Kementerian Agama Kota Tual
       </motion.p>
     </motion.div>
   );
