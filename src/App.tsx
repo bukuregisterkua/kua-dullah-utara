@@ -4865,8 +4865,11 @@ export default function App() {
           </div>
           
           <div className="grid grid-cols-3 gap-2 content-center mt-2">
-            <div className="flex flex-col items-center justify-between min-h-[105px]">
-              <p className="font-bold text-[11px] font-sans">Peserta Pria</p>
+            {/* COLUMN 1: CATIN PRIA */}
+            <div className="flex flex-col items-center justify-between">
+              <div className="h-8 flex items-end justify-center text-center">
+                <p className="font-bold text-[11px] font-sans">Peserta Pria</p>
+              </div>
               <div className="h-14 flex items-center justify-center my-0.5 select-none">
                 {evaluasiSigPria ? (
                   <img src={evaluasiSigPria} alt="Sign Pria" className="max-h-14 max-w-[140px] object-contain" referrerPolicy="no-referrer" />
@@ -4874,11 +4877,17 @@ export default function App() {
                   <div className="border-b border-dashed border-slate-400 w-28 h-5"></div>
                 )}
               </div>
-              <p className="font-bold underline uppercase text-[10.5px] font-sans">{evaluasiCatinPria}</p>
+              <div className="text-center">
+                <p className="font-bold underline uppercase text-[10.5px] font-sans">{evaluasiCatinPria}</p>
+                <p className="text-[9.5px] text-center font-sans invisible select-none pointer-events-none">&nbsp;</p>
+              </div>
             </div>
 
-            <div className="flex flex-col items-center justify-between min-h-[105px]">
-              <p className="font-bold text-[11px] font-sans">Peserta Wanita</p>
+            {/* COLUMN 2: CATIN WANITA */}
+            <div className="flex flex-col items-center justify-between">
+              <div className="h-8 flex items-end justify-center text-center">
+                <p className="font-bold text-[11px] font-sans">Peserta Wanita</p>
+              </div>
               <div className="h-14 flex items-center justify-center my-0.5 select-none">
                 {evaluasiSigWanita ? (
                   <img src={evaluasiSigWanita} alt="Sign Wanita" className="max-h-14 max-w-[140px] object-contain" referrerPolicy="no-referrer" />
@@ -4886,11 +4895,17 @@ export default function App() {
                   <div className="border-b border-dashed border-slate-400 w-28 h-5"></div>
                 )}
               </div>
-              <p className="font-bold underline uppercase text-[10.5px] font-sans">{evaluasiCatinWanita}</p>
+              <div className="text-center">
+                <p className="font-bold underline uppercase text-[10.5px] font-sans">{evaluasiCatinWanita}</p>
+                <p className="text-[9.5px] text-center font-sans invisible select-none pointer-events-none">&nbsp;</p>
+              </div>
             </div>
 
-            <div className="flex flex-col items-center justify-between min-h-[105px]">
-              <p className="font-bold text-[11px] text-center font-sans">Mengetahui<br />Narasumber</p>
+            {/* COLUMN 3: NARASUMBER */}
+            <div className="flex flex-col items-center justify-between">
+              <div className="h-8 flex items-end justify-center text-center">
+                <p className="font-bold text-[11px] text-center font-sans leading-none">Mengetahui<br />Narasumber</p>
+              </div>
               <div className="h-14 flex items-center justify-center my-0.5 select-none">
                 {evaluasiSigPenyuluh ? (
                   <img src={evaluasiSigPenyuluh} alt="Sign Penyuluh" className="max-h-14 max-w-[150px] object-contain" referrerPolicy="no-referrer" />
@@ -4898,7 +4913,7 @@ export default function App() {
                   <div className="border-b border-dashed border-slate-400 w-32 h-5"></div>
                 )}
               </div>
-              <div>
+              <div className="text-center">
                 <p className="font-bold underline text-[10.5px] text-center font-sans">{evaluasiPenyuluhName}</p>
                 <p className="text-[9.5px] text-center font-sans">NIP. {evaluasiPenyuluhNip}</p>
               </div>
