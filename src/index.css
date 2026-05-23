@@ -228,8 +228,12 @@ body {
     display: table-cell !important;
     border: 1px solid black !important;
     padding: 5px 6px !important; /* Tighter padding to fit exactly */
-    text-align: left !important;
+    text-align: left; /* Allow text-center utility classes to override default alignment */
     font-size: 10pt !important;
+  }
+
+  th.text-center, td.text-center, .text-center {
+    text-align: center !important;
   }
 
   table.border-none td, table.border-none th, .border-none td, .border-none th {

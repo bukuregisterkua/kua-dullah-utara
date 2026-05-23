@@ -4579,8 +4579,8 @@ export default function App() {
                     <p className="font-bold italic text-[10px] my-2 font-sans">Mohon diisi dengan baik dan benar sesuai kegiatan yang baru saja Anda ikuti saat ini!</p>
 
                     <div className="border border-black/25 p-2 bg-slate-50/20 my-2 space-y-0.5 text-[10px] font-sans">
-                      <p><span className="font-bold">1. Kegiatan</span> : {evaluasiKegiatan}</p>
-                      <p><span className="font-bold">2. Tema</span> : {evaluasiTema}</p>
+                      <p><span className="font-bold">Kegiatan</span> : {evaluasiKegiatan}</p>
+                      <p><span className="font-bold">Tema</span> : {evaluasiTema}</p>
                     </div>
 
                     <p className="font-bold text-center uppercase my-2 underline font-sans text-[10px]">HASIL LAPORAN BERDASARKAN INSTRUMEN YANG DIISI OLEH PESERTA</p>
@@ -4603,11 +4603,11 @@ export default function App() {
                       </thead>
                       <tbody>
                         {[
-                          { key: "q3", num: "3.", q: "Bagaimanakah penyampaian materi apakah sudah sesuai dengan tema?" },
-                          { key: "q4", num: "4.", q: "Bagaimana langkah penyampaian materi apakah sudah sistematis?" },
-                          { key: "q5", num: "5.", q: "Bagaimanakah pesan dari tema apakah sudah tersampaikan?" },
-                          { key: "q6", num: "6.", q: "Bagaimanakah penggunaan sarana dan prasarana selama kegiatan, apakah sudah membantu?" },
-                          { key: "q7", num: "7.", q: "Bagaimana penilaian peserta terhadap sikap narasumber,apakah narasumber menyampaikan materi dengan antusias, semangat, dan memberikan motivasi yang baik?" }
+                          { key: "q3", num: "1.", q: "Bagaimanakah penyampaian materi apakah sudah sesuai dengan tema?" },
+                          { key: "q4", num: "2.", q: "Bagaimana langkah penyampaian materi apakah sudah sistematis?" },
+                          { key: "q5", num: "3.", q: "Bagaimanakah pesan dari tema apakah sudah tersampaikan?" },
+                          { key: "q6", num: "4.", q: "Bagaimanakah penggunaan sarana dan prasarana selama kegiatan, apakah sudah membantu?" },
+                          { key: "q7", num: "5.", q: "Bagaimana penilaian peserta terhadap sikap narasumber,apakah narasumber menyampaikan materi dengan antusias, semangat, and memberikan motivasi yang baik?" }
                         ].map((m) => (
                           <tr key={m.key}>
                             <td className="border border-black text-center font-bold py-1">{m.num}</td>
