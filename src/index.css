@@ -144,11 +144,11 @@ body {
 @media print {
   @page {
     size: A4 portrait;
-    margin: 15mm 15mm 15mm 15mm !important;
+    margin: 0 !important; /* Disables default browser headers & footers (URL, dates) completely! */
   }
   
   html, body {
-    height: auto !important;
+    height: 100% !important;
     overflow: visible !important;
     background-color: white !important;
     background-image: none !important;
@@ -178,12 +178,31 @@ body {
     visibility: visible !important;
     background: white !important;
     color: black !important;
-    width: 100% !important;
-    max-width: 100% !important;
+    width: 210mm !important;
+    margin: 0 auto !important;
     padding: 0 !important;
-    margin: 0 !important;
     box-shadow: none !important;
     border: none !important;
+  }
+
+  /* Exactly divide the document into two independent pages */
+  .print-page {
+    width: 210mm !important;
+    height: 297mm !important;
+    padding: 16mm 18mm !important; /* Perfect margins for content rendering without hitting edges */
+    box-sizing: border-box !important;
+    page-break-after: always !important;
+    break-after: page !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important;
+    overflow: hidden !important;
+    background: white !important;
+  }
+
+  .print-page:last-child {
+    page-break-after: avoid !important;
+    break-after: avoid !important;
   }
 
   .no-print, header, footer, nav, button, [role="dialog"], .fixed, .modal-backdrop {
@@ -208,7 +227,7 @@ body {
   th, td {
     display: table-cell !important;
     border: 1px solid black !important;
-    padding: 6px 8px !important;
+    padding: 5px 6px !important; /* Tighter padding to fit exactly */
     text-align: left !important;
     font-size: 10pt !important;
   }
@@ -220,7 +239,6 @@ body {
   .page-break {
     page-break-before: always !important;
     break-before: page !important;
-    margin-top: 15mm !important;
   }
 }
 

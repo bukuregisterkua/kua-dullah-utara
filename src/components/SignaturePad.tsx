@@ -21,6 +21,7 @@ export const SignaturePad: React.FC<SignaturePadProps> = ({
   const [isDrawing, setIsDrawing] = useState(false);
   const [hasDrawn, setHasDrawn] = useState(false);
   const [isSaved, setIsSaved] = useState(!!savedValue);
+  const justSavedRef = useRef(false);
 
   // Synchronize internal hasDrawn and isSaved states with external savedValue updates
   useEffect(() => {
@@ -28,15 +29,23 @@ export const SignaturePad: React.FC<SignaturePadProps> = ({
       setIsSaved(true);
       setHasDrawn(true);
       
+      if (justSavedRef.current) {
+        justSavedRef.current = false;
+        return;
+      }
+      
       // Attempt to load the saved image directly into canvas if needed for display
       const canvas = canvasRef.current;
       if (canvas) {
         const ctx = canvas.getContext("2d");
         if (ctx) {
-          ctx.clearRect(0, 0, canvas.width, canvas.height);
           const img = new Image();
           img.onload = () => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.save();
+            ctx.setTransform(1, 0, 0, 1, 0, 0); // Reset scale temporarily
             ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+            ctx.restore();
           };
           img.src = savedValue;
         }
@@ -61,12 +70,19 @@ export const SignaturePad: React.FC<SignaturePadProps> = ({
       if (!canvas || !containerRef.current) return;
 
       const rect = containerRef.current.getBoundingClientRect();
-      const backupImg = canvas.toDataURL(); // Backup current drawing over resizes
-      
-      // Standard resolution scale (DPR)
       const dpr = window.devicePixelRatio || 1;
-      const width = rect.width;
+      const width = rect.width || 300;
       const height = 140; // Fixed physical aspect height for elegant signature block
+
+      // Only backup if drawing exists
+      let backupImg = "";
+      if (hasDrawn || savedValue) {
+        try {
+          backupImg = canvas.toDataURL();
+        } catch (e) {
+          // ignore
+        }
+      }
 
       canvas.style.width = `${width}px`;
       canvas.style.height = `${height}px`;
@@ -84,10 +100,13 @@ export const SignaturePad: React.FC<SignaturePadProps> = ({
         ctx.strokeStyle = "#1e293b"; // Slate 800 for elegant black-ink signature
 
         // If there was something drawn before resizing, redraw it
-        if (hasDrawn || savedValue) {
+        if (backupImg || savedValue) {
           const img = new Image();
           img.onload = () => {
-            ctx.drawImage(img, 0, 0, width, height);
+            ctx.save();
+            ctx.setTransform(1, 0, 0, 1, 0, 0); // Reset scale temporarily to draw 1:1 backup image
+            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+            ctx.restore();
           };
           img.src = savedValue || backupImg;
         }
@@ -195,6 +214,7 @@ export const SignaturePad: React.FC<SignaturePadProps> = ({
     const dpr = window.devicePixelRatio || 1;
     // To trim whitespace or output perfectly crisp: standard toDataURL is elegant
     const dataUrl = canvas.toDataURL("image/png");
+    justSavedRef.current = true;
     setIsSaved(true);
     onSave(dataUrl);
   };

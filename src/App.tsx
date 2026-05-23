@@ -4702,207 +4702,206 @@ export default function App() {
     {/* ========================================================
         HIGH-FIDELITY FLUID 2-PAGE PRINTABLE OFFICIAL KUA FORM
         ======================================================== */}
-    <div id="kua-print-document" className="print-document hidden bg-white text-black p-[15mm] font-serif max-w-[210mm] min-h-[297mm] mx-auto leading-relaxed text-[11.5px] select-text">
+    <div id="kua-print-document" className="print-document hidden bg-white text-black select-text">
       {/* PAGE 1 CONTENT */}
-      <div className="text-center font-bold tracking-tight uppercase space-y-0.5 select-text font-sans">
-        <h2 className="text-[13px] font-bold">MONITORING DAN EVALUASI PELAKSANAAN BIMBINGAN PERKAWINAN</h2>
-        <h2 className="text-[13px] font-bold">KANTOR KEMENTERIAN AGAMA KOTA TUAL</h2>
-        <h2 className="text-[13px] font-bold">KANTOR URUSAN AGAMA PULAU DULLAH UTARA</h2>
-        <p className="text-[10px] lowercase italic font-normal normal-case font-serif">Alamat : Jl. Panglima Mandala, Fiditan, Kota Tual</p>
-      </div>
-      
-      {/* Thick double line */}
-      <div className="border-b-[3px] border-double border-black my-3" />
-      
-      {/* Title Box */}
-      <div className="border border-black p-3 text-center uppercase font-bold my-4 space-y-1 font-sans">
-        <p className="text-[11.5px] tracking-wide">PELAKSANAAN MONITORING DAN EVALUASI TAHUN {evaluasiTahun}</p>
-        <p className="text-[11.5px] tracking-wide">NAMA PESERTA BIMWIN {evaluasiCatinPria} & {evaluasiCatinWanita}</p>
-        <p className="text-[10.5px] normal-case font-normal italic font-serif">{evaluasiHariTanggal}</p>
-      </div>
+      <div className="print-page">
+        <div className="text-center font-bold tracking-tight uppercase space-y-0.5 select-text font-sans">
+          <h2 className="text-[13px] font-bold">MONITORING DAN EVALUASI PELAKSANAAN BIMBINGAN PERKAWINAN</h2>
+          <h2 className="text-[13px] font-bold">KANTOR KEMENTERIAN AGAMA KOTA TUAL</h2>
+          <h2 className="text-[13px] font-bold">KANTOR URUSAN AGAMA PULAU DULLAH UTARA</h2>
+          <p className="text-[10px] lowercase italic font-normal normal-case font-serif">Alamat : Jl. Panglima Mandala, Fiditan, Kota Tual</p>
+        </div>
+        
+        {/* Thick double line */}
+        <div className="border-b-[3px] border-double border-black my-2" />
+        
+        {/* Title Box */}
+        <div className="border border-black p-2.5 text-center uppercase font-bold my-2 space-y-1 font-sans">
+          <p className="text-[11.5px] tracking-wide">PELAKSANAAN MONITORING DAN EVALUASI TAHUN {evaluasiTahun}</p>
+          <p className="text-[11.5px] tracking-wide">NAMA PESERTA BIMWIN {evaluasiCatinPria} & {evaluasiCatinWanita}</p>
+          <p className="text-[10.5px] normal-case font-normal italic font-serif">{evaluasiHariTanggal}</p>
+        </div>
 
-      {/* Identitas Penyuluh */}
-      <div className="my-4 space-y-1">
-        <h4 className="font-bold underline text-[11.5px] mb-2 font-serif">Identitas Penyuluh Agama</h4>
-        <table className="w-full text-[11px] table-fixed border-none">
+        {/* Identitas Penyuluh */}
+        <div className="my-2 space-y-1">
+          <h4 className="font-bold underline text-[11.5px] mb-1 font-serif">Identitas Penyuluh Agama</h4>
+          <table className="w-full text-[11px] table-fixed border-none">
+            <tbody className="border-none">
+              <tr className="border-none">
+                <td className="w-[180px] border-none py-0.5 pl-0 pr-4 font-normal">Nama Lengkap</td>
+                <td className="w-[15px] border-none py-0.5 px-0 font-normal">:</td>
+                <td className="border-none py-0.5 px-0 font-bold">{evaluasiPenyuluhName}</td>
+              </tr>
+              <tr className="border-none font-serif">
+                <td className="border-none py-0.5 pl-0 pr-4 font-normal">NIP</td>
+                <td className="border-none py-0.5 px-0 font-normal">:</td>
+                <td className="border-none py-0.5 px-0">{evaluasiPenyuluhNip}</td>
+              </tr>
+              <tr className="border-none font-serif">
+                <td className="border-none py-0.5 pl-0 pr-4 font-normal">Pangkat/Golongan</td>
+                <td className="border-none py-0.5 px-0 font-normal">:</td>
+                <td className="border-none py-0.5 px-0">{evaluasiPenyuluhPangkat}</td>
+              </tr>
+              <tr className="border-none font-serif">
+                <td className="border-none py-0.5 pl-0 pr-4 font-normal">Jabatan</td>
+                <td className="border-none py-0.5 px-0 font-normal">:</td>
+                <td className="border-none py-0.5 px-0">{evaluasiPenyuluhJabatan}</td>
+              </tr>
+              <tr className="border-none font-serif">
+                <td className="border-none py-0.5 pl-0 pr-4 font-normal">Tempat tugas</td>
+                <td className="border-none py-0.5 px-0 font-normal">:</td>
+                <td className="border-none py-0.5 px-0">{evaluasiPenyuluhTempatTugas}</td>
+              </tr>
+              <tr className="border-none font-serif">
+                <td className="border-none py-0.5 pl-0 pr-4 font-normal">Unit Kerja</td>
+                <td className="border-none py-0.5 px-0 font-normal">:</td>
+                <td className="border-none py-0.5 px-0">{evaluasiPenyuluhUnitKerja}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p className="font-bold text-[11px] italic my-2 font-sans text-left">Mohon diisi dengan baik dan benar sesuai kegiatan yang baru saja Anda ikuti saat ini!</p>
+
+        {/* 1 & 2 */}
+        <table className="w-full border-none my-1.5 text-[11px]">
           <tbody className="border-none">
             <tr className="border-none">
-              <td className="w-[180px] border-none py-0.5 pl-0 pr-4 font-normal">Nama Lengkap</td>
-              <td className="w-[15px] border-none py-0.5 px-0 font-normal">:</td>
-              <td className="border-none py-0.5 px-0 font-bold">{evaluasiPenyuluhName}</td>
+              <td className="border-none py-0.5 pl-0 w-[120px] font-bold">1. Kegiatan</td>
+              <td className="border-none py-0.5 px-0 w-[15px]">:</td>
+              <td className="border-none py-0.5 px-0">{evaluasiKegiatan}</td>
             </tr>
-            <tr className="border-none font-serif">
-              <td className="border-none py-0.5 pl-0 pr-4 font-normal">NIP</td>
-              <td className="border-none py-0.5 px-0 font-normal">:</td>
-              <td className="border-none py-0.5 px-0">{evaluasiPenyuluhNip}</td>
+            <tr className="border-none">
+              <td className="border-none py-0.5 pl-0 font-bold">2. Tema</td>
+              <td className="border-none py-0.5 px-0">:</td>
+              <td className="border-none py-0.5 px-0">{evaluasiTema}</td>
             </tr>
-            <tr className="border-none font-serif">
-              <td className="border-none py-0.5 pl-0 pr-4 font-normal">Pangkat/Golongan</td>
-              <td className="border-none py-0.5 px-0 font-normal">:</td>
-              <td className="border-none py-0.5 px-0">{evaluasiPenyuluhPangkat}</td>
+          </tbody>
+        </table>
+
+        {/* Centered table title */}
+        <p className="font-bold underline text-center uppercase my-3 font-sans tracking-wide">HASIL LAPORAN BERDASARKAN INSTRUMEN YANG DIISI OLEH PESERTA</p>
+   
+        {/* Evaluation Table Page 1 */}
+        <table className="w-full border-collapse border border-black my-2 text-[10.5px]">
+          <thead>
+            <tr className="bg-slate-50/20 font-sans">
+              <th className="border border-black text-center py-2 px-1 w-[8%]" rowSpan={2}>No.</th>
+              <th className="border border-black text-center py-2 px-2 w-[52%]" rowSpan={2}>Pertanyaan Instrumen</th>
+              <th className="border border-black text-center py-1 w-[40%]" colSpan={5}>Jumlah</th>
             </tr>
-            <tr className="border-none font-serif">
-              <td className="border-none py-0.5 pl-0 pr-4 font-normal">Jabatan</td>
-              <td className="border-none py-0.5 px-0 font-normal">:</td>
-              <td className="border-none py-0.5 px-0">{evaluasiPenyuluhJabatan}</td>
+            <tr className="bg-slate-50/20 font-sans">
+              <th className="border border-black text-center text-[9px] py-1">Cukup</th>
+              <th className="border border-black text-center text-[9px] py-1">Sedang</th>
+              <th className="border border-black text-center text-[9px] py-1">Baik</th>
+              <th className="border border-black text-center text-[9px] py-1">Cukup Baik</th>
+              <th className="border border-black text-center text-[9px] py-1">Sangat Baik</th>
             </tr>
-            <tr className="border-none font-serif">
-              <td className="border-none py-0.5 pl-0 pr-4 font-normal">Tempat tugas</td>
-              <td className="border-none py-0.5 px-0 font-normal">:</td>
-              <td className="border-none py-0.5 px-0">{evaluasiPenyuluhTempatTugas}</td>
-            </tr>
-            <tr className="border-none font-serif">
-              <td className="border-none py-0.5 pl-0 pr-4 font-normal">Unit Kerja</td>
-              <td className="border-none py-0.5 px-0 font-normal">:</td>
-              <td className="border-none py-0.5 px-0">{evaluasiPenyuluhUnitKerja}</td>
-            </tr>
+          </thead>
+          <tbody>
+            {[
+              { key: "q3", num: "3.", q: "Bagaimanakah penyampaian materi apakah sudah sesuai dengan tema?" },
+              { key: "q4", num: "4.", q: "Bagaimana langkah penyampaian materi apakah sudah sistematis?" },
+              { key: "q5", num: "5.", q: "Bagaimanakah pesan dari tema apakah sudah tersampaikan?" },
+              { key: "q6", num: "6.", q: "Bagaimanakah penggunaan sarana dan prasarana selama kegiatan, apakah sudah membantu?" },
+              { key: "q7", num: "7.", q: "Bagaimana penilaian peserta terhadap sikap narasumber,apakah narasumber menyampaikan materi dengan antusias, semangat, dan memberikan motivasi yang baik?" }
+            ].map((item) => (
+              <tr key={item.key}>
+                <td className="border border-black text-center font-bold py-2">{item.num}</td>
+                <td className="border border-black px-2.5 py-1.5">
+                  <span className="font-bold">{item.q}</span>
+                  <div className="text-[9.5px] italic mt-0.5 font-serif">Hasil Pemantauan : {evaluasiComments[item.key] || ""}</div>
+                </td>
+                {["Cukup", "Sedang", "Baik", "Cukup Baik", "Sangat Baik"].map((scale) => (
+                  <td key={scale} className="border border-black text-center font-bold text-[14px] w-[8%] text-emerald-700 font-sans">
+                    {evaluasiRatings[item.key] === scale ? "✓" : ""}
+                  </td>
+                ))}
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
 
-      <p className="font-bold text-[11px] italic my-3">Mohon diisi dengan baik dan benar sesuai kegiatan yang baru saja Anda ikuti saat ini!</p>
-
-      {/* 1 & 2 */}
-      <table className="w-full border-none my-2 text-[11px]">
-        <tbody className="border-none">
-          <tr className="border-none">
-            <td className="border-none py-0.5 pl-0 w-[120px] font-bold">1. Kegiatan</td>
-            <td className="border-none py-0.5 px-0 w-[15px]">:</td>
-            <td className="border-none py-0.5 px-0">{evaluasiKegiatan}</td>
-          </tr>
-          <tr className="border-none">
-            <td className="border-none py-0.5 pl-0 font-bold">2. Tema</td>
-            <td className="border-none py-0.5 px-0">:</td>
-            <td className="border-none py-0.5 px-0">{evaluasiTema}</td>
-          </tr>
-        </tbody>
-      </table>
-
-      {/* Centered table title */}
-      <p className="font-bold underline text-center uppercase my-4 font-sans tracking-wide">HASIL LAPORAN BERDASARKAN INSTRUMEN YANG DIISI OLEH PESERTA</p>
- 
-      {/* Evaluation Table Page 1 */}
-      <table className="w-full border-collapse border border-black my-4 text-[10.5px]">
-        <thead>
-          <tr className="bg-slate-50/20 font-sans">
-            <th className="border border-black text-center py-2 px-1 w-[8%]" rowSpan={2}>No.</th>
-            <th className="border border-black text-center py-2 px-2 w-[52%]" rowSpan={2}>Pertanyaan Instrumen</th>
-            <th className="border border-black text-center py-1 w-[40%]" colSpan={5}>Jumlah</th>
-          </tr>
-          <tr className="bg-slate-50/20 font-sans">
-            <th className="border border-black text-center text-[9px] py-1">Cukup</th>
-            <th className="border border-black text-center text-[9px] py-1">Sedang</th>
-            <th className="border border-black text-center text-[9px] py-1">Baik</th>
-            <th className="border border-black text-center text-[9px] py-1">Cukup Baik</th>
-            <th className="border border-black text-center text-[9px] py-1">Sangat Baik</th>
-          </tr>
-        </thead>
-        <tbody>
-          {[
-            { key: "q3", num: "3.", q: "Bagaimanakah penyampaian materi apakah sudah sesuai dengan tema?" },
-            { key: "q4", num: "4.", q: "Bagaimana langkah penyampaian materi apakah sudah sistematis?" },
-            { key: "q5", num: "5.", q: "Bagaimanakah pesan dari tema apakah sudah tersampaikan?" },
-            { key: "q6", num: "6.", q: "Bagaimanakah penggunaan sarana dan prasarana selama kegiatan, apakah sudah membantu?" },
-            { key: "q7", num: "7.", q: "Bagaimana penilaian peserta terhadap sikap narasumber,apakah narasumber menyampaikan materi dengan antusias, semangat, dan memberikan motivasi yang baik?" }
-          ].map((item) => (
-            <tr key={item.key}>
-              <td className="border border-black text-center font-bold py-2.5">{item.num}</td>
-              <td className="border border-black px-3 py-2">
-                <span className="font-bold">{item.q}</span>
-                <div className="text-[9.5px] italic mt-1 font-serif">Hasil Pemantauan : {evaluasiComments[item.key] || ""}</div>
-              </td>
-              {["Cukup", "Sedang", "Baik", "Cukup Baik", "Sangat Baik"].map((scale) => (
-                <td key={scale} className="border border-black text-center font-bold text-[14px] w-[8%] text-emerald-700 font-sans">
-                  {evaluasiRatings[item.key] === scale ? "✓" : ""}
+      {/* PAGE 2 CONTENT */}
+      <div className="print-page flex flex-col justify-between">
+        <div>
+          <table className="w-full border-collapse border border-black my-2 text-[10.5px]">
+            <thead>
+              <tr className="bg-slate-50/20 font-sans">
+                <th className="border border-black text-center py-2 px-1 w-[8%]" rowSpan={2}>No.</th>
+                <th className="border border-black text-center py-2 px-2 w-[52%]" rowSpan={2}>Pertanyaan Instrumen</th>
+                <th className="border border-black text-center py-1 w-[40%]" colSpan={5}>Jumlah</th>
+              </tr>
+              <tr className="bg-slate-50/20 font-sans">
+                <th className="border border-black text-center text-[9px] py-1">Cukup</th>
+                <th className="border border-black text-center text-[9px] py-1">Sedang</th>
+                <th className="border border-black text-center text-[9px] py-1">Baik</th>
+                <th className="border border-black text-center text-[9px] py-1">Cukup Baik</th>
+                <th className="border border-black text-center text-[9px] py-1">Sangat Baik</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td className="border border-black text-center font-bold py-2">8.</td>
+                <td className="border border-black px-2.5 py-1.5">
+                  <span className="font-bold">Apakah materi yang disampaikan memberikan manfaat bagi kehidupan rumah tangga nantinya?</span>
+                  <div className="text-[9.5px] italic mt-0.5 font-serif">Hasil Pemantauan : {evaluasiComments.q8 || ""}</div>
                 </td>
-              ))}
-            </tr>
-          ))}
-        </tbody>
-      </table>
-
-      {/* PAGE 2 BREAK */}
-      <div className="page-break" />
-
-      {/* PAGE 2 HEADER */}
-      <div className="text-center font-bold tracking-tight uppercase space-y-0.5 invisible select-none h-4">
-        {/* Empty space matching header top */}
-      </div>
-
-      <table className="w-full border-collapse border border-black my-4 text-[10.5px]">
-        <thead>
-          <tr className="bg-slate-50/20 font-sans">
-            <th className="border border-black text-center py-2 px-1 w-[8%]" rowSpan={2}>No.</th>
-            <th className="border border-black text-center py-2 px-2 w-[52%]" rowSpan={2}>Pertanyaan Instrumen</th>
-            <th className="border border-black text-center py-1 w-[40%]" colSpan={5}>Jumlah</th>
-          </tr>
-          <tr className="bg-slate-50/20 font-sans">
-            <th className="border border-black text-center text-[9px] py-1">Cukup</th>
-            <th className="border border-black text-center text-[9px] py-1">Sedang</th>
-            <th className="border border-black text-center text-[9px] py-1">Baik</th>
-            <th className="border border-black text-center text-[9px] py-1">Cukup Baik</th>
-            <th className="border border-black text-center text-[9px] py-1">Sangat Baik</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td className="border border-black text-center font-bold py-2.5">8.</td>
-            <td className="border border-black px-3 py-2">
-              <span className="font-bold">Apakah materi yang disampaikan memberikan manfaat bagi kehidupan rumah tangga nantinya?</span>
-              <div className="text-[9.5px] italic mt-1 font-serif">Hasil Pemantauan : {evaluasiComments.q8 || ""}</div>
-            </td>
-            {["Cukup", "Sedang", "Baik", "Cukup Baik", "Sangat Baik"].map((scale) => (
-              <td key={scale} className="border border-black text-center font-bold text-[14px] w-[8%] text-emerald-700 font-sans">
-                {evaluasiRatings.q8 === scale ? "✓" : ""}
-              </td>
-            ))}
-          </tr>
-        </tbody>
-      </table>
-
-      {/* Signature Area */}
-      <div className="mt-12 text-center text-[11pt]">
-        <div className="flex justify-end mr-6 mb-8 font-serif text-[11pt]">
-          <p>Fiditan, {evaluasiHariTanggal.replace(/^(Senin|Selasa|Rabu|Kamis|Jumat|Sabtu|Minggu),\s*/i, "") || "10 Februari 2026"}</p>
+                {["Cukup", "Sedang", "Baik", "Cukup Baik", "Sangat Baik"].map((scale) => (
+                  <td key={scale} className="border border-black text-center font-bold text-[14px] w-[8%] text-emerald-700 font-sans">
+                    {evaluasiRatings.q8 === scale ? "✓" : ""}
+                  </td>
+                ))}
+              </tr>
+            </tbody>
+          </table>
         </div>
-        
-        <div className="grid grid-cols-3 gap-2 content-center mt-6">
-          <div className="flex flex-col items-center justify-between min-h-[120px]">
-            <p className="font-bold text-[11px]">Peserta Pria</p>
-            <div className="h-16 flex items-center justify-center my-1 select-none">
-              {evaluasiSigPria ? (
-                <img src={evaluasiSigPria} alt="Sign Pria" className="max-h-16 max-w-[140px] object-contain" referrerPolicy="no-referrer" />
-              ) : (
-                <div className="border-b border-dashed border-slate-400 w-28 h-6"></div>
-              )}
-            </div>
-            <p className="font-bold underline uppercase text-[10.5px]">{evaluasiCatinPria}</p>
-          </div>
 
-          <div className="flex flex-col items-center justify-between min-h-[120px]">
-            <p className="font-bold text-[11px]">Peserta Wanita</p>
-            <div className="h-16 flex items-center justify-center my-1 select-none">
-              {evaluasiSigWanita ? (
-                <img src={evaluasiSigWanita} alt="Sign Wanita" className="max-h-16 max-w-[140px] object-contain" referrerPolicy="no-referrer" />
-              ) : (
-                <div className="border-b border-dashed border-slate-400 w-28 h-6"></div>
-              )}
-            </div>
-            <p className="font-bold underline uppercase text-[10.5px]">{evaluasiCatinWanita}</p>
+        {/* Signature Area */}
+        <div className="mt-4 text-center text-[10.5pt] font-serif w-full flex flex-col justify-end">
+          <div className="flex justify-end mr-6 mb-4 font-serif text-[10.5pt]">
+            <p>Fiditan, {evaluasiHariTanggal.replace(/^(Senin|Selasa|Rabu|Kamis|Jumat|Sabtu|Minggu),\s*/i, "") || "10 Februari 2026"}</p>
           </div>
-
-          <div className="flex flex-col items-center justify-between min-h-[120px]">
-            <p className="font-bold text-[11px] text-center">Mengetahui<br />Narasumber</p>
-            <div className="h-16 flex items-center justify-center my-1 select-none">
-              {evaluasiSigPenyuluh ? (
-                <img src={evaluasiSigPenyuluh} alt="Sign Penyuluh" className="max-h-16 max-w-[150px] object-contain" referrerPolicy="no-referrer" />
-              ) : (
-                <div className="border-b border-dashed border-slate-400 w-32 h-6"></div>
-              )}
+          
+          <div className="grid grid-cols-3 gap-2 content-center mt-2">
+            <div className="flex flex-col items-center justify-between min-h-[105px]">
+              <p className="font-bold text-[11px] font-sans">Peserta Pria</p>
+              <div className="h-14 flex items-center justify-center my-0.5 select-none">
+                {evaluasiSigPria ? (
+                  <img src={evaluasiSigPria} alt="Sign Pria" className="max-h-14 max-w-[140px] object-contain" referrerPolicy="no-referrer" />
+                ) : (
+                  <div className="border-b border-dashed border-slate-400 w-28 h-5"></div>
+                )}
+              </div>
+              <p className="font-bold underline uppercase text-[10.5px] font-sans">{evaluasiCatinPria}</p>
             </div>
-            <div>
-              <p className="font-bold underline text-[10.5px] text-center">{evaluasiPenyuluhName}</p>
-              <p className="text-[9.5px] text-center">NIP. {evaluasiPenyuluhNip}</p>
+
+            <div className="flex flex-col items-center justify-between min-h-[105px]">
+              <p className="font-bold text-[11px] font-sans">Peserta Wanita</p>
+              <div className="h-14 flex items-center justify-center my-0.5 select-none">
+                {evaluasiSigWanita ? (
+                  <img src={evaluasiSigWanita} alt="Sign Wanita" className="max-h-14 max-w-[140px] object-contain" referrerPolicy="no-referrer" />
+                ) : (
+                  <div className="border-b border-dashed border-slate-400 w-28 h-5"></div>
+                )}
+              </div>
+              <p className="font-bold underline uppercase text-[10.5px] font-sans">{evaluasiCatinWanita}</p>
+            </div>
+
+            <div className="flex flex-col items-center justify-between min-h-[105px]">
+              <p className="font-bold text-[11px] text-center font-sans">Mengetahui<br />Narasumber</p>
+              <div className="h-14 flex items-center justify-center my-0.5 select-none">
+                {evaluasiSigPenyuluh ? (
+                  <img src={evaluasiSigPenyuluh} alt="Sign Penyuluh" className="max-h-14 max-w-[150px] object-contain" referrerPolicy="no-referrer" />
+                ) : (
+                  <div className="border-b border-dashed border-slate-400 w-32 h-5"></div>
+                )}
+              </div>
+              <div>
+                <p className="font-bold underline text-[10.5px] text-center font-sans">{evaluasiPenyuluhName}</p>
+                <p className="text-[9.5px] text-center font-sans">NIP. {evaluasiPenyuluhNip}</p>
+              </div>
             </div>
           </div>
         </div>
