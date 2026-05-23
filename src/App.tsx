@@ -2369,37 +2369,6 @@ export default function App() {
 
                         {currentTab === "penyuluhan" && (
                           <div className="space-y-4">
-                            {/* Card 1: Pembinaan Catin */}
-                            <div className="bg-emerald-50/40 p-4 border border-emerald-100 rounded-2xl">
-                              <div className="flex items-center gap-2 mb-2">
-                                <div className="w-8 h-8 rounded-lg bg-emerald-100 flex items-center justify-center text-emerald-800">
-                                  <Users className="h-4 w-4" />
-                                </div>
-                                <h5 className="text-[11px] font-extrabold text-emerald-950 uppercase tracking-wide">
-                                  Pembinaan & Pendampingan Catin
-                                </h5>
-                              </div>
-                              <p className="text-[11px] text-slate-650 leading-relaxed mb-3">
-                                Pembinaan keluarga sakinah untuk calon pengantin (catin) secara terkonsep melalui bimbingan tatap muka atau konsultasi online bersama Penyuluh Agama Islam.
-                              </p>
-                              <button
-                                onClick={() => {
-                                  if (penyuluhList.length > 0) {
-                                    setPenyuluhSelectedId(penyuluhList[0].id);
-                                  }
-                                  setShowConsultationForm(true);
-                                  setTimeout(() => {
-                                    const el = document.getElementById("form-konsultasi-penyuluh");
-                                    el?.scrollIntoView({ behavior: "smooth", block: "start" });
-                                  }, 150);
-                                }}
-                                className="w-full py-2 bg-emerald-700 hover:bg-emerald-800 text-white rounded-xl text-[10px] font-bold shadow-xs transition-colors cursor-pointer text-center flex items-center justify-center gap-1.5"
-                              >
-                                <MessageSquare className="h-3 w-3" />
-                                <span>Hubungi Penyuluh Pembimbing</span>
-                              </button>
-                            </div>
-
                             {/* Card 2: Kuisioner Evaluasi */}
                             <div className="bg-[#fffbeb] p-4 border border-amber-200 rounded-2xl">
                               <div className="flex items-center gap-2 mb-2">
