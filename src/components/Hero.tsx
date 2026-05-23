@@ -1,4 +1,4 @@
-import { Heart, Globe, MessageSquare, ChevronRight, CheckCircle, FileText, Clock, Facebook, Instagram, Twitter, Youtube, Music } from "lucide-react";
+import { Heart, Globe, ChevronRight, CheckCircle, FileText, Clock, Facebook, Instagram, Twitter, Youtube, Music } from "lucide-react";
 import { motion } from "motion/react";
 import { Settings } from "../types";
 
@@ -185,24 +185,18 @@ export default function Hero({ settings, setCurrentTab, onAdminClick }: HeroProp
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, delay: 0.3 }}
-            className="mt-8 flex flex-col sm:flex-row justify-center items-center gap-4 w-full sm:w-auto"
+            className="mt-8 flex justify-center items-center w-full"
           >
             <button
-              onClick={() => setCurrentTab("nikah")}
-              className="w-full sm:w-auto px-8 py-4 bg-emerald-700 hover:bg-emerald-800 text-white rounded-2xl text-sm font-bold shadow-md hover:shadow-lg transition-all cursor-pointer flex items-center justify-center space-x-2"
+              onClick={() => {
+                const el = document.getElementById("layanan-navigation-section");
+                el?.scrollIntoView({ behavior: "smooth", block: "start" });
+              }}
+              className="w-full sm:w-auto px-10 py-4 bg-emerald-700 hover:bg-emerald-800 text-white rounded-2xl text-sm font-bold shadow-md hover:shadow-lg transition-all cursor-pointer flex items-center justify-center space-x-2"
               id="hero-layanan-online-btn"
             >
               <span>Mulai Layanan Online</span>
               <ChevronRight className="h-4 w-4" />
-            </button>
-            
-            <button
-              onClick={() => setCurrentTab("kontak")}
-              className="w-full sm:w-auto px-8 py-4 bg-white text-emerald-900 ring-2 ring-emerald-100 rounded-2xl text-sm font-bold hover:bg-emerald-50 hover:ring-emerald-200 transition-all cursor-pointer flex items-center justify-center space-x-2 shadow-xs"
-              id="hero-hubungi-kami-btn"
-            >
-              <MessageSquare className="h-4 w-4 text-emerald-600" />
-              <span>Hubungi Kantor</span>
             </button>
           </motion.div>
 

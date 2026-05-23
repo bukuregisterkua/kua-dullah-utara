@@ -1307,7 +1307,7 @@ export default function App() {
               />
 
               {/* Dynamic Shortcut Cards Grid */}
-              <section className="bg-slate-50/50 py-16 border-y border-emerald-50 relative overflow-hidden">
+              <section id="layanan-navigation-section" className="bg-slate-50/50 py-16 border-y border-emerald-50 relative overflow-hidden">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                   
                   <div className="text-center max-w-3xl mx-auto mb-12">
