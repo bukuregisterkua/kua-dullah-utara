@@ -96,61 +96,66 @@ export default function Header({ currentTab, setCurrentTab, onAdminClick, isAdmi
             </div>
           </div>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden lg:flex space-x-1" id="desktop-nav-menu">
-            {navItems.map((item) => (
-              <button
-                key={item.id}
-                onClick={() => setCurrentTab(item.id)}
-                className={`px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 cursor-pointer ${
-                  currentTab === item.id
-                    ? "bg-emerald-700 text-white shadow-sm"
-                    : "text-slate-600 hover:text-emerald-800 hover:bg-emerald-50/50"
-                }`}
-              >
-                {item.label}
-              </button>
-            ))}
-          </nav>
+          {/* Desktop Navigation, Live Clock & Admin CTA Grouped & Aligned Together */}
+          <div className="hidden lg:flex items-center space-x-6" id="desktop-nav-right-container">
+            <nav className="flex items-center space-x-1" id="desktop-nav-menu">
+              {navItems.map((item) => (
+                <button
+                  key={item.id}
+                  onClick={() => setCurrentTab(item.id)}
+                  className={`px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 cursor-pointer ${
+                    currentTab === item.id
+                      ? "bg-emerald-700 text-white shadow-sm"
+                      : "text-slate-600 hover:text-emerald-800 hover:bg-emerald-50/50"
+                  }`}
+                >
+                  {item.label}
+                </button>
+              ))}
+            </nav>
 
-          {/* Live digital clock & CTA Buttons */}
-          <div className="hidden lg:flex items-center space-x-4">
-            {/* Live WIT Clock */}
-            <div className="text-right border-r border-slate-200 pr-4">
-              <div className="flex items-center space-x-1.5 justify-end text-emerald-800 font-mono text-xs font-semibold">
-                <Clock className="h-3.5 w-3.5 text-emerald-600 animate-pulse" />
-                <span>{witTime}</span>
+            {/* Subtle premium divider */}
+            <div className="h-8 w-[1px] bg-slate-200"></div>
+
+            {/* Live digital clock & CTA Buttons */}
+            <div className="flex items-center space-x-4">
+              {/* Live WIT Clock */}
+              <div className="text-right border-r border-slate-200 pr-4">
+                <div className="flex items-center space-x-1.5 justify-end text-emerald-800 font-mono text-xs font-semibold">
+                  <Clock className="h-3.5 w-3.5 text-emerald-600 animate-pulse" />
+                  <span>{witTime}</span>
+                </div>
+                <p className="text-[10px] text-slate-500 mt-0.5">{currentDate}</p>
               </div>
-              <p className="text-[10px] text-slate-500 mt-0.5">{currentDate}</p>
+
+              {/* Admin trigger */}
+              {isAdmin ? (
+                <div className="flex items-center space-x-2">
+                  <button
+                    onClick={() => setCurrentTab("admin")}
+                    className="flex items-center space-x-1 px-3.5 py-2 bg-emerald-100 text-emerald-800 rounded-xl text-xs font-bold ring-2 ring-emerald-200 hover:bg-emerald-200 transition-all cursor-pointer"
+                  >
+                    <Shield className="h-3.5 w-3.5" />
+                    <span>Panel Admin</span>
+                  </button>
+                  <button
+                    onClick={onLogout}
+                    className="px-3.5 py-2 bg-rose-50 hover:bg-rose-100 text-rose-700 rounded-xl text-xs font-bold transition-all cursor-pointer"
+                  >
+                    Keluar
+                  </button>
+                </div>
+              ) : (
+                <button
+                  onClick={onAdminClick}
+                  className="flex items-center space-x-1 px-4 py-2 bg-slate-900 text-white rounded-xl text-xs font-bold hover:bg-slate-800 transition-all shadow-md cursor-pointer"
+                  id="header-admin-login-btn"
+                >
+                  <Shield className="h-3.5 w-3.5 text-emerald-400" />
+                  <span>Login Admin</span>
+                </button>
+              )}
             </div>
-
-            {/* Admin trigger */}
-            {isAdmin ? (
-              <div className="flex items-center space-x-2">
-                <button
-                  onClick={() => setCurrentTab("admin")}
-                  className="flex items-center space-x-1 px-3.5 py-2 bg-emerald-100 text-emerald-800 rounded-xl text-xs font-bold ring-2 ring-emerald-200 hover:bg-emerald-200 transition-all cursor-pointer"
-                >
-                  <Shield className="h-3.5 w-3.5" />
-                  <span>Panel Admin</span>
-                </button>
-                <button
-                  onClick={onLogout}
-                  className="px-3.5 py-2 bg-rose-50 hover:bg-rose-100 text-rose-700 rounded-xl text-xs font-bold transition-all cursor-pointer"
-                >
-                  Keluar
-                </button>
-              </div>
-            ) : (
-              <button
-                onClick={onAdminClick}
-                className="flex items-center space-x-1 px-4 py-2 bg-slate-900 text-white rounded-xl text-xs font-bold hover:bg-slate-800 transition-all shadow-md cursor-pointer"
-                id="header-admin-login-btn"
-              >
-                <Shield className="h-3.5 w-3.5 text-emerald-400" />
-                <span>Login Admin</span>
-              </button>
-            )}
           </div>
 
           {/* Mobile Menu Toggle */}
