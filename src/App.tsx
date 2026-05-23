@@ -247,6 +247,34 @@ export default function App() {
   });
 
   const [evaluasiSubmitted, setEvaluasiSubmitted] = useState(false);
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
+
+  // Event listener to restore page states seamlessly after print closes
+  useEffect(() => {
+    const handleAfterPrint = () => {
+      document.body.classList.remove("printing-kua-active");
+      
+      // Show custom elegant notification (toast) as requested
+      setToastMessage("Notifikasi: Proses cetak selesai. Halaman kembali aktif secara normal!");
+      setTimeout(() => {
+        setToastMessage(null);
+      }, 4000);
+    };
+
+    window.addEventListener("afterprint", handleAfterPrint);
+    
+    // Fallback in case of some legacy browsers
+    if (typeof window !== "undefined") {
+      window.onafterprint = handleAfterPrint;
+    }
+
+    return () => {
+      window.removeEventListener("afterprint", handleAfterPrint);
+      if (typeof window !== "undefined") {
+        window.onafterprint = null;
+      }
+    };
+  }, []);
 
   // Fetch complete database state
   const fetchData = async () => {
@@ -593,61 +621,35 @@ export default function App() {
     window.open(waUrl, "_blank");
   };
 
-  // Programmatic high-fidelity PDF download with offscreen rendering to prevent flicker
-  const handleDownloadPDF = () => {
-    const element = document.getElementById("kua-print-document");
-    if (!element) {
-      alert("Elemen dokumen cetak tidak ditemukan!");
-      return;
-    }
+  // Native high-fidelity print handler that triggers window.print() and manages state
+  const handlePrintDirect = () => {
+    // 1. Add class to body to signal printing state and trigger CSS print display overrides
+    document.body.classList.add("printing-kua-active");
     
-    // Save original styling
-    const originalClass = element.className;
-    const originalStyle = element.getAttribute("style") || "";
+    // 2. Clear any browser selection to ensure a perfect render output
+    window.getSelection()?.removeAllRanges();
 
-    // Temporarily make it visible and styled for high-fidelity rendering, but offscreen so it doesn't flicker
-    element.className = "print-document bg-white text-black p-[20mm] font-serif max-w-[210mm] min-h-[297mm] mx-auto leading-relaxed text-[11.5px] select-text";
-    element.setAttribute(
-      "style",
-      "display: block !important; position: fixed !important; left: -9999px !important; top: -9999px !important; width: 210mm !important; min-height: 297mm !important; background: white !important; color: black !important; z-index: -9999 !important;"
-    );
+    // 3. Temporarily set document title so that if the user saves or prints as PDF,
+    // the output filename suggestion is perfectly professional
+    const originalTitle = document.title;
+    const cleanPria = evaluasiCatinPria ? evaluasiCatinPria.replace(/[^a-zA-Z0-9\s]/g, "").trim() : "Pria";
+    const cleanWanita = evaluasiCatinWanita ? evaluasiCatinWanita.replace(/[^a-zA-Z0-9\s]/g, "").trim() : "Wanita";
+    
+    const formattedPria = cleanPria.replace(/\s+/g, "_");
+    const formattedWanita = cleanWanita.replace(/\s+/g, "_");
+    document.title = `Kuesioner_Evaluasi_KUA_${formattedPria}_&_${formattedWanita}`;
 
-    const cleanPria = evaluasiCatinPria ? evaluasiCatinPria.replace(/[^a-zA-Z0-9]/g, "_") : "Pria";
-    const cleanWanita = evaluasiCatinWanita ? evaluasiCatinWanita.replace(/[^a-zA-Z0-9]/g, "_") : "Wanita";
-
-    const opt = {
-      margin:       12,
-      filename:     `Kuesioner_Evaluasi_KUA_${cleanPria}_&_${cleanWanita}.pdf`,
-      image:        { type: "jpeg" as const, quality: 0.98 },
-      html2canvas:  { scale: 2, useCORS: true, logging: false },
-      jsPDF:        { unit: "mm" as const, format: "a4" as const, orientation: "portrait" as const },
-      pagebreak:    { mode: 'css' as const, before: '.page-break' }
-    };
-
-    // Use the native, pre-imported html2pdf library
-    html2pdf()
-      .from(element)
-      .set(opt)
-      .save()
-      .then(() => {
-        // Restore styles
-        element.className = originalClass;
-        element.setAttribute("style", originalStyle);
-      })
-      .catch((err: any) => {
-        console.error("Gagal mengunduh dokumen PDF secara langsung:", err);
-        // Restore styles anyway
-        element.className = originalClass;
-        element.setAttribute("style", originalStyle);
-        
-        // Instruct user and fallback gracefully to direct print mode
-        alert("Pemberitahuan: Fitur unduh otomatis memerlukan izin browser atau mungkin dibatasi oleh sandbox. Menyalurkan tindakan Anda untuk Cetak PDF / Simpan sebagai PDF.");
-        handlePrintDirect(false);
-      });
+    // 4. Trigger print with a tiny delay to yield keyframes & styles to the browser layout engine
+    setTimeout(() => {
+      window.print();
+      // Restore page title immediately in JavaScript microtask
+      document.title = originalTitle;
+    }, 150);
   };
 
-  // Dynamic Print Pop-up that bypasses all iframe sandbox print constraints
-  const handlePrintDirect = (autoDownloadParam: any = false) => {
+  // Legacy unused popup print handler
+  const handlePrintDirect_UNUSED = (autoDownloadParam: any = false) => {
+    return;
     // Explicitly check for actual boolean true to avoid React mouse events causing true coercion
     const autoDownload = autoDownloadParam === true;
 
@@ -4580,33 +4582,24 @@ export default function App() {
                     <div className="text-center text-[8px] text-slate-400 italic font-sans my-1">--- Bersambung ke halaman berikutnya (Lembar Fisik ke-2) ---</div>
                   </div>
 
-                  {/* Buttons below inside Modal */}
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mt-1 no-print">
-                    <button
-                      type="button"
-                      onClick={handleEvaluasiSubmit}
-                      className="py-2.5 px-4 bg-slate-900 hover:bg-slate-850 text-white rounded-xl text-xs font-bold transition-transform cursor-pointer text-center flex items-center justify-center space-x-1.5 active:scale-98 shadow-md"
-                    >
-                      <Save className="h-4 w-4 text-emerald-400" />
-                      <span>Kirim Laporan & WA</span>
-                    </button>
-                    
+                  {/* Buttons below inside Modal - Streamlined to Cetak Dokumen & Kembali as requested */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-1 no-print">
                     <button
                       type="button"
                       onClick={handlePrintDirect}
-                      className="py-2.5 px-4 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold transition-transform cursor-pointer text-center flex items-center justify-center space-x-1.5 active:scale-98 shadow-md"
+                      className="py-2.5 px-4 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold transition-all duration-300 cursor-pointer text-center flex items-center justify-center space-x-1.5 active:scale-98 shadow-md"
                     >
                       <Printer className="h-4 w-4 text-emerald-100" />
-                      <span>Cetak PDF / Print</span>
+                      <span>Cetak Dokumen</span>
                     </button>
 
                     <button
                       type="button"
-                      onClick={handleDownloadPDF}
-                      className="py-2.5 px-4 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold transition-transform cursor-pointer text-center flex items-center justify-center space-x-1.5 active:scale-98 shadow-md"
+                      onClick={() => setShowEvaluasiModal(false)}
+                      className="py-2.5 px-4 bg-slate-200 hover:bg-slate-300 text-slate-800 rounded-xl text-xs font-bold transition-all duration-300 cursor-pointer text-center flex items-center justify-center space-x-1.5 active:scale-98 shadow-sm"
                     >
-                      <Download className="h-4 w-4 text-blue-100" />
-                      <span>Unduh / Download PDF</span>
+                      <X className="h-4 w-4 text-slate-500" />
+                      <span>Kembali</span>
                     </button>
                   </div>
                 </div>
@@ -4813,6 +4806,33 @@ export default function App() {
         </div>
       </div>
     </div>
+
+    {/* Clean, Elegant Floating Notification for Print Status */}
+    <AnimatePresence>
+      {toastMessage && (
+        <motion.div
+          initial={{ opacity: 0, y: 50, scale: 0.95 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          exit={{ opacity: 0, y: 20, scale: 0.95 }}
+          className="fixed bottom-6 right-6 z-[9999] max-w-md bg-slate-900 border border-slate-800 text-white shadow-2xl rounded-2xl p-4 flex items-start space-x-3 no-print"
+        >
+          <div className="flex-shrink-0 bg-emerald-500/20 text-emerald-400 p-1.5 rounded-lg">
+            <CheckCircle2 className="h-5 w-5" />
+          </div>
+          <div className="flex-1 text-sm pt-0.5">
+            <p className="font-semibold text-white">Sukses Mencetak</p>
+            <p className="text-slate-400 text-xs mt-0.5">{toastMessage}</p>
+          </div>
+          <button 
+            type="button" 
+            onClick={() => setToastMessage(null)}
+            className="flex-shrink-0 text-slate-500 hover:text-slate-300 p-1 rounded-sm cursor-pointer transition-colors"
+          >
+            <X className="h-4 w-4" />
+          </button>
+        </motion.div>
+      )}
+    </AnimatePresence>
     </>
   );
 }
