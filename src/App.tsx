@@ -1392,10 +1392,10 @@ export default function App() {
                   <div className="flex items-center space-x-1.5 text-xs text-slate-500 mb-2">
                     <span className="hover:underline cursor-pointer" onClick={() => setCurrentTab("beranda")}>Beranda</span>
                     <span>/</span>
-                    <span className="font-semibold text-emerald-700">Pilihan Navigasi Layanan</span>
+                    <span className="font-semibold text-emerald-700">Pilihan Layanan</span>
                   </div>
                   <h2 className="text-3xl font-extrabold font-display text-slate-900 uppercase tracking-tight">
-                    🛠️ Pilihan Navigasi Layanan
+                    🛠️ Pilihan Layanan
                   </h2>
                 </div>
                 
@@ -1669,6 +1669,8 @@ export default function App() {
                   <div className="flex items-center space-x-1.5 text-xs text-slate-500 mb-2">
                     <span className="hover:underline cursor-pointer" onClick={() => setCurrentTab("beranda")}>Beranda</span>
                     <span>/</span>
+                    <span className="hover:underline cursor-pointer" onClick={() => setCurrentTab("layanan-pembuka")}>Pilihan Layanan</span>
+                    <span>/</span>
                     <span className="font-semibold text-emerald-700 capitalize">
                       {currentTab === "muallaf" ? "Muallaf" : currentTab === "penyuluhan" ? "Penyuluhan Agama Islam" : currentTab}
                     </span>
@@ -1682,10 +1684,10 @@ export default function App() {
                 </div>
                 
                 <button
-                  onClick={() => setCurrentTab("beranda")}
+                  onClick={() => setCurrentTab("layanan-pembuka")}
                   className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center space-x-1"
                 >
-                  <span>&larr; Kembali ke Beranda</span>
+                  <span>&larr; Kembali ke Pilihan Layanan</span>
                 </button>
               </div>
 
