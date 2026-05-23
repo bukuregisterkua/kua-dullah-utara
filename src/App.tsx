@@ -1306,126 +1306,7 @@ export default function App() {
                 onAdminClick={() => setShowLoginModal(true)}
               />
 
-              {/* Dynamic Shortcut Cards Grid */}
-              <section id="layanan-navigation-section" className="bg-slate-50/50 py-16 border-y border-emerald-50 relative overflow-hidden">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                  
-                  <div className="text-center max-w-3xl mx-auto mb-12">
-                    <span className="text-xs font-bold uppercase tracking-widest text-emerald-600 bg-emerald-100/60 px-3 py-1 rounded-full">
-                      Pilihan Navigasi Layanan
-                    </span>
-                    <h3 className="text-3xl font-extrabold font-display text-slate-900 mt-2">
-                      Sistem Pelayanan Agama & Keagamaan Digital
-                    </h3>
-                    <p className="text-sm text-slate-500 mt-3">
-                      Lanjutkan proses administrasi perkawinan, audit sertifikasi waqaf dan bimbingan ummat dengan mengklik salah satu kategori di bawah ini.
-                    </p>
-                  </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
-                    {/* Layanan Nikah Category Card */}
-                    <div 
-                      onClick={() => setCurrentTab("nikah")}
-                      className="group bg-white rounded-3xl p-6 border border-emerald-50 shadow-xs hover:shadow-lg hover:border-emerald-200 transition-all cursor-pointer relative overflow-hidden"
-                      id="shortcut-nikah-box"
-                    >
-                      <div className="absolute top-0 right-0 w-24 h-24 bg-emerald-50 rounded-bl-full group-hover:bg-emerald-100 transition-colors -z-1" />
-                      
-                      <div className="w-14 h-14 bg-emerald-50 group-hover:bg-emerald-700 hover:text-white text-emerald-700 rounded-2xl flex items-center justify-center transition-all shadow-xxs">
-                        <Heart className="h-7 w-7 group-hover:text-white" />
-                      </div>
-                      
-                      <h4 className="text-lg font-bold font-display text-slate-900 mt-6 group-hover:text-emerald-800 transition-colors">
-                        💍 LAYANAN NIKAH
-                      </h4>
-                      <p className="text-xs text-slate-500 mt-2 leading-relaxed">
-                        Pemberkasan nikah, pendaftaran SIMKAH, bimbingan perkawinan (Bimwin) online, video alur pendaftaran, dan pembuatan surat rekomendasi nikah luar daerah.
-                      </p>
-                      
-                      <div className="flex items-center space-x-1.5 text-xs font-bold text-emerald-700 mt-6 group-hover:translate-x-1.5 transition-transform">
-                        <span>Layanan Nikah Online</span>
-                        <ArrowRight className="h-3.5 w-3.5" />
-                      </div>
-                    </div>
-
-                    {/* Layanan Wakaf Category Card */}
-                    <div 
-                      onClick={() => setCurrentTab("wakaf")}
-                      className="group bg-white rounded-3xl p-6 border border-emerald-50 shadow-xs hover:shadow-lg hover:border-emerald-200 transition-all cursor-pointer relative overflow-hidden"
-                      id="shortcut-wakaf-box"
-                    >
-                      <div className="absolute top-0 right-0 w-24 h-24 bg-teal-50 rounded-bl-full group-hover:bg-teal-100 transition-colors -z-1" />
-                      
-                      <div className="w-14 h-14 bg-teal-50 group-hover:bg-emerald-700 text-emerald-800 rounded-2xl flex items-center justify-center transition-all shadow-xxs">
-                        <FileText className="h-7 w-7 group-hover:text-white" />
-                      </div>
-                      
-                      <h4 className="text-lg font-bold font-display text-slate-900 mt-6 group-hover:text-emerald-800 transition-colors">
-                        📜 LAYANAN WAKAF
-                      </h4>
-                      <p className="text-xs text-slate-500 mt-2 leading-relaxed">
-                        Persyaratan berkas sertifikasi tanah wakaf, informasi alur pembukuan, SIWAK Kemenag online, konsultasi wakaf terintegrasi WhatsApp, dan tutorial.
-                      </p>
-                      
-                      <div className="flex items-center space-x-1.5 text-xs font-bold text-teal-700 mt-6 group-hover:translate-x-1.5 transition-transform">
-                        <span>Database SIWAK</span>
-                        <ArrowRight className="h-3.5 w-3.5" />
-                      </div>
-                    </div>
-
-                    {/* Muallaf Center Category Card */}
-                    <div 
-                      onClick={() => setCurrentTab("muallaf")}
-                      className="group bg-white rounded-3xl p-6 border border-emerald-50 shadow-xs hover:shadow-lg hover:border-emerald-200 transition-all cursor-pointer relative overflow-hidden"
-                      id="shortcut-muallaf-box"
-                    >
-                      <div className="absolute top-0 right-0 w-24 h-24 bg-sky-50 rounded-bl-full group-hover:bg-sky-100 transition-colors -z-1" />
-                      
-                      <div className="w-14 h-14 bg-sky-50 group-hover:bg-emerald-700 text-sky-700 rounded-2xl flex items-center justify-center transition-all shadow-xxs">
-                        <Globe className="h-7 w-7 group-hover:text-white" />
-                      </div>
-                      
-                      <h4 className="text-lg font-bold font-display text-slate-900 mt-6 group-hover:text-emerald-800 transition-colors">
-                        🕌 MUALLAF CENTER
-                      </h4>
-                      <p className="text-xs text-slate-500 mt-2 leading-relaxed">
-                        Bimbingan ikrar muallaf, penerbitan sertifikat pemeluk agama islam resmi, pembinaan akidah berkelanjutan, konseling keagamaan, dan konsultasi.
-                      </p>
-                      
-                      <div className="flex items-center space-x-1.5 text-xs font-bold text-sky-700 mt-6 group-hover:translate-x-1.5 transition-transform">
-                        <span>Pendaftaran Muallaf</span>
-                        <ArrowRight className="h-3.5 w-3.5" />
-                      </div>
-                    </div>
-
-                    {/* Penyuluhan Agama Category Card */}
-                    <div 
-                      onClick={() => setCurrentTab("penyuluhan")}
-                      className="group bg-white rounded-3xl p-6 border border-emerald-50 shadow-xs hover:shadow-lg hover:border-emerald-200 transition-all cursor-pointer relative overflow-hidden"
-                      id="shortcut-penyuluhan-box"
-                    >
-                      <div className="absolute top-0 right-0 w-24 h-24 bg-amber-50 rounded-bl-full group-hover:bg-amber-100 transition-colors -z-1" />
-                      
-                      <div className="w-14 h-14 bg-amber-50 group-hover:bg-emerald-700 text-amber-700 rounded-2xl flex items-center justify-center transition-all shadow-xxs">
-                        <BookOpen className="h-7 w-7 group-hover:text-white" />
-                      </div>
-                      
-                      <h4 className="text-lg font-bold font-display text-slate-900 mt-6 group-hover:text-emerald-800 transition-colors">
-                        📢 PENYULUHAN AGAMA
-                      </h4>
-                      <p className="text-xs text-slate-500 mt-2 leading-relaxed">
-                        Penyandaran bimbingan keagamaan syiar Islam, penyuluhan keluarga sakinah, konsultasi syariah digital, dan pendaftaran kegiatannya.
-                      </p>
-                      
-                      <div className="flex items-center space-x-1.5 text-xs font-bold text-amber-700 mt-6 group-hover:translate-x-1.5 transition-transform">
-                        <span>Layanan Konseling & Syiar</span>
-                        <ArrowRight className="h-3.5 w-3.5" />
-                      </div>
-                    </div>
-                  </div>
-
-                </div>
-              </section>
 
               {/* STATISTIK SECTION */}
               <section className="bg-emerald-950 py-8 text-white relative overflow-hidden" id="section-statistik">
@@ -1493,6 +1374,152 @@ export default function App() {
                   </div>
                 </div>
               </section>
+            </motion.div>
+          )}
+
+          {/* TAB: PILIHAN NAVIGASI LAYANAN */}
+          {currentTab === "layanan-pembuka" && (
+            <motion.div
+              key="layanan-pembuka"
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0 }}
+              className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12"
+            >
+              {/* Category Breadcrumbs & Title */}
+              <div className="mb-10 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div>
+                  <div className="flex items-center space-x-1.5 text-xs text-slate-500 mb-2">
+                    <span className="hover:underline cursor-pointer" onClick={() => setCurrentTab("beranda")}>Beranda</span>
+                    <span>/</span>
+                    <span className="font-semibold text-emerald-700">Pilihan Navigasi Layanan</span>
+                  </div>
+                  <h2 className="text-3xl font-extrabold font-display text-slate-900 uppercase tracking-tight">
+                    🛠️ Pilihan Navigasi Layanan
+                  </h2>
+                </div>
+                
+                <button
+                  onClick={() => setCurrentTab("beranda")}
+                  className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center space-x-1"
+                >
+                  <span>&larr; Kembali ke Beranda</span>
+                </button>
+              </div>
+
+              {/* Dynamic Shortcut Cards Grid */}
+              <div className="bg-white rounded-3xl p-8 sm:p-12 border border-emerald-100 shadow-sm relative overflow-hidden">
+                <div className="text-center max-w-3xl mx-auto mb-10">
+                  <span className="text-xs font-bold uppercase tracking-widest text-emerald-600 bg-emerald-100/60 px-3 py-1 rounded-full">
+                    Sistem Pelayanan Digital KUA
+                  </span>
+                  <p className="text-sm text-slate-500 mt-3 leading-relaxed">
+                    Sistem pelayanan keagamaan Kantor Urusan Agama Kecamatan Pulau Dullah Utara berkualitas tinggi, bersih, dan melayani segenap ummat. Pilih kategori layanan di bawah untuk melanjutkan pengisian berkas persyaratan atau konsultasi bimbingan.
+                  </p>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+                  {/* Layanan Nikah Category Card */}
+                  <div 
+                    onClick={() => setCurrentTab("nikah")}
+                    className="group bg-slate-50/55 hover:bg-white rounded-3xl p-6 border border-slate-100 shadow-xs hover:shadow-lg hover:border-emerald-200 transition-all cursor-pointer relative overflow-hidden"
+                    id="shortcut-nikah-box"
+                  >
+                    <div className="absolute top-0 right-0 w-24 h-24 bg-emerald-50 rounded-bl-full group-hover:bg-emerald-100 transition-colors -z-1" />
+                    
+                    <div className="w-14 h-14 bg-emerald-50 group-hover:bg-emerald-700 hover:text-white text-emerald-700 rounded-2xl flex items-center justify-center transition-all shadow-xxs">
+                      <Heart className="h-7 w-7 group-hover:text-white" />
+                    </div>
+                    
+                    <h4 className="text-lg font-bold font-display text-slate-900 mt-6 group-hover:text-emerald-800 transition-colors">
+                      💍 LAYANAN NIKAH
+                    </h4>
+                    <p className="text-xs text-slate-500 mt-2 leading-relaxed">
+                      Pemberkasan nikah, pendaftaran SIMKAH, bimbingan perkawinan (Bimwin) online, video alur pendaftaran, dan pembuatan surat rekomendasi nikah luar daerah.
+                    </p>
+                    
+                    <div className="flex items-center space-x-1.5 text-xs font-bold text-emerald-700 mt-6 group-hover:translate-x-1.5 transition-transform">
+                      <span>Layanan Nikah Online</span>
+                      <ArrowRight className="h-3.5 w-3.5" />
+                    </div>
+                  </div>
+
+                  {/* Layanan Wakaf Category Card */}
+                  <div 
+                    onClick={() => setCurrentTab("wakaf")}
+                    className="group bg-slate-50/55 hover:bg-white rounded-3xl p-6 border border-slate-100 shadow-xs hover:shadow-lg hover:border-emerald-200 transition-all cursor-pointer relative overflow-hidden"
+                    id="shortcut-wakaf-box"
+                  >
+                    <div className="absolute top-0 right-0 w-24 h-24 bg-teal-50 rounded-bl-full group-hover:bg-teal-100 transition-colors -z-1" />
+                    
+                    <div className="w-14 h-14 bg-teal-50 group-hover:bg-emerald-700 text-emerald-800 rounded-2xl flex items-center justify-center transition-all shadow-xxs">
+                      <FileText className="h-7 w-7 group-hover:text-white" />
+                    </div>
+                    
+                    <h4 className="text-lg font-bold font-display text-slate-900 mt-6 group-hover:text-emerald-800 transition-colors">
+                      📜 LAYANAN WAKAF
+                    </h4>
+                    <p className="text-xs text-slate-500 mt-2 leading-relaxed">
+                      Persyaratan berkas sertifikasi tanah wakaf, informasi alur pembukuan, SIWAK Kemenag online, konsultasi wakaf terintegrasi WhatsApp, dan tutorial.
+                    </p>
+                    
+                    <div className="flex items-center space-x-1.5 text-xs font-bold text-teal-700 mt-6 group-hover:translate-x-1.5 transition-transform">
+                      <span>Database SIWAK</span>
+                      <ArrowRight className="h-3.5 w-3.5" />
+                    </div>
+                  </div>
+
+                  {/* Muallaf Center Category Card */}
+                  <div 
+                    onClick={() => setCurrentTab("muallaf")}
+                    className="group bg-slate-50/55 hover:bg-white rounded-3xl p-6 border border-slate-100 shadow-xs hover:shadow-lg hover:border-emerald-200 transition-all cursor-pointer relative overflow-hidden"
+                    id="shortcut-muallaf-box"
+                  >
+                    <div className="absolute top-0 right-0 w-24 h-24 bg-sky-50 rounded-bl-full group-hover:bg-sky-100 transition-colors -z-1" />
+                    
+                    <div className="w-14 h-14 bg-sky-50 group-hover:bg-emerald-700 text-sky-700 rounded-2xl flex items-center justify-center transition-all shadow-xxs">
+                      <Globe className="h-7 w-7 group-hover:text-white" />
+                    </div>
+                    
+                    <h4 className="text-lg font-bold font-display text-slate-900 mt-6 group-hover:text-emerald-800 transition-colors">
+                      🕌 MUALLAF CENTER
+                    </h4>
+                    <p className="text-xs text-slate-500 mt-2 leading-relaxed">
+                      Bimbingan ikrar muallaf, penerbitan sertifikat pemeluk agama islam resmi, pembinaan akidah berkelanjutan, konseling keagamaan, dan konsultasi.
+                    </p>
+                    
+                    <div className="flex items-center space-x-1.5 text-xs font-bold text-sky-700 mt-6 group-hover:translate-x-1.5 transition-transform">
+                      <span>Pendaftaran Muallaf</span>
+                      <ArrowRight className="h-3.5 w-3.5" />
+                    </div>
+                  </div>
+
+                  {/* Penyuluhan Agama Category Card */}
+                  <div 
+                    onClick={() => setCurrentTab("penyuluhan")}
+                    className="group bg-slate-50/55 hover:bg-white rounded-3xl p-6 border border-slate-100 shadow-xs hover:shadow-lg hover:border-emerald-200 transition-all cursor-pointer relative overflow-hidden"
+                    id="shortcut-penyuluhan-box"
+                  >
+                    <div className="absolute top-0 right-0 w-24 h-24 bg-amber-50 rounded-bl-full group-hover:bg-amber-100 transition-colors -z-1" />
+                    
+                    <div className="w-14 h-14 bg-amber-50 group-hover:bg-emerald-700 text-amber-700 rounded-2xl flex items-center justify-center transition-all shadow-xxs">
+                      <BookOpen className="h-7 w-7 group-hover:text-white" />
+                    </div>
+                    
+                    <h4 className="text-lg font-bold font-display text-slate-900 mt-6 group-hover:text-emerald-800 transition-colors">
+                      📢 PENYULUHAN AGAMA
+                    </h4>
+                    <p className="text-xs text-slate-500 mt-2 leading-relaxed">
+                      Penyandaran bimbingan keagamaan syiar Islam, penyuluhan keluarga sakinah, konsultasi syariah digital, dan pendaftaran kegiatannya.
+                    </p>
+                    
+                    <div className="flex items-center space-x-1.5 text-xs font-bold text-amber-700 mt-6 group-hover:translate-x-1.5 transition-transform">
+                      <span>Layanan Konseling & Syiar</span>
+                      <ArrowRight className="h-3.5 w-3.5" />
+                    </div>
+                  </div>
+                </div>
+              </div>
             </motion.div>
           )}
 

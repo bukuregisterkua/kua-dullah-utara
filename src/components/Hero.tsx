@@ -188,10 +188,7 @@ export default function Hero({ settings, setCurrentTab, onAdminClick }: HeroProp
             className="mt-8 flex justify-center items-center w-full"
           >
             <button
-              onClick={() => {
-                const el = document.getElementById("layanan-navigation-section");
-                el?.scrollIntoView({ behavior: "smooth", block: "start" });
-              }}
+              onClick={() => setCurrentTab("layanan-pembuka")}
               className="w-full sm:w-auto px-10 py-4 bg-emerald-700 hover:bg-emerald-800 text-white rounded-2xl text-sm font-bold shadow-md hover:shadow-lg transition-all cursor-pointer flex items-center justify-center space-x-2"
               id="hero-layanan-online-btn"
             >
