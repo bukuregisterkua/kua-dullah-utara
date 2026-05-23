@@ -156,7 +156,7 @@ export default function SplashScreen({ logoUrl, onComplete }: SplashScreenProps)
           className="w-24 h-[2px] bg-gradient-to-r from-transparent via-emerald-500 to-transparent my-6"
         />
 
-        {/* Trigger instructions text */}
+        {/* Trigger instructions block with hand icon above the text */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={
@@ -169,11 +169,78 @@ export default function SplashScreen({ logoUrl, onComplete }: SplashScreenProps)
               ? { duration: 0.3 } 
               : { duration: 1.8, repeat: Infinity, ease: "easeInOut" }
           }
-          className="font-mono text-[11px] font-bold text-slate-300 tracking-widest uppercase cursor-pointer py-1 select-none flex items-center gap-1.5 justify-center mt-2"
+          className="flex flex-col items-center justify-center cursor-pointer select-none mt-2 gap-2"
           onClick={handleTap}
+          id="splash-tap-instruction-container"
         >
-          <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-ping" />
-          <span>Tap Logo Untuk Memulai</span>
+          {/* Animated Hand Tap Gesture SVG Icon - Match Uploaded Reference Exactly */}
+          <motion.div
+            className="text-white group-hover:text-emerald-300 transition-colors"
+          >
+            <svg 
+              className="w-16 h-16 filter drop-shadow-[0_2px_12px_rgba(255,255,255,0.4)]" 
+              viewBox="0 0 100 120" 
+              fill="none" 
+              stroke="currentColor" 
+              strokeLinecap="round" 
+              strokeLinejoin="round"
+            >
+              {/* Outer Concentric Touch Tap Arc Wave (Rippling) */}
+              <motion.path 
+                d="M 18,44 A 32,32 0 0,1 82,44" 
+                strokeWidth="4.5" 
+                animate={{ 
+                  scale: [1, 1.12, 1],
+                  opacity: [0.4, 1, 0.4] 
+                }}
+                transition={{ 
+                  duration: 1.5, 
+                  repeat: Infinity, 
+                  ease: "easeInOut" 
+                }}
+                style={{ originX: "50px", originY: "44px" }}
+              />
+
+              {/* Inner Concentric Touch Tap Arc Wave (Rippling) */}
+              <motion.path 
+                d="M 32,44 A 18,18 0 0,1 68,44" 
+                strokeWidth="4.5" 
+                animate={{ 
+                  scale: [1, 1.2, 1],
+                  opacity: [0.2, 0.9, 0.2] 
+                }}
+                transition={{ 
+                  duration: 1.5, 
+                  delay: 0.35,
+                  repeat: Infinity, 
+                  ease: "easeInOut" 
+                }}
+                style={{ originX: "50px", originY: "44px" }}
+              />
+              
+              {/* Hand Drawing - index pointing up, thumb left, curled fingers, flat cuff */}
+              <motion.path 
+                d="M 42,110 L 42,100 C 42,100 36,92 36,92 L 28,80 C 25,76 23,71 25,66 C 27,61 33,60 37,65 L 44,72 L 44,48 A 6,6 0 0,1 56,48 L 56,70 C 56,70 56,60 59,57 C 62,54 65,56 65,60 L 65,74 C 65,74 65,66 68,63 C 71,60 74,62 74,66 L 74,78 C 74,78 74,72 77,69 C 80,66 83,68 83,72 L 83,88 C 83,100 70,110 66,110 Z" 
+                strokeWidth="5" 
+                animate={{ 
+                  y: [0, 4, 0],
+                  scale: [1, 0.95, 1] 
+                }}
+                transition={{ 
+                  duration: 1.5, 
+                  repeat: Infinity, 
+                  ease: "easeInOut" 
+                }}
+                style={{ originX: "50px", originY: "85px" }}
+              />
+            </svg>
+          </motion.div>
+
+          {/* Underneath label */}
+          <div className="font-mono text-[11px] font-bold text-slate-300 tracking-widest uppercase flex items-center gap-1.5 justify-center">
+            <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-ping" />
+            <span>Tap Logo Untuk Memulai</span>
+          </div>
         </motion.div>
 
       </div>
