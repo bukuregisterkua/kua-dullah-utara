@@ -3752,9 +3752,12 @@ export default function App() {
       {/* SLEEK BOTTOM STATUS BAR */}
       <div className="fixed bottom-0 inset-x-0 h-12 bg-slate-950 flex items-center px-4 sm:px-10 justify-between text-slate-400 text-[11px] sm:text-xs z-40 border-t border-slate-900">
         <div className="flex items-center gap-6 overflow-hidden w-full">
-          <div className="flex items-center gap-2 shrink-0">
-            <div className="w-2.5 h-2.5 bg-emerald-500 rounded-full animate-ping shrink-0" />
-            <span>KUA Server Status: <span className="text-white font-semibold">Online</span></span>
+          <div className="flex items-center gap-2 shrink-0 text-[9.5px] sm:text-[10px]">
+            <span className="relative flex h-2 w-2 shrink-0 aspect-square">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500 aspect-square"></span>
+            </span>
+            <span className="text-slate-400">KUA Server Status: <span className="text-emerald-400 font-bold animate-pulse">Online</span></span>
           </div>
           <div className="w-[1px] h-4 bg-slate-800 shrink-0 hidden sm:block" />
           <div className="overflow-hidden relative w-full hidden sm:block">

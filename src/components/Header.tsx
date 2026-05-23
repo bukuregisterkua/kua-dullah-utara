@@ -53,7 +53,7 @@ export default function Header({ currentTab, setCurrentTab, onAdminClick, isAdmi
   ];
 
   return (
-    <header className="sticky top-0 z-50 w-full glass-panel border-b border-emerald-100 shadow-xs">
+    <header className="sticky top-0 z-50 w-full bg-white border-b border-emerald-100 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
           
