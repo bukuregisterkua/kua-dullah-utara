@@ -601,40 +601,56 @@ export default function App() {
       return;
     }
     
-    const origStyle = element.getAttribute("style") || "";
-    // Render off-screen to ensure html2canvas can capture it while maintaining standard screen hidden behavior
-    element.setAttribute("style", "display: block !important; position: absolute; left: -9999px; top: -9999px; background: white; color: black;");
-    
-    // Check key variables to form clean filenames
+    // Save original styling
+    const originalClass = element.className;
+    const originalStyle = element.getAttribute("style") || "";
+
+    // Temporarily make it visible and styled for high-fidelity rendering, but offscreen so it doesn't flicker
+    element.className = "print-document bg-white text-black p-[20mm] font-serif max-w-[210mm] min-h-[297mm] mx-auto leading-relaxed text-[11.5px] select-text";
+    element.setAttribute(
+      "style",
+      "display: block !important; position: fixed !important; left: -9999px !important; top: -9999px !important; width: 210mm !important; min-height: 297mm !important; background: white !important; color: black !important; z-index: -9999 !important;"
+    );
+
     const cleanPria = evaluasiCatinPria ? evaluasiCatinPria.replace(/[^a-zA-Z0-9]/g, "_") : "Pria";
     const cleanWanita = evaluasiCatinWanita ? evaluasiCatinWanita.replace(/[^a-zA-Z0-9]/g, "_") : "Wanita";
-    
+
     const opt = {
-      margin:       10,
+      margin:       12,
       filename:     `Kuesioner_Evaluasi_KUA_${cleanPria}_&_${cleanWanita}.pdf`,
       image:        { type: "jpeg" as const, quality: 0.98 },
-      html2canvas:  { scale: 2, useCORS: true, logging: false, dpi: 192 },
-      jsPDF:        { unit: "mm", format: "a4" as const, orientation: "portrait" as const },
+      html2canvas:  { scale: 2, useCORS: true, logging: false },
+      jsPDF:        { unit: "mm" as const, format: "a4" as const, orientation: "portrait" as const },
       pagebreak:    { mode: 'css' as const, before: '.page-break' }
     };
-    
-    // Run html2pdf download
+
+    // Use the native, pre-imported html2pdf library
     html2pdf()
       .from(element)
       .set(opt)
       .save()
       .then(() => {
-        element.setAttribute("style", origStyle);
+        // Restore styles
+        element.className = originalClass;
+        element.setAttribute("style", originalStyle);
       })
       .catch((err: any) => {
-        console.error("Gagal mengunduh dokumen PDF:", err);
-        element.setAttribute("style", origStyle);
-        alert("Gagal mengunduh PDF! Silakan coba lagi atau gunakan tombol Cetak/Print.");
+        console.error("Gagal mengunduh dokumen PDF secara langsung:", err);
+        // Restore styles anyway
+        element.className = originalClass;
+        element.setAttribute("style", originalStyle);
+        
+        // Instruct user and fallback gracefully to direct print mode
+        alert("Pemberitahuan: Fitur unduh otomatis memerlukan izin browser atau mungkin dibatasi oleh sandbox. Menyalurkan tindakan Anda untuk Cetak PDF / Simpan sebagai PDF.");
+        handlePrintDirect(false);
       });
   };
 
   // Dynamic Print Pop-up that bypasses all iframe sandbox print constraints
-  const handlePrintDirect = () => {
+  const handlePrintDirect = (autoDownloadParam: any = false) => {
+    // Explicitly check for actual boolean true to avoid React mouse events causing true coercion
+    const autoDownload = autoDownloadParam === true;
+
     const printWindow = window.open("", "_blank");
     if (!printWindow) {
       alert("Popup diblokir oleh browser! Harap izinkan popup di peramban Anda untuk mengaktifkan cetak langsung.");
@@ -676,6 +692,10 @@ export default function App() {
 
     const parentDate = evaluasiHariTanggal ? evaluasiHariTanggal.replace(/^(Senin|Selasa|Rabu|Kamis|Jumat|Sabtu|Minggu),\s*/i, "") : "10 Februari 2026";
 
+    // Form clean filename
+    const cleanPria = evaluasiCatinPria ? evaluasiCatinPria.replace(/[^a-zA-Z0-9]/g, "_") : "Pria";
+    const cleanWanita = evaluasiCatinWanita ? evaluasiCatinWanita.replace(/[^a-zA-Z0-9]/g, "_") : "Wanita";
+
     const popupHtml = `
       <!DOCTYPE html>
       <html>
@@ -693,12 +713,43 @@ export default function App() {
               color: black;
               background-color: white;
               margin: 0;
-              padding: 20mm 15mm 20mm 15mm !important;
+              padding: 0;
               -webkit-print-color-adjust: exact;
               print-color-adjust: exact;
             }
-            .paper-container {
-              padding: 5px;
+            @media screen {
+              body {
+                background-color: #f1f5f9 !important;
+                padding: 30px !important;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+              }
+              .paper-container {
+                background: white;
+                box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+                border: 1px solid #e2e8f0;
+                width: 210mm;
+                min-height: 297mm;
+                box-sizing: border-box;
+                padding: 20mm 15mm 20mm 15mm !important;
+              }
+            }
+            @media print {
+              .no-print {
+                display: none !important;
+              }
+              body {
+                padding: 20mm 15mm 20mm 15mm !important;
+                background-color: white !important;
+              }
+              .paper-container {
+                width: auto !important;
+                min-height: auto !important;
+                box-shadow: none !important;
+                border: none !important;
+                padding: 0 !important;
+              }
             }
             .text-center {
               text-align: center;
@@ -800,7 +851,31 @@ export default function App() {
           </style>
         </head>
         <body>
-          <div class="paper-container">
+          <!-- Control Panel (Hidden during Print) -->
+          <div class="no-print" style="background: #0f172a; color: white; padding: 16px 20px; font-family: sans-serif; border-bottom: 3px solid #10b981; width: 100%; max-width: 210mm; box-sizing: border-box; margin-bottom: 20px; border-radius: 8px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
+              <div>
+                <h3 style="margin: 0; font-size: 13pt; color: #10b981; font-weight: bold; font-family: Arial, sans-serif;">Menu Cetak & Unduh Evaluasi KUA Dullah Utara</h3>
+                <p style="margin: 4px 0 0 0; font-size: 9pt; color: #94a3b8; font-family: Arial, sans-serif;">Silakan cetak sebagai dokumen fisik atau simpan dalam format PDF kualitas tinggi.</p>
+              </div>
+              <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                <button onclick="window.print()" style="background: #10b981; color: white; border: none; padding: 10px 18px; font-weight: bold; border-radius: 6px; cursor: pointer; display: flex; align-items: center; gap: 6px; font-size: 9.5pt; font-family: Arial, sans-serif; transition: background 0.2s;">
+                  🖨️ Cetak Dokumen
+                </button>
+                <button id="btn-download-pdf" onclick="downloadPDF()" style="background: #2563eb; color: white; border: none; padding: 10px 18px; font-weight: bold; border-radius: 6px; cursor: pointer; display: flex; align-items: center; gap: 6px; font-size: 9.5pt; font-family: Arial, sans-serif; transition: background 0.2s;">
+                  💾 Unduh PDF
+                </button>
+                <button onclick="window.close()" style="background: #e11d48; color: white; border: none; padding: 10px 18px; font-weight: bold; border-radius: 6px; cursor: pointer; font-size: 9.5pt; font-family: Arial, sans-serif; transition: background 0.2s;">
+                  ✕ Tutup
+                </button>
+              </div>
+            </div>
+            <div style="font-size: 8.5pt; color: #cbd5e1; border-top: 1px solid #334155; padding-top: 10px; margin-top: 10px; line-height: 1.4; font-family: Arial, sans-serif;">
+              <strong>Tips Hasil Cetak Sempurna:</strong> Gunakan peramban Google Chrome atau Microsoft Edge. Jika tombol <strong>Unduh PDF</strong> terhambat oleh kebijakan browser Anda, klik <strong>Cetak Dokumen</strong>, lalu pilih opsi tujuan <strong>"Simpan sebagai PDF" / "Save as PDF"</strong> pada layar print browser Anda.
+            </div>
+          </div>
+
+          <div id="printable-content" class="paper-container">
             <!-- PAGE 1 -->
             <div class="header-kua">MONITORING DAN EVALUASI PELAKSANAAN BIMBINGAN PERKAWINAN</div>
             <div class="header-kua">KANTOR KEMENTERIAN AGAMA KOTA TUAL</div>
@@ -942,11 +1017,64 @@ export default function App() {
 
           </div>
 
+          <!-- Load html2pdf from CDN inside the new window bypass context -->
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
           <script>
+            const shouldAutoDownload = ${autoDownload};
+
+            function downloadPDF() {
+              const btn = document.getElementById("btn-download-pdf");
+              if (!window.html2pdf) {
+                alert("Pustaka PDF sedang dimuat. Silakan tunggu sebentar dan coba lagi.");
+                return;
+              }
+              
+              const element = document.getElementById("printable-content");
+              if (!element) {
+                alert("Elemen dokumen tidak ditemukan!");
+                return;
+              }
+
+              const originalText = btn.innerHTML;
+              btn.innerHTML = "⏳ Memproses...";
+              btn.style.opacity = "0.7";
+              btn.disabled = true;
+
+              const opt = {
+                margin:       12,
+                filename:     'Kuesioner_Evaluasi_KUA_${cleanPria}_&_${cleanWanita}.pdf',
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2, useCORS: true, logging: false },
+                jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' },
+                pagebreak:    { mode: 'css', before: '.page-break' }
+              };
+
+              html2pdf()
+                .from(element)
+                .set(opt)
+                .save()
+                .then(() => {
+                  btn.innerHTML = originalText;
+                  btn.style.opacity = "1";
+                  btn.disabled = false;
+                })
+                .catch(err => {
+                  console.error(err);
+                  alert("Gagal mengunduh PDF secara langsung. Silakan klik 'Cetak' dan pilih 'Simpan sebagai PDF'.");
+                  btn.innerHTML = originalText;
+                  btn.style.opacity = "1";
+                  btn.disabled = false;
+                });
+            }
+
             window.onload = function() {
-              setTimeout(function() {
-                window.print();
-              }, 300);
+              if (shouldAutoDownload) {
+                setTimeout(downloadPDF, 400);
+              } else {
+                setTimeout(function() {
+                  window.print();
+                }, 400);
+              }
             };
           </script>
         </body>
