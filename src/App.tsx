@@ -4704,7 +4704,7 @@ export default function App() {
         ======================================================== */}
     <div id="kua-print-document" className="print-document hidden bg-white text-black p-[15mm] font-serif max-w-[210mm] min-h-[297mm] mx-auto leading-relaxed text-[11.5px] select-text">
       {/* PAGE 1 CONTENT */}
-      <div className="text-center font-bold tracking-tight uppercase space-y-0.5 select-text">
+      <div className="text-center font-bold tracking-tight uppercase space-y-0.5 select-text font-sans">
         <h2 className="text-[13px] font-bold">MONITORING DAN EVALUASI PELAKSANAAN BIMBINGAN PERKAWINAN</h2>
         <h2 className="text-[13px] font-bold">KANTOR KEMENTERIAN AGAMA KOTA TUAL</h2>
         <h2 className="text-[13px] font-bold">KANTOR URUSAN AGAMA PULAU DULLAH UTARA</h2>
@@ -4715,43 +4715,43 @@ export default function App() {
       <div className="border-b-[3px] border-double border-black my-3" />
       
       {/* Title Box */}
-      <div className="border border-black p-3 text-center uppercase font-bold my-4 space-y-1">
-        <p className="text-[11.5px]">PELAKSANAAN MONITORING DAN EVALUASI TAHUN {evaluasiTahun}</p>
-        <p className="text-[11.5px]">NAMA PESERTA BIMWIN {evaluasiCatinPria} & {evaluasiCatinWanita}</p>
-        <p className="text-[10.5px] normal-case font-normal italic">{evaluasiHariTanggal}</p>
+      <div className="border border-black p-3 text-center uppercase font-bold my-4 space-y-1 font-sans">
+        <p className="text-[11.5px] tracking-wide">PELAKSANAAN MONITORING DAN EVALUASI TAHUN {evaluasiTahun}</p>
+        <p className="text-[11.5px] tracking-wide">NAMA PESERTA BIMWIN {evaluasiCatinPria} & {evaluasiCatinWanita}</p>
+        <p className="text-[10.5px] normal-case font-normal italic font-serif">{evaluasiHariTanggal}</p>
       </div>
 
       {/* Identitas Penyuluh */}
       <div className="my-4 space-y-1">
         <h4 className="font-bold underline text-[11.5px] mb-2 font-serif">Identitas Penyuluh Agama</h4>
-        <table className="w-full border-none text-[11px] table-fixed">
+        <table className="w-full text-[11px] table-fixed border-none">
           <tbody className="border-none">
             <tr className="border-none">
               <td className="w-[180px] border-none py-0.5 pl-0 pr-4 font-normal">Nama Lengkap</td>
               <td className="w-[15px] border-none py-0.5 px-0 font-normal">:</td>
               <td className="border-none py-0.5 px-0 font-bold">{evaluasiPenyuluhName}</td>
             </tr>
-            <tr className="border-none">
+            <tr className="border-none font-serif">
               <td className="border-none py-0.5 pl-0 pr-4 font-normal">NIP</td>
               <td className="border-none py-0.5 px-0 font-normal">:</td>
               <td className="border-none py-0.5 px-0">{evaluasiPenyuluhNip}</td>
             </tr>
-            <tr className="border-none">
+            <tr className="border-none font-serif">
               <td className="border-none py-0.5 pl-0 pr-4 font-normal">Pangkat/Golongan</td>
               <td className="border-none py-0.5 px-0 font-normal">:</td>
               <td className="border-none py-0.5 px-0">{evaluasiPenyuluhPangkat}</td>
             </tr>
-            <tr className="border-none">
+            <tr className="border-none font-serif">
               <td className="border-none py-0.5 pl-0 pr-4 font-normal">Jabatan</td>
               <td className="border-none py-0.5 px-0 font-normal">:</td>
               <td className="border-none py-0.5 px-0">{evaluasiPenyuluhJabatan}</td>
             </tr>
-            <tr className="border-none">
+            <tr className="border-none font-serif">
               <td className="border-none py-0.5 pl-0 pr-4 font-normal">Tempat tugas</td>
               <td className="border-none py-0.5 px-0 font-normal">:</td>
               <td className="border-none py-0.5 px-0">{evaluasiPenyuluhTempatTugas}</td>
             </tr>
-            <tr className="border-none">
+            <tr className="border-none font-serif">
               <td className="border-none py-0.5 pl-0 pr-4 font-normal">Unit Kerja</td>
               <td className="border-none py-0.5 px-0 font-normal">:</td>
               <td className="border-none py-0.5 px-0">{evaluasiPenyuluhUnitKerja}</td>
@@ -4779,17 +4779,17 @@ export default function App() {
       </table>
 
       {/* Centered table title */}
-      <p className="font-bold underline text-center uppercase my-4">HASIL LAPORAN BERDASARKAN INSTRUMEN YANG DIISI OLEH PESERTA</p>
-
+      <p className="font-bold underline text-center uppercase my-4 font-sans tracking-wide">HASIL LAPORAN BERDASARKAN INSTRUMEN YANG DIISI OLEH PESERTA</p>
+ 
       {/* Evaluation Table Page 1 */}
       <table className="w-full border-collapse border border-black my-4 text-[10.5px]">
         <thead>
-          <tr className="bg-slate-50/20">
+          <tr className="bg-slate-50/20 font-sans">
             <th className="border border-black text-center py-2 px-1 w-[8%]" rowSpan={2}>No.</th>
             <th className="border border-black text-center py-2 px-2 w-[52%]" rowSpan={2}>Pertanyaan Instrumen</th>
-            <th className="border border-black text-center py-1 colSpan={5} w-[40%]" colSpan={5}>Jumlah</th>
+            <th className="border border-black text-center py-1 w-[40%]" colSpan={5}>Jumlah</th>
           </tr>
-          <tr className="bg-slate-50/20">
+          <tr className="bg-slate-50/20 font-sans">
             <th className="border border-black text-center text-[9px] py-1">Cukup</th>
             <th className="border border-black text-center text-[9px] py-1">Sedang</th>
             <th className="border border-black text-center text-[9px] py-1">Baik</th>
@@ -4812,7 +4812,7 @@ export default function App() {
                 <div className="text-[9.5px] italic mt-1 font-serif">Hasil Pemantauan : {evaluasiComments[item.key] || ""}</div>
               </td>
               {["Cukup", "Sedang", "Baik", "Cukup Baik", "Sangat Baik"].map((scale) => (
-                <td key={scale} className="border border-black text-center font-bold text-[14px] w-[8%]">
+                <td key={scale} className="border border-black text-center font-bold text-[14px] w-[8%] text-emerald-700 font-sans">
                   {evaluasiRatings[item.key] === scale ? "✓" : ""}
                 </td>
               ))}
@@ -4831,12 +4831,12 @@ export default function App() {
 
       <table className="w-full border-collapse border border-black my-4 text-[10.5px]">
         <thead>
-          <tr className="bg-slate-50/20">
+          <tr className="bg-slate-50/20 font-sans">
             <th className="border border-black text-center py-2 px-1 w-[8%]" rowSpan={2}>No.</th>
             <th className="border border-black text-center py-2 px-2 w-[52%]" rowSpan={2}>Pertanyaan Instrumen</th>
-            <th className="border border-black text-center py-1 colSpan={5} w-[40%]" colSpan={5}>Jumlah</th>
+            <th className="border border-black text-center py-1 w-[40%]" colSpan={5}>Jumlah</th>
           </tr>
-          <tr className="bg-slate-50/20">
+          <tr className="bg-slate-50/20 font-sans">
             <th className="border border-black text-center text-[9px] py-1">Cukup</th>
             <th className="border border-black text-center text-[9px] py-1">Sedang</th>
             <th className="border border-black text-center text-[9px] py-1">Baik</th>
@@ -4852,7 +4852,7 @@ export default function App() {
               <div className="text-[9.5px] italic mt-1 font-serif">Hasil Pemantauan : {evaluasiComments.q8 || ""}</div>
             </td>
             {["Cukup", "Sedang", "Baik", "Cukup Baik", "Sangat Baik"].map((scale) => (
-              <td key={scale} className="border border-black text-center font-bold text-[14px] w-[8%]">
+              <td key={scale} className="border border-black text-center font-bold text-[14px] w-[8%] text-emerald-700 font-sans">
                 {evaluasiRatings.q8 === scale ? "✓" : ""}
               </td>
             ))}

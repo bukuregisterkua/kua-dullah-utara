@@ -168,8 +168,7 @@ body {
     display: none !important;
   }
   
-  body.printing-kua-active #kua-print-document,
-  body.printing-kua-active #kua-print-document * {
+  body.printing-kua-active #kua-print-document {
     display: block !important;
     visibility: visible !important;
   }
@@ -212,6 +211,10 @@ body {
     padding: 6px 8px !important;
     text-align: left !important;
     font-size: 10pt !important;
+  }
+
+  table.border-none td, table.border-none th, .border-none td, .border-none th {
+    border: none !important;
   }
 
   .page-break {
