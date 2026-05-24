@@ -36,7 +36,7 @@ export default function Hero({ settings, setCurrentTab, onAdminClick }: HeroProp
     : "https://tiktok.com";
 
   return (
-    <div className="relative min-h-[85vh] bg-slate-50 text-slate-800 pt-8 pb-16 px-4 sm:px-6 lg:px-8 overflow-hidden select-none transition-all duration-300">
+    <div className="relative min-h-[85vh] bg-[#faf9f6] text-slate-800 pt-8 pb-16 px-4 sm:px-6 lg:px-8 overflow-hidden select-none transition-all duration-300">
       
       {/* Background Hero Image / Motif (Gambar Latar Belakang Beranda dengan blur ringan + overlay hijau transparan) */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
@@ -48,8 +48,8 @@ export default function Hero({ settings, setCurrentTab, onAdminClick }: HeroProp
               className="w-full h-full object-cover object-center scale-100 opacity-35 transition-all duration-300"
               referrerPolicy="no-referrer"
             />
-            {/* Soft government green transparent overlay transitioning to solid slate-50 at bottom */}
-            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#1F8A70]/8 to-slate-50" />
+            {/* Soft government green transparent overlay transitioning to solid alabaster at bottom */}
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#1F8A70]/10 to-[#faf9f6]" />
           </div>
         ) : (
           <div className="absolute inset-0 w-full h-full bg-gradient-to-tr from-slate-50 via-white to-emerald-50/20" />
@@ -65,8 +65,8 @@ export default function Hero({ settings, setCurrentTab, onAdminClick }: HeroProp
         {/* ================= HERO CARD (Card Putih Rounded Besar, Efek Glass) ================= */}
         <div className="bg-white/95 backdrop-blur-sm border border-slate-200/90 rounded-[20px] p-6 sm:p-10 shadow-lg relative overflow-hidden text-center flex flex-col items-center">
           
-          {/* Welcome Badge */}
-          <span className="text-[10px] font-black tracking-widest text-[#1F8A70] uppercase bg-emerald-50 border border-emerald-100/60 px-3 py-1.5 rounded-full mb-5">
+          {/* Welcome Badge with premium modern gold aspect */}
+          <span className="text-[10px] font-black tracking-widest text-[#7c6030] uppercase bg-amber-100/50 border border-amber-200/60 px-3.5 py-1.5 rounded-full mb-5 shadow-xs">
             Selamat Datang di
           </span>
 
@@ -75,9 +75,9 @@ export default function Hero({ settings, setCurrentTab, onAdminClick }: HeroProp
             KUA REVITALISASI
           </h1>
 
-          {/* Logo Bulat Kemenag di Tengah (Dengan Border Lingkaran Hijau) */}
+          {/* Logo Bulat Kemenag di Tengah (Dengan Border Lingkaran Emas & Ring Hijau) */}
           <div className="relative mb-6">
-            <div className="w-28 h-28 sm:w-32 sm:h-32 rounded-full border-2 border-[#1F8A70] bg-white shadow-md p-4 flex items-center justify-center overflow-hidden hover:scale-105 transition-transform duration-300">
+            <div className="w-28 h-28 sm:w-32 sm:h-32 rounded-full border-2 border-amber-400 bg-white shadow-md p-4 flex items-center justify-center overflow-hidden hover:scale-105 transition-all duration-300 ring-4 ring-[#1F8A70]/4">
               <img 
                 src={settings.logoImg || "/uploads/logokuadullut-1779347095553.png"} 
                 alt="Logo Kementerian Agama Tual" 
@@ -110,13 +110,13 @@ export default function Hero({ settings, setCurrentTab, onAdminClick }: HeroProp
             Pusat Pelayanan Keagamaan Digital Pulau Dullah Utara, Kota Tual. Melayani Administrasi Nikah, Wakaf, Konsultasi Keagamaan, dan Bimbingan Ummat secara Profesional, Mudah, Cepat, dan Terintegrasi.
           </p>
 
-          {/* Sosial Media (Icon Bulat dengan Outline Hijau) */}
+          {/* Sosial Media (Icon Bulat dengan Outline Emas & Hover Emerald) */}
           <div className="flex items-center gap-3.5 mb-8">
             <a 
               href={fbLink} 
               target="_blank" 
               rel="noopener noreferrer"
-              className="w-9 h-9 rounded-full border border-[#1F8A70] text-[#1F8A70] hover:bg-emerald-50 flex items-center justify-center transition-colors"
+              className="w-9 h-9 rounded-full border border-amber-300 text-amber-700 hover:bg-emerald-50 hover:border-[#1F8A70] hover:text-[#1F8A70] flex items-center justify-center transition-all"
               title="Facebook KUA Pulau Dullah Utara"
             >
               <Facebook className="h-4 w-4" />
@@ -125,7 +125,7 @@ export default function Hero({ settings, setCurrentTab, onAdminClick }: HeroProp
               href={igLink} 
               target="_blank" 
               rel="noopener noreferrer"
-              className="w-9 h-9 rounded-full border border-[#1F8A70] text-[#1F8A70] hover:bg-emerald-50 flex items-center justify-center transition-colors"
+              className="w-9 h-9 rounded-full border border-amber-300 text-amber-700 hover:bg-emerald-50 hover:border-[#1F8A70] hover:text-[#1F8A70] flex items-center justify-center transition-all"
               title="Instagram KUA Pulau Dullah Utara"
             >
               <Instagram className="h-4 w-4" />
@@ -134,7 +134,7 @@ export default function Hero({ settings, setCurrentTab, onAdminClick }: HeroProp
               href={ttLink} 
               target="_blank" 
               rel="noopener noreferrer"
-              className="w-9 h-9 rounded-full border border-[#1F8A70] text-[#1F8A70] hover:bg-emerald-50 flex items-center justify-center transition-colors"
+              className="w-9 h-9 rounded-full border border-amber-300 text-amber-700 hover:bg-emerald-50 hover:border-[#1F8A70] hover:text-[#1F8A70] flex items-center justify-center transition-all"
               title="TikTok KUA Pulau Dullah Utara"
             >
               <Music className="h-4 w-4" />
@@ -174,7 +174,7 @@ export default function Hero({ settings, setCurrentTab, onAdminClick }: HeroProp
           
           <div className="flex flex-col items-center justify-center text-center">
             {/* Sesi Pelayanan Header Tag with Forest Green capsule */}
-            <div className="inline-flex items-center space-x-2 bg-emerald-50 border border-emerald-100 text-[#1F8A70] rounded-full px-4 py-1.5 text-[10px] font-black tracking-widest uppercase">
+            <div className="inline-flex items-center space-x-2 bg-amber-50 border border-amber-200/50 text-[#7c6030] rounded-full px-4 py-1.5 text-[10px] font-black tracking-widest uppercase">
               <span>SESI PELAYANAN KANTOR KUA</span>
             </div>
           </div>

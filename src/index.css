@@ -6,19 +6,36 @@
   --font-display: "Outfit", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
   
-  --color-emerald-50: #ecfdf5;
-  --color-emerald-100: #d1fae5;
-  --color-emerald-500: #10b981;
-  --color-emerald-600: #059669;
-  --color-emerald-700: #047857;
-  --color-emerald-800: #065f46;
-  --color-emerald-900: #064e3b;
+  /* Modern Premium Emerald (Spruce / Forest Jade) */
+  --color-emerald-50: #f0f7f5;
+  --color-emerald-100: #daf0e9;
+  --color-emerald-200: #b6e0d4;
+  --color-emerald-300: #88cbba;
+  --color-emerald-400: #54b19b;
+  --color-emerald-500: #1F8A70;
+  --color-emerald-600: #19755e;
+  --color-emerald-700: #135d4b;
+  --color-emerald-800: #0e4639;
+  --color-emerald-900: #0a3127;
+  --color-emerald-950: #051a15;
+  
+  /* Modern Premium Gold (Champagne / Burnished Silk Gold / Ivory) */
+  --color-amber-50: #fdfbf7;
+  --color-amber-100: #f9f2e4;
+  --color-amber-200: #f1e4c7;
+  --color-amber-300: #e6cb9b;
+  --color-amber-400: #dbb36d;
+  --color-amber-500: #c5a059;
+  --color-amber-600: #a17f41;
+  --color-amber-700: #7c6030;
+  --color-amber-800: #574220;
+  --color-amber-900: #3d2c15;
 }
 
 body {
   font-family: var(--font-sans);
-  background-color: #f8fafc;
-  color: #1e293b;
+  background-color: #faf9f6;
+  color: #1a2a24;
   overflow-x: hidden;
 }
 
