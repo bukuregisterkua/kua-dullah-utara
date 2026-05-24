@@ -110,8 +110,8 @@ export default function Header({
                 const isActive = currentTab === item.id || (item.id === "beranda" && currentTab === "layanan-pembuka");
                 
                 const btnStyle = isActive
-                  ? "bg-emerald-700 text-white shadow-xs"
-                  : "text-slate-600 hover:text-emerald-800 hover:bg-slate-50";
+                  ? "bg-emerald-600 text-white shadow-sm ring-1 ring-emerald-400/20"
+                  : "text-slate-600 hover:text-emerald-700 hover:bg-emerald-50/60";
 
                 return (
                   <button
@@ -216,10 +216,10 @@ export default function Header({
                       setCurrentTab(item.id);
                       setIsOpen(false);
                     }}
-                    className={`block w-full text-left px-4 py-2.5 rounded-lg text-xs font-bold transition-colors ${
+                    className={`block w-full text-left px-4 py-2.5 rounded-lg text-xs font-bold transition-all ${
                       isActive
-                        ? "bg-emerald-700 text-white shadow-xs"
-                        : "text-slate-700 hover:bg-slate-50"
+                        ? "bg-emerald-600 text-white shadow-sm ring-1 ring-emerald-400/10"
+                        : "text-slate-700 hover:bg-emerald-50/50"
                     }`}
                   >
                     {item.label}

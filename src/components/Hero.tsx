@@ -56,18 +56,19 @@ export default function Hero({ settings, setCurrentTab, onAdminClick }: HeroProp
         )}
         
         {/* Subtle background ornamentation for high visual quality */}
-        <div className="absolute top-10 left-10 w-96 h-96 rounded-full bg-[#1F8A70]/3 blur-3xl" />
-        <div className="absolute bottom-10 right-10 w-80 h-80 rounded-full bg-amber-500/3 blur-3xl" />
+        <div className="absolute top-10 left-10 w-96 h-96 rounded-full bg-emerald-500/3 blur-3xl" />
+        <div className="absolute bottom-10 right-10 w-80 h-80 rounded-full bg-teal-500/3 blur-3xl" />
       </div>
 
       <div className="max-w-4xl mx-auto w-full relative z-10 animate-fade-in space-y-12">
         
         {/* ================= HERO CARD (Card Putih Rounded Besar, Efek Glass) ================= */}
-        <div className="bg-white/95 backdrop-blur-sm border border-slate-200/90 rounded-[20px] p-6 sm:p-10 shadow-lg relative overflow-hidden text-center flex flex-col items-center">
+        <div className="bg-white/95 backdrop-blur-sm border border-emerald-500/10 rounded-[20px] p-6 sm:p-10 shadow-lg relative overflow-hidden text-center flex flex-col items-center">
           
-          {/* Welcome Badge with premium modern gold aspect */}
-          <span className="text-[10px] font-black tracking-widest text-[#7c6030] uppercase bg-amber-100/50 border border-amber-200/60 px-3.5 py-1.5 rounded-full mb-5 shadow-xs">
-            Selamat Datang di
+          {/* Welcome Badge with premium modern emerald/cyan aspect */}
+          <span className="text-[10px] font-black tracking-widest text-emerald-700 uppercase bg-emerald-50 border border-emerald-100/60 px-3.5 py-1.5 rounded-full mb-5 shadow-xs flex items-center gap-1.5">
+            <Sparkles className="h-3 w-3 text-emerald-500 animate-pulse" />
+            <span>Selamat Datang di</span>
           </span>
 
           {/* Judul Besar 1 */}
@@ -75,9 +76,9 @@ export default function Hero({ settings, setCurrentTab, onAdminClick }: HeroProp
             KUA REVITALISASI
           </h1>
 
-          {/* Logo Bulat Kemenag di Tengah (Dengan Border Lingkaran Emas & Ring Hijau) */}
+          {/* Logo Bulat Kemenag di Tengah (Dengan Border Lingkaran Emerald & Soft Cyan Glow) */}
           <div className="relative mb-6">
-            <div className="w-28 h-28 sm:w-32 sm:h-32 rounded-full border-2 border-amber-400 bg-white shadow-md p-4 flex items-center justify-center overflow-hidden hover:scale-105 transition-all duration-300 ring-4 ring-[#1F8A70]/4">
+            <div className="w-28 h-28 sm:w-32 sm:h-32 rounded-full border-2 border-emerald-500/30 bg-white shadow-md p-4 flex items-center justify-center overflow-hidden hover:scale-105 transition-all duration-300 ring-4 ring-emerald-500/10">
               <img 
                 src={settings.logoImg || "/uploads/logokuadullut-1779347095553.png"} 
                 alt="Logo Kementerian Agama Tual" 
@@ -88,6 +89,8 @@ export default function Hero({ settings, setCurrentTab, onAdminClick }: HeroProp
                 }}
               />
             </div>
+            {/* Soft cyan glow background */}
+            <div className="absolute -inset-1 rounded-full bg-teal-400/10 blur-md -z-10 pointer-events-none" />
           </div>
 
           {/* Subjudul & Judul Utama */}
@@ -95,7 +98,7 @@ export default function Hero({ settings, setCurrentTab, onAdminClick }: HeroProp
             <p className="text-[10px] sm:text-xs font-black tracking-widest uppercase text-slate-400">
               Kantor Urusan Agama
             </p>
-            <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-wide uppercase leading-tight">
+            <h2 className="text-xl sm:text-2xl font-black text-[#0B1528] tracking-wide uppercase leading-tight">
               PULAU DULLAH UTARA
             </h2>
             <p className="text-[10px] text-slate-500 font-extrabold tracking-widest uppercase mt-0.5">
@@ -110,13 +113,13 @@ export default function Hero({ settings, setCurrentTab, onAdminClick }: HeroProp
             Pusat Pelayanan Keagamaan Digital Pulau Dullah Utara, Kota Tual. Melayani Administrasi Nikah, Wakaf, Konsultasi Keagamaan, dan Bimbingan Ummat secara Profesional, Mudah, Cepat, dan Terintegrasi.
           </p>
 
-          {/* Sosial Media (Icon Bulat dengan Outline Emas & Hover Emerald) */}
+          {/* Sosial Media (Icon Bulat dengan Outline Emerald & Hover Teal) */}
           <div className="flex items-center gap-3.5 mb-8">
             <a 
               href={fbLink} 
               target="_blank" 
               rel="noopener noreferrer"
-              className="w-9 h-9 rounded-full border border-amber-300 text-amber-700 hover:bg-emerald-50 hover:border-[#1F8A70] hover:text-[#1F8A70] flex items-center justify-center transition-all"
+              className="w-9 h-9 rounded-full border border-emerald-500/20 text-emerald-700 hover:bg-emerald-50 hover:border-emerald-500 hover:text-emerald-700 flex items-center justify-center transition-all shadow-xs"
               title="Facebook KUA Pulau Dullah Utara"
             >
               <Facebook className="h-4 w-4" />
@@ -125,7 +128,7 @@ export default function Hero({ settings, setCurrentTab, onAdminClick }: HeroProp
               href={igLink} 
               target="_blank" 
               rel="noopener noreferrer"
-              className="w-9 h-9 rounded-full border border-amber-300 text-amber-700 hover:bg-emerald-50 hover:border-[#1F8A70] hover:text-[#1F8A70] flex items-center justify-center transition-all"
+              className="w-9 h-9 rounded-full border border-emerald-500/20 text-emerald-700 hover:bg-emerald-50 hover:border-emerald-500 hover:text-emerald-700 flex items-center justify-center transition-all shadow-xs"
               title="Instagram KUA Pulau Dullah Utara"
             >
               <Instagram className="h-4 w-4" />
@@ -134,7 +137,7 @@ export default function Hero({ settings, setCurrentTab, onAdminClick }: HeroProp
               href={ttLink} 
               target="_blank" 
               rel="noopener noreferrer"
-              className="w-9 h-9 rounded-full border border-amber-300 text-amber-700 hover:bg-emerald-50 hover:border-[#1F8A70] hover:text-[#1F8A70] flex items-center justify-center transition-all"
+              className="w-9 h-9 rounded-full border border-emerald-500/20 text-emerald-700 hover:bg-emerald-50 hover:border-emerald-500 hover:text-emerald-700 flex items-center justify-center transition-all shadow-xs"
               title="TikTok KUA Pulau Dullah Utara"
             >
               <Music className="h-4 w-4" />
@@ -144,7 +147,7 @@ export default function Hero({ settings, setCurrentTab, onAdminClick }: HeroProp
           {/* Tombol Utama */}
           <button
             onClick={() => setCurrentTab("layanan-pembuka")}
-            className="py-3.5 px-8 bg-[#1F8A70] hover:bg-[#19755e] text-white rounded-full text-xs font-bold uppercase tracking-widest shadow-md hover:shadow-lg transition-all flex items-center justify-center space-x-2.5 cursor-pointer active:scale-97 mb-6"
+            className="py-3.5 px-8 bg-emerald-600 hover:bg-emerald-700 text-white rounded-full text-xs font-bold uppercase tracking-widest shadow-md hover:shadow-lg hover:shadow-emerald-600/10 transition-all flex items-center justify-center space-x-2.5 cursor-pointer active:scale-97 mb-6"
             id="hero-redesign-start-btn"
           >
             <span>Mulai Layanan Online</span>
@@ -174,7 +177,8 @@ export default function Hero({ settings, setCurrentTab, onAdminClick }: HeroProp
           
           <div className="flex flex-col items-center justify-center text-center">
             {/* Sesi Pelayanan Header Tag with Forest Green capsule */}
-            <div className="inline-flex items-center space-x-2 bg-amber-50 border border-amber-200/50 text-[#7c6030] rounded-full px-4 py-1.5 text-[10px] font-black tracking-widest uppercase">
+            <div className="inline-flex items-center space-x-2 bg-emerald-50/80 border border-emerald-100 text-[#1F8A70] rounded-full px-4 py-1.5 text-[10px] font-black tracking-widest uppercase shadow-xs">
+              <Clock className="h-3.5 w-3.5 text-emerald-500 animate-pulse" />
               <span>SESI PELAYANAN KANTOR KUA</span>
             </div>
           </div>

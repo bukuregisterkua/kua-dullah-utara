@@ -3819,10 +3819,10 @@ export default function App() {
       </main>
 
       {/* FOOTER AREA */}
-      <footer className="bg-[#020617] text-white pt-8 pb-10 relative overflow-hidden rounded-t-[2.5rem] border-t border-emerald-500/10 shadow-[0_-15px_60px_rgba(16,185,129,0.06)]" id="website-premium-footer">
+      <footer className="bg-[#040e1a] text-white pt-8 pb-10 relative overflow-hidden rounded-t-[2.5rem] border-t border-teal-500/20 shadow-[0_-15px_60px_rgba(20,184,166,0.08)]" id="website-premium-footer">
         {/* Background gradient layout for elegant glow on bottom left */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,rgba(16,185,129,0.05),transparent_60%)] pointer-events-none" />
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-4/5 h-[1px] bg-gradient-to-r from-transparent via-emerald-500/25 to-transparent pointer-events-none" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,rgba(6,182,212,0.05),transparent_60%)] pointer-events-none" />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-4/5 h-[1px] bg-gradient-to-r from-transparent via-cyan-400/40 to-transparent pointer-events-none" />
         
         <div className="max-w-5xl mx-auto px-6 relative z-10">
           
@@ -3832,7 +3832,7 @@ export default function App() {
             <div className="space-y-4 flex flex-col items-center md:items-start" id="footer-col-info">
               <div className="flex items-center space-x-2.5">
                 {defaultSettings.secondaryLogoImg || defaultSettings.logoImg ? (
-                  <div className="w-9 h-9 flex items-center justify-center overflow-hidden filter drop-shadow-[0_2px_8px_rgba(16,185,129,0.2)]">
+                  <div className="w-9 h-9 flex items-center justify-center overflow-hidden filter drop-shadow-[0_2px_8px_rgba(20,184,166,0.25)]">
                     <img 
                       src={defaultSettings.secondaryLogoImg || defaultSettings.logoImg} 
                       alt="Logo Footer" 
@@ -3841,15 +3841,15 @@ export default function App() {
                     />
                   </div>
                 ) : (
-                  <div className="p-2 bg-emerald-700/90 rounded-lg">
+                  <div className="p-2 bg-emerald-600 rounded-lg">
                     <BookOpen className="h-4.5 w-4.5 text-white" />
                   </div>
                 )}
                 <div className="text-left">
-                  <h4 className="text-xs font-black font-display uppercase tracking-wider text-emerald-300">
+                  <h4 className="text-xs font-black font-display uppercase tracking-wider text-teal-300">
                     KUA PULAU DULLAH UTARA
                   </h4>
-                  <p className="text-[9px] text-emerald-500/90 font-extrabold tracking-wider uppercase">
+                  <p className="text-[9px] text-cyan-400/95 font-extrabold tracking-wider uppercase">
                     Kementerian Agama Kota Tual
                   </p>
                 </div>
@@ -3861,7 +3861,7 @@ export default function App() {
               {/* Clickable Social Media Links with premium glow feedback */}
               {(defaultSettings.facebookUrl || defaultSettings.instagramUrl || defaultSettings.twitterUrl || defaultSettings.tiktokUrl || defaultSettings.youtubeUrl) && (
                 <div className="flex flex-col space-y-1.5 pt-1 items-center md:items-start">
-                  <span className="text-[8.5px] font-bold uppercase tracking-widest text-[#10b981]">Media Sosial Resmi</span>
+                  <span className="text-[8.5px] font-bold uppercase tracking-widest text-[#14b8a6]">Media Sosial Resmi</span>
                   <div className="flex items-center gap-2">
                     {defaultSettings.facebookUrl && (
                       <a 
