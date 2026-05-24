@@ -12,14 +12,19 @@ export default function SplashScreen({ logoUrl, onComplete }: SplashScreenProps)
   // Fallback to default Kemenag/KUA logo path if not uploaded or fetched yet
   const displayLogo = logoUrl || "/uploads/logokuadullut-1779347095553.png";
 
-  const handleTap = () => {
+  const handleTap = (e?: React.MouseEvent | React.TouchEvent) => {
+    if (e) {
+      if (typeof e.cancelable === "boolean" && e.cancelable) {
+        e.preventDefault();
+      }
+    }
     if (isTapped) return;
     setIsTapped(true);
     
-    // Smooth transition delay for fade-out and scale-up effect
+    // Instantly responsive dispatch trigger (reduced from 850ms to 240ms)
     setTimeout(() => {
       onComplete();
-    }, 850);
+    }, 240);
   };
 
   // Generate a set of elegant floating gold/green light particles
@@ -60,7 +65,7 @@ export default function SplashScreen({ logoUrl, onComplete }: SplashScreenProps)
     <motion.div
       initial={{ opacity: 1 }}
       animate={isTapped ? { opacity: 0, scale: 1.05, filter: "blur(12px)" } : { opacity: 1 }}
-      transition={{ duration: 0.8, ease: "easeInOut" }}
+      transition={{ duration: 0.32, ease: "easeOut" }}
       className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-gradient-to-br from-slate-950 via-emerald-950 to-slate-950 overflow-hidden select-none"
       id="kua-splash-screen"
     >
@@ -100,6 +105,7 @@ export default function SplashScreen({ logoUrl, onComplete }: SplashScreenProps)
         {/* Interactive Logo Frame */}
         <motion.div
           onClick={handleTap}
+          onTouchStart={handleTap}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 1.15 }}
           animate={
@@ -109,7 +115,7 @@ export default function SplashScreen({ logoUrl, onComplete }: SplashScreenProps)
           }
           transition={
             isTapped 
-              ? { duration: 0.85, ease: "backOut" } 
+              ? { duration: 0.35, ease: "backOut" } 
               : { duration: 4.5, repeat: Infinity, ease: "easeInOut" }
           }
           className="relative cursor-pointer w-36 h-36 sm:w-40 sm:h-40 flex items-center justify-center z-20 group"
@@ -171,6 +177,7 @@ export default function SplashScreen({ logoUrl, onComplete }: SplashScreenProps)
           }
           className="flex flex-col items-center justify-center cursor-pointer select-none mt-2 gap-2"
           onClick={handleTap}
+          onTouchStart={handleTap}
           id="splash-tap-instruction-container"
         >
           {/* Animated Hand Tap Gesture SVG Icon - Match Uploaded Reference Exactly */}
