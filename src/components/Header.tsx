@@ -128,20 +128,25 @@ export default function Header({
             <div className="h-8 w-[1px] bg-slate-200"></div>
 
             {/* Live Clock & Admin Trigger */}
-            <div className="flex items-center space-x-4">
-              <div className="text-right border-r border-slate-200 pr-4">
-                <div className="flex items-center space-x-1 justify-end font-mono text-xs font-bold text-emerald-800">
-                  <Clock className="h-3.5 w-3.5 text-emerald-600" />
-                  <span>{witTime}</span>
+            <div className="flex items-center space-x-3">
+              {/* Official-style light grey clock card */}
+              <div className="bg-slate-100 border border-slate-200 rounded-lg px-2.5 py-1.5 flex items-center space-x-2 select-none">
+                <Clock className="h-3.5 w-3.5 text-emerald-700 shrink-0 animate-pulse" />
+                <div className="text-left font-mono">
+                  <div className="text-[11px] font-black text-emerald-800 leading-tight">
+                    {witTime}
+                  </div>
+                  <div className="text-[9px] text-slate-500 font-sans font-bold leading-none mt-0.5 truncate max-w-[120px]">
+                    {currentDate}
+                  </div>
                 </div>
-                <p className="text-[9px] font-medium mt-0.5 text-slate-500 tracking-wide">{currentDate}</p>
               </div>
 
               {isAdmin ? (
                 <div className="flex items-center space-x-2">
                   <button
                     onClick={() => setCurrentTab("admin")}
-                    className="flex items-center space-x-1 px-3 py-2 bg-emerald-100 hover:bg-emerald-200 text-emerald-900 rounded-lg text-xs font-bold cursor-pointer"
+                    className="flex items-center space-x-1 px-3 py-2 bg-emerald-100 hover:bg-emerald-200 text-emerald-950 rounded-lg text-xs font-bold cursor-pointer"
                   >
                     <Shield className="h-3.5 w-3.5 text-emerald-800" />
                     <span>Panel Admin</span>
@@ -168,9 +173,20 @@ export default function Header({
 
           {/* Mobile Menu Toggle */}
           <div className="flex items-center lg:hidden space-x-2">
+            {/* Highly Compact Official Digital Clock Widget for Mobile */}
+            <div className="bg-slate-100 border border-slate-200 rounded-lg px-2 py-1.5 flex items-center space-x-1 select-none">
+              <Clock className="h-3 w-3 text-emerald-700 shrink-0" />
+              <div className="text-left font-mono leading-none">
+                <span className="text-[10px] font-black text-emerald-800">
+                  {witTime.replace(" WIT", "")}
+                </span>
+                <span className="text-[8px] font-black text-emerald-700 ml-0.5">WIT</span>
+              </div>
+            </div>
+
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="p-2 rounded-lg text-slate-700 hover:text-emerald-800 hover:bg-slate-100 cursor-pointer"
+              className="p-2 rounded-lg text-slate-750 hover:text-emerald-800 hover:bg-slate-100 cursor-pointer"
               aria-label="Toggle Menu"
             >
               {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
