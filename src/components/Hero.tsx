@@ -36,7 +36,7 @@ export default function Hero({ settings, setCurrentTab, onAdminClick }: HeroProp
     : "https://tiktok.com";
 
   return (
-    <div className="relative min-h-[85vh] text-slate-800 pt-8 pb-16 px-4 sm:px-6 lg:px-8 overflow-hidden select-none transition-all duration-300">
+    <div className="relative min-h-[85vh] bg-slate-50 text-slate-800 pt-8 pb-16 px-4 sm:px-6 lg:px-8 overflow-hidden select-none transition-all duration-300">
       
       {/* Background Hero Image / Motif (Gambar Latar Belakang Beranda dengan blur ringan + overlay hijau transparan) */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
@@ -45,11 +45,11 @@ export default function Hero({ settings, setCurrentTab, onAdminClick }: HeroProp
             <img 
               src={settings.heroBgImg} 
               alt="Latar Belakang Kantor KUA Pulau Dullah Utara" 
-              className="w-full h-full object-cover object-center scale-100 opacity-40 transition-all duration-300"
+              className="w-full h-full object-cover object-center scale-100 opacity-35 transition-all duration-300"
               referrerPolicy="no-referrer"
             />
-            {/* Soft government green transparent overlay */}
-            <div className="absolute inset-0 bg-gradient-to-b from-[#1F8A70]/10 via-white/40 to-[#1F8A70]/10" />
+            {/* Soft government green transparent overlay transitioning to solid slate-50 at bottom */}
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#1F8A70]/8 to-slate-50" />
           </div>
         ) : (
           <div className="absolute inset-0 w-full h-full bg-gradient-to-tr from-slate-50 via-white to-emerald-50/20" />
