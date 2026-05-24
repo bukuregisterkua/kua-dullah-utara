@@ -48,29 +48,36 @@ export default function SplashScreen({ logoUrl, onComplete }: SplashScreenProps)
       </div>
 
       {/* Main Focus: Logo, Titles and Interactive Trigger */}
-      <div className="flex flex-col items-center max-w-sm text-center">
+      <div className="flex flex-col items-center max-w-sm w-full text-center">
         
-        {/* Logo Container with Smooth Motion Tap Controls */}
+        {/* Interactive Helper Text - Tap Prompt (Positioned ABOVE logo) */}
+        {!isTapped && (
+          <motion.div
+            initial={{ opacity: 0, y: 5 }}
+            animate={{ opacity: 0.8, y: 0 }}
+            className="flex flex-col items-center cursor-pointer mb-6"
+            onClick={handleTapLogo}
+          >
+            <p className="text-[11px] font-black text-emerald-700 tracking-widest uppercase animate-pulse">
+              👇 Tap Logo Untuk Memulai
+            </p>
+          </motion.div>
+        )}
+
+        {/* Logo Container with Smooth Motion Tap Controls (Transparent - NO WHITE BOX) */}
         <motion.div
           onClick={handleTapLogo}
-          whileHover={{ scale: isTapped ? 1.05 : 1.04 }}
-          whileTap={{ scale: 0.96 }}
+          whileHover={{ scale: isTapped ? 1.05 : 1.08 }}
+          whileTap={{ scale: 0.95 }}
           animate={
             isTapped 
-              ? { scale: 1.06, boxShadow: "0 0 40px rgba(16, 185, 129, 0.15)" }
+              ? { scale: 1.10 }
               : { scale: 1 }
           }
           transition={{ duration: 0.4, ease: "easeOut" }}
-          className={`w-36 h-36 bg-white border border-slate-200 rounded-3xl shadow-sm flex items-center justify-center p-5 mb-8 cursor-pointer relative overflow-hidden transition-all duration-300 ${
-            isTapped ? "border-emerald-500 bg-white" : "hover:border-emerald-600/50 hover:bg-slate-50/50"
-          }`}
+          className="w-32 h-32 flex items-center justify-center mb-8 cursor-pointer relative"
           id="splash-logo-trigger"
         >
-          {/* Subtle elegant background pulsing radial light, no harsh neon or cyber effect */}
-          {isTapped && (
-            <div className="absolute inset-0 bg-gradient-to-tr from-emerald-50 to-white/90 z-0 animate-pulse" />
-          )}
-
           <img 
             src={displayLogo} 
             alt="Logo Kemenag" 
@@ -83,7 +90,7 @@ export default function SplashScreen({ logoUrl, onComplete }: SplashScreenProps)
         </motion.div>
 
         {/* Instansi & Program Titles */}
-        <div className="space-y-1.5 mb-8">
+        <div className="space-y-1.5 mb-6">
           <h1 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight uppercase leading-none font-display">
             KUA REVITALISASI
           </h1>
@@ -95,54 +102,32 @@ export default function SplashScreen({ logoUrl, onComplete }: SplashScreenProps)
           </p>
         </div>
 
-        {/* Interactive Helper Text / Progress Indicators */}
-        <AnimatePresence mode="wait">
-          {!isTapped ? (
-            <motion.div
-              key="tap-prompt"
-              initial={{ opacity: 0, y: 5 }}
-              animate={{ opacity: 0.8, y: 0 }}
-              exit={{ opacity: 0, y: -5 }}
-              className="flex flex-col items-center cursor-pointer"
-              onClick={handleTapLogo}
-            >
-              <p className="text-[11px] font-bold text-emerald-700 tracking-widest uppercase animate-pulse">
-                👇 Tap Logo Untuk Memulai
-              </p>
-              <p className="text-[9px] text-slate-400 mt-1 uppercase tracking-wider">
-                Akses cepat ramah handphone
-              </p>
-            </motion.div>
-          ) : (
-            <motion.div
-              key="loading-progress"
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              className="w-48 flex flex-col items-center justify-center"
-            >
-              {/* Thin, Quick, High-Speed Loading Bar */}
-              <div className="w-full h-[3px] bg-slate-100 rounded-full overflow-hidden mb-2 shadow-xs">
-                <div 
-                  className="h-full bg-emerald-700 transition-all duration-75"
-                  style={{ width: `${progress}%` }}
-                />
-              </div>
-              <p className="text-[10px] text-emerald-700 font-mono font-bold uppercase tracking-widest">
-                Memuat Portal Resmi {progress}%
-              </p>
-            </motion.div>
-          )}
-        </AnimatePresence>
+        {/* Progress Loading Bar (Shown only when tapped) */}
+        {isTapped && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="w-48 flex flex-col items-center justify-center"
+          >
+            {/* Thin, Quick, High-Speed Loading Bar */}
+            <div className="w-full h-[3px] bg-slate-100 rounded-full overflow-hidden mb-2 shadow-xs">
+              <div 
+                className="h-full bg-emerald-700 transition-all duration-75"
+                style={{ width: `${progress}%` }}
+              />
+            </div>
+            <p className="text-[10px] text-emerald-700 font-mono font-bold uppercase tracking-widest">
+              Memuat Portal Resmi {progress}%
+            </p>
+          </motion.div>
+        )}
 
       </div>
 
-      {/* Footer Branding Area - Officially Verified design */}
+      {/* Footer Branding Area - Simplified to Kementerian Agama Kota Tual */}
       <div className="text-center opacity-70">
-        <p className="text-[9px] tracking-widest text-slate-500 uppercase font-black">
-          Republik Indonesia • Kantor Urusan Agama
-        </p>
-        <p className="text-[8px] tracking-wider text-slate-400 uppercase font-bold mt-0.5">
-          Revitalisasi KUA Digital Terintegrasi Resmi
+        <p className="text-[10px] tracking-widest text-slate-500 uppercase font-black">
+          Kementerian Agama Kota Tual
         </p>
       </div>
     </div>

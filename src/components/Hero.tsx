@@ -1,4 +1,25 @@
-import { Heart, Globe, ChevronRight, FileText, Clock, Sparkles, ShieldCheck, Smartphone, MessageSquare, BookOpen, Send, Check } from "lucide-react";
+import { 
+  Heart, 
+  Globe, 
+  ChevronRight, 
+  FileText, 
+  Clock, 
+  Sparkles, 
+  ShieldCheck, 
+  Smartphone, 
+  MessageSquare, 
+  BookOpen, 
+  Send, 
+  Check,
+  Facebook,
+  Instagram,
+  Twitter,
+  Youtube,
+  Music,
+  Calendar,
+  MapPin,
+  Building
+} from "lucide-react";
 import { motion } from "motion/react";
 import { Settings } from "../types";
 
@@ -10,280 +31,290 @@ interface HeroProps {
 
 export default function Hero({ settings, setCurrentTab, onAdminClick }: HeroProps) {
   return (
-    <div className="relative bg-gradient-to-b from-emerald-50/60 via-white to-white text-slate-900 pt-6 pb-12 px-4 sm:px-6 lg:px-8 border-b border-slate-100 transition-all duration-300">
+    <div className="relative bg-slate-100/50 text-slate-800 pt-8 pb-14 px-4 sm:px-6 lg:px-8 overflow-hidden select-none transition-all duration-300">
       
-      {/* Short & Clean Hero Layout (Mobile Optimized) */}
-      <div className="max-w-7xl mx-auto w-full relative z-10">
+      {/* Background motif samar gedung KUA dullah utara dengan blur ringan & opacity super rendah */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden z-0 flex items-center justify-center">
+        <div className="w-[800px] h-[800px] rounded-full bg-emerald-500/5 blur-3xl absolute -top-1/4 -left-1/4" />
+        <div className="w-[600px] h-[600px] rounded-full bg-amber-500/5 blur-3xl absolute -bottom-1/4 -right-1/4" />
         
-        {/* Banner Pemisah Halal/Resmi */}
-        <div className="flex justify-center lg:justify-start mb-4 select-none">
-          <div className="inline-flex items-center space-x-1.5 bg-emerald-600 text-white px-3 py-1 rounded-md text-[11px] font-bold uppercase tracking-wider shadow-xs">
-            <Sparkles className="h-3.5 w-3.5 text-amber-300" />
-            <span>Portal Resmi Kemenag RI</span>
-          </div>
+        {/* Samar-samar ornamen Islami kementerian agama */}
+        <div className="opacity-[0.03] scale-110 saturate-50 select-none">
+          <svg className="w-96 h-96 text-emerald-800" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.12 0 2.05-.74 2.38-1.75C17.08 6.45 19 9 19 12c0 2.08-.8 3.97-2.1 5.39z"/>
+          </svg>
         </div>
+      </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center py-4 lg:py-8">
+      <div className="max-w-4xl mx-auto w-full relative z-10 animate-fade-in space-y-8">
+        
+        {/* ================= HERO CARD (Card Putih Rounded Besar) ================= */}
+        <div className="bg-white border border-slate-200 rounded-2xl p-6 sm:p-10 shadow-sm relative overflow-hidden text-center flex flex-col items-center">
           
-          {/* ================= COLUMN LEFT (Texts & Actions) ================= */}
-          <div className="lg:col-span-7 flex flex-col space-y-5 text-center lg:text-left">
-            <div>
-              <span className="text-xs font-black tracking-widest text-emerald-800 uppercase block mb-1">
-                Selamat Datang di
-              </span>
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-emerald-700 font-display leading-tight uppercase">
-                KUA REVITALISASI
-              </h1>
-              <h2 className="text-base sm:text-lg lg:text-xl font-bold text-slate-800 tracking-tight leading-snug mt-1">
-                Kantor Urusan Agama Kecamatan Pulau Dullah Utara
-              </h2>
+          {/* Touch of Gold / Emerald Mini Badge */}
+          <div className="mb-4 inline-flex items-center space-x-1.5 bg-emerald-50 border border-emerald-200 text-emerald-800 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider">
+            <Sparkles className="h-3 w-3 text-amber-500" />
+            <span>Kementerian Agama RI</span>
+          </div>
+
+          {/* Logo KUA exactly in the center of the hero card */}
+          {settings.logoImg && (
+            <div className="w-24 h-24 sm:w-28 sm:h-28 bg-white border border-slate-100 rounded-2xl shadow-xs p-4 mb-6 flex items-center justify-center hover:scale-102 transition-transform duration-300">
+              <img 
+                src={settings.logoImg} 
+                alt="Logo Kementerian Agama Republik Indonesia Resmi" 
+                className="w-full h-full object-contain"
+                referrerPolicy="no-referrer"
+              />
             </div>
-            
-            <p className="text-slate-600 text-sm leading-relaxed max-w-2xl mx-auto lg:mx-0 font-sans">
-              {settings.bannerSubtitle || "Pusat pelayanan keagamaan digital untuk administrasi nikah, wakaf, konsultasi, penyuluhan, dan pemberdayaan ummat secara cepat, aman, dan terintegrasi."}
+          )}
+
+          {/* Heading utama */}
+          <div className="space-y-2 mb-4">
+            <h1 className="text-2xl sm:text-3.5xl font-black text-slate-900 tracking-tight uppercase font-display leading-none">
+              KUA REVITALISASI
+            </h1>
+            <h2 className="text-sm sm:text-base font-extrabold text-emerald-800 tracking-wider uppercase">
+              Kecamatan Pulau Dullah Utara
+            </h2>
+            <p className="text-[10px] text-slate-500 font-extrabold tracking-widest uppercase">
+              Kota Tual, Provinsi Maluku
             </p>
-
-            {/* Quick Action Navigation */}
-            <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3 pt-2">
-              <button
-                onClick={() => setCurrentTab("layanan-pembuka")}
-                className="w-full sm:w-auto px-6 py-3 bg-emerald-700 hover:bg-emerald-800 text-white rounded-lg text-xs font-bold shadow-md hover:scale-[1.01] active:scale-[0.99] transition-all flex items-center justify-center space-x-2 cursor-pointer"
-                id="hero-redesign-start-btn"
-              >
-                <span>Mulai Pelayanan Digital</span>
-                <ChevronRight className="h-4 w-4" />
-              </button>
-
-              <button
-                onClick={() => {
-                  const el = document.getElementById("quick-access-section");
-                  el?.scrollIntoView({ behavior: "smooth" });
-                }}
-                className="w-full sm:w-auto px-5 py-3 bg-white text-emerald-800 hover:bg-slate-50 border border-slate-200 rounded-lg text-xs font-bold shadow-xs hover:border-emerald-700 transition-all flex items-center justify-center space-x-1.5 cursor-pointer"
-                id="hero-redesign-info-btn"
-              >
-                <span>Informasi Layanan</span>
-              </button>
-            </div>
-
-            {/* Mini Statistics - White Cards with Emerald Accents (Android friendly) */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-6 border-t border-slate-100 max-w-2xl mx-auto lg:mx-0 text-left select-none">
-              
-              <div 
-                className="p-3 bg-slate-50 border border-slate-200/80 rounded-lg flex items-center space-x-2"
-                title="Akses kapan saja untuk pelayanan administrasi"
-              >
-                <div className="p-1.5 bg-emerald-100 text-emerald-800 rounded-md">
-                  <Globe className="h-4 w-4" />
-                </div>
-                <div>
-                  <h4 className="text-xs font-bold text-slate-800 leading-none">Online 24 Jam</h4>
-                  <p className="text-[10px] text-emerald-600 font-bold tracking-wide mt-1">SISTEM AKTIF</p>
-                </div>
-              </div>
-
-              <div 
-                className="p-3 bg-slate-50 border border-slate-200/80 rounded-lg flex items-center space-x-2"
-                title="Sistem tervalidasi oleh Kementerian Agama"
-              >
-                <div className="p-1.5 bg-emerald-100 text-emerald-800 rounded-md">
-                  <ShieldCheck className="h-4 w-4" />
-                </div>
-                <div>
-                  <h4 className="text-xs font-bold text-slate-800 leading-none">Resmi Kemenag</h4>
-                  <p className="text-[10px] text-emerald-600 font-bold tracking-wide mt-1">KREDIBEL & SAH</p>
-                </div>
-              </div>
-
-              <div 
-                className="p-3 bg-slate-50 border border-slate-200/80 rounded-lg flex items-center space-x-2"
-                title="Proses administrasi cepat tanggap"
-              >
-                <div className="p-1.5 bg-emerald-100 text-emerald-800 rounded-md">
-                  <Clock className="h-4 w-4" />
-                </div>
-                <div>
-                  <h4 className="text-xs font-bold text-slate-800 leading-none">Layanan Cepat</h4>
-                  <p className="text-[10px] text-emerald-600 font-bold tracking-wide mt-1">CEPAT TANGGAP</p>
-                </div>
-              </div>
-
-              <div 
-                className="p-3 bg-slate-50 border border-slate-200/80 rounded-lg flex items-center space-x-2"
-                title="Integrasi data kependudukan & SIMKAH"
-              >
-                <div className="p-1.5 bg-emerald-100 text-emerald-800 rounded-md">
-                  <Smartphone className="h-4 w-4" />
-                </div>
-                <div>
-                  <h4 className="text-xs font-bold text-slate-800 leading-none">Sistem Digital</h4>
-                  <p className="text-[10px] text-emerald-600 font-bold tracking-wide mt-1">TERINTEGRASI</p>
-                </div>
-              </div>
-
-            </div>
           </div>
 
-          {/* ================= COLUMN RIGHT (Official Focal Point: Clean Logo) ================= */}
-          <div className="lg:col-span-5 flex justify-center items-center relative">
-            <div className="relative w-64 h-64 sm:w-72 sm:h-72 flex items-center justify-center select-none">
-              
-              {/* Minimalist White Card Background for the National Logo */}
-              <div className="relative z-10 w-56 h-56 sm:w-64 sm:h-64 bg-white border border-slate-200 rounded-2xl shadow-md flex flex-col items-center justify-center p-6">
-                
-                {/* Master Logo Container */}
-                {settings.logoImg && (
-                  <div className="relative w-32 h-32 flex items-center justify-center mb-3">
-                    <img 
-                      src={settings.logoImg} 
-                      alt="Logo Kementerian Agama Republik Indonesia" 
-                      className="w-full h-full object-contain"
-                      referrerPolicy="no-referrer"
-                    />
-                  </div>
-                )}
+          <div className="w-16 h-[2px] bg-emerald-600/30 mb-5 rounded-full" />
 
-                {/* Indonesian Ministry branding text */}
-                <div className="text-center select-none">
-                  <span className="text-[10px] font-extrabold uppercase tracking-widest text-emerald-800">
-                    Kementerian Agama RI
-                  </span>
-                  <p className="text-[11px] font-bold text-slate-500 uppercase tracking-wider mt-0.5">
-                    Revitalisasi KUA
-                  </p>
-                </div>
-              </div>
-
-              {/* Minimal Clean Badges - Flat design without heavy animations */}
-              <div className="absolute top-1 -left-4 sm:-left-8 z-20 flex items-center space-x-1.5 bg-white border border-emerald-600 px-3 py-1 rounded-full text-[9px] uppercase font-extrabold text-emerald-800 shadow-xs cursor-default">
-                <span className="h-2 w-2 rounded-full bg-emerald-600 inline-block"></span>
-                <span>Layanan Aktif</span>
-              </div>
-
-              <div className="absolute bottom-4 -right-2 sm:-right-6 z-20 flex items-center space-x-1 bg-white border border-emerald-600 px-3 py-1 rounded-full text-[9px] uppercase font-extrabold text-emerald-800 shadow-xs cursor-default">
-                <Check className="h-3 w-3 text-emerald-600" />
-                <span>Resmi Kemenag</span>
-              </div>
-
-            </div>
-          </div>
-
-        </div>
-      </div>
-
-      {/* ================= QUICK ACCESS MENU (Compact Standard Minimal Grid) ================= */}
-      <div 
-        id="quick-access-section"
-        className="max-w-7xl mx-auto w-full relative z-10 mt-6 scroll-mt-24"
-      >
-        <div className="text-center sm:text-left mb-4 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2">
-          <div>
-            <span className="text-[10px] font-extrabold uppercase tracking-wider text-emerald-800 bg-emerald-100 px-2.5 py-0.5 rounded-full inline-block select-none">
-              Akses Cepat
-            </span>
-            <h4 className="text-lg font-bold text-slate-900 mt-1 select-none">
-              Menu Utama Pelayanan Keagamaan
-            </h4>
-          </div>
-          <p className="hidden sm:block text-xs text-slate-500">
-            Pilih menu di bawah ini untuk pendaftaran langsung & konsultasi.
+          {/* Deskripsi singkat pelayanan KUA */}
+          <p className="text-slate-600 text-xs sm:text-sm leading-relaxed max-w-lg mx-auto font-sans mb-8">
+            {settings.bannerSubtitle || "Pusat pelayanan keagamaan digital mandiri untuk pendaftaran perkawinan, bimbingan berkala, sertifikasi tanah wakaf, serta pembekalan sakral keagamaan yang cepat, transparan, dan dapat diakses dengan mudah oleh seluruh lapisan masyarakat."}
           </p>
+
+          {/* Tombol Utama “Mulai Layanan Online” */}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 w-full max-w-xs">
+            <button
+              onClick={() => setCurrentTab("layanan-pembuka")}
+              className="w-full py-3 px-5 bg-emerald-700 hover:bg-emerald-800 text-white rounded-lg text-xs font-bold uppercase tracking-wider shadow-sm transition-all flex items-center justify-center space-x-2 cursor-pointer active:scale-98"
+              id="hero-redesign-start-btn"
+            >
+              <span>Mulai Layanan Online</span>
+              <ChevronRight className="h-4 w-4" />
+            </button>
+          </div>
+
+          {/* Link Media Sosial Kecil dan Sederhana */}
+          {(settings.facebookUrl || settings.instagramUrl || settings.twitterUrl || settings.tiktokUrl || settings.youtubeUrl) && (
+            <div className="mt-8 pt-6 border-t border-slate-100 w-full flex flex-col items-center">
+              <span className="text-[9px] font-black uppercase tracking-widest text-slate-400 mb-2.5">Tautan Media Sosial Resmi</span>
+              <div className="flex items-center gap-3">
+                {settings.facebookUrl && (
+                  <a 
+                    href={settings.facebookUrl.startsWith("http") ? settings.facebookUrl : `https://${settings.facebookUrl}`} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="p-1.5 rounded-lg bg-slate-50 border border-slate-200 text-slate-500 hover:text-emerald-700 hover:border-emerald-500 hover:bg-emerald-50 transition-all text-xs"
+                    title="Facebook Resmi"
+                  >
+                    <Facebook className="h-3.5 w-3.5" />
+                  </a>
+                )}
+                {settings.instagramUrl && (
+                  <a 
+                    href={settings.instagramUrl.startsWith("http") ? settings.instagramUrl : `https://${settings.instagramUrl}`} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="p-1.5 rounded-lg bg-slate-50 border border-slate-200 text-slate-500 hover:text-emerald-700 hover:border-emerald-500 hover:bg-emerald-50 transition-all text-xs"
+                    title="Instagram Resmi"
+                  >
+                    <Instagram className="h-3.5 w-3.5" />
+                  </a>
+                )}
+                {settings.twitterUrl && (
+                  <a 
+                    href={settings.twitterUrl.startsWith("http") ? settings.twitterUrl : `https://${settings.twitterUrl}`} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="p-1.5 rounded-lg bg-slate-50 border border-slate-200 text-slate-500 hover:text-emerald-700 hover:border-emerald-500 hover:bg-emerald-50 transition-all text-xs"
+                    title="X / Twitter Resmi"
+                  >
+                    <Twitter className="h-3.5 w-3.5" />
+                  </a>
+                )}
+                {settings.tiktokUrl && (
+                  <a 
+                    href={settings.tiktokUrl.startsWith("http") ? settings.tiktokUrl : `https://${settings.tiktokUrl}`} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="p-1.5 rounded-lg bg-slate-50 border border-slate-200 text-slate-500 hover:text-emerald-700 hover:border-emerald-500 hover:bg-emerald-50 transition-all text-xs"
+                    title="TikTok Resmi"
+                  >
+                    <Music className="h-3.5 w-3.5" />
+                  </a>
+                )}
+                {settings.youtubeUrl && (
+                  <a 
+                    href={settings.youtubeUrl.startsWith("http") ? settings.youtubeUrl : `https://${settings.youtubeUrl}`} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="p-1.5 rounded-lg bg-slate-50 border border-slate-200 text-slate-500 hover:text-emerald-700 hover:border-emerald-500 hover:bg-emerald-50 transition-all text-xs"
+                    title="YouTube Resmi"
+                  >
+                    <Youtube className="h-3.5 w-3.5" />
+                  </a>
+                )}
+              </div>
+            </div>
+          )}
+
         </div>
 
-        {/* 5-Column High-Speed Low-Latency Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
-          
-          {/* Menu 1: Nikah Online */}
-          <div 
-            onClick={() => setCurrentTab("nikah")}
-            className="group cursor-pointer bg-white hover:bg-emerald-50 border border-slate-200 hover:border-emerald-700 rounded-xl p-4 flex flex-col items-center justify-center text-center transition-all shadow-xs"
-            id="quick-access-nikah"
-          >
-            <div className="w-10 h-10 bg-emerald-50 text-emerald-700 rounded-lg flex items-center justify-center mb-2">
-              <Heart className="h-5 w-5" />
-            </div>
-            <h5 className="text-xs font-extrabold text-slate-800">Nikah Online</h5>
-            <p className="text-[9px] text-slate-500 mt-1 line-clamp-1">Syarat & SIMKAH online</p>
+        {/* ================= GRID INFORMASI (Jam Pelayanan Kantor) ================= */}
+        <div className="space-y-4">
+          <div className="text-center sm:text-left">
+            <span className="text-[10px] font-black tracking-widest text-emerald-800 bg-emerald-50 px-2.5 py-0.5 rounded-full inline-block uppercase">
+              Informasi Operasional
+            </span>
+            <h3 className="text-base sm:text-lg font-bold text-slate-900 mt-1 uppercase tracking-tight">
+              Jam Operasional Pelayanan Kantor
+            </h3>
           </div>
 
-          {/* Menu 2: Layanan Wakaf */}
-          <div 
-            onClick={() => setCurrentTab("wakaf")}
-            className="group cursor-pointer bg-white hover:bg-emerald-50 border border-slate-200 hover:border-emerald-700 rounded-xl p-4 flex flex-col items-center justify-center text-center transition-all shadow-xs"
-            id="quick-access-wakaf"
-          >
-            <div className="w-10 h-10 bg-emerald-50 text-emerald-700 rounded-lg flex items-center justify-center mb-2">
-              <Globe className="h-5 w-5" />
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4" id="operasional-hours-grid">
+            
+            {/* Card 1: Hari Kerja Biasa */}
+            <div className="bg-white border border-slate-200 p-5 rounded-xl shadow-xs flex flex-col justify-between">
+              <div>
+                <span className="text-[9px] font-black text-emerald-800 uppercase tracking-widest block mb-1">Senin - Kamis</span>
+                <h4 className="text-xs font-bold text-slate-800 uppercase">Hari Kerja Biasa</h4>
+              </div>
+              <div className="mt-4 pt-4 border-t border-slate-100 space-y-1">
+                <div className="flex items-center justify-between text-xs font-mono font-bold text-slate-700">
+                  <span>Pelayanan:</span>
+                  <span className="text-emerald-800">07:30 - 16:00 WIT</span>
+                </div>
+                <div className="flex items-center justify-between text-[10px] text-slate-400">
+                  <span>Istirahat:</span>
+                  <span>12:00 - 13:00 WIT</span>
+                </div>
+              </div>
             </div>
-            <h5 className="text-xs font-extrabold text-slate-800">Layanan Wakaf</h5>
-            <p className="text-[9px] text-slate-500 mt-1 line-clamp-1">Sertifikasi tanah & SIWAK</p>
-          </div>
 
-          {/* Menu 3: Buku Tamu Digital */}
-          <div 
-            onClick={() => setCurrentTab("buku-tamu")}
-            className="group cursor-pointer bg-white hover:bg-emerald-50 border border-slate-200 hover:border-emerald-700 rounded-xl p-4 flex flex-col items-center justify-center text-center transition-all shadow-xs"
-            id="quick-access-bukutamu"
-          >
-            <div className="w-10 h-10 bg-emerald-50 text-emerald-700 rounded-lg flex items-center justify-center mb-2">
-              <FileText className="h-5 w-5" />
+            {/* Card 2: Hari Jumat */}
+            <div className="bg-white border border-slate-200 p-5 rounded-xl shadow-xs flex flex-col justify-between">
+              <div>
+                <span className="text-[9px] font-black text-amber-600 uppercase tracking-widest block mb-1">Hari Jumat</span>
+                <h4 className="text-xs font-bold text-slate-800 uppercase">Jumat Khidmat</h4>
+              </div>
+              <div className="mt-4 pt-4 border-t border-slate-100 space-y-1">
+                <div className="flex items-center justify-between text-xs font-mono font-bold text-slate-700">
+                  <span>Pelayanan:</span>
+                  <span className="text-emerald-800">07:30 - 16:30 WIT</span>
+                </div>
+                <div className="flex items-center justify-between text-[10px] text-slate-400">
+                  <span>Istirahat Shalat:</span>
+                  <span>11:30 - 13:15 WIT</span>
+                </div>
+              </div>
             </div>
-            <h5 className="text-xs font-extrabold text-slate-800">Buku Tamu</h5>
-            <p className="text-[9px] text-slate-500 mt-1 line-clamp-1">Registrasi kehadiran tamu</p>
-          </div>
 
-          {/* Menu 4: Konsultasi Keagamaan */}
-          <div 
-            onClick={() => {
-              setCurrentTab("penyuluhan");
-              setTimeout(() => {
-                const el = document.getElementById("form-konsultasi-penyuluh");
-                if (el) el.scrollIntoView({ behavior: "smooth" });
-              }, 150);
-            }}
-            className="group cursor-pointer bg-white hover:bg-emerald-50 border border-slate-200 hover:border-emerald-700 rounded-xl p-4 flex flex-col items-center justify-center text-center transition-all shadow-xs"
-            id="quick-access-konsultasi"
-          >
-            <div className="w-10 h-10 bg-emerald-50 text-emerald-700 rounded-lg flex items-center justify-center mb-2">
-              <MessageSquare className="h-5 w-5" />
+            {/* Card 3: Akhir Pekan */}
+            <div className="bg-white border border-slate-200 p-5 rounded-xl shadow-xs flex flex-col justify-between">
+              <div>
+                <span className="text-[9px] font-black text-rose-600 uppercase tracking-widest block mb-1">Sabtu - Minggu</span>
+                <h4 className="text-xs font-bold text-slate-800 uppercase">Akhir Pekan</h4>
+              </div>
+              <div className="mt-4 pt-4 border-t border-slate-100 space-y-1">
+                <div className="flex items-center justify-between text-xs font-mono font-bold text-slate-700">
+                  <span>Pelayanan:</span>
+                  <span className="text-rose-600 font-bold">KANTOR TUTUP</span>
+                </div>
+                <div className="text-[9px] text-slate-400 leading-normal mt-1">
+                  Pendaftaran nikah mandiri tetap aktif 24 jam melalui aplikasi SIMKAH Kemenag RI secara online.
+                </div>
+              </div>
             </div>
-            <h5 className="text-xs font-extrabold text-slate-800">Konsultasi</h5>
-            <p className="text-[9px] text-slate-500 mt-1 line-clamp-1">Konsultasi sakinah & hukum</p>
-          </div>
 
-          {/* Menu 5: Penyuluhan Agama */}
-          <div 
-            onClick={() => {
-              setCurrentTab("penyuluhan");
-              setTimeout(() => {
-                const el = document.getElementById("program-penyuluhan-section");
-                if (el) el.scrollIntoView({ behavior: "smooth" });
-              }, 150);
-            }}
-            className="group cursor-pointer bg-white hover:bg-emerald-50 border border-slate-200 hover:border-emerald-700 rounded-xl p-4 col-span-2 md:col-span-1 flex flex-col items-center justify-center text-center transition-all shadow-xs"
-            id="quick-access-penyuluhan"
-          >
-            <div className="w-10 h-10 bg-emerald-50 text-emerald-700 rounded-lg flex items-center justify-center mb-2">
-              <BookOpen className="h-5 w-5" />
-            </div>
-            <h5 className="text-xs font-extrabold text-slate-800">Penyuluhan</h5>
-            <p className="text-[9px] text-slate-500 mt-1 line-clamp-1">Bimbingan dakwah & muallaf</p>
           </div>
-
         </div>
+
+        {/* ================= COMPACT QUICK DIRECT ACCESS MENU ================= */}
+        <div 
+          id="quick-access-section" 
+          className="bg-white border border-slate-200 rounded-xl p-6 shadow-xs space-y-4"
+        >
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 border-b border-slate-100 pb-3">
+            <div>
+              <span className="text-[10px] font-black uppercase text-emerald-800">Menu Akses Mandiri</span>
+              <h4 className="text-sm font-bold text-slate-900 mt-0.5 uppercase tracking-tight">Kanal Layanan Utama Kecamatan</h4>
+            </div>
+            <p className="text-[11px] text-slate-500">Pilih kanal di bawah untuk mengakses dokumen & persyaratan.</p>
+          </div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            
+            {/* Nikah */}
+            <div 
+              onClick={() => setCurrentTab("nikah")}
+              className="cursor-pointer bg-slate-50 hover:bg-emerald-50/50 border border-slate-200 hover:border-emerald-600 p-3.5 rounded-lg text-center transition-all"
+            >
+              <div className="w-8 h-8 bg-emerald-100 text-emerald-800 rounded-md flex items-center justify-center mx-auto mb-2">
+                <Heart className="h-4 w-4" />
+              </div>
+              <h5 className="text-xs font-bold text-slate-800">Layanan Nikah</h5>
+              <p className="text-[9px] text-slate-400 mt-0.5 truncate">Daftar SIMKAH online</p>
+            </div>
+
+            {/* Wakaf */}
+            <div 
+              onClick={() => setCurrentTab("wakaf")}
+              className="cursor-pointer bg-slate-50 hover:bg-emerald-50/50 border border-slate-200 hover:border-emerald-600 p-3.5 rounded-lg text-center transition-all"
+            >
+              <div className="w-8 h-8 bg-emerald-100 text-emerald-800 rounded-md flex items-center justify-center mx-auto mb-2">
+                <Globe className="h-4 w-4" />
+              </div>
+              <h5 className="text-xs font-bold text-slate-800">Layanan Wakaf</h5>
+              <p className="text-[9px] text-slate-400 mt-0.5 truncate">Sertifikasi & SIWAK</p>
+            </div>
+
+            {/* Muallaf */}
+            <div 
+              onClick={() => setCurrentTab("muallaf")}
+              className="cursor-pointer bg-slate-50 hover:bg-emerald-50/50 border border-slate-200 hover:border-emerald-600 p-3.5 rounded-lg text-center transition-all"
+            >
+              <div className="w-8 h-8 bg-emerald-100 text-emerald-800 rounded-md flex items-center justify-center mx-auto mb-2">
+                <BookOpen className="h-4 w-4" />
+              </div>
+              <h5 className="text-xs font-bold text-slate-800">Muallaf Center</h5>
+              <p className="text-[9px] text-slate-400 mt-0.5 truncate">Ikrar & sertifikat resmi</p>
+            </div>
+
+            {/* Buku Tamu */}
+            <div 
+              onClick={() => setCurrentTab("buku-tamu")}
+              className="cursor-pointer bg-slate-50 hover:bg-emerald-50/50 border border-slate-200 hover:border-emerald-600 p-3.5 rounded-lg text-center transition-all"
+            >
+              <div className="w-8 h-8 bg-emerald-100 text-emerald-800 rounded-md flex items-center justify-center mx-auto mb-2">
+                <FileText className="h-4 w-4" />
+              </div>
+              <h5 className="text-xs font-bold text-slate-800">Buku Tamu</h5>
+              <p className="text-[9px] text-slate-400 mt-0.5 truncate">Isi kunjungan warga</p>
+            </div>
+
+          </div>
+        </div>
+
       </div>
 
-      {/* Floating Low-Overhead WhatsApp CTA (Standard clean green, no animation ping loop) */}
+      {/* WhatsApp Static Action Trigger - Low Overhead */}
       {settings.whatsappNumber && (
         <a
-          href={`https://wa.me/${settings.whatsappNumber}?text=${encodeURIComponent(settings.whatsappText || "Assalamu'alaikum Admin KUA Pulau Dullah Utara, saya ingin bertanya.")}`}
+          href={`https://wa.me/${settings.whatsappNumber}?text=${encodeURIComponent(settings.whatsappText || "Assalamu'alaikum Admin KUA Pulau Dullah Utara, saya ingin memperoleh info pelayanan.")}`}
           target="_blank"
           rel="noopener noreferrer"
           className="fixed bottom-6 right-6 z-50 p-3 bg-emerald-600 text-white rounded-full shadow-lg hover:bg-emerald-700 cursor-pointer active:scale-95 transition-all flex items-center justify-center border border-white"
-          title="Kirim WhatsApp Layanan KUA"
+          title="Hubungi WhatsApp KUA"
         >
-          <Send className="w-5 h-5" />
-          <span className="hidden sm:inline text-xs font-bold ml-1.5 whitespace-nowrap uppercase">WhatsApp KUA</span>
+          <Send className="w-4 h-4" />
+          <span className="text-[10px] font-black ml-1.5 uppercase tracking-wider">Layanan WA</span>
         </a>
       )}
 
