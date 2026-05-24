@@ -33,13 +33,28 @@ export default function Hero({ settings, setCurrentTab, onAdminClick }: HeroProp
   return (
     <div className="relative bg-slate-100/50 text-slate-800 pt-8 pb-14 px-4 sm:px-6 lg:px-8 overflow-hidden select-none transition-all duration-300">
       
-      {/* Background motif samar gedung KUA dullah utara dengan blur ringan & opacity super rendah */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden z-0 flex items-center justify-center">
-        <div className="w-[800px] h-[800px] rounded-full bg-emerald-500/5 blur-3xl absolute -top-1/4 -left-1/4" />
-        <div className="w-[600px] h-[600px] rounded-full bg-amber-500/5 blur-3xl absolute -bottom-1/4 -right-1/4" />
+      {/* Background Hero Image / Motif (Gambar Latar Belakang Beranda dengan blur ringan) */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
+        {settings.heroBgImg ? (
+          <div className="absolute inset-0 w-full h-full">
+            <img 
+              src={settings.heroBgImg} 
+              alt="Latar Belakang Kantor KUA" 
+              className="w-full h-full object-cover object-center opacity-15 blur-[1px] transition-all duration-300"
+              referrerPolicy="no-referrer"
+            />
+            {/* Soft overlay gradient to ensure text readability */}
+            <div className="absolute inset-0 bg-gradient-to-b from-slate-100/40 via-slate-100/20 to-slate-100/80" />
+          </div>
+        ) : (
+          <div className="absolute inset-0 w-full h-full flex items-center justify-center">
+            <div className="w-[800px] h-[800px] rounded-full bg-emerald-500/5 blur-3xl absolute -top-1/4 -left-1/4" />
+            <div className="w-[600px] h-[600px] rounded-full bg-amber-500/5 blur-3xl absolute -bottom-1/4 -right-1/4" />
+          </div>
+        )}
         
         {/* Samar-samar ornamen Islami kementerian agama */}
-        <div className="opacity-[0.03] scale-110 saturate-50 select-none">
+        <div className="absolute inset-0 flex items-center justify-center opacity-[0.03] scale-110 saturate-50 select-none">
           <svg className="w-96 h-96 text-emerald-800" fill="currentColor" viewBox="0 0 24 24">
             <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.12 0 2.05-.74 2.38-1.75C17.08 6.45 19 9 19 12c0 2.08-.8 3.97-2.1 5.39z"/>
           </svg>
@@ -49,17 +64,17 @@ export default function Hero({ settings, setCurrentTab, onAdminClick }: HeroProp
       <div className="max-w-4xl mx-auto w-full relative z-10 animate-fade-in space-y-8">
         
         {/* ================= HERO CARD (Card Putih Rounded Besar) ================= */}
-        <div className="bg-white border border-slate-200 rounded-2xl p-6 sm:p-10 shadow-sm relative overflow-hidden text-center flex flex-col items-center">
+        <div className="bg-white border border-slate-200 rounded-2xl p-6 sm:p-10 shadow-sm relative overflow-hidden text-center flex flex-col items-center col-span-1">
           
-          {/* Touch of Gold / Emerald Mini Badge */}
-          <div className="mb-4 inline-flex items-center space-x-1.5 bg-emerald-50 border border-emerald-200 text-emerald-800 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider">
-            <Sparkles className="h-3 w-3 text-amber-500" />
-            <span>Kementerian Agama RI</span>
+          {/* Selamat Datang di Badge */}
+          <div className="mb-4 inline-flex items-center space-x-1.5 bg-emerald-50 border border-emerald-200 text-emerald-800 px-3.5 py-1.5 rounded-full text-[10px] font-black uppercase tracking-wider select-none">
+            <Sparkles className="h-3.5 w-3.5 text-amber-500 animate-pulse" />
+            <span>Selamat Datang di</span>
           </div>
 
-          {/* Logo KUA exactly in the center of the hero card */}
+          {/* Enriched and enlarged logo to be more eye-catching */}
           {settings.logoImg && (
-            <div className="w-24 h-24 sm:w-28 sm:h-28 bg-white border border-slate-100 rounded-2xl shadow-xs p-4 mb-6 flex items-center justify-center hover:scale-102 transition-transform duration-300">
+            <div className="w-32 h-32 sm:w-40 sm:h-40 bg-white border border-slate-200 rounded-3xl shadow-sm p-5 mb-6 flex items-center justify-center hover:scale-104 transition-all duration-300">
               <img 
                 src={settings.logoImg} 
                 alt="Logo Kementerian Agama Republik Indonesia Resmi" 
@@ -69,13 +84,13 @@ export default function Hero({ settings, setCurrentTab, onAdminClick }: HeroProp
             </div>
           )}
 
-          {/* Heading utama */}
+          {/* Heading utama with removed "Kecamatan" abbreviation tag */}
           <div className="space-y-2 mb-4">
             <h1 className="text-2xl sm:text-3.5xl font-black text-slate-900 tracking-tight uppercase font-display leading-none">
               KUA REVITALISASI
             </h1>
             <h2 className="text-sm sm:text-base font-extrabold text-emerald-800 tracking-wider uppercase">
-              Kecamatan Pulau Dullah Utara
+              PULAU DULLAH UTARA
             </h2>
             <p className="text-[10px] text-slate-500 font-extrabold tracking-widest uppercase">
               Kota Tual, Provinsi Maluku
