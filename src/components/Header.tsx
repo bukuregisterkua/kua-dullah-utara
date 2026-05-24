@@ -60,13 +60,13 @@ export default function Header({
   ];
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-white border-b border-slate-200 text-slate-800 shadow-xs">
+    <header className="sticky top-0 z-50 w-full bg-white/85 backdrop-blur-md border-b border-slate-200/80 text-slate-800 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
           
           {/* Logo & Brand Identity */}
           <div 
-            className="flex items-center space-x-3 cursor-pointer select-none"
+            className="flex items-center space-x-3 cursor-pointer select-none animate-fade-in"
             onClick={() => setCurrentTab("beranda")}
             id="brand-logo-container"
           >
@@ -89,15 +89,15 @@ export default function Header({
                 />
               </div>
             ) : (
-              <div className="p-2 bg-emerald-700 text-white rounded-lg">
+              <div className="p-2 bg-[#1F8A70] text-white rounded-lg">
                 <BookOpen className="h-5 w-5" id="brand-logo-icon" />
               </div>
             )}
             <div>
-              <h1 className="text-base font-extrabold text-slate-900 leading-tight tracking-tight uppercase">
+              <h1 className="text-base font-black text-[#1F8A70] leading-tight tracking-tight uppercase">
                 KUA DULLAH UTARA
               </h1>
-              <p className="text-[10px] font-bold tracking-wider text-emerald-750 uppercase">
+              <p className="text-[9px] font-bold tracking-wider text-slate-500 uppercase mt-0.5">
                 Kementerian Agama Kota Tual
               </p>
             </div>

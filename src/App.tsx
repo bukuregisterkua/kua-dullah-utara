@@ -4000,7 +4000,7 @@ export default function App() {
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
             <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500 aspect-square"></span>
           </span>
-          <span className="text-slate-500 text-[9.5px]">KUA Server: <span className="text-emerald-400 font-bold">Online</span></span>
+          <span className="text-slate-500 text-[9.5px]">KUA Server Status: <span className="text-emerald-400 font-bold">Online</span></span>
         </div>
 
         {/* Info Berjalan / Marquee Ticker Rata Tengah (Center) */}
