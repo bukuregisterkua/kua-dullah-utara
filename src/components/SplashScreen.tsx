@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "motion/react";
+import { ArrowRight, BookOpen } from "lucide-react";
 
 interface SplashScreenProps {
   logoUrl?: string;
@@ -7,260 +8,88 @@ interface SplashScreenProps {
 }
 
 export default function SplashScreen({ logoUrl, onComplete }: SplashScreenProps) {
-  const [isTapped, setIsTapped] = useState(false);
+  const [progress, setProgress] = useState(0);
 
-  // Fallback to default Kemenag/KUA logo path if not uploaded or fetched yet
+  // Fallback to default Kemenag logo path
   const displayLogo = logoUrl || "/uploads/logokuadullut-1779347095553.png";
 
-  const handleTap = (e?: React.MouseEvent | React.TouchEvent) => {
-    if (e) {
-      if (typeof e.cancelable === "boolean" && e.cancelable) {
-        e.preventDefault();
-      }
-    }
-    if (isTapped) return;
-    setIsTapped(true);
-    
-    // Instantly responsive dispatch trigger (reduced from 850ms to 240ms)
-    setTimeout(() => {
-      onComplete();
-    }, 240);
-  };
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setProgress((prev) => {
+        if (prev >= 100) {
+          clearInterval(timer);
+          setTimeout(() => {
+            onComplete();
+          }, 300);
+          return 100;
+        }
+        return prev + 10;
+      });
+    }, 120);
 
-  // Generate a set of elegant floating gold/green light particles
-  const particles = Array.from({ length: 15 }).map((_, i) => {
-    const size = Math.random() * 12 + 6; // 6px to 18px
-    const delay = Math.random() * 5;
-    const duration = Math.random() * 10 + 12; // 12s to 22s
-    const left = Math.random() * 100; // 0% to 100%
-    const top = Math.random() * 100; // 0% to 100%
-    
-    return {
-      id: i,
-      style: {
-        width: `${size}px`,
-        height: `${size}px`,
-        left: `${left}%`,
-        top: `${top}%`,
-        background: i % 2 === 0 
-          ? "radial-gradient(circle, rgba(234, 179, 8, 0.4) 0%, transparent 70%)" 
-          : "radial-gradient(circle, rgba(52, 211, 153, 0.4) 0%, transparent 70%)",
-      },
-      animate: {
-        y: [0, -120, 0],
-        x: [0, Math.sin(i) * 50, 0],
-        opacity: [0.1, 0.8, 0.1],
-        scale: [0.8, 1.3, 0.8]
-      },
-      transition: {
-        duration,
-        delay,
-        repeat: Infinity,
-        ease: "easeInOut"
-      }
-    };
-  });
+    return () => clearInterval(timer);
+  }, [onComplete]);
 
   return (
-    <motion.div
-      initial={{ opacity: 1 }}
-      animate={isTapped ? { opacity: 0, scale: 1.05, filter: "blur(12px)" } : { opacity: 1 }}
-      transition={{ duration: 0.32, ease: "easeOut" }}
-      className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-gradient-to-br from-slate-950 via-emerald-950 to-slate-950 overflow-hidden select-none"
+    <div
+      className="fixed inset-0 z-[9999] flex flex-col items-center justify-between bg-gradient-to-b from-emerald-50/40 via-white to-white py-12 px-6 select-none"
       id="kua-splash-screen"
     >
-      {/* Background Subtle Glassmorphism Blur Layers */}
-      <div className="absolute inset-0 bg-radial-gradient from-emerald-900/20 via-transparent to-transparent pointer-events-none" />
-      
-      {/* Animated Light Particles */}
-      {particles.map((particle) => (
-        <motion.div
-          key={particle.id}
-          className="absolute rounded-full pointer-events-none blur-xs"
-          style={particle.style}
-          animate={particle.animate}
-          transition={particle.transition}
-        />
-      ))}
+      <div></div> {/* Spacer */}
 
-      {/* Grid Overlay for subtle premium tech/instansi look */}
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(16,185,129,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(16,185,129,0.03)_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none" />
-
-      {/* Center Interactive Container */}
-      <div className="relative z-10 flex flex-col items-center max-w-md px-6 text-center select-none">
-        
-        {/* Glow Effect Aura behind the Logo */}
-        <div className="absolute w-72 h-72 bg-gradient-to-tr from-emerald-500/20 to-amber-500/10 rounded-full blur-3xl pointer-events-none transform -translate-y-6" />
-
-        {/* Outer active light flash on interact */}
-        {isTapped && (
-          <motion.div
-            initial={{ scale: 0.8, opacity: 0 }}
-            animate={{ scale: 2.2, opacity: [0.8, 0] }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            className="absolute rounded-full w-48 h-48 bg-gradient-to-r from-emerald-400 to-amber-300 blur-md pointer-events-none"
+      <div className="flex flex-col items-center max-w-sm text-center">
+        {/* Core Clean Official Logo (No neon glow) */}
+        <div className="w-28 h-28 sm:w-32 sm:h-32 bg-white border border-slate-200 rounded-2xl shadow-sm flex items-center justify-center p-4 mb-6">
+          <img 
+            src={displayLogo} 
+            alt="Logo Kemenag" 
+            className="w-full h-full object-contain"
+            referrerPolicy="no-referrer"
+            onError={(e) => {
+              (e.target as HTMLImageElement).src = "https://kemenag.go.id/favicon.ico";
+            }}
           />
-        )}
+        </div>
 
-        {/* Interactive Logo Frame */}
-        <motion.div
-          onClick={handleTap}
-          onTouchStart={handleTap}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 1.15 }}
-          animate={
-            isTapped 
-              ? { scale: 1.25, rotate: 360, y: -20, filter: "drop-shadow(0 0 35px rgba(52,211,153,0.8))" } 
-              : { y: [0, -12, 0] }
-          }
-          transition={
-            isTapped 
-              ? { duration: 0.35, ease: "backOut" } 
-              : { duration: 4.5, repeat: Infinity, ease: "easeInOut" }
-          }
-          className="relative cursor-pointer w-36 h-36 sm:w-40 sm:h-40 flex items-center justify-center z-20 group"
-          id="splash-logo-button"
+        {/* Instansi Titles */}
+        <h1 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight uppercase leading-none">
+          KANTOR URUSAN AGAMA
+        </h1>
+        <p className="text-sm font-bold text-emerald-800 tracking-wider mt-1.5 uppercase">
+          Kecamatan Pulau Dullah Utara
+        </p>
+        <p className="text-[10px] text-slate-500 font-extrabold tracking-widest mt-0.5 uppercase">
+          Kementerian Agama Kota Tual
+        </p>
+
+        {/* Lightweight Progress Bar */}
+        <div className="w-48 h-1 bg-slate-100 rounded-full overflow-hidden mt-8">
+          <div 
+            className="h-full bg-emerald-700 transition-all duration-150"
+            style={{ width: `${progress}%` }}
+          />
+        </div>
+        
+        <p className="text-[10px] text-slate-400 font-mono mt-2 uppercase tracking-widest">
+          Menyiapkan Portal Desa...
+        </p>
+
+        {/* Direct Access CTA for Instant Entry */}
+        <button
+          onClick={onComplete}
+          className="mt-6 inline-flex items-center space-x-1.5 px-4 py-2 bg-emerald-700 hover:bg-emerald-800 text-white rounded-lg text-xs font-bold transition-all shadow-xs cursor-pointer"
         >
-          {/* Glowing neon green-gold double active ring */}
-          <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-emerald-500 via-emerald-400 to-amber-400 opacity-60 blur-xs group-hover:opacity-100 group-hover:blur-sm transition-all duration-300 animate-pulse" />
-          
-          {/* Inner core white sphere protecting the official logo */}
-          <div className="absolute inset-2 bg-slate-950/80 backdrop-blur-md rounded-full flex items-center justify-center p-4 border border-emerald-500/40 group-hover:bg-slate-900 transition-colors shadow-2xl">
-            <img 
-              src={displayLogo} 
-              alt="Logo Kemenag" 
-              className="w-full h-full object-contain filter drop-shadow-[0_4px_8px_rgba(16,185,129,0.3)] select-none pointer-events-none"
-              referrerPolicy="no-referrer"
-              onError={(e) => {
-                // If local path is somehow broken in development, fall back safe to online official crest
-                (e.target as HTMLImageElement).src = "https://kemenag.go.id/favicon.ico";
-              }}
-            />
-          </div>
-        </motion.div>
-
-        {/* Titles Group */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3, duration: 0.6 }}
-          className="mt-8 space-y-2 pointer-events-none"
-        >
-          <h1 className="text-3xl sm:text-4xl font-black font-display text-white tracking-wider pt-2 uppercase drop-shadow-md">
-            KUA REVITALISASI
-          </h1>
-          <p className="text-lg sm:text-xl font-medium text-emerald-400 drop-shadow-xs font-sans">
-            Pulau Dullah Utara
-          </p>
-        </motion.div>
-
-        {/* Custom Loading Bar before Action */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: [0.3, 0.7, 0.3] }}
-          transition={{ repeat: Infinity, duration: 2 }}
-          className="w-24 h-[2px] bg-gradient-to-r from-transparent via-emerald-500 to-transparent my-6"
-        />
-
-        {/* Trigger instructions block with hand icon above the text */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={
-            isTapped 
-              ? { opacity: 0, scale: 0.9 } 
-              : { opacity: [0.3, 0.85, 0.3] }
-          }
-          transition={
-            isTapped 
-              ? { duration: 0.3 } 
-              : { duration: 1.8, repeat: Infinity, ease: "easeInOut" }
-          }
-          className="flex flex-col items-center justify-center cursor-pointer select-none mt-2 gap-2"
-          onClick={handleTap}
-          onTouchStart={handleTap}
-          id="splash-tap-instruction-container"
-        >
-          {/* Animated Hand Tap Gesture SVG Icon - Match Uploaded Reference Exactly */}
-          <motion.div
-            className="text-white group-hover:text-emerald-300 transition-colors"
-          >
-            <svg 
-              className="w-16 h-16 filter drop-shadow-[0_2px_12px_rgba(255,255,255,0.4)]" 
-              viewBox="0 0 100 120" 
-              fill="none" 
-              stroke="currentColor" 
-              strokeLinecap="round" 
-              strokeLinejoin="round"
-            >
-              {/* Outer Concentric Touch Tap Arc Wave (Rippling) */}
-              <motion.path 
-                d="M 18,44 A 32,32 0 0,1 82,44" 
-                strokeWidth="4.5" 
-                animate={{ 
-                  scale: [1, 1.12, 1],
-                  opacity: [0.4, 1, 0.4] 
-                }}
-                transition={{ 
-                  duration: 1.5, 
-                  repeat: Infinity, 
-                  ease: "easeInOut" 
-                }}
-                style={{ originX: "50px", originY: "44px" }}
-              />
-
-              {/* Inner Concentric Touch Tap Arc Wave (Rippling) */}
-              <motion.path 
-                d="M 32,44 A 18,18 0 0,1 68,44" 
-                strokeWidth="4.5" 
-                animate={{ 
-                  scale: [1, 1.2, 1],
-                  opacity: [0.2, 0.9, 0.2] 
-                }}
-                transition={{ 
-                  duration: 1.5, 
-                  delay: 0.35,
-                  repeat: Infinity, 
-                  ease: "easeInOut" 
-                }}
-                style={{ originX: "50px", originY: "44px" }}
-              />
-              
-              {/* Hand Drawing - index pointing up, thumb left, curled fingers, flat cuff */}
-              <motion.path 
-                d="M 42,110 L 42,100 C 42,100 36,92 36,92 L 28,80 C 25,76 23,71 25,66 C 27,61 33,60 37,65 L 44,72 L 44,48 A 6,6 0 0,1 56,48 L 56,70 C 56,70 56,60 59,57 C 62,54 65,56 65,60 L 65,74 C 65,74 65,66 68,63 C 71,60 74,62 74,66 L 74,78 C 74,78 74,72 77,69 C 80,66 83,68 83,72 L 83,88 C 83,100 70,110 66,110 Z" 
-                strokeWidth="5" 
-                animate={{ 
-                  y: [0, 4, 0],
-                  scale: [1, 0.95, 1] 
-                }}
-                transition={{ 
-                  duration: 1.5, 
-                  repeat: Infinity, 
-                  ease: "easeInOut" 
-                }}
-                style={{ originX: "50px", originY: "85px" }}
-              />
-            </svg>
-          </motion.div>
-
-          {/* Underneath label */}
-          <div className="font-mono text-[11px] font-bold text-slate-300 tracking-widest uppercase flex items-center gap-1.5 justify-center">
-            <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-ping" />
-            <span>Tap Logo Untuk Memulai</span>
-          </div>
-        </motion.div>
-
+          <span>Masuk Portal</span>
+          <ArrowRight className="h-3.5 w-3.5" />
+        </button>
       </div>
-      
-      {/* Subtle Bottom Credit Line */}
-      <motion.p
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 0.45 }}
-        transition={{ delay: 0.5 }}
-        className="absolute bottom-6 text-[9.5px] tracking-widest text-slate-400 uppercase font-mono pointer-events-none"
-      >
-        Kementerian Agama Kota Tual
-      </motion.p>
-    </motion.div>
+
+      {/* Understated Public Sector Verification Footer */}
+      <div className="text-center">
+        <p className="text-[9px] tracking-widest text-slate-400 uppercase font-bold">
+          TERREGISTRASI RESMI KEMENAG RI
+        </p>
+      </div>
+    </div>
   );
 }

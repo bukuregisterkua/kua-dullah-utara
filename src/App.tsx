@@ -1334,21 +1334,23 @@ export default function App() {
 
 
               {/* STATISTIK SECTION */}
-              <section className="bg-emerald-950 py-8 text-white relative overflow-hidden" id="section-statistik">
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(16,185,129,0.15),transparent_40%)] pointer-events-none" />
-                <div className="max-w-5xl mx-auto relative z-10 flex flex-col items-center px-4 sm:px-6">
-                  <div className="w-full relative overflow-hidden rounded-2xl border border-emerald-800/30 shadow-2xl bg-emerald-950 flex justify-center">
+              <section className="bg-slate-50 py-10 border-b border-slate-100 animate-fade-in" id="section-statistik">
+                <div className="max-w-4xl mx-auto px-4 flex flex-col items-center">
+                  <div className="text-center mb-6">
+                    <span className="text-[10px] font-extrabold text-emerald-800 bg-emerald-100 px-2.5 py-0.5 rounded-full inline-block uppercase tracking-wider">
+                      DATA & STATISTIK
+                    </span>
+                    <h3 className="text-xl font-black text-slate-800 mt-1.5 uppercase tracking-tight">
+                      Infografis Pelayanan Kantor KUA
+                    </h3>
+                  </div>
+                  <div className="w-full relative overflow-hidden rounded-xl border border-slate-200 bg-white p-1.5 flex justify-center shadow-xs">
                     <img 
                       src={defaultSettings.statistikImg || statistikKuaPlaceholder} 
                       alt="Statistik Pelayanan KUA" 
-                      className="w-full h-auto select-none block"
+                      className="w-full h-auto select-none block rounded-lg"
                       referrerPolicy="no-referrer"
                     />
-                    {/* Subtle micro blend overlays on the extreme outer edges for flawless background integration */}
-                    <div className="absolute inset-0 pointer-events-none z-10">
-                      <div className="absolute left-0 top-0 bottom-0 w-4 sm:w-8 bg-gradient-to-r from-emerald-950 to-transparent" />
-                      <div className="absolute right-0 top-0 bottom-0 w-4 sm:w-8 bg-gradient-to-l from-emerald-950 to-transparent" />
-                    </div>
                   </div>
                 </div>
               </section>
@@ -1609,35 +1611,31 @@ export default function App() {
 
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center mb-20">
                 <div className="lg:col-span-5 relative">
-                  <div className="bg-emerald-950 rounded-3xl text-white relative shadow-xl overflow-hidden min-h-[510px] max-w-[325px] mx-auto w-full flex flex-col justify-between group select-none border border-emerald-800/25">
-                    {/* Background Subtle Gradient */}
-                    <div className="absolute inset-0 bg-gradient-to-tr from-emerald-950 via-emerald-900 to-emerald-950/90 -z-10" />
+                  <div className="bg-white rounded-2xl text-slate-800 relative shadow-md overflow-hidden min-h-[500px] max-w-[325px] mx-auto w-full flex flex-col justify-between group select-none border border-slate-200">
                     
-                    {/* Vertically elongated photo integrated directly at the top of the card (narrower and taller) */}
-                    <div className="w-full h-[320px] relative overflow-hidden bg-emerald-900/30">
+                    {/* Vertically elongated photo integrated directly at the top of the card */}
+                    <div className="w-full h-[320px] relative overflow-hidden bg-slate-50 border-b border-slate-100">
                       <img 
                         src={defaultSettings.kepalaKuaImg || kepalaKuaPlaceholder} 
                         alt={defaultSettings.kepalaKuaName || "Kepala Kantor KUA"} 
-                        className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-103"
+                        className="w-full h-full object-cover object-top"
                         referrerPolicy="no-referrer"
                       />
-                      {/* Elegant dark gradient blending the portrait bottom edge smoothly into the dark card background */}
-                      <div className="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-emerald-950 to-transparent" />
                     </div>
                     
-                    {/* Writing content - identical to the beautiful dark design */}
-                    <div className="relative z-10 text-center px-6 pb-6 pt-2">
-                      <h4 className="text-xl sm:text-2xl font-black font-display tracking-tight text-white drop-shadow-sm">
+                    {/* Writing content - beautiful, official light design */}
+                    <div className="relative z-10 text-center px-6 pb-6 pt-4">
+                      <h4 className="text-xl font-extrabold font-display tracking-tight text-slate-900">
                         {defaultSettings.kepalaKuaName || "H. Ahmad, S.Ag."}
                       </h4>
-                      <p className="text-xs text-emerald-300 mt-1 uppercase font-extrabold tracking-widest drop-shadow-xs">
+                      <p className="text-xs text-emerald-800 mt-1 uppercase font-black tracking-widest">
                         Kepala Kantor Urusan Agama
                       </p>
-                      <p className="text-[10px] text-emerald-400 font-bold uppercase tracking-widest mt-0.5">
-                        Pulau Dullah Utara
+                      <p className="text-[10px] text-slate-500 font-extrabold uppercase tracking-widest mt-0.5">
+                        Kec. Pulau Dullah Utara
                       </p>
-                      <hr className="border-emerald-700/60 my-3" />
-                      <p className="text-[11px] text-slate-300 italic leading-relaxed font-sans drop-shadow-xs max-w-sm mx-auto px-1">
+                      <hr className="border-slate-100 my-3" />
+                      <p className="text-[11px] text-slate-600 italic leading-relaxed font-sans max-w-sm mx-auto px-1">
                         "Pelayanan digital modern ini diluncurkan untuk mempermudah, mempercepat, dan menjamin keterbukaan urusan dokumen keagamaan bagi seluruh ummat di Pulau Dullah Utara."
                       </p>
                     </div>
