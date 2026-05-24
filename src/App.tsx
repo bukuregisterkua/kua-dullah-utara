@@ -2459,7 +2459,7 @@ export default function App() {
                       </h4>
                       <ul className="space-y-1.5 text-[10.5px] text-slate-600 font-mono">
                         <li className="flex justify-between"><span>Senin - Kamis</span> <span className="font-bold text-slate-800">08:00 - 16:00 WIT</span></li>
-                        <li className="flex justify-between"><span>Jumat (WFA Online)</span> <span className="font-bold text-emerald-700">08:30 - 17:30 WIT</span></li>
+                        <li className="flex justify-between"><span>Jumat (WFA Online)</span> <span className="font-bold text-emerald-700">08:30 - 17:00 WIT</span></li>
                         <li className="flex justify-between"><span>Sabtu & Minggu</span> <span className="text-emerald-600 font-bold">Online 24 Jam</span></li>
                       </ul>
                     </div>

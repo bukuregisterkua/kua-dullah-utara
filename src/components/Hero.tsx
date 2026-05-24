@@ -294,7 +294,7 @@ export default function Hero({ settings, setCurrentTab, onAdminClick }: HeroProp
                   </div>
                   <div className="flex justify-between items-center bg-slate-50 p-1.5 rounded-lg border border-slate-100">
                     <span className="text-[10px] text-slate-500 uppercase">Sesi 2</span>
-                    <span className="font-extrabold text-emerald-700">13:30 – 17:30 WIT</span>
+                    <span className="font-extrabold text-emerald-700">13:30 – 17:00 WIT</span>
                   </div>
                 </div>
                 <div className="mt-2.5 p-2 bg-emerald-50/70 border border-emerald-100/40 rounded-xl text-[9.5px] text-emerald-850 leading-relaxed font-sans">
