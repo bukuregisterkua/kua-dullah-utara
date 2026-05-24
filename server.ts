@@ -550,7 +550,7 @@ app.get("/api/announcements", (req, res) => {
 app.post("/api/announcements", (req, res) => {
   try {
     const db = readDB();
-    const { title, content, status } = req.body;
+    const { title, content, status, image } = req.body;
     if (!title || !content) {
       return res.status(400).json({ error: "Title dan Content pengumuman wajib diisi!" });
     }
@@ -559,7 +559,8 @@ app.post("/api/announcements", (req, res) => {
       title,
       content,
       date: new Date().toISOString().split("T")[0],
-      status: status || "aktif"
+      status: status || "aktif",
+      image: image || ""
     };
     db.pengumuman.unshift(newAn);
     writeDB(db);

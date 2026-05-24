@@ -16,6 +16,7 @@ export interface Pengumuman {
   date: string;
   content: string;
   status: string;
+  image?: string;
 }
 
 export interface Settings {

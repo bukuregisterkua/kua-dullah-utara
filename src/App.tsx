@@ -182,6 +182,7 @@ export default function App() {
   const [newPengumumanTitle, setNewPengumumanTitle] = useState("");
   const [newPengumumanContent, setNewPengumumanContent] = useState("");
   const [newPengumumanStatus, setNewPengumumanStatus] = useState("aktif");
+  const [newPengumumanImage, setNewPengumumanImage] = useState("");
 
   // Settings form
   const [settingsForm, setSettingsForm] = useState<Partial<Settings>>({});
@@ -356,7 +357,7 @@ export default function App() {
   };
 
   // Image Upload handler for layanans (JPG/PNG conversion to Base64 first)
-  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>, fieldName: "layanan" | "settings", callback: (url: string) => void) => {
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>, fieldName: "layanan" | "settings" | "pengumuman", callback: (url: string) => void) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
@@ -482,14 +483,15 @@ export default function App() {
     }
 
     try {
-      setIsSubmitting(true);
-      const res = await fetch("/api/announcements", {
+       setIsSubmitting(true);
+       const res = await fetch("/api/announcements", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           title: newPengumumanTitle,
           content: newPengumumanContent,
-          status: newPengumumanStatus
+          status: newPengumumanStatus,
+          image: newPengumumanImage
         })
       });
       if (res.ok) {
@@ -497,6 +499,7 @@ export default function App() {
         setNewPengumumanTitle("");
         setNewPengumumanContent("");
         setNewPengumumanStatus("aktif");
+        setNewPengumumanImage("");
       } else {
         alert("Gagal menambahkan pengumuman");
       }
@@ -1374,23 +1377,61 @@ export default function App() {
                     </button>
                   </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                     {db?.pengumuman.slice(0, 2).map((item) => (
                       <div 
                         key={item.id} 
-                        className="p-6 bg-slate-50 border border-emerald-50/50 rounded-2xl hover:shadow-md transition-shadow"
+                        className="bg-slate-50 border border-emerald-50/50 rounded-2xl hover:shadow-md transition-shadow overflow-hidden flex flex-col md:flex-row h-full group cursor-pointer"
+                        id={`homepage-announcement-${item.id}`}
+                        onClick={() => {
+                          if (item.image) {
+                            setActiveMediaPreview({
+                              type: "image",
+                              url: item.image,
+                              title: item.title
+                            });
+                          }
+                        }}
                       >
-                        <div className="flex items-center justify-between mb-4">
-                          <span className="text-xs font-bold text-emerald-800 bg-emerald-100/50 px-2.5 py-1 rounded-md">
-                            UMUM
-                          </span>
-                          <span className="text-xs text-slate-400 flex items-center space-x-1 font-mono">
-                            <Clock className="h-3 w-3" />
-                            <span>{item.date}</span>
-                          </span>
+                        {item.image ? (
+                          <div className="md:w-1/3 h-48 md:h-auto overflow-hidden relative shrink-0">
+                            <img 
+                              src={item.image} 
+                              alt={item.title} 
+                              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+                              referrerPolicy="no-referrer"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-teal-950/20 to-transparent pointer-events-none" />
+                          </div>
+                        ) : (
+                          <div className="md:w-1/3 h-48 md:h-auto overflow-hidden relative bg-emerald-950 flex items-center justify-center shrink-0">
+                            <BookOpen className="w-10 h-10 text-emerald-300 opacity-30" />
+                          </div>
+                        )}
+                        <div className="p-6 flex flex-col justify-between flex-grow">
+                          <div>
+                            <div className="flex items-center justify-between mb-3 border-b border-slate-200/40 pb-2">
+                              <span className="text-[10px] font-bold text-emerald-800 bg-emerald-100/50 px-2 py-0.5 rounded-md">
+                                PENGUMUMAN
+                              </span>
+                              <span className="text-[10px] text-slate-400 flex items-center space-x-1 font-mono">
+                                <Clock className="h-3.5 w-3.5 text-slate-400" />
+                                <span>{item.date}</span>
+                              </span>
+                            </div>
+                            <h4 className="text-base font-extrabold text-slate-900 mb-2 font-display group-hover:text-emerald-700 transition-colors line-clamp-2">
+                              {item.title}
+                            </h4>
+                            <p className="text-[11px] text-slate-500 line-clamp-3 leading-relaxed">
+                              {item.content}
+                            </p>
+                          </div>
+                          {item.image && (
+                            <span className="text-[10px] text-emerald-600 font-bold mt-3 inline-flex items-center gap-1 group-hover:underline">
+                              <span>🔍 Klik untuk Perbesar Gambar</span>
+                            </span>
+                          )}
                         </div>
-                        <h4 className="text-lg font-bold text-slate-900 mb-2">{item.title}</h4>
-                        <p className="text-sm text-slate-600 line-clamp-3 leading-relaxed">{item.content}</p>
                       </div>
                     ))}
                   </div>
@@ -2527,19 +2568,68 @@ export default function App() {
                   .map((ann) => (
                     <div 
                       key={ann.id} 
-                      className="bg-white p-6 rounded-3xl border border-slate-100 hover:border-emerald-100 shadow-xxs transition-all"
+                      className="bg-white rounded-3xl border border-slate-100/80 hover:border-emerald-200/60 shadow-xxs transition-all overflow-hidden flex flex-col md:flex-row group"
                     >
-                      <div className="flex flex-wrap items-center justify-between gap-2 mb-3 text-xs text-slate-400 font-mono">
-                        <span className="flex items-center space-x-1">
-                          <Clock className="h-3 w-3 text-emerald-600" />
-                          <span>Tanggal rilis: {ann.date}</span>
-                        </span>
-                        <span className="px-2 py-0.5 bg-emerald-50 text-emerald-800 font-bold rounded-sm uppercase text-[9px]">
-                          AKTIF
-                        </span>
+                      {ann.image ? (
+                        <div 
+                          className="md:w-1/3 h-52 md:h-auto overflow-hidden relative cursor-zoom-in shrink-0 bg-slate-50"
+                          onClick={() => {
+                            setActiveMediaPreview({
+                              type: "image",
+                              url: ann.image,
+                              title: ann.title
+                            });
+                          }}
+                        >
+                          <img 
+                            src={ann.image} 
+                            alt={ann.title} 
+                            className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-500" 
+                            referrerPolicy="no-referrer"
+                          />
+                          <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/50 to-transparent p-2 md:opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-[10px] font-bold">
+                            🔍 Klik untuk Memperbesar Gambar
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="md:w-1/3 h-52 md:h-auto overflow-hidden relative bg-emerald-950/90 flex items-center justify-center shrink-0">
+                          <BookOpen className="w-12 h-12 text-emerald-300 opacity-20" />
+                        </div>
+                      )}
+                      
+                      <div className="p-6 md:p-8 flex flex-col justify-between flex-grow">
+                        <div>
+                          <div className="flex flex-wrap items-center justify-between gap-2 mb-3 text-[10px] text-slate-400 font-mono">
+                            <span className="flex items-center space-x-1">
+                              <Clock className="h-3 w-3 text-emerald-600" />
+                              <span>Tanggal rilis: {ann.date}</span>
+                            </span>
+                            <span className="px-2 py-0.5 bg-emerald-50 text-emerald-800 font-bold rounded-md uppercase text-[9px]">
+                              {ann.status === "aktif" ? "AKTIF" : "DRAFT"}
+                            </span>
+                          </div>
+                          <h4 className="text-lg font-bold text-slate-900 mb-2 leading-snug group-hover:text-emerald-700 transition-colors">
+                            {ann.title}
+                          </h4>
+                          <p className="text-xs text-slate-600 leading-relaxed whitespace-pre-line">{ann.content}</p>
+                        </div>
+                        {ann.image && (
+                          <div className="mt-4 pt-3 border-t border-slate-50">
+                            <button
+                              onClick={() => {
+                                setActiveMediaPreview({
+                                  type: "image",
+                                  url: ann.image,
+                                  title: ann.title
+                                });
+                              }}
+                              className="text-[10px] font-bold text-emerald-700 hover:text-emerald-900 hover:underline inline-flex items-center gap-1 cursor-pointer"
+                            >
+                              <span>🔍 Lihat Lampiran Media / Pamflet</span>
+                            </button>
+                          </div>
+                        )}
                       </div>
-                      <h4 className="text-lg font-bold text-slate-900 mb-2">{ann.title}</h4>
-                      <p className="text-xs text-slate-600 leading-relaxed whitespace-pre-line">{ann.content}</p>
                     </div>
                   ))}
 
@@ -3034,6 +3124,32 @@ export default function App() {
                         />
                       </div>
 
+                      <div>
+                        <label className="block text-[11px] font-bold text-slate-700 mb-1">Gambar / Pamflet Pengumuman (Opsional)</label>
+                        <div className="flex items-center space-x-3 mt-1.5">
+                          <input
+                            type="file"
+                            accept="image/*"
+                            onChange={(e) => handleImageUpload(e, "pengumuman", (url) => setNewPengumumanImage(url))}
+                            className="text-xs text-slate-500 file:mr-3 file:py-1.5 file:px-3 file:rounded-xl file:border-0 file:text-[10px] file:font-semibold file:bg-emerald-50 file:text-emerald-700 hover:file:bg-emerald-100 cursor-pointer"
+                          />
+                          {newPengumumanImage && (
+                            <div className="relative w-12 h-12 rounded-lg border border-slate-200 overflow-hidden shrink-0 bg-slate-100">
+                              <img src={newPengumumanImage} alt="Preview" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+                              <button
+                                type="button"
+                                onClick={() => setNewPengumumanImage("")}
+                                className="absolute inset-0 bg-black/60 text-white flex items-center justify-center font-bold text-[9px] hover:bg-black/80 transition-opacity"
+                                title="Hapus Gambar"
+                              >
+                                Hapus
+                              </button>
+                            </div>
+                          )}
+                        </div>
+                        <p className="text-[9px] text-slate-400 mt-1">Sertakan gambar/brosur penjelas agar pengumuman terlihat lebih profesional dan menarik bagi masyarakat.</p>
+                      </div>
+
                       <button
                         type="submit"
                         disabled={isSubmitting}
@@ -3051,28 +3167,45 @@ export default function App() {
                       Daftar Pengumuman Aktif
                     </h3>
 
-                    <div className="space-y-4 max-h-[550px] overflow-y-auto pr-1">
+                    <div className="space-y-4 max-h-[650px] overflow-y-auto pr-1">
                       {db?.pengumuman.map((item) => (
                         <div 
                           key={item.id}
-                          className="p-5 bg-slate-50 border border-slate-100 rounded-2xl relative"
+                          className="p-5 bg-slate-50 border border-slate-100 rounded-2xl relative flex flex-col md:flex-row gap-4 justify-between"
                         >
                           <button
                             onClick={() => deletePengumuman(item.id, item.title)}
-                            className="absolute top-4 right-4 p-1 hover:bg-rose-50 text-rose-700 rounded-md transition-all cursor-pointer"
+                            className="absolute top-4 right-4 p-1 hover:bg-rose-50 text-rose-700 rounded-md transition-all cursor-pointer z-10"
                             title="Hapus Pengumuman"
                           >
                             <Trash2 className="h-4 w-4" />
                           </button>
 
-                          <div className="flex items-center space-x-2 text-[10px] text-slate-400 font-mono mb-2">
-                            <span>{item.date}</span>
-                            <span>•</span>
-                            <span className="text-emerald-700 font-extrabold tracking-wider uppercase">{item.status}</span>
+                          <div className="flex-1">
+                            <div className="flex items-center space-x-2 text-[10px] text-slate-400 font-mono mb-2">
+                              <span>{item.date}</span>
+                              <span>•</span>
+                              <span className="text-emerald-700 font-extrabold tracking-wider uppercase">{item.status}</span>
+                            </div>
+
+                            <h4 className="text-sm font-bold text-slate-900 pr-8 leading-snug">{item.title}</h4>
+                            <p className="text-xs text-slate-500 mt-2 line-clamp-3 leading-relaxed whitespace-pre-line">{item.content}</p>
                           </div>
 
-                          <h4 className="text-sm font-bold text-slate-900 pr-8">{item.title}</h4>
-                          <p className="text-xs text-slate-500 mt-2 line-clamp-3 leading-relaxed">{item.content}</p>
+                          {item.image && (
+                            <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-xl overflow-hidden border border-slate-200 shrink-0 bg-white shadow-xxs select-none self-start relative group">
+                              <img src={item.image} alt="Thumbnail" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+                              <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity cursor-zoom-in" onClick={() => {
+                                setActiveMediaPreview({
+                                  type: "image",
+                                  url: item.image || "",
+                                  title: item.title
+                                });
+                              }}>
+                                <span className="text-[9px] font-bold text-white uppercase tracking-wider">Zoom</span>
+                              </div>
+                            </div>
+                          )}
                         </div>
                       ))}
                     </div>

@@ -162,14 +162,16 @@
       "title": "Hari Raya Idul Fitri 1447 H",
       "date": "2026-03-20",
       "content": "Keluarga besar KUA Kecamatan Pulau Dullah Utara mengucapkan Selamat Hari Raya Idul Fitri 1447 H, Minal Aidin Wal Faizin, Mohon Maaf Lahir dan Batin.",
-      "status": "aktif"
+      "status": "aktif",
+      "image": "/uploads/idul_fitri_banner_1779608296392.png"
     },
     {
       "id": "p-2",
       "title": "Pendaftaran Bimwin Gratis Gelombang II",
       "date": "2026-05-15",
       "content": "Telah dibuka pendaftaran Bimbingan perkawinan gratis untuk calon pengantin periode nikah Juni-Juli 2026. Buruan daftar, kuota terbatas hanya untuk 15 pasang!",
-      "status": "aktif"
+      "status": "aktif",
+      "image": "/uploads/bimwin_banner_1779608313687.png"
     }
   ],
   "settings": {
@@ -205,5 +207,63 @@
   "admin": {
     "username": "kuadulut",
     "password": "kuanamser18"
-  }
+  },
+  "penyuluh": [
+    {
+      "id": "p1",
+      "name": "H. Kamaruddin, SH",
+      "role": "Penyuluh Agama Islam",
+      "gender": "male",
+      "phone": "6281240912842",
+      "photo": "/uploads/penyuluh_pria_1_1779371506296.png"
+    },
+    {
+      "id": "p2",
+      "name": "Khadijah Al-Munawwarah, M.Ag",
+      "role": "Penyuluh Agama Islam",
+      "gender": "female",
+      "phone": "6281240912842",
+      "photo": "/uploads/penyuluh_wanita_1_1779371527770.png"
+    },
+    {
+      "id": "p3",
+      "name": "Ustadz H. Abdullah, Lc",
+      "role": "Penyuluh Agama Islam",
+      "gender": "male",
+      "phone": "6281240912842",
+      "photo": "/uploads/penyuluh_pria_3_1779372465474.png"
+    },
+    {
+      "id": "p4",
+      "name": "Siti Rahmawati, S.Sos",
+      "role": "Penyuluh Agama Islam",
+      "gender": "female",
+      "phone": "6281240912842",
+      "photo": "/uploads/penyuluh_wanita_3_1779372486923.png"
+    },
+    {
+      "id": "p5",
+      "name": "Ahmad Fauzan, S.Pd.I",
+      "role": "Penyuluh Agama Islam",
+      "gender": "male",
+      "phone": "6281240912842",
+      "photo": "/uploads/penyuluh_pria_2_1779371547245.png"
+    },
+    {
+      "id": "p6",
+      "name": "Dr. Maryam Shofia, S.Th.I",
+      "role": "Penyuluh Agama Islam",
+      "gender": "female",
+      "phone": "6281240912842",
+      "photo": "/uploads/penyuluh_wanita_2_1779371567528.png"
+    },
+    {
+      "id": "p7",
+      "name": "Aisyah Humaira, S.Th.I",
+      "role": "Penyuluh Agama Islam",
+      "gender": "female",
+      "phone": "6281240912842",
+      "photo": "/uploads/penyuluh_wanita_4_1779372505456.png"
+    }
+  ]
 }
