@@ -1,4 +1,4 @@
-import { Heart, Globe, ChevronRight, CheckCircle, FileText, Clock, Facebook, Instagram, Twitter, Youtube, Music } from "lucide-react";
+import { Heart, Globe, ChevronRight, CheckCircle, FileText, Clock, Facebook, Instagram, Twitter, Youtube, Music, Calendar, Smartphone, Sparkles, Coffee, ShieldCheck } from "lucide-react";
 import { motion } from "motion/react";
 import { Settings } from "../types";
 
@@ -220,121 +220,154 @@ export default function Hero({ settings, setCurrentTab, onAdminClick }: HeroProp
         </div>
 
         {/* Sesi Pelayanan Kantor KUA */}
-        <div className="w-full max-w-6xl mt-4 relative z-10">
-          <div className="text-center mb-6">
-            <span className="text-xs font-bold uppercase tracking-widest text-emerald-800 bg-emerald-100/90 px-4 py-1.5 rounded-full inline-flex items-center space-x-1.5 shadow-xxs">
-              <Clock className="h-3.5 w-3.5" />
-              <span>Sesi Pelayanan Kantor KUA</span>
-            </span>
+        <div className="w-full max-w-5xl mt-12 relative z-10" id="sesi-pelayanan-kua-section">
+          
+          {/* Header Section */}
+          <div className="text-center mb-8">
+            <h3 className="text-2xl font-bold text-slate-900 tracking-tight font-sans">
+              Sesi Pelayanan Kantor KUA
+            </h3>
+            <p className="text-xs text-slate-500 font-medium mt-1">
+              Informasi jam operasional pelayanan KUA Pulau Dullah Utara.
+            </p>
+            <div className="w-12 h-1 bg-gradient-to-r from-emerald-500 via-amber-400 to-emerald-500 mx-auto mt-2.5 rounded-full" />
           </div>
 
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            className="grid grid-cols-1 md:grid-cols-3 gap-5"
+            transition={{ duration: 0.5, delay: 0.15 }}
+            className="grid grid-cols-1 md:grid-cols-3 gap-4"
           >
-            {/* Senin - Kamis Card */}
-            <div className="bg-white border border-emerald-100 rounded-3xl p-6 shadow-sm flex flex-col justify-between hover:shadow-md transition-all hover:-translate-y-0.5" id="hero-schedule-senin-kamis">
+            {/* Senin s/d Kamis Card - Pelayanan Reguler */}
+            <div 
+              className="bg-white/95 border border-slate-200/60 rounded-xl p-5 shadow-xs hover:shadow-md transition-all duration-300 hover:scale-[1.01] hover:border-emerald-500/20 h-full flex flex-col justify-between" 
+              id="hero-schedule-senin-kamis"
+            >
               <div>
-                <div className="flex items-center justify-between">
-                  <span className="text-xs font-bold text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded-md">
-                    Senin s/d Kamis
-                  </span>
-                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                {/* Header Card Row */}
+                <div className="flex items-start justify-between gap-3">
+                  <div className="flex flex-col">
+                    <span className="text-[10px] font-bold text-emerald-800 uppercase tracking-wider bg-emerald-50 px-2 py-0.5 rounded-md w-max mb-1">
+                      Pelayanan Reguler
+                    </span>
+                    <h4 className="text-base font-bold font-sans text-slate-900 leading-tight">
+                      Senin s/d Kamis
+                    </h4>
+                  </div>
+                  <div className="p-2 bg-emerald-50 border border-emerald-100 text-emerald-700 rounded-lg shrink-0">
+                    <Calendar className="h-4.5 w-4.5" />
+                  </div>
                 </div>
-                <h4 className="text-lg font-bold font-display text-slate-900 mt-4 leading-relaxed font-sans tracking-tight">Hari Kerja Biasa</h4>
-                <p className="text-[11px] text-slate-500 mt-1 leading-relaxed mb-4">
-                  Pelayanan penuh untuk seluruh kebutuhan administrasi keagamaan, pendaftaran nikah, wakaf, konsultasi, dan bimbingan ummat secara langsung di kantor KUA.
+
+                <p className="text-[11px] text-slate-500 mt-2 leading-relaxed">
+                  Pelayanan administrasi, nikah, wakaf, dan bimbingan ummat.
                 </p>
               </div>
-              <div className="mt-4 pt-4 border-t border-slate-100 text-xs space-y-2">
-                <span className="text-slate-700 font-bold block mb-1">Jam Pelayanan:</span>
-                <div className="space-y-1.5 font-mono text-xs">
-                  <div className="flex justify-between items-center bg-slate-50 p-1.5 rounded-lg border border-slate-100">
-                    <span className="text-[10px] text-slate-500 uppercase">Pagi</span>
-                    <span className="font-extrabold text-emerald-700">08:00 – 12:00 WIT</span>
-                  </div>
-                  <div className="flex justify-between items-center bg-amber-50/50 p-1.5 rounded-lg border border-amber-100/40 text-amber-800">
-                    <span className="text-[10px] uppercase font-bold">Istirahat</span>
-                    <span className="font-bold">12:00 – 13:00 WIT</span>
-                  </div>
-                  <div className="flex justify-between items-center bg-slate-50 p-1.5 rounded-lg border border-slate-100">
-                    <span className="text-[10px] text-slate-500 uppercase">Siang</span>
-                    <span className="font-extrabold text-emerald-700">13:00 – 16:00 WIT</span>
-                  </div>
+
+              {/* Precise and compact hourly sessions */}
+              <div className="mt-4 pt-3.5 border-t border-slate-150/60 space-y-1.5">
+                <div className="flex items-center justify-between text-[11px] bg-slate-50 p-1.5 rounded-md border border-slate-100">
+                  <span className="text-slate-500 font-medium">Sesi Pagi</span>
+                  <span className="font-bold text-slate-800 font-mono">08:00 – 12:00 WIT</span>
+                </div>
+                <div className="flex items-center justify-between text-[10.5px] bg-amber-50/40 px-1.5 py-1 rounded-md border border-amber-200/30 text-amber-900">
+                  <span className="font-semibold flex items-center gap-1">
+                    <Coffee className="h-3 w-3 text-amber-500 shrink-0" /> Istirahat
+                  </span>
+                  <span className="font-medium font-mono">12:00 – 13:00 WIT</span>
+                </div>
+                <div className="flex items-center justify-between text-[11px] bg-slate-50 p-1.5 rounded-md border border-slate-100">
+                  <span className="text-slate-500 font-medium">Sesi Siang</span>
+                  <span className="font-bold text-slate-800 font-mono">13:00 – 16:00 WIT</span>
                 </div>
               </div>
             </div>
 
-            {/* Jumat Card */}
-            <div className="bg-white border border-emerald-100 rounded-3xl p-6 shadow-sm flex flex-col justify-between hover:shadow-md transition-all hover:-translate-y-0.5" id="hero-schedule-jumat">
+            {/* Jumat Card - Pelayanan Online & WA */}
+            <div 
+              className="bg-white/95 border border-slate-200/60 rounded-xl p-5 shadow-xs hover:shadow-md transition-all duration-300 hover:scale-[1.01] hover:border-emerald-500/20 h-full flex flex-col justify-between" 
+              id="hero-schedule-jumat"
+            >
               <div>
-                <div className="flex items-center justify-between">
-                  <span className="text-xs font-bold text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded-md">
-                    Hari Jumat
-                  </span>
-                  <span className="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full">WFA</span>
+                {/* Header Card Row */}
+                <div className="flex items-start justify-between gap-3">
+                  <div className="flex flex-col">
+                    <span className="text-[10px] font-bold text-indigo-800 uppercase tracking-wider bg-indigo-50 px-2 py-0.5 rounded-md w-max mb-1">
+                      Online & WhatsApp
+                    </span>
+                    <h4 className="text-base font-bold font-sans text-slate-900 leading-tight">
+                      Hari Jumat
+                    </h4>
+                  </div>
+                  <div className="p-2 bg-indigo-50 border border-indigo-100 text-indigo-700 rounded-lg shrink-0">
+                    <Smartphone className="h-4.5 w-4.5" />
+                  </div>
                 </div>
-                <h4 className="text-lg font-bold font-display text-slate-900 mt-4 leading-relaxed font-sans tracking-tight">Pelayanan WFA</h4>
-                <p className="text-[11px] text-slate-500 mt-1 leading-relaxed mb-4">
-                  Pelayanan dilakukan secara online dan melalui WhatsApp (Work From Anywhere) untuk memudahkan masyarakat tetap mendapatkan layanan di hari Jumat.
+
+                <p className="text-[11px] text-slate-500 mt-2 leading-relaxed">
+                  Pelayanan WFA melalui sistem online dan WhatsApp.
                 </p>
               </div>
-              <div className="mt-4 pt-4 border-t border-slate-100 text-xs space-y-2">
-                <span className="text-slate-750 font-bold block mb-1">Jam Pelayanan Online & WA:</span>
-                <div className="space-y-1.5 font-mono text-xs">
-                  <div className="flex justify-between items-center bg-slate-50 p-1.5 rounded-lg border border-slate-100">
-                    <span className="text-[10px] text-slate-500 uppercase">Sesi 1</span>
-                    <span className="font-extrabold text-emerald-700">08:30 – 12:00 WIT</span>
-                  </div>
-                  <div className="flex justify-between items-center bg-amber-50/50 p-1.5 rounded-lg border border-amber-100/40 text-amber-800">
-                    <span className="text-[10px] uppercase font-bold">Istirahat</span>
-                    <span className="font-bold">12:00 – 13:30 WIT</span>
-                  </div>
-                  <div className="flex justify-between items-center bg-slate-50 p-1.5 rounded-lg border border-slate-100">
-                    <span className="text-[10px] text-slate-500 uppercase">Sesi 2</span>
-                    <span className="font-extrabold text-emerald-700">13:30 – 17:00 WIT</span>
-                  </div>
+
+              {/* Precise and compact hourly sessions */}
+              <div className="mt-4 pt-3.5 border-t border-slate-150/60 space-y-1.5">
+                <div className="flex items-center justify-between text-[11px] bg-slate-50 p-1.5 rounded-md border border-slate-100">
+                  <span className="text-slate-500 font-medium">Sesi 1</span>
+                  <span className="font-bold text-slate-800 font-mono">08:30 – 12:00 WIT</span>
                 </div>
-                <div className="mt-2.5 p-2 bg-emerald-50/70 border border-emerald-100/40 rounded-xl text-[9.5px] text-emerald-850 leading-relaxed font-sans">
-                  <span className="font-bold block text-emerald-950 mb-0.5">Catatan:</span>
-                  Masyarakat dapat menghubungi admin layanan melalui WhatsApp atau mengakses layanan digital yang tersedia selama jam operasional.
+                <div className="flex items-center justify-between text-[10.5px] bg-amber-50/40 px-1.5 py-1 rounded-md border border-amber-200/30 text-amber-900">
+                  <span className="font-semibold flex items-center gap-1">
+                    <Coffee className="h-3 w-3 text-amber-500 shrink-0" /> Istirahat
+                  </span>
+                  <span className="font-medium font-mono">12:00 – 13:30 WIT</span>
+                </div>
+                <div className="flex items-center justify-between text-[11px] bg-slate-50 p-1.5 rounded-md border border-slate-100">
+                  <span className="text-slate-500 font-medium">Sesi 2</span>
+                  <span className="font-bold text-slate-800 font-mono">13:30 – 17:00 WIT</span>
                 </div>
               </div>
             </div>
 
-            {/* Sabtu - Minggu Card */}
-            <div className="bg-white border border-red-100 rounded-3xl p-6 shadow-sm flex flex-col justify-between hover:shadow-md transition-all hover:-translate-y-0.5" id="hero-schedule-sabtu-minggu">
+            {/* Sabtu & Minggu Card - Akhir Pekan */}
+            <div 
+              className="bg-white/95 border border-slate-200/60 rounded-xl p-5 shadow-xs hover:shadow-md transition-all duration-300 hover:scale-[1.01] hover:border-amber-500/20 h-full flex flex-col justify-between" 
+              id="hero-schedule-sabtu-minggu"
+            >
               <div>
-                <div className="flex items-center justify-between">
-                  <span className="text-xs font-bold text-red-800 bg-red-50 px-2.5 py-1 rounded-md">
-                    Sabtu & Minggu
-                  </span>
-                  <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
+                {/* Header Card Row */}
+                <div className="flex items-start justify-between gap-3">
+                  <div className="flex flex-col">
+                    <span className="text-[10px] font-bold text-amber-800 uppercase tracking-wider bg-amber-50 px-2 py-0.5 rounded-md w-max mb-1">
+                      Akhir Pekan
+                    </span>
+                    <h4 className="text-base font-bold font-sans text-slate-900 leading-tight">
+                      Sabtu & Minggu
+                    </h4>
+                  </div>
+                  <div className="p-2 bg-amber-50/70 border border-amber-100 text-amber-700 rounded-lg shrink-0">
+                    <Sparkles className="h-4.5 w-4.5" />
+                  </div>
                 </div>
-                <h4 className="text-lg font-bold font-display text-slate-900 mt-4 leading-relaxed font-sans tracking-tight">Akhir Pekan</h4>
-                <p className="text-[11px] text-slate-500 mt-1 leading-relaxed mb-4">
-                  Kantor tutup untuk pelayanan tatap muka reguler. Namun seluruh layanan online dapat diakses penuh secara digital.
+
+                <p className="text-[11px] text-slate-500 mt-2 leading-relaxed">
+                  Pelayanan tatap muka tutup, layanan online tetap aktif.
                 </p>
               </div>
-              <div className="mt-4 pt-4 border-t border-slate-100 text-xs space-y-2">
-                <span className="text-slate-700 font-bold block mb-1">Jam Pelayanan:</span>
-                <div className="space-y-1.5 font-mono text-xs">
-                  <div className="flex justify-between items-center bg-rose-50 p-1.5 rounded-lg border border-rose-100 text-rose-800">
-                    <span className="text-[10px] uppercase font-bold">Tatap Muka</span>
-                    <span className="font-extrabold text-rose-600">Tutup Pelayanan</span>
-                  </div>
-                  <div className="flex justify-between items-center bg-emerald-50 p-1.5 rounded-lg border border-emerald-100 text-emerald-800">
-                    <span className="text-[10px] uppercase font-bold">Layanan Online</span>
-                    <span className="font-extrabold text-emerald-600">Aktif 24 Jam</span>
-                  </div>
-                </div>
+
+              {/* Precise and compact hourly sessions */}
+              <div className="mt-4 pt-3.5 border-t border-slate-150/60 flex flex-col justify-center items-center h-[94px] bg-emerald-50/50 border border-emerald-100/50 rounded-lg px-2">
+                <ShieldCheck className="h-5 w-5 text-emerald-600 mb-1" />
+                <span className="text-[13px] font-extrabold text-emerald-800 tracking-wide font-sans">
+                  Online 24 Jam
+                </span>
+                <span className="text-[9px] text-emerald-600/80 font-mono tracking-widest uppercase mt-0.5">
+                  Sistem Aktif
+                </span>
               </div>
             </div>
           </motion.div>
         </div>
-
       </div>
     </div>
   );
