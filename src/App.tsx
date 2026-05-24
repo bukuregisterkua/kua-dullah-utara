@@ -2452,15 +2452,15 @@ export default function App() {
 
                   {/* Operation Hour Badge */}
                   {currentTab !== "nikah" && (
-                    <div className="p-3 bg-slate-50 border border-slate-100 rounded-2xl">
+                    <div className="p-3 bg-slate-50 border border-slate-100 rounded-2xl" id="sidebar-operating-hours-container">
                       <h4 className="text-[10px] font-extrabold uppercase text-emerald-950 tracking-wider mb-1.5 flex items-center space-x-1">
                         <Clock className="h-3.5 w-3.5 text-emerald-800" />
                         <span>Sesi Pelayanan Kantor</span>
                       </h4>
-                      <ul className="space-y-1 text-[11px] text-slate-600 font-mono">
-                        <li className="flex justify-between"><span>Senin - Kamis</span> <span className="font-bold text-slate-800">08:00 - 16:30 WIT</span></li>
-                        <li className="flex justify-between"><span>Jumat</span> <span className="font-bold text-slate-800">08:30 - 17:00 WIT</span></li>
-                        <li className="flex justify-between"><span>Sabtu - Minggu</span> <span className="text-rose-600 font-bold">Tutup</span></li>
+                      <ul className="space-y-1.5 text-[10.5px] text-slate-600 font-mono">
+                        <li className="flex justify-between"><span>Senin - Kamis</span> <span className="font-bold text-slate-800">08:00 - 16:00 WIT</span></li>
+                        <li className="flex justify-between"><span>Jumat (WFA Online)</span> <span className="font-bold text-emerald-700">08:30 - 17:30 WIT</span></li>
+                        <li className="flex justify-between"><span>Sabtu & Minggu</span> <span className="text-emerald-600 font-bold">Online 24 Jam</span></li>
                       </ul>
                     </div>
                   )}

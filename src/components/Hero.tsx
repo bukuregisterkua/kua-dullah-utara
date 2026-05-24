@@ -235,53 +235,101 @@ export default function Hero({ settings, setCurrentTab, onAdminClick }: HeroProp
             className="grid grid-cols-1 md:grid-cols-3 gap-5"
           >
             {/* Senin - Kamis Card */}
-            <div className="bg-white border border-emerald-100 rounded-3xl p-6 shadow-sm flex flex-col justify-between hover:shadow-md transition-all hover:-translate-y-0.5">
+            <div className="bg-white border border-emerald-100 rounded-3xl p-6 shadow-sm flex flex-col justify-between hover:shadow-md transition-all hover:-translate-y-0.5" id="hero-schedule-senin-kamis">
               <div>
-                <span className="text-xs font-bold text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded-md">
-                  Senin s/d Kamis
-                </span>
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-bold text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded-md">
+                    Senin s/d Kamis
+                  </span>
+                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                </div>
                 <h4 className="text-lg font-bold font-display text-slate-900 mt-4 leading-relaxed font-sans tracking-tight">Hari Kerja Biasa</h4>
-                <p className="text-[11px] text-slate-500 mt-1 leading-relaxed">
-                  Pelayanan penuh untuk semua urusan administrasi, nikah, wakaf, dan bimbingan ummat.
+                <p className="text-[11px] text-slate-500 mt-1 leading-relaxed mb-4">
+                  Pelayanan penuh untuk seluruh kebutuhan administrasi keagamaan, pendaftaran nikah, wakaf, konsultasi, dan bimbingan ummat secara langsung di kantor KUA.
                 </p>
               </div>
-              <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-xs">
-                <span className="text-slate-600 font-semibold">Jam Pelayanan:</span>
-                <span className="font-extrabold text-emerald-700 font-mono text-sm">08:00 - 16:30 WIT</span>
+              <div className="mt-4 pt-4 border-t border-slate-100 text-xs space-y-2">
+                <span className="text-slate-700 font-bold block mb-1">Jam Pelayanan:</span>
+                <div className="space-y-1.5 font-mono text-xs">
+                  <div className="flex justify-between items-center bg-slate-50 p-1.5 rounded-lg border border-slate-100">
+                    <span className="text-[10px] text-slate-500 uppercase">Pagi</span>
+                    <span className="font-extrabold text-emerald-700">08:00 – 12:00 WIT</span>
+                  </div>
+                  <div className="flex justify-between items-center bg-amber-50/50 p-1.5 rounded-lg border border-amber-100/40 text-amber-800">
+                    <span className="text-[10px] uppercase font-bold">Istirahat</span>
+                    <span className="font-bold">12:00 – 13:00 WIT</span>
+                  </div>
+                  <div className="flex justify-between items-center bg-slate-50 p-1.5 rounded-lg border border-slate-100">
+                    <span className="text-[10px] text-slate-500 uppercase">Siang</span>
+                    <span className="font-extrabold text-emerald-700">13:00 – 16:00 WIT</span>
+                  </div>
+                </div>
               </div>
             </div>
 
             {/* Jumat Card */}
-            <div className="bg-white border border-emerald-100 rounded-3xl p-6 shadow-sm flex flex-col justify-between hover:shadow-md transition-all hover:-translate-y-0.5">
+            <div className="bg-white border border-emerald-100 rounded-3xl p-6 shadow-sm flex flex-col justify-between hover:shadow-md transition-all hover:-translate-y-0.5" id="hero-schedule-jumat">
               <div>
-                <span className="text-xs font-bold text-amber-800 bg-amber-50 px-2.5 py-1 rounded-md">
-                  Hari Jumat
-                </span>
-                <h4 className="text-lg font-bold font-display text-slate-900 mt-4 leading-relaxed font-sans tracking-tight">Hari Kerja Pendek</h4>
-                <p className="text-[11px] text-slate-500 mt-1 leading-relaxed">
-                  Pelayanan administrasi diselingi jeda ibadah Shalat Jumat. Disarankan datang lebih pagi.
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-bold text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded-md">
+                    Hari Jumat
+                  </span>
+                  <span className="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full">WFA</span>
+                </div>
+                <h4 className="text-lg font-bold font-display text-slate-900 mt-4 leading-relaxed font-sans tracking-tight">Pelayanan WFA</h4>
+                <p className="text-[11px] text-slate-500 mt-1 leading-relaxed mb-4">
+                  Pelayanan dilakukan secara online dan melalui WhatsApp (Work From Anywhere) untuk memudahkan masyarakat tetap mendapatkan layanan di hari Jumat.
                 </p>
               </div>
-              <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-xs">
-                <span className="text-slate-600 font-semibold">Jam Pelayanan:</span>
-                <span className="font-extrabold text-amber-700 font-mono text-sm">08:30 - 17:00 WIT</span>
+              <div className="mt-4 pt-4 border-t border-slate-100 text-xs space-y-2">
+                <span className="text-slate-750 font-bold block mb-1">Jam Pelayanan Online & WA:</span>
+                <div className="space-y-1.5 font-mono text-xs">
+                  <div className="flex justify-between items-center bg-slate-50 p-1.5 rounded-lg border border-slate-100">
+                    <span className="text-[10px] text-slate-500 uppercase">Sesi 1</span>
+                    <span className="font-extrabold text-emerald-700">08:30 – 12:00 WIT</span>
+                  </div>
+                  <div className="flex justify-between items-center bg-amber-50/50 p-1.5 rounded-lg border border-amber-100/40 text-amber-800">
+                    <span className="text-[10px] uppercase font-bold">Istirahat</span>
+                    <span className="font-bold">12:00 – 13:30 WIT</span>
+                  </div>
+                  <div className="flex justify-between items-center bg-slate-50 p-1.5 rounded-lg border border-slate-100">
+                    <span className="text-[10px] text-slate-500 uppercase">Sesi 2</span>
+                    <span className="font-extrabold text-emerald-700">13:30 – 17:30 WIT</span>
+                  </div>
+                </div>
+                <div className="mt-2.5 p-2 bg-emerald-50/70 border border-emerald-100/40 rounded-xl text-[9.5px] text-emerald-850 leading-relaxed font-sans">
+                  <span className="font-bold block text-emerald-950 mb-0.5">Catatan:</span>
+                  Masyarakat dapat menghubungi admin layanan melalui WhatsApp atau mengakses layanan digital yang tersedia selama jam operasional.
+                </div>
               </div>
             </div>
 
             {/* Sabtu - Minggu Card */}
-            <div className="bg-white border border-red-100 rounded-3xl p-6 shadow-sm flex flex-col justify-between hover:shadow-md transition-all hover:-translate-y-0.5">
+            <div className="bg-white border border-red-100 rounded-3xl p-6 shadow-sm flex flex-col justify-between hover:shadow-md transition-all hover:-translate-y-0.5" id="hero-schedule-sabtu-minggu">
               <div>
-                <span className="text-xs font-bold text-red-800 bg-red-50 px-2.5 py-1 rounded-md">
-                  Sabtu & Minggu
-                </span>
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-bold text-red-800 bg-red-50 px-2.5 py-1 rounded-md">
+                    Sabtu & Minggu
+                  </span>
+                  <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
+                </div>
                 <h4 className="text-lg font-bold font-display text-slate-900 mt-4 leading-relaxed font-sans tracking-tight">Akhir Pekan</h4>
-                <p className="text-[11px] text-slate-500 mt-1 leading-relaxed">
-                  Kantor tutup untuk pelayanan reguler tatap muka. Anda tetap dapat mengajukan pendaftaran online 24 jam.
+                <p className="text-[11px] text-slate-500 mt-1 leading-relaxed mb-4">
+                  Kantor tutup untuk pelayanan tatap muka reguler. Namun seluruh layanan online dapat diakses penuh secara digital.
                 </p>
               </div>
-              <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-xs">
-                <span className="text-slate-600 font-semibold">Jam Pelayanan:</span>
-                <span className="font-bold text-red-500 font-mono text-sm">Tutup Pelayanan</span>
+              <div className="mt-4 pt-4 border-t border-slate-100 text-xs space-y-2">
+                <span className="text-slate-700 font-bold block mb-1">Jam Pelayanan:</span>
+                <div className="space-y-1.5 font-mono text-xs">
+                  <div className="flex justify-between items-center bg-rose-50 p-1.5 rounded-lg border border-rose-100 text-rose-800">
+                    <span className="text-[10px] uppercase font-bold">Tatap Muka</span>
+                    <span className="font-extrabold text-rose-600">Tutup Pelayanan</span>
+                  </div>
+                  <div className="flex justify-between items-center bg-emerald-50 p-1.5 rounded-lg border border-emerald-100 text-emerald-800">
+                    <span className="text-[10px] uppercase font-bold">Layanan Online</span>
+                    <span className="font-extrabold text-emerald-600">Aktif 24 Jam</span>
+                  </div>
+                </div>
               </div>
             </div>
           </motion.div>
