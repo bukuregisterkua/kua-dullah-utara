@@ -45,11 +45,11 @@ export default function Hero({ settings, setCurrentTab, onAdminClick }: HeroProp
             <img 
               src={settings.heroBgImg} 
               alt="Latar Belakang Kantor KUA Pulau Dullah Utara" 
-              className="w-full h-full object-cover object-center scale-105 filter blur-[2px] opacity-10 transition-all duration-300"
+              className="w-full h-full object-cover object-center scale-100 opacity-40 transition-all duration-300"
               referrerPolicy="no-referrer"
             />
             {/* Soft government green transparent overlay */}
-            <div className="absolute inset-0 bg-gradient-to-b from-[#1F8A70]/5 via-white/80 to-[#1F8A70]/5" />
+            <div className="absolute inset-0 bg-gradient-to-b from-[#1F8A70]/10 via-white/40 to-[#1F8A70]/10" />
           </div>
         ) : (
           <div className="absolute inset-0 w-full h-full bg-gradient-to-tr from-slate-50 via-white to-emerald-50/20" />
