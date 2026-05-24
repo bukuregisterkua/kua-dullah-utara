@@ -130,7 +130,7 @@ export default function Header({
             {/* Live Clock & Admin Trigger */}
             <div className="flex items-center space-x-3">
               {/* Official-style modern premium beige clock card */}
-              <div className="bg-amber-50/45 border border-amber-200/50 rounded-lg px-2.5 py-1.5 flex items-center space-x-2 select-none">
+              <div className="bg-emerald-50/50 border border-emerald-100/60 rounded-lg px-2.5 py-1.5 flex items-center space-x-2 select-none shadow-xs">
                 <Clock className="h-3.5 w-3.5 text-[#1F8A70] shrink-0 animate-pulse" />
                 <div className="text-left font-mono">
                   <div className="text-[11px] font-black text-emerald-800 leading-tight">
@@ -174,11 +174,11 @@ export default function Header({
           {/* Mobile Menu Toggle */}
           <div className="flex items-center lg:hidden space-x-2">
             {/* Highly Compact Official Digital Clock Widget for Mobile */}
-            <div className="bg-amber-50/45 border border-amber-200/50 rounded-lg px-2 py-1.5 flex items-center space-x-1 select-none">
+            <div className="bg-emerald-50/50 border border-emerald-100/60 rounded-lg px-2 py-1.5 flex items-center space-x-1 select-none shadow-xs">
               <Clock className="h-3 w-3 text-[#1F8A70] shrink-0" />
               <div className="text-left font-mono leading-none">
                 <span className="text-[10px] font-black text-emerald-800">
-                  {witTime.replace(" WIT", "")}
+                   {witTime.replace(" WIT", "")}
                 </span>
                 <span className="text-[8px] font-black text-emerald-800 ml-0.5">WIT</span>
               </div>

@@ -1473,13 +1473,13 @@ export default function App() {
               </div>
 
               {/* Dynamic Shortcut Cards Grid */}
-              <div className="bg-white rounded-3xl p-8 sm:p-12 border border-emerald-100 shadow-sm relative overflow-hidden">
+              <div className="bg-white rounded-3xl p-8 sm:p-12 border border-emerald-500/10 shadow-md relative overflow-hidden ring-1 ring-cyan-500/5">
                 <div className="text-center max-w-3xl mx-auto mb-10">
-                  <span className="text-xs font-bold uppercase tracking-widest text-emerald-600 bg-emerald-100/60 px-3 py-1 rounded-full">
+                  <span className="text-xs font-black uppercase tracking-widest text-[#1F8A70] bg-emerald-50 border border-emerald-100 px-3.5 py-1.5 rounded-full shadow-xxs">
                     Sistem Pelayanan Digital KUA
                   </span>
-                  <p className="text-sm text-slate-500 mt-3 leading-relaxed">
-                    Sistem pelayanan keagamaan Kantor Urusan Agama Kecamatan Pulau Dullah Utara berkualitas tinggi, bersih, dan melayani segenap ummat. Pilih kategori layanan di bawah untuk melanjutkan pengisian berkas persyaratan atau konsultasi bimbingan.
+                  <p className="text-sm text-slate-500 mt-4 leading-relaxed">
+                    Sistem pelayanan keagamaan Kantor Urusan Agama Kecamatan Pulau Dullah Utara berkualitas tinggi, bersih, dan melayani segenap ummat. Pilih kategori layanan di bawah untuk melanjutkan pengisian berkas persyaratan atau bimbingan.
                   </p>
                 </div>
 
@@ -1487,16 +1487,16 @@ export default function App() {
                   {/* Layanan Nikah Category Card */}
                   <div 
                     onClick={() => setCurrentTab("nikah")}
-                    className="group bg-slate-50/55 hover:bg-white rounded-2xl p-5 border border-slate-100 shadow-xs hover:shadow-xl hover:shadow-emerald-950/5 hover:border-emerald-300 transition-all duration-300 cursor-pointer relative overflow-hidden"
+                    className="group bg-slate-50/55 hover:bg-white rounded-2xl p-5 border border-slate-200/60 shadow-xs hover:shadow-lg hover:shadow-emerald-500/5 hover:border-emerald-500/30 transition-all duration-300 cursor-pointer relative overflow-hidden"
                     id="shortcut-nikah-box"
                   >
-                    <div className="absolute top-0 right-0 w-20 h-20 bg-emerald-50 rounded-bl-full group-hover:bg-emerald-100/50 transition-colors -z-1" />
+                    <div className="absolute top-0 right-0 w-20 h-20 bg-emerald-50 rounded-bl-full group-hover:bg-emerald-100/40 transition-colors -z-1" />
                     
-                    <div className="w-12 h-12 bg-emerald-50 group-hover:bg-emerald-700 text-emerald-700 rounded-xl flex items-center justify-center transition-all shadow-xxs">
-                      <Heart className="h-6 w-6 group-hover:text-white" />
+                    <div className="w-12 h-12 bg-emerald-50 group-hover:bg-emerald-600 text-emerald-700 group-hover:text-white rounded-xl flex items-center justify-center transition-all shadow-xxs">
+                      <Heart className="h-6 w-6" />
                     </div>
                     
-                    <h4 className="text-sm font-black font-display text-slate-900 mt-5 group-hover:text-emerald-800 transition-colors uppercase tracking-tight">
+                    <h4 className="text-sm font-black font-display text-slate-900 mt-5 group-hover:text-emerald-700 transition-colors uppercase tracking-tight">
                       💍 LAYANAN NIKAH
                     </h4>
                     <p className="text-[11px] text-slate-500 mt-1.5 leading-relaxed">
@@ -1512,16 +1512,16 @@ export default function App() {
                   {/* Layanan Wakaf Category Card */}
                   <div 
                     onClick={() => setCurrentTab("wakaf")}
-                    className="group bg-slate-50/55 hover:bg-white rounded-2xl p-5 border border-slate-100 shadow-xs hover:shadow-xl hover:shadow-emerald-950/5 hover:border-emerald-300 transition-all duration-300 cursor-pointer relative overflow-hidden"
+                    className="group bg-slate-50/55 hover:bg-white rounded-2xl p-5 border border-slate-200/60 shadow-xs hover:shadow-lg hover:shadow-emerald-500/5 hover:border-emerald-500/30 transition-all duration-300 cursor-pointer relative overflow-hidden"
                     id="shortcut-wakaf-box"
                   >
-                    <div className="absolute top-0 right-0 w-20 h-20 bg-teal-50 rounded-bl-full group-hover:bg-teal-100/50 transition-colors -z-1" />
+                    <div className="absolute top-0 right-0 w-20 h-20 bg-teal-50 rounded-bl-full group-hover:bg-teal-100/40 transition-colors -z-1" />
                     
-                    <div className="w-12 h-12 bg-teal-50 group-hover:bg-emerald-700 text-emerald-800 rounded-xl flex items-center justify-center transition-all shadow-xxs">
-                      <FileText className="h-6 w-6 group-hover:text-white" />
+                    <div className="w-12 h-12 bg-teal-50 group-hover:bg-emerald-600 text-teal-700 group-hover:text-white rounded-xl flex items-center justify-center transition-all shadow-xxs">
+                      <FileText className="h-6 w-6" />
                     </div>
                     
-                    <h4 className="text-sm font-black font-display text-slate-900 mt-5 group-hover:text-emerald-800 transition-colors uppercase tracking-tight">
+                    <h4 className="text-sm font-black font-display text-slate-900 mt-5 group-hover:text-emerald-700 transition-colors uppercase tracking-tight">
                       📜 LAYANAN WAKAF
                     </h4>
                     <p className="text-[11px] text-slate-500 mt-1.5 leading-relaxed">
@@ -1537,23 +1537,23 @@ export default function App() {
                   {/* Muallaf Center Category Card */}
                   <div 
                     onClick={() => setCurrentTab("muallaf")}
-                    className="group bg-slate-50/55 hover:bg-white rounded-2xl p-5 border border-slate-100 shadow-xs hover:shadow-xl hover:shadow-emerald-950/5 hover:border-emerald-300 transition-all duration-300 cursor-pointer relative overflow-hidden"
+                    className="group bg-slate-50/55 hover:bg-white rounded-2xl p-5 border border-slate-200/60 shadow-xs hover:shadow-lg hover:shadow-emerald-500/5 hover:border-emerald-500/30 transition-all duration-300 cursor-pointer relative overflow-hidden"
                     id="shortcut-muallaf-box"
                   >
-                    <div className="absolute top-0 right-0 w-20 h-20 bg-sky-50 rounded-bl-full group-hover:bg-sky-100/50 transition-colors -z-1" />
+                    <div className="absolute top-0 right-0 w-20 h-20 bg-cyan-50 rounded-bl-full group-hover:bg-cyan-100/40 transition-colors -z-1" />
                     
-                    <div className="w-12 h-12 bg-sky-50 group-hover:bg-emerald-700 text-sky-700 rounded-xl flex items-center justify-center transition-all shadow-xxs">
-                      <Globe className="h-6 w-6 group-hover:text-white" />
+                    <div className="w-12 h-12 bg-cyan-50 group-hover:bg-emerald-600 text-[#06b6d4] group-hover:text-white rounded-xl flex items-center justify-center transition-all shadow-xxs">
+                      <Globe className="h-6 w-6" />
                     </div>
                     
-                    <h4 className="text-sm font-black font-display text-slate-900 mt-5 group-hover:text-emerald-800 transition-colors uppercase tracking-tight">
+                    <h4 className="text-sm font-black font-display text-slate-900 mt-5 group-hover:text-emerald-700 transition-colors uppercase tracking-tight">
                       🕌 MUALLAF CENTER
                     </h4>
                     <p className="text-[11px] text-slate-500 mt-1.5 leading-relaxed">
                       Bimbingan ikrar muallaf, penerbitan sertifikat pemeluk agama islam resmi, pembinaan akidah berkelanjutan, konseling keagamaan, dan konsultasi.
                     </p>
                     
-                    <div className="flex items-center space-x-1 text-xs font-bold text-sky-700 mt-5 group-hover:translate-x-1 transition-transform">
+                    <div className="flex items-center space-x-1 text-xs font-bold text-cyan-600 mt-5 group-hover:translate-x-1 transition-transform">
                       <span className="text-[11px]">Pendaftaran Muallaf</span>
                       <ArrowRight className="h-3.5 w-3.5" />
                     </div>
@@ -1562,23 +1562,23 @@ export default function App() {
                   {/* Penyuluhan Agama Category Card */}
                   <div 
                     onClick={() => setCurrentTab("penyuluhan")}
-                    className="group bg-slate-50/55 hover:bg-white rounded-2xl p-5 border border-slate-100 shadow-xs hover:shadow-xl hover:shadow-emerald-950/5 hover:border-emerald-300 transition-all duration-300 cursor-pointer relative overflow-hidden"
+                    className="group bg-slate-50/55 hover:bg-white rounded-2xl p-5 border border-slate-200/60 shadow-xs hover:shadow-lg hover:shadow-emerald-500/5 hover:border-emerald-500/30 transition-all duration-300 cursor-pointer relative overflow-hidden"
                     id="shortcut-penyuluhan-box"
                   >
-                    <div className="absolute top-0 right-0 w-20 h-20 bg-amber-50 rounded-bl-full group-hover:bg-amber-100/50 transition-colors -z-1" />
+                    <div className="absolute top-0 right-0 w-20 h-20 bg-[#f0f7f5] rounded-bl-full group-hover:bg-emerald-100/45 transition-colors -z-1" />
                     
-                    <div className="w-12 h-12 bg-amber-50 group-hover:bg-emerald-700 text-amber-700 rounded-xl flex items-center justify-center transition-all shadow-xxs">
-                      <BookOpen className="h-6 w-6 group-hover:text-white" />
+                    <div className="w-12 h-12 bg-[#f0f7f5] group-hover:bg-emerald-600 text-emerald-700 group-hover:text-white rounded-xl flex items-center justify-center transition-all shadow-xxs">
+                      <BookOpen className="h-6 w-6" />
                     </div>
                     
-                    <h4 className="text-sm font-black font-display text-slate-900 mt-5 group-hover:text-emerald-800 transition-colors uppercase tracking-tight">
+                    <h4 className="text-sm font-black font-display text-slate-900 mt-5 group-hover:text-emerald-700 transition-colors uppercase tracking-tight">
                       📢 PENYULUHAN AGAMA
                     </h4>
                     <p className="text-[11px] text-slate-500 mt-1.5 leading-relaxed">
                       Penyandaran bimbingan keagamaan syiar Islam, bimbingan berkala muallaf, syiar dakwah, konsultasi syariah digital, dan pendaftaran kegiatannya.
                     </p>
                     
-                    <div className="flex items-center space-x-1 text-xs font-bold text-amber-700 mt-5 group-hover:translate-x-1 transition-transform">
+                    <div className="flex items-center space-x-1 text-xs font-bold text-emerald-700 mt-5 group-hover:translate-x-1 transition-transform">
                       <span className="text-[11px]">Layanan Konseling & Syiar</span>
                       <ArrowRight className="h-3.5 w-3.5" />
                     </div>
@@ -2650,66 +2650,66 @@ export default function App() {
               className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12"
             >
               <div className="text-center max-w-3xl mx-auto mb-16">
-                <span className="text-xs font-bold uppercase tracking-widest text-emerald-700 bg-emerald-100/50 px-3 py-1 rounded-full">
+                <span className="text-xs font-black uppercase tracking-widest text-emerald-700 bg-emerald-50 border border-emerald-100 px-3.5 py-1.5 rounded-full shadow-xxs">
                   Hubungi Kami
                 </span>
-                <h2 className="text-3xl font-extrabold font-display text-emerald-950 mt-2">
+                <h2 className="text-3xl font-black font-display text-emerald-950 mt-4 uppercase tracking-tight">
                   Kontak & Lokasi Kantor
                 </h2>
-                <p className="text-sm text-slate-500 mt-2">
-                  Silakan sampaikan pertanyaan, koordinasi lokasi safari dakwah atau keluhan kepada kami lewat data di bawah.
+                <p className="text-xs text-slate-500 mt-2 max-w-lg mx-auto leading-relaxed">
+                  Silakan sampaikan pertanyaan, koordinasi lokasi safari dakwah atau aduan administratif lewat formulir digital WhatsApp di bawah ini.
                 </p>
               </div>
 
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
                 
                 {/* Form to Submit Questions to WhatsApp */}
-                <div className="lg:col-span-6 bg-white rounded-3xl p-8 border border-slate-100 shadow-xs">
-                  <h3 className="text-xl font-bold font-display text-emerald-950 mb-4 uppercase tracking-tight">Kirim Pesan Langsung</h3>
-                  <p className="text-xs text-slate-500 mb-6">Pesan Anda akan otomatis diposisikan dalam format ramah WhatsApp dan siap dikirim ke administrator KUA.</p>
+                <div className="lg:col-span-6 bg-white rounded-3xl p-8 border border-emerald-500/10 shadow-md ring-1 ring-cyan-500/5">
+                  <h3 className="text-base font-black font-display text-slate-900 mb-3 uppercase tracking-tight">Kirim Pesan Langsung</h3>
+                  <p className="text-[11px] text-slate-500 mb-6 leading-relaxed">Pesan Anda akan otomatis diposisikan dalam format ramah WhatsApp dan siap dikirim ke administrator KUA.</p>
                   
                   <form onSubmit={handleContactSubmit} className="space-y-4">
                     <div>
-                      <label className="block text-xs font-bold text-slate-700 mb-1.5">Nama Lengkap Pengirim</label>
+                      <label className="block text-[10px] font-black uppercase tracking-wider text-slate-500 mb-1.5">Nama Lengkap Pengirim</label>
                       <input
                         type="text"
                         required
                         placeholder="Contoh: Muhammad Yusuf"
                         value={contactName}
                         onChange={(e) => setContactName(e.target.value)}
-                        className="w-full px-4 py-3 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-emerald-500 focus:outline-none"
+                        className="w-full px-4 py-3 bg-slate-50/50 border border-slate-200 rounded-xl text-xs focus:bg-white focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500/20 focus:outline-none transition-all"
                       />
                     </div>
 
                     <div>
-                      <label className="block text-xs font-bold text-slate-700 mb-1.5">Perihal Layanan / Subjek</label>
+                      <label className="block text-[10px] font-black uppercase tracking-wider text-slate-500 mb-1.5">Perihal Layanan / Subjek</label>
                       <input
                         type="text"
                         required
                         placeholder="Contoh: Jadwal bimbingan nikah atau Konsultasi Wakaf"
                         value={contactSubject}
                         onChange={(e) => setContactSubject(e.target.value)}
-                        className="w-full px-4 py-3 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-emerald-500 focus:outline-none"
+                        className="w-full px-4 py-3 bg-slate-50/50 border border-slate-200 rounded-xl text-xs focus:bg-white focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500/20 focus:outline-none transition-all"
                       />
                     </div>
 
                     <div>
-                      <label className="block text-xs font-bold text-slate-700 mb-1.5">Isi Pesan Pertanyaan Anda</label>
+                      <label className="block text-[10px] font-black uppercase tracking-wider text-slate-500 mb-1.5">Isi Pesan Pertanyaan Anda</label>
                       <textarea
                         required
                         rows={4}
                         placeholder="Tulis detail aduan atau pertanyaan warga di sini..."
                         value={contactMessage}
                         onChange={(e) => setContactMessage(e.target.value)}
-                        className="w-full px-4 py-3 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-emerald-500 focus:outline-none"
+                        className="w-full px-4 py-3 bg-slate-50/50 border border-slate-200 rounded-xl text-xs focus:bg-white focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500/20 focus:outline-none transition-all"
                       />
                     </div>
 
                     <button
                       type="submit"
-                      className="w-full py-4.5 bg-emerald-700 hover:bg-emerald-800 text-white rounded-2xl text-xs font-bold transition-all shadow-md flex items-center justify-center space-x-1.5 cursor-pointer"
+                      className="w-full py-4 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold uppercase tracking-widest shadow-md hover:shadow-emerald-600/10 active:scale-97 transition-all flex items-center justify-center space-x-2 cursor-pointer"
                     >
-                      <MessageSquare className="h-4 w-4" />
+                      <MessageSquare className="h-4 w-4 shrink-0" />
                       <span>Kirim via WhatsApp</span>
                     </button>
                   </form>
@@ -2719,48 +2719,48 @@ export default function App() {
                 <div className="lg:col-span-6 space-y-6">
                   
                   {/* Detailed Interactive contacts card */}
-                  <div className="bg-white rounded-3xl p-8 border border-slate-100 shadow-xs space-y-4">
-                    <h3 className="text-xl font-bold font-display text-emerald-950 mb-2 uppercase tracking-tight">Kanal Resmi Kantor</h3>
+                  <div className="bg-white rounded-3xl p-8 border border-emerald-500/10 shadow-md ring-1 ring-cyan-500/5 space-y-5">
+                    <h3 className="text-base font-black font-display text-slate-900 mb-1 uppercase tracking-tight">Kanal Resmi Kantor</h3>
                     
                     <div className="flex items-start space-x-3.5">
-                      <div className="p-2.5 bg-emerald-50 text-emerald-700 rounded-lg">
+                      <div className="p-2.5 bg-emerald-50 border border-emerald-100/40 text-emerald-700 rounded-xl shadow-xxs shrink-0">
                         <MapPin className="h-5 w-5" />
                       </div>
                       <div>
-                        <h4 className="text-xs font-bold text-slate-800">Alamat Kantor Fisik</h4>
-                        <p className="text-[11px] text-slate-500 mt-0.5 leading-relaxed">{defaultSettings.address}</p>
+                        <h4 className="text-[10px] font-black uppercase tracking-wider text-slate-400">Alamat Kantor Fisik</h4>
+                        <p className="text-[11px] font-bold text-slate-800 mt-0.5 leading-relaxed">{defaultSettings.address}</p>
                       </div>
                     </div>
 
                     <div className="flex items-start space-x-3.5">
-                      <div className="p-2.5 bg-emerald-25 text-emerald-700 rounded-lg">
+                      <div className="p-2.5 bg-emerald-50 border border-emerald-100/40 text-emerald-700 rounded-xl shadow-xxs shrink-0">
                         <Mail className="h-5 w-5" />
                       </div>
                       <div>
-                        <h4 className="text-xs font-bold text-slate-800">Surat Elektronik Resmi (Email)</h4>
-                        <p className="text-[11px] text-slate-500 mt-0.5 font-mono">{defaultSettings.email}</p>
+                        <h4 className="text-[10px] font-black uppercase tracking-wider text-slate-400">Surat Elektronik Resmi (Email)</h4>
+                        <p className="text-[11px] font-bold text-slate-800 mt-0.5 font-mono">{defaultSettings.email}</p>
                       </div>
                     </div>
 
                     <div className="flex items-start space-x-3.5">
-                      <div className="p-2.5 bg-emerald-50 text-emerald-700 rounded-lg">
+                      <div className="p-2.5 bg-emerald-50 border border-emerald-100/40 text-emerald-700 rounded-xl shadow-xxs shrink-0">
                         <Phone className="h-5 w-5" />
                       </div>
                       <div>
-                        <h4 className="text-xs font-bold text-slate-800">Telepon Hubungan Pengurus</h4>
-                        <p className="text-[11px] text-slate-500 mt-0.5 font-mono">{defaultSettings.phone}</p>
+                        <h4 className="text-[10px] font-black uppercase tracking-wider text-slate-400">Telepon Hubungan Pengurus</h4>
+                        <p className="text-[11px] font-bold text-slate-800 mt-0.5 font-mono">{defaultSettings.phone}</p>
                       </div>
                     </div>
                   </div>
 
                   {/* Standard Map Directions Map Frame */}
-                  <div className="bg-white rounded-3xl p-3 border border-slate-150 overflow-hidden shadow-xs h-[250px] relative">
-                    <div className="absolute inset-x-0 bottom-0 bg-black/60 text-white p-3 text-[11px] z-10 font-bold flex justify-between items-center">
-                      <span>Peta Administratif Pulau Dullah Utara, Kota Tual</span>
+                  <div className="bg-white rounded-3xl p-3 border border-emerald-500/10 overflow-hidden shadow-md h-[250px] relative ring-1 ring-cyan-500/5">
+                    <div className="absolute inset-x-3 bottom-3 bg-black/75 backdrop-blur-xs text-white px-4 py-2.5 text-[10px] z-10 font-black tracking-wider uppercase rounded-xl flex justify-between items-center">
+                      <span>Peta Administratif KUA Pulau Dullah Utara</span>
                       <a 
                         href={`https://maps.google.com/?q=${encodeURIComponent(defaultSettings.address)}`} 
                         target="_blank" 
-                        className="underline"
+                        className="underline text-emerald-350 hover:text-emerald-300 transition-colors"
                       >
                         Buka Google Maps
                       </a>
@@ -4038,26 +4038,26 @@ export default function App() {
       {/* LOGIN MODAL POPUP */}
       <AnimatePresence>
         {showLoginModal && (
-          <div className="fixed inset-0 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4 z-50">
+          <div className="fixed inset-0 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4 z-50 animate-fade-in">
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
-              className="bg-white rounded-3xl p-8 max-w-sm w-full border border-emerald-50 shadow-2xl relative"
+              className="bg-white rounded-3xl p-8 max-w-sm w-full border border-emerald-500/15 shadow-2xl relative ring-1 ring-cyan-500/5"
             >
               <button
                 onClick={() => { setShowLoginModal(false); setLoginError(""); }}
-                className="absolute top-4 right-4 text-slate-400 hover:text-slate-600 cursor-pointer"
+                className="absolute top-4 right-4 text-slate-400 hover:text-slate-600 cursor-pointer transition-colors"
               >
                 <X className="h-5 w-5" />
               </button>
 
               <div className="text-center mb-6">
-                <div className="p-3 bg-emerald-50 text-emerald-700 rounded-2xl inline-block mb-3">
+                <div className="p-3 bg-emerald-50 border border-emerald-100/60 text-emerald-700 rounded-2xl inline-block mb-3 shadow-xs">
                   <Shield className="h-6 w-6" />
                 </div>
-                <h3 className="text-lg font-bold font-display text-slate-900">Login Administrator</h3>
-                <p className="text-xs text-slate-400 mt-1">Gunakan kredensial admin KUA untuk mengelola data website digital.</p>
+                <h3 className="text-base font-black font-display text-slate-900 uppercase tracking-tight">Login Administrator</h3>
+                <p className="text-[11px] text-slate-400 mt-1">Gunakan kredensial admin KUA untuk mengelola data website digital.</p>
               </div>
 
               {loginError && (
@@ -4069,31 +4069,31 @@ export default function App() {
 
               <form onSubmit={handleLogin} className="space-y-4">
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 mb-1">Nama Pengguna (Username)</label>
+                  <label className="block text-[10px] font-black uppercase tracking-wider text-slate-500 mb-1">Nama Pengguna (Username)</label>
                   <div className="relative">
-                    <span className="absolute left-3 top-3 text-slate-400"><User className="h-4 w-4" /></span>
+                    <span className="absolute left-3 top-3.5 text-slate-400"><User className="h-3.5 w-3.5" /></span>
                     <input
                       type="text"
                       required
                       placeholder="admin"
                       value={username}
                       onChange={(e) => setUsername(e.target.value)}
-                      className="w-full pl-9 pr-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:ring-1 focus:ring-emerald-500 focus:outline-none"
+                      className="w-full pl-9 pr-3 py-2.5 bg-slate-50/50 border border-slate-200/80 rounded-xl text-xs focus:bg-white focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500/20 focus:outline-none transition-all"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 mb-1">Kata Sandi (Password)</label>
+                  <label className="block text-[10px] font-black uppercase tracking-wider text-slate-500 mb-1">Kata Sandi (Password)</label>
                   <div className="relative">
-                    <span className="absolute left-3 top-3 text-slate-400"><Lock className="h-4 w-4" /></span>
+                    <span className="absolute left-3 top-3.5 text-slate-400"><Lock className="h-3.5 w-3.5" /></span>
                     <input
                       type="password"
                       required
                       placeholder="••••••••"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
-                      className="w-full pl-9 pr-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:ring-1 focus:ring-emerald-500 focus:outline-none"
+                      className="w-full pl-9 pr-3 py-2.5 bg-slate-50/50 border border-slate-200/80 rounded-xl text-xs focus:bg-white focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500/20 focus:outline-none transition-all"
                     />
                   </div>
                 </div>
@@ -4101,7 +4101,7 @@ export default function App() {
                 <div className="pt-2">
                   <button
                     type="submit"
-                    className="w-full py-3 bg-emerald-700 hover:bg-emerald-800 text-white rounded-xl text-xs font-bold shadow-md transition-colors cursor-pointer"
+                    className="w-full py-3.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold uppercase tracking-widest shadow-md hover:shadow-emerald-600/10 active:scale-97 transition-all cursor-pointer"
                   >
                     Masuk ke Dashboard
                   </button>
