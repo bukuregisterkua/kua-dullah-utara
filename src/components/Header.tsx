@@ -161,11 +161,6 @@ export default function Header({ currentTab, setCurrentTab, onAdminClick, isAdmi
 
           {/* Mobile Menu Toggle */}
           <div className="flex items-center lg:hidden space-x-3">
-            {/* Minimal Mobile WIT Clock */}
-            <div className="text-right text-[11px] font-mono text-emerald-800 font-semibold bg-emerald-50/70 border border-emerald-100 px-2 py-1 rounded-lg">
-              {witTime.split(" ")[0]} WIT
-            </div>
-            
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="p-2 text-slate-700 hover:text-emerald-800 hover:bg-emerald-50 rounded-xl transition-colors cursor-pointer"
