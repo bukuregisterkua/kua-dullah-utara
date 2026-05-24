@@ -1481,28 +1481,28 @@ export default function App() {
                   </p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6">
                   {/* Layanan Nikah Category Card */}
                   <div 
                     onClick={() => setCurrentTab("nikah")}
-                    className="group bg-slate-50/55 hover:bg-white rounded-3xl p-6 border border-slate-100 shadow-xs hover:shadow-lg hover:border-emerald-200 transition-all cursor-pointer relative overflow-hidden"
+                    className="group bg-slate-50/55 hover:bg-white rounded-2xl p-5 border border-slate-100 shadow-xs hover:shadow-xl hover:shadow-emerald-950/5 hover:border-emerald-300 transition-all duration-300 cursor-pointer relative overflow-hidden"
                     id="shortcut-nikah-box"
                   >
-                    <div className="absolute top-0 right-0 w-24 h-24 bg-emerald-50 rounded-bl-full group-hover:bg-emerald-100 transition-colors -z-1" />
+                    <div className="absolute top-0 right-0 w-20 h-20 bg-emerald-50 rounded-bl-full group-hover:bg-emerald-100/50 transition-colors -z-1" />
                     
-                    <div className="w-14 h-14 bg-emerald-50 group-hover:bg-emerald-700 hover:text-white text-emerald-700 rounded-2xl flex items-center justify-center transition-all shadow-xxs">
-                      <Heart className="h-7 w-7 group-hover:text-white" />
+                    <div className="w-12 h-12 bg-emerald-50 group-hover:bg-emerald-700 text-emerald-700 rounded-xl flex items-center justify-center transition-all shadow-xxs">
+                      <Heart className="h-6 w-6 group-hover:text-white" />
                     </div>
                     
-                    <h4 className="text-lg font-bold font-display text-slate-900 mt-6 group-hover:text-emerald-800 transition-colors">
+                    <h4 className="text-sm font-black font-display text-slate-900 mt-5 group-hover:text-emerald-800 transition-colors uppercase tracking-tight">
                       💍 LAYANAN NIKAH
                     </h4>
-                    <p className="text-xs text-slate-500 mt-2 leading-relaxed">
+                    <p className="text-[11px] text-slate-500 mt-1.5 leading-relaxed">
                       Pemberkasan nikah, pendaftaran SIMKAH, bimbingan perkawinan (Bimwin) online, video alur pendaftaran, dan pembuatan surat rekomendasi nikah luar daerah.
                     </p>
                     
-                    <div className="flex items-center space-x-1.5 text-xs font-bold text-emerald-700 mt-6 group-hover:translate-x-1.5 transition-transform">
-                      <span>Layanan Nikah Online</span>
+                    <div className="flex items-center space-x-1 text-xs font-bold text-emerald-700 mt-5 group-hover:translate-x-1 transition-transform">
+                      <span className="text-[11px]">Layanan Nikah Online</span>
                       <ArrowRight className="h-3.5 w-3.5" />
                     </div>
                   </div>
@@ -1510,24 +1510,24 @@ export default function App() {
                   {/* Layanan Wakaf Category Card */}
                   <div 
                     onClick={() => setCurrentTab("wakaf")}
-                    className="group bg-slate-50/55 hover:bg-white rounded-3xl p-6 border border-slate-100 shadow-xs hover:shadow-lg hover:border-emerald-200 transition-all cursor-pointer relative overflow-hidden"
+                    className="group bg-slate-50/55 hover:bg-white rounded-2xl p-5 border border-slate-100 shadow-xs hover:shadow-xl hover:shadow-emerald-950/5 hover:border-emerald-300 transition-all duration-300 cursor-pointer relative overflow-hidden"
                     id="shortcut-wakaf-box"
                   >
-                    <div className="absolute top-0 right-0 w-24 h-24 bg-teal-50 rounded-bl-full group-hover:bg-teal-100 transition-colors -z-1" />
+                    <div className="absolute top-0 right-0 w-20 h-20 bg-teal-50 rounded-bl-full group-hover:bg-teal-100/50 transition-colors -z-1" />
                     
-                    <div className="w-14 h-14 bg-teal-50 group-hover:bg-emerald-700 text-emerald-800 rounded-2xl flex items-center justify-center transition-all shadow-xxs">
-                      <FileText className="h-7 w-7 group-hover:text-white" />
+                    <div className="w-12 h-12 bg-teal-50 group-hover:bg-emerald-700 text-emerald-800 rounded-xl flex items-center justify-center transition-all shadow-xxs">
+                      <FileText className="h-6 w-6 group-hover:text-white" />
                     </div>
                     
-                    <h4 className="text-lg font-bold font-display text-slate-900 mt-6 group-hover:text-emerald-800 transition-colors">
+                    <h4 className="text-sm font-black font-display text-slate-900 mt-5 group-hover:text-emerald-800 transition-colors uppercase tracking-tight">
                       📜 LAYANAN WAKAF
                     </h4>
-                    <p className="text-xs text-slate-500 mt-2 leading-relaxed">
+                    <p className="text-[11px] text-slate-500 mt-1.5 leading-relaxed">
                       Persyaratan berkas sertifikasi tanah wakaf, informasi alur pembukuan, SIWAK Kemenag online, konsultasi wakaf terintegrasi WhatsApp, dan tutorial.
                     </p>
                     
-                    <div className="flex items-center space-x-1.5 text-xs font-bold text-teal-700 mt-6 group-hover:translate-x-1.5 transition-transform">
-                      <span>Database SIWAK</span>
+                    <div className="flex items-center space-x-1 text-xs font-bold text-teal-700 mt-5 group-hover:translate-x-1 transition-transform">
+                      <span className="text-[11px]">Database SIWAK</span>
                       <ArrowRight className="h-3.5 w-3.5" />
                     </div>
                   </div>
@@ -1535,24 +1535,24 @@ export default function App() {
                   {/* Muallaf Center Category Card */}
                   <div 
                     onClick={() => setCurrentTab("muallaf")}
-                    className="group bg-slate-50/55 hover:bg-white rounded-3xl p-6 border border-slate-100 shadow-xs hover:shadow-lg hover:border-emerald-200 transition-all cursor-pointer relative overflow-hidden"
+                    className="group bg-slate-50/55 hover:bg-white rounded-2xl p-5 border border-slate-100 shadow-xs hover:shadow-xl hover:shadow-emerald-950/5 hover:border-emerald-300 transition-all duration-300 cursor-pointer relative overflow-hidden"
                     id="shortcut-muallaf-box"
                   >
-                    <div className="absolute top-0 right-0 w-24 h-24 bg-sky-50 rounded-bl-full group-hover:bg-sky-100 transition-colors -z-1" />
+                    <div className="absolute top-0 right-0 w-20 h-20 bg-sky-50 rounded-bl-full group-hover:bg-sky-100/50 transition-colors -z-1" />
                     
-                    <div className="w-14 h-14 bg-sky-50 group-hover:bg-emerald-700 text-sky-700 rounded-2xl flex items-center justify-center transition-all shadow-xxs">
-                      <Globe className="h-7 w-7 group-hover:text-white" />
+                    <div className="w-12 h-12 bg-sky-50 group-hover:bg-emerald-700 text-sky-700 rounded-xl flex items-center justify-center transition-all shadow-xxs">
+                      <Globe className="h-6 w-6 group-hover:text-white" />
                     </div>
                     
-                    <h4 className="text-lg font-bold font-display text-slate-900 mt-6 group-hover:text-emerald-800 transition-colors">
+                    <h4 className="text-sm font-black font-display text-slate-900 mt-5 group-hover:text-emerald-800 transition-colors uppercase tracking-tight">
                       🕌 MUALLAF CENTER
                     </h4>
-                    <p className="text-xs text-slate-500 mt-2 leading-relaxed">
+                    <p className="text-[11px] text-slate-500 mt-1.5 leading-relaxed">
                       Bimbingan ikrar muallaf, penerbitan sertifikat pemeluk agama islam resmi, pembinaan akidah berkelanjutan, konseling keagamaan, dan konsultasi.
                     </p>
                     
-                    <div className="flex items-center space-x-1.5 text-xs font-bold text-sky-700 mt-6 group-hover:translate-x-1.5 transition-transform">
-                      <span>Pendaftaran Muallaf</span>
+                    <div className="flex items-center space-x-1 text-xs font-bold text-sky-700 mt-5 group-hover:translate-x-1 transition-transform">
+                      <span className="text-[11px]">Pendaftaran Muallaf</span>
                       <ArrowRight className="h-3.5 w-3.5" />
                     </div>
                   </div>
@@ -1560,24 +1560,24 @@ export default function App() {
                   {/* Penyuluhan Agama Category Card */}
                   <div 
                     onClick={() => setCurrentTab("penyuluhan")}
-                    className="group bg-slate-50/55 hover:bg-white rounded-3xl p-6 border border-slate-100 shadow-xs hover:shadow-lg hover:border-emerald-200 transition-all cursor-pointer relative overflow-hidden"
+                    className="group bg-slate-50/55 hover:bg-white rounded-2xl p-5 border border-slate-100 shadow-xs hover:shadow-xl hover:shadow-emerald-950/5 hover:border-emerald-300 transition-all duration-300 cursor-pointer relative overflow-hidden"
                     id="shortcut-penyuluhan-box"
                   >
-                    <div className="absolute top-0 right-0 w-24 h-24 bg-amber-50 rounded-bl-full group-hover:bg-amber-100 transition-colors -z-1" />
+                    <div className="absolute top-0 right-0 w-20 h-20 bg-amber-50 rounded-bl-full group-hover:bg-amber-100/50 transition-colors -z-1" />
                     
-                    <div className="w-14 h-14 bg-amber-50 group-hover:bg-emerald-700 text-amber-700 rounded-2xl flex items-center justify-center transition-all shadow-xxs">
-                      <BookOpen className="h-7 w-7 group-hover:text-white" />
+                    <div className="w-12 h-12 bg-amber-50 group-hover:bg-emerald-700 text-amber-700 rounded-xl flex items-center justify-center transition-all shadow-xxs">
+                      <BookOpen className="h-6 w-6 group-hover:text-white" />
                     </div>
                     
-                    <h4 className="text-lg font-bold font-display text-slate-900 mt-6 group-hover:text-emerald-800 transition-colors">
+                    <h4 className="text-sm font-black font-display text-slate-900 mt-5 group-hover:text-emerald-800 transition-colors uppercase tracking-tight">
                       📢 PENYULUHAN AGAMA
                     </h4>
-                    <p className="text-xs text-slate-500 mt-2 leading-relaxed">
-                      Penyandaran bimbingan keagamaan syiar Islam, penyuluhan keluarga sakinah, konsultasi syariah digital, dan pendaftaran kegiatannya.
+                    <p className="text-[11px] text-slate-500 mt-1.5 leading-relaxed">
+                      Penyandaran bimbingan keagamaan syiar Islam, bimbingan berkala muallaf, syiar dakwah, konsultasi syariah digital, dan pendaftaran kegiatannya.
                     </p>
                     
-                    <div className="flex items-center space-x-1.5 text-xs font-bold text-amber-700 mt-6 group-hover:translate-x-1.5 transition-transform">
-                      <span>Layanan Konseling & Syiar</span>
+                    <div className="flex items-center space-x-1 text-xs font-bold text-amber-700 mt-5 group-hover:translate-x-1 transition-transform">
+                      <span className="text-[11px]">Layanan Konseling & Syiar</span>
                       <ArrowRight className="h-3.5 w-3.5" />
                     </div>
                   </div>
@@ -3821,19 +3821,20 @@ export default function App() {
       </main>
 
       {/* FOOTER AREA */}
-      <footer className="bg-[#0A0F1F] text-white pt-10 pb-12 relative overflow-hidden rounded-t-[2rem] border-t border-emerald-950/20 shadow-[0_-12px_45px_rgba(16,185,129,0.05)]" id="website-premium-footer">
+      <footer className="bg-[#020617] text-white pt-8 pb-10 relative overflow-hidden rounded-t-[2.5rem] border-t border-emerald-500/10 shadow-[0_-15px_60px_rgba(16,185,129,0.06)]" id="website-premium-footer">
         {/* Background gradient layout for elegant glow on bottom left */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,rgba(16,185,129,0.06),transparent_50%)] pointer-events-none" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,rgba(16,185,129,0.05),transparent_60%)] pointer-events-none" />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-4/5 h-[1px] bg-gradient-to-r from-transparent via-emerald-500/25 to-transparent pointer-events-none" />
         
         <div className="max-w-5xl mx-auto px-6 relative z-10">
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8 text-center md:text-left">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-6 text-center md:text-left">
             
             {/* Column 1: Informasi KUA */}
             <div className="space-y-4 flex flex-col items-center md:items-start" id="footer-col-info">
               <div className="flex items-center space-x-2.5">
                 {defaultSettings.secondaryLogoImg || defaultSettings.logoImg ? (
-                  <div className="w-9 h-9 flex items-center justify-center overflow-hidden">
+                  <div className="w-9 h-9 flex items-center justify-center overflow-hidden filter drop-shadow-[0_2px_8px_rgba(16,185,129,0.2)]">
                     <img 
                       src={defaultSettings.secondaryLogoImg || defaultSettings.logoImg} 
                       alt="Logo Footer" 
@@ -3847,7 +3848,7 @@ export default function App() {
                   </div>
                 )}
                 <div className="text-left">
-                  <h4 className="text-sm font-bold font-sans uppercase tracking-wider text-emerald-300">
+                  <h4 className="text-xs font-black font-display uppercase tracking-wider text-emerald-300">
                     KUA PULAU DULLAH UTARA
                   </h4>
                   <p className="text-[9px] text-emerald-500/90 font-extrabold tracking-wider uppercase">
@@ -3855,21 +3856,21 @@ export default function App() {
                   </p>
                 </div>
               </div>
-              <p className="text-[11px] text-slate-400 leading-relaxed max-w-sm">
-                Portal Pelayanan Terpadu Digital Mandiri Kecamatan Pulau Dullah Utara, Kota Tual. Nikah, Wakaf dan Konseling Muallaf Center berbasis keterbukaan teknologi publik.
+              <p className="text-[10.5px] text-slate-400 leading-relaxed max-w-sm">
+                Portal Pelayanan Terpadu Digital Mandiri Kecamatan Pulau Dullah Utara, Kota Tual. Nikah, Wakaf dan Konseling Muallaf Center berbasis pelayanan masyarakat digital modern.
               </p>
 
               {/* Clickable Social Media Links with premium glow feedback */}
               {(defaultSettings.facebookUrl || defaultSettings.instagramUrl || defaultSettings.twitterUrl || defaultSettings.tiktokUrl || defaultSettings.youtubeUrl) && (
-                <div className="flex flex-col space-y-1.5 pt-1.5 items-center md:items-start">
-                  <span className="text-[8.5px] font-bold uppercase tracking-widest text-emerald-500/80">Media Sosial Kami</span>
-                  <div className="flex items-center gap-1.5">
+                <div className="flex flex-col space-y-1.5 pt-1 items-center md:items-start">
+                  <span className="text-[8.5px] font-bold uppercase tracking-widest text-[#10b981]">Media Sosial Resmi</span>
+                  <div className="flex items-center gap-2">
                     {defaultSettings.facebookUrl && (
                       <a 
                         href={defaultSettings.facebookUrl.startsWith("http") ? defaultSettings.facebookUrl : `https://${defaultSettings.facebookUrl}`} 
                         target="_blank" 
                         rel="noopener noreferrer"
-                        className="p-1.5 rounded-lg bg-slate-900/60 border border-slate-800 hover:border-emerald-500/30 hover:bg-emerald-500/10 text-slate-400 hover:text-emerald-400 hover:shadow-[0_0_12px_rgba(16,185,129,0.12)] hover:-translate-y-0.5 transition-all duration-300"
+                        className="p-1.5 rounded-full bg-slate-900 border border-slate-800 hover:border-emerald-500/50 hover:bg-emerald-500/10 text-slate-400 hover:text-white hover:shadow-[0_0_15px_rgba(16,185,129,0.25)] hover:scale-105 transition-all duration-300"
                         title="Facebook Resmi KUA"
                       >
                         <Facebook className="h-3.5 w-3.5" />
@@ -3880,7 +3881,7 @@ export default function App() {
                         href={defaultSettings.instagramUrl.startsWith("http") ? defaultSettings.instagramUrl : `https://${defaultSettings.instagramUrl}`} 
                         target="_blank" 
                         rel="noopener noreferrer"
-                        className="p-1.5 rounded-lg bg-slate-900/60 border border-slate-800 hover:border-emerald-500/30 hover:bg-emerald-500/10 text-slate-400 hover:text-emerald-400 hover:shadow-[0_0_12px_rgba(16,185,129,0.12)] hover:-translate-y-0.5 transition-all duration-300"
+                        className="p-1.5 rounded-full bg-slate-900 border border-slate-800 hover:border-emerald-500/50 hover:bg-emerald-500/10 text-slate-400 hover:text-white hover:shadow-[0_0_15px_rgba(16,185,129,0.25)] hover:scale-105 transition-all duration-300"
                         title="Instagram Resmi KUA"
                       >
                         <Instagram className="h-3.5 w-3.5" />
@@ -3891,7 +3892,7 @@ export default function App() {
                         href={defaultSettings.twitterUrl.startsWith("http") ? defaultSettings.twitterUrl : `https://${defaultSettings.twitterUrl}`} 
                         target="_blank" 
                         rel="noopener noreferrer"
-                        className="p-1.5 rounded-lg bg-slate-900/60 border border-slate-800 hover:border-emerald-500/30 hover:bg-emerald-500/10 text-slate-400 hover:text-emerald-400 hover:shadow-[0_0_12px_rgba(16,185,129,0.12)] hover:-translate-y-0.5 transition-all duration-300"
+                        className="p-1.5 rounded-full bg-slate-900 border border-slate-800 hover:border-emerald-500/50 hover:bg-emerald-500/10 text-slate-400 hover:text-white hover:shadow-[0_0_15px_rgba(16,185,129,0.25)] hover:scale-105 transition-all duration-300"
                         title="Twitter / X Resmi KUA"
                       >
                         <Twitter className="h-3.5 w-3.5" />
@@ -3902,7 +3903,7 @@ export default function App() {
                         href={defaultSettings.tiktokUrl.startsWith("http") ? defaultSettings.tiktokUrl : `https://${defaultSettings.tiktokUrl}`} 
                         target="_blank" 
                         rel="noopener noreferrer"
-                        className="p-1.5 rounded-lg bg-slate-900/60 border border-slate-800 hover:border-emerald-500/30 hover:bg-emerald-500/10 text-slate-400 hover:text-emerald-400 hover:shadow-[0_0_12px_rgba(16,185,129,0.12)] hover:-translate-y-0.5 transition-all duration-300"
+                        className="p-1.5 rounded-full bg-slate-900 border border-slate-800 hover:border-emerald-500/50 hover:bg-emerald-500/10 text-slate-400 hover:text-white hover:shadow-[0_0_15px_rgba(16,185,129,0.25)] hover:scale-105 transition-all duration-300"
                         title="TikTok Resmi KUA"
                       >
                         <Music className="h-3.5 w-3.5" />
@@ -3913,7 +3914,7 @@ export default function App() {
                         href={defaultSettings.youtubeUrl.startsWith("http") ? defaultSettings.youtubeUrl : `https://${defaultSettings.youtubeUrl}`} 
                         target="_blank" 
                         rel="noopener noreferrer"
-                        className="p-1.5 rounded-lg bg-slate-900/60 border border-slate-800 hover:border-emerald-500/30 hover:bg-emerald-500/10 text-slate-400 hover:text-emerald-400 hover:shadow-[0_0_12px_rgba(16,185,129,0.12)] hover:-translate-y-0.5 transition-all duration-300"
+                        className="p-1.5 rounded-full bg-slate-900 border border-slate-800 hover:border-emerald-500/50 hover:bg-emerald-500/10 text-slate-400 hover:text-white hover:shadow-[0_0_15px_rgba(16,185,129,0.25)] hover:scale-105 transition-all duration-300"
                         title="YouTube Resmi KUA"
                       >
                         <Youtube className="h-3.5 w-3.5" />
@@ -3926,33 +3927,33 @@ export default function App() {
 
             {/* Column 2: Layanan Cepat */}
             <div className="flex flex-col items-center md:items-start" id="footer-col-services">
-              <h5 className="font-bold text-emerald-400 text-[10.5px] uppercase tracking-wider mb-3 border-b border-emerald-950/40 pb-1 shrink-0">
-                Layanan Cepat
+              <h5 className="font-exbold text-emerald-400 text-[10px] uppercase tracking-widest mb-3 border-b border-emerald-950/40 pb-1 shrink-0">
+                Menu Layanan
               </h5>
-              <ul className="space-y-2 text-[11px] text-slate-400">
+              <ul className="space-y-2 text-[10.5px] text-slate-400 select-none">
                 <li>
-                  <button onClick={() => setCurrentTab("nikah")} className="hover:text-emerald-300 hover:translate-x-0.5 transition-all flex items-center gap-1.5 justify-center md:justify-start cursor-pointer">
+                  <button onClick={() => setCurrentTab("nikah")} className="hover:text-emerald-300 hover:translate-x-1 transition-all flex items-center gap-1.5 justify-center md:justify-start cursor-pointer">
                     <span>💍</span> Layanan Nikah Online
                   </button>
                 </li>
                 <li>
-                  <button onClick={() => setCurrentTab("wakaf")} className="hover:text-emerald-300 hover:translate-x-0.5 transition-all flex items-center gap-1.5 justify-center md:justify-start cursor-pointer">
+                  <button onClick={() => setCurrentTab("wakaf")} className="hover:text-emerald-300 hover:translate-x-1 transition-all flex items-center gap-1.5 justify-center md:justify-start cursor-pointer">
                     <span>📜</span> Sertifikasi Tanah Wakaf
                   </button>
                 </li>
                 <li>
-                  <button onClick={() => setCurrentTab("muallaf")} className="hover:text-emerald-300 hover:translate-x-0.5 transition-all flex items-center gap-1.5 justify-center md:justify-start cursor-pointer">
-                    <span>🕌</span> Persyaratan Ikrar Muallaf
+                  <button onClick={() => setCurrentTab("muallaf")} className="hover:text-emerald-300 hover:translate-x-1 transition-all flex items-center gap-1.5 justify-center md:justify-start cursor-pointer">
+                    <span>🕌</span> Bimbingan Muallaf Center
                   </button>
                 </li>
                 <li>
-                  <button onClick={() => setCurrentTab("penyuluhan")} className="hover:text-emerald-300 hover:translate-x-0.5 transition-all flex items-center gap-1.5 justify-center md:justify-start cursor-pointer">
-                    <span>📢</span> Penyuluhan Agama Islam
+                  <button onClick={() => setCurrentTab("penyuluhan")} className="hover:text-emerald-300 hover:translate-x-1 transition-all flex items-center gap-1.5 justify-center md:justify-start cursor-pointer">
+                    <span>📢</span> Penyuluh Agama Islam
                   </button>
                 </li>
                 <li>
-                  <button onClick={() => setCurrentTab("pengumuman")} className="hover:text-emerald-300 hover:translate-x-0.5 transition-all flex items-center gap-1.5 justify-center md:justify-start cursor-pointer">
-                    <span>📢</span> Papan Maklumat Umum
+                  <button onClick={() => setCurrentTab("pengumuman")} className="hover:text-emerald-300 hover:translate-x-1 transition-all flex items-center gap-1.5 justify-center md:justify-start cursor-pointer">
+                    <span>📢</span> Papan Pengumuman KUA
                   </button>
                 </li>
               </ul>
@@ -3960,10 +3961,10 @@ export default function App() {
 
             {/* Column 3: Informasi Kantor */}
             <div className="flex flex-col items-center md:items-start text-center md:text-left" id="footer-col-contacts">
-              <h5 className="font-bold text-emerald-400 text-[10.5px] uppercase tracking-wider mb-3 border-b border-emerald-950/40 pb-1 shrink-0">
-                Informasi Kantor
+              <h5 className="font-exbold text-emerald-400 text-[10px] uppercase tracking-widest mb-3 border-b border-emerald-950/40 pb-1 shrink-0">
+                Kontak Kantor
               </h5>
-              <div className="space-y-2.5 text-[11px] text-slate-400">
+              <div className="space-y-2.5 text-[10.5px] text-slate-400">
                 <div className="flex items-start gap-2 justify-center md:justify-start leading-relaxed">
                   <MapPin className="h-4 w-4 text-emerald-500 shrink-0 mt-0.5" />
                   <span>{defaultSettings.address}</span>
@@ -3981,12 +3982,13 @@ export default function App() {
 
           </div>
 
-          <hr className="border-slate-800/40 my-6" />
+          {/* Thin Modern Gradient Divider */}
+          <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-slate-800 to-transparent my-5" />
 
           {/* Copyright claims */}
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-3 text-[10px] text-slate-500/95 text-center sm:text-left">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-3 text-[10px] text-slate-500/95 text-center sm:text-left select-none">
             <p>© 2026 Kantor Urusan Agama Kecamatan Pulau Dullah Utara. Hak Cipta Dilindungi.</p>
-            <p className="text-slate-600">Diregistrasi Resmi Kemenag RI • Kota Tual, Maluku.</p>
+            <p className="text-slate-600">Terregistrasi Resmi Kemenag RI • Kota Tual, Maluku.</p>
           </div>
 
         </div>
