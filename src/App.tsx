@@ -3688,17 +3688,19 @@ export default function App() {
       </main>
 
       {/* FOOTER AREA */}
-      <footer className="bg-slate-900 text-white pt-16 pb-20 relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,rgba(16,185,129,0.1),transparent_40%)]" />
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+      <footer className="bg-[#0A0F1F] text-white pt-10 pb-12 relative overflow-hidden rounded-t-[2rem] border-t border-emerald-950/20 shadow-[0_-12px_45px_rgba(16,185,129,0.05)]" id="website-premium-footer">
+        {/* Background gradient layout for elegant glow on bottom left */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,rgba(16,185,129,0.06),transparent_50%)] pointer-events-none" />
+        
+        <div className="max-w-5xl mx-auto px-6 relative z-10">
           
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8 text-center md:text-left">
             
-            {/* Identity element */}
-            <div className="md:col-span-2 space-y-4">
-              <div className="flex items-center space-x-3">
+            {/* Column 1: Informasi KUA */}
+            <div className="space-y-4 flex flex-col items-center md:items-start" id="footer-col-info">
+              <div className="flex items-center space-x-2.5">
                 {defaultSettings.secondaryLogoImg || defaultSettings.logoImg ? (
-                  <div className="w-11 h-11 flex items-center justify-center overflow-hidden">
+                  <div className="w-9 h-9 flex items-center justify-center overflow-hidden">
                     <img 
                       src={defaultSettings.secondaryLogoImg || defaultSettings.logoImg} 
                       alt="Logo Footer" 
@@ -3707,37 +3709,37 @@ export default function App() {
                     />
                   </div>
                 ) : (
-                  <div className="p-2.5 bg-emerald-700 rounded-xl">
-                    <BookOpen className="h-5 w-5 text-white" />
+                  <div className="p-2 bg-emerald-700/90 rounded-lg">
+                    <BookOpen className="h-4.5 w-4.5 text-white" />
                   </div>
                 )}
-                <div>
-                  <h4 className="text-lg font-bold font-display uppercase tracking-widest text-emerald-300">
+                <div className="text-left">
+                  <h4 className="text-sm font-bold font-sans uppercase tracking-wider text-emerald-300">
                     KUA PULAU DULLAH UTARA
                   </h4>
-                  <p className="text-[10px] text-emerald-600 font-extrabold tracking-wider uppercase">
+                  <p className="text-[9px] text-emerald-500/90 font-extrabold tracking-wider uppercase">
                     Kementerian Agama Kota Tual
                   </p>
                 </div>
               </div>
-              <p className="text-xs text-slate-400 leading-relaxed max-w-sm">
+              <p className="text-[11px] text-slate-400 leading-relaxed max-w-sm">
                 Portal Pelayanan Terpadu Digital Mandiri Kecamatan Pulau Dullah Utara, Kota Tual. Nikah, Wakaf dan Konseling Muallaf Center berbasis keterbukaan teknologi publik.
               </p>
 
-              {/* Clickable Social Media Links */}
+              {/* Clickable Social Media Links with premium glow feedback */}
               {(defaultSettings.facebookUrl || defaultSettings.instagramUrl || defaultSettings.twitterUrl || defaultSettings.tiktokUrl || defaultSettings.youtubeUrl) && (
-                <div className="flex flex-col space-y-2 pt-2">
-                  <span className="text-[9px] font-extrabold uppercase tracking-widest text-emerald-400">Media Sosial Kami:</span>
-                  <div className="flex items-center space-x-2.5">
+                <div className="flex flex-col space-y-1.5 pt-1.5 items-center md:items-start">
+                  <span className="text-[8.5px] font-bold uppercase tracking-widest text-emerald-500/80">Media Sosial Kami</span>
+                  <div className="flex items-center gap-1.5">
                     {defaultSettings.facebookUrl && (
                       <a 
                         href={defaultSettings.facebookUrl.startsWith("http") ? defaultSettings.facebookUrl : `https://${defaultSettings.facebookUrl}`} 
                         target="_blank" 
                         rel="noopener noreferrer"
-                        className="w-8 h-8 rounded-full bg-slate-800 hover:bg-emerald-600 flex items-center justify-center text-slate-300 hover:text-white transition-all duration-300 border border-slate-700/50 shadow-sm"
+                        className="p-1.5 rounded-lg bg-slate-900/60 border border-slate-800 hover:border-emerald-500/30 hover:bg-emerald-500/10 text-slate-400 hover:text-emerald-400 hover:shadow-[0_0_12px_rgba(16,185,129,0.12)] hover:-translate-y-0.5 transition-all duration-300"
                         title="Facebook Resmi KUA"
                       >
-                        <Facebook className="h-4 w-4" />
+                        <Facebook className="h-3.5 w-3.5" />
                       </a>
                     )}
                     {defaultSettings.instagramUrl && (
@@ -3745,10 +3747,10 @@ export default function App() {
                         href={defaultSettings.instagramUrl.startsWith("http") ? defaultSettings.instagramUrl : `https://${defaultSettings.instagramUrl}`} 
                         target="_blank" 
                         rel="noopener noreferrer"
-                        className="w-8 h-8 rounded-full bg-slate-800 hover:bg-emerald-600 flex items-center justify-center text-slate-300 hover:text-white transition-all duration-300 border border-slate-700/50 shadow-sm"
+                        className="p-1.5 rounded-lg bg-slate-900/60 border border-slate-800 hover:border-emerald-500/30 hover:bg-emerald-500/10 text-slate-400 hover:text-emerald-400 hover:shadow-[0_0_12px_rgba(16,185,129,0.12)] hover:-translate-y-0.5 transition-all duration-300"
                         title="Instagram Resmi KUA"
                       >
-                        <Instagram className="h-4 w-4" />
+                        <Instagram className="h-3.5 w-3.5" />
                       </a>
                     )}
                     {defaultSettings.twitterUrl && (
@@ -3756,10 +3758,10 @@ export default function App() {
                         href={defaultSettings.twitterUrl.startsWith("http") ? defaultSettings.twitterUrl : `https://${defaultSettings.twitterUrl}`} 
                         target="_blank" 
                         rel="noopener noreferrer"
-                        className="w-8 h-8 rounded-full bg-slate-800 hover:bg-emerald-600 flex items-center justify-center text-slate-300 hover:text-white transition-all duration-300 border border-slate-700/50 shadow-sm"
+                        className="p-1.5 rounded-lg bg-slate-900/60 border border-slate-800 hover:border-emerald-500/30 hover:bg-emerald-500/10 text-slate-400 hover:text-emerald-400 hover:shadow-[0_0_12px_rgba(16,185,129,0.12)] hover:-translate-y-0.5 transition-all duration-300"
                         title="Twitter / X Resmi KUA"
                       >
-                        <Twitter className="h-4 w-4" />
+                        <Twitter className="h-3.5 w-3.5" />
                       </a>
                     )}
                     {defaultSettings.tiktokUrl && (
@@ -3767,10 +3769,10 @@ export default function App() {
                         href={defaultSettings.tiktokUrl.startsWith("http") ? defaultSettings.tiktokUrl : `https://${defaultSettings.tiktokUrl}`} 
                         target="_blank" 
                         rel="noopener noreferrer"
-                        className="w-8 h-8 rounded-full bg-slate-800 hover:bg-emerald-600 flex items-center justify-center text-slate-300 hover:text-white transition-all duration-300 border border-slate-700/50 shadow-sm"
+                        className="p-1.5 rounded-lg bg-slate-900/60 border border-slate-800 hover:border-emerald-500/30 hover:bg-emerald-500/10 text-slate-400 hover:text-emerald-400 hover:shadow-[0_0_12px_rgba(16,185,129,0.12)] hover:-translate-y-0.5 transition-all duration-300"
                         title="TikTok Resmi KUA"
                       >
-                        <Music className="h-4 w-4" />
+                        <Music className="h-3.5 w-3.5" />
                       </a>
                     )}
                     {defaultSettings.youtubeUrl && (
@@ -3778,10 +3780,10 @@ export default function App() {
                         href={defaultSettings.youtubeUrl.startsWith("http") ? defaultSettings.youtubeUrl : `https://${defaultSettings.youtubeUrl}`} 
                         target="_blank" 
                         rel="noopener noreferrer"
-                        className="w-8 h-8 rounded-full bg-slate-800 hover:bg-emerald-600 flex items-center justify-center text-slate-300 hover:text-white transition-all duration-300 border border-slate-700/50 shadow-sm"
+                        className="p-1.5 rounded-lg bg-slate-900/60 border border-slate-800 hover:border-emerald-500/30 hover:bg-emerald-500/10 text-slate-400 hover:text-emerald-400 hover:shadow-[0_0_12px_rgba(16,185,129,0.12)] hover:-translate-y-0.5 transition-all duration-300"
                         title="YouTube Resmi KUA"
                       >
-                        <Youtube className="h-4 w-4" />
+                        <Youtube className="h-3.5 w-3.5" />
                       </a>
                     )}
                   </div>
@@ -3789,60 +3791,95 @@ export default function App() {
               )}
             </div>
 
-            {/* Quick map links */}
-            <div>
-              <h5 className="font-bold font-display text-emerald-300 text-xs font-mono uppercase tracking-widest mb-4">Layanan Cepat</h5>
-              <ul className="space-y-2 text-xs text-slate-400">
-                <li><button onClick={() => setCurrentTab("nikah")} className="hover:text-emerald-300">💍 Layanan Nikah Online</button></li>
-                <li><button onClick={() => setCurrentTab("wakaf")} className="hover:text-emerald-300">📜 Sertifikasi Tanah Wakaf</button></li>
-                <li><button onClick={() => setCurrentTab("muallaf")} className="hover:text-emerald-300">🕌 Persyaratan Ikrar Muallaf</button></li>
-                <li><button onClick={() => setCurrentTab("penyuluhan")} className="hover:text-emerald-300">📢 Penyuluhan Agama Islam</button></li>
-                <li><button onClick={() => setCurrentTab("pengumuman")} className="hover:text-emerald-300">📢 Papan Maklumat Umum</button></li>
+            {/* Column 2: Layanan Cepat */}
+            <div className="flex flex-col items-center md:items-start" id="footer-col-services">
+              <h5 className="font-bold text-emerald-400 text-[10.5px] uppercase tracking-wider mb-3 border-b border-emerald-950/40 pb-1 shrink-0">
+                Layanan Cepat
+              </h5>
+              <ul className="space-y-2 text-[11px] text-slate-400">
+                <li>
+                  <button onClick={() => setCurrentTab("nikah")} className="hover:text-emerald-300 hover:translate-x-0.5 transition-all flex items-center gap-1.5 justify-center md:justify-start cursor-pointer">
+                    <span>💍</span> Layanan Nikah Online
+                  </button>
+                </li>
+                <li>
+                  <button onClick={() => setCurrentTab("wakaf")} className="hover:text-emerald-300 hover:translate-x-0.5 transition-all flex items-center gap-1.5 justify-center md:justify-start cursor-pointer">
+                    <span>📜</span> Sertifikasi Tanah Wakaf
+                  </button>
+                </li>
+                <li>
+                  <button onClick={() => setCurrentTab("muallaf")} className="hover:text-emerald-300 hover:translate-x-0.5 transition-all flex items-center gap-1.5 justify-center md:justify-start cursor-pointer">
+                    <span>🕌</span> Persyaratan Ikrar Muallaf
+                  </button>
+                </li>
+                <li>
+                  <button onClick={() => setCurrentTab("penyuluhan")} className="hover:text-emerald-300 hover:translate-x-0.5 transition-all flex items-center gap-1.5 justify-center md:justify-start cursor-pointer">
+                    <span>📢</span> Penyuluhan Agama Islam
+                  </button>
+                </li>
+                <li>
+                  <button onClick={() => setCurrentTab("pengumuman")} className="hover:text-emerald-300 hover:translate-x-0.5 transition-all flex items-center gap-1.5 justify-center md:justify-start cursor-pointer">
+                    <span>📢</span> Papan Maklumat Umum
+                  </button>
+                </li>
               </ul>
             </div>
 
-            {/* Contact details */}
-            <div>
-              <h5 className="font-bold font-display text-emerald-300 text-xs font-mono uppercase tracking-widest mb-4">Pelayanan Kantor</h5>
-              <p className="text-xs text-slate-400 leading-relaxed font-mono">
-                {defaultSettings.address}<br />
-                Email: {defaultSettings.email}<br />
-                Telp: {defaultSettings.phone}
-              </p>
+            {/* Column 3: Informasi Kantor */}
+            <div className="flex flex-col items-center md:items-start text-center md:text-left" id="footer-col-contacts">
+              <h5 className="font-bold text-emerald-400 text-[10.5px] uppercase tracking-wider mb-3 border-b border-emerald-950/40 pb-1 shrink-0">
+                Informasi Kantor
+              </h5>
+              <div className="space-y-2.5 text-[11px] text-slate-400">
+                <div className="flex items-start gap-2 justify-center md:justify-start leading-relaxed">
+                  <MapPin className="h-4 w-4 text-emerald-500 shrink-0 mt-0.5" />
+                  <span>{defaultSettings.address}</span>
+                </div>
+                <div className="flex items-center gap-2 justify-center md:justify-start">
+                  <Mail className="h-3.5 w-3.5 text-emerald-500 shrink-0" />
+                  <span className="font-mono">{defaultSettings.email}</span>
+                </div>
+                <div className="flex items-center gap-2 justify-center md:justify-start">
+                  <Phone className="h-3.5 w-3.5 text-emerald-500 shrink-0" />
+                  <span className="font-mono">{defaultSettings.phone}</span>
+                </div>
+              </div>
             </div>
 
           </div>
 
-          <hr className="border-slate-800 my-8" />
+          <hr className="border-slate-800/40 my-6" />
 
           {/* Copyright claims */}
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
-            <p>© 2026 Kantor Urusan Agama Kecamatan Pulau Dullah Utara. Hak Cipta Dilindungi Undang-Undang.</p>
-            <p>Diregistrasi Resmi Kemenag RI • Kota Tual, Maluku.</p>
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-3 text-[10px] text-slate-500/95 text-center sm:text-left">
+            <p>© 2026 Kantor Urusan Agama Kecamatan Pulau Dullah Utara. Hak Cipta Dilindungi.</p>
+            <p className="text-slate-600">Diregistrasi Resmi Kemenag RI • Kota Tual, Maluku.</p>
           </div>
 
         </div>
       </footer>
 
       {/* SLEEK BOTTOM STATUS BAR */}
-      <div className="fixed bottom-0 inset-x-0 h-12 bg-slate-950 flex items-center px-4 sm:px-10 justify-between text-slate-400 text-[11px] sm:text-xs z-40 border-t border-slate-900">
-        <div className="flex items-center gap-6 overflow-hidden w-full">
-          <div className="flex items-center gap-2 shrink-0 text-[9.5px] sm:text-[10px]">
-            <span className="relative flex h-2 w-2 shrink-0 aspect-square">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500 aspect-square"></span>
-            </span>
-            <span className="text-slate-400">KUA Server Status: <span className="text-emerald-400 font-bold animate-pulse">Online</span></span>
-          </div>
-          <div className="w-[1px] h-4 bg-slate-800 shrink-0 hidden sm:block" />
-          <div className="overflow-hidden relative w-full hidden sm:block">
-            <div className="animate-marquee whitespace-nowrap text-slate-300 flex items-center space-x-1 font-mono">
-              <Calendar className="h-4 w-4 text-emerald-500 shrink-0 mr-1.5" />
-              <span>Bimbingan Perkawinan (Bimwin) GRATIS Gelombang II diselenggarakan tiap hari Rabu pukul 09:00 WIT di aula serbaguna KUA. Hubungi petugas via WhatsApp.</span>
-            </div>
+      <div className="fixed bottom-0 inset-x-0 h-9 bg-slate-950/95 backdrop-blur-md flex items-center px-4 sm:px-6 justify-between text-slate-400 text-[10px] z-40 border-t border-slate-900/60 shadow-inner">
+        {/* Server Status Indicators (Left) */}
+        <div className="flex items-center gap-2 shrink-0">
+          <span className="relative flex h-1.5 w-1.5 shrink-0 aspect-square">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500 aspect-square"></span>
+          </span>
+          <span className="text-slate-500 text-[9.5px]">KUA Server: <span className="text-emerald-400 font-bold">Online</span></span>
+        </div>
+
+        {/* Info Berjalan / Marquee Ticker Rata Tengah (Center) */}
+        <div className="hidden md:flex flex-1 mx-8 overflow-hidden max-w-xl justify-center items-center">
+          <div className="animate-marquee whitespace-nowrap text-slate-300 flex items-center justify-center space-x-1 font-mono text-[10px] mx-auto">
+            <Calendar className="h-3.5 w-3.5 text-emerald-500 shrink-0 mr-1" />
+            <span>Bimbingan Perkawinan (Bimwin) GRATIS diselenggarakan KUA Pulau Dullah Utara. Silakan daftar online melalui menu yang tersedia atau hubungi WhatsApp layanan.</span>
           </div>
         </div>
-        <div className="flex items-center gap-4 shrink-0 font-mono text-[10px] opacity-60">
+
+        {/* Version String (Right) */}
+        <div className="flex items-center gap-2 shrink-0 font-mono text-[9px] opacity-40">
           <span>v1.0.6-LIVE</span>
         </div>
       </div>
@@ -3852,15 +3889,14 @@ export default function App() {
         href={`https://wa.me/${defaultSettings.whatsappNumber}?text=${encodeURIComponent(defaultSettings.whatsappText)}`}
         target="_blank"
         referrerPolicy="no-referrer"
-        className="fixed bottom-16 right-6 sm:right-10 flex items-center gap-3 z-40 group animate-bounce hover:animate-none cursor-pointer"
+        className="fixed bottom-12 right-4 sm:right-6 flex items-center gap-2.5 z-40 group hover:-translate-y-0.5 transition-all duration-300 cursor-pointer"
         id="floating-whatsapp-widget"
       >
-        <div className="bg-white px-3 py-2 rounded-xl shadow-lg border border-slate-100 text-[10px] font-bold text-slate-600 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap hidden sm:block">
-          Butuh Pelayanan Cepat? Chat Adm KUA Pulau Dullah Utara
+        <div className="bg-slate-950/95 text-white backdrop-blur-sm px-2.5 py-1.5 rounded-lg border border-slate-800 text-[9px] font-medium tracking-wide opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap hidden sm:block shadow-md">
+          WhatsApp Pelayanan KUA
         </div>
-        <div className="w-14 h-14 bg-[#25D366] rounded-2xl flex items-center justify-center shadow-lg shadow-green-200/50 hover:scale-105 active:scale-95 transition-transform" id="floating-whatsapp-button">
-          {/* Custom SVG logo representing WhatsApp */}
-          <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+        <div className="w-10 h-10 bg-[#25D366] hover:bg-[#20ba5a] text-white rounded-xl flex items-center justify-center shadow-lg hover:shadow-emerald-550/10 hover:scale-105 active:scale-95 transition-all" id="floating-whatsapp-button">
+          <svg className="w-5.5 h-5.5 text-white" fill="currentColor" viewBox="0 0 24 24">
             <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
           </svg>
         </div>
