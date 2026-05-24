@@ -50,6 +50,7 @@ import html2pdf from "html2pdf.js";
 import Header from "./components/Header";
 import Hero from "./components/Hero";
 import SplashScreen from "./components/SplashScreen";
+import BukuTamuPage from "./components/BukuTamuPage";
 import { SignaturePad } from "./components/SignaturePad";
 import { Layanan, Pengumuman, Settings, DBState } from "./types";
 import berkasUmum from "./assets/images/berkas_umum_1779246456217.png";
@@ -1261,6 +1262,7 @@ export default function App() {
     googleFormRekomendasi: "https://forms.gle/kuadullahrekomendasi",
     googleFormWakaf: "https://forms.gle/kuadullahwakaf",
     googleFormMuallaf: "https://forms.gle/kuadullahmuallaf",
+    googleFormBukuTamu: "https://forms.gle/kuadullahbukutamu",
     bannerTitle: "KANTOR URUSAN AGAMA\nPULAU DULLAH UTARA",
     bannerSubtitle: "Pusat Pelayanan Keagamaan Digital Pulau Dullah Utara, Kota Tual.\nMelayani Administrasi Nikah, Wakaf, Konsultasi Keagamaan, dan Bimbingan Ummat secara Profesional, Mudah, Cepat, dan Terintegrasi.",
     address: "Jl. Pemuda No. 12, Pulau Dullah Utara, Kota Tual, Maluku",
@@ -2470,6 +2472,19 @@ export default function App() {
             </motion.div>
           )}
 
+          {/* TAB: BUKU TAMU DIGITAL */}
+          {currentTab === "buku-tamu" && (
+            <motion.div
+              key="buku-tamu"
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              <BukuTamuPage bukuTamuUrl={defaultSettings.googleFormBukuTamu || "https://forms.gle/kuadullahbukutamu"} />
+            </motion.div>
+          )}
+
           {/* TAB 6: PENGUMUMAN COMPLETE */}
           {currentTab === "pengumuman" && (
             <motion.div
@@ -3118,6 +3133,17 @@ export default function App() {
                             placeholder="https://forms.gle/..."
                             value={settingsForm.googleFormRekomendasi || ""}
                             onChange={(e) => setSettingsForm({ ...settingsForm, googleFormRekomendasi: e.target.value })}
+                            className="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs focus:ring-1 focus:ring-emerald-500 focus:outline-none"
+                          />
+                        </div>
+
+                        <div>
+                          <label className="block text-[11px] font-bold text-slate-700 mb-1">Form Buku Tamu Digital KUA</label>
+                          <input
+                            type="text"
+                            placeholder="https://forms.gle/..."
+                            value={settingsForm.googleFormBukuTamu || ""}
+                            onChange={(e) => setSettingsForm({ ...settingsForm, googleFormBukuTamu: e.target.value })}
                             className="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs focus:ring-1 focus:ring-emerald-500 focus:outline-none"
                           />
                         </div>

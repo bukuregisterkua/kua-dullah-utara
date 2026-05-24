@@ -48,6 +48,7 @@ export default function Header({ currentTab, setCurrentTab, onAdminClick, isAdmi
   const navItems = [
     { id: "beranda", label: "Beranda" },
     { id: "profil", label: "Profil" },
+    { id: "buku-tamu", label: "Buku Tamu" },
     { id: "pengumuman", label: "Pengumuman" },
     { id: "kontak", label: "Kontak" },
   ];

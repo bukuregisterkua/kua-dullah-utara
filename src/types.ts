@@ -49,6 +49,7 @@ export interface Settings {
   kepalaKuaName?: string;
   kepalaKuaImg?: string;
   statistikImg?: string;
+  googleFormBukuTamu?: string;
 }
 
 export interface DBState {
