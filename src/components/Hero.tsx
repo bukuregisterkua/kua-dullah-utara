@@ -233,22 +233,16 @@ export default function Hero({ settings, setCurrentTab, onAdminClick }: HeroProp
                 </div>
               </div>
 
-              {/* CARD 2: Sesi Pagi - Dominan Pelayanan */}
-              <div className="bg-white/95 backdrop-blur-sm p-4.5 rounded-xl border-2 border-emerald-500/85 flex flex-col justify-between hover:translate-y-[-2px] hover:shadow-lg hover:shadow-emerald-950/20 transition-all duration-300 shadow-md group relative">
-                {/* Visual Highlight Badge */}
-                <span className="absolute -top-2 px-2.5 py-0.5 right-3 bg-gradient-to-r from-[#1F8A70] to-[#125B49] text-[8px] font-black uppercase tracking-widest text-white rounded-full shadow-sm">
-                  Pelayanan Utama
-                </span>
+              {/* CARD 2: Sesi Pagi */}
+              <div className="bg-white/95 backdrop-blur-sm p-4.5 rounded-xl border border-slate-100 flex flex-col justify-between hover:translate-y-[-2px] hover:shadow-lg hover:shadow-emerald-950/20 hover:border-emerald-500/20 transition-all duration-300 shadow-sm group">
                 <div className="space-y-3">
                   {/* Header Icon & Title */}
                   <div className="flex items-center space-x-2.5">
-                    <div className="p-2 rounded-lg bg-emerald-500 text-white group-hover:scale-105 transition-transform duration-300">
-                      <Check className="h-4 w-4" />
+                    <div className="p-2 rounded-lg bg-emerald-50 text-[#1F8A70] border border-emerald-100 group-hover:scale-105 transition-transform duration-300">
+                      <Check className="h-4 w-4 text-emerald-600" />
                     </div>
                     <div>
-                      <h4 className="text-[9px] font-black text-[#1F8A70] uppercase tracking-wider flex items-center gap-1">
-                        Sesi Pagi <span className="text-[8px] text-amber-600 font-extrabold">(Dominan)</span>
-                      </h4>
+                      <h4 className="text-[9px] font-black text-[#1F8A70] uppercase tracking-wider">Sesi Pagi</h4>
                       <span className="text-xs font-black text-[#0B1528]">08.00 — 12.00 WIB</span>
                     </div>
                   </div>
