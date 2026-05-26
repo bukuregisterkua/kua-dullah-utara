@@ -1883,6 +1883,37 @@ export default function App() {
                     );
                   })()}
 
+                  {currentTab === "nikah" && (
+                    <div className="bg-white rounded-3xl p-6 border border-slate-100 shadow-xxs animate-fade-in">
+                      <div className="flex flex-col md:flex-row items-center gap-5">
+                        <div className="w-12 h-12 rounded-2xl bg-teal-50 text-teal-700 flex items-center justify-center shrink-0 border border-teal-100/60 shadow-sm">
+                          <ClipboardList className="h-6 w-6 text-emerald-600" />
+                        </div>
+                        <div className="flex-1 space-y-1">
+                          <span className="text-[10px] font-extrabold uppercase tracking-widest text-[#15803d] bg-emerald-50 px-2 py-0.5 rounded-full inline-block">
+                            EVALUASI BIMBINGAN PERKAWINAN
+                          </span>
+                          <h4 className="text-base font-extrabold text-slate-900 font-display">
+                            Kuesioner Evaluasi Pelayanan Nikah & Pranikah
+                          </h4>
+                          <p className="text-xs text-slate-500 leading-relaxed font-sans font-medium">
+                            Bagi calon pengantin yang telah mengikuti bimbingan perkawinan di KUA Pulau Dullah Utara, silakan mengisi kuesioner evaluasi ini demi peningkatan mutu pelayanan kami secara berkelanjutan. Hasil kuesioner dapat diunduh/dicetak langsung dalam format PDF resmi Kemenag.
+                          </p>
+                        </div>
+                        <button
+                          onClick={() => {
+                            setEvaluasiSubmitted(false);
+                            setShowEvaluasiModal(true);
+                          }}
+                          className="w-full md:w-auto px-5 py-3 bg-emerald-700 hover:bg-emerald-800 text-white rounded-xl text-xs font-bold shadow-md transition-all shrink-0 cursor-pointer flex items-center justify-center gap-1.5 active:scale-97"
+                        >
+                          <ClipboardList className="h-4 w-4" />
+                          <span>Mulai Isi Kuesioner</span>
+                        </button>
+                      </div>
+                    </div>
+                  )}
+
                   {currentTab === "penyuluhan" && (
                     <div className="space-y-6">
                       {/* Banner Info */}
@@ -2390,10 +2421,10 @@ export default function App() {
 
                 {/* Right side contact information / sidebar widget instructions */}
                 <div className="lg:col-span-4 space-y-6">
-                  {currentTab !== "nikah" && (
-                    <div className="bg-white rounded-3xl p-6 border border-emerald-500/10 shadow-md ring-1 ring-cyan-500/5">
-                      <h4 className="text-[10px] font-black uppercase tracking-wider text-slate-400 mb-4">
-                        {currentTab === "penyuluhan" ? "Pembinaan & Evaluasi" : "Layanan Cepat"}
+                  {["wakaf", "muallaf"].includes(currentTab) && (
+                    <div className="bg-white rounded-3xl p-6 border border-emerald-500/10 shadow-md ring-1 ring-cyan-500/5 bg-gradient-to-b from-white to-slate-50/20">
+                      <h4 className="text-[10px] font-black uppercase tracking-wider text-[#125B49] mb-4">
+                        Layanan Cepat
                       </h4>
                       <div className="space-y-4">
                         {currentTab === "wakaf" && (
@@ -2446,35 +2477,6 @@ export default function App() {
                               </a>
                             </div>
                           </>
-                        )}
-
-                        {currentTab === "penyuluhan" && (
-                          <div className="space-y-4">
-                            {/* Card 2: Kuisioner Evaluasi */}
-                            <div className="bg-teal-50/50 p-4 border border-teal-100/60 rounded-2xl">
-                              <div className="flex items-center gap-2 mb-2">
-                                <div className="w-8 h-8 rounded-lg bg-teal-100/60 flex items-center justify-center text-teal-850">
-                                  <ClipboardList className="h-4 w-4" />
-                                </div>
-                                <h5 className="text-[11px] font-black text-teal-900 uppercase tracking-widest">
-                                  Kuesioner Evaluasi Layanan
-                                </h5>
-                              </div>
-                              <p className="text-[11px] text-slate-650 leading-relaxed mb-3">
-                                Berikan umpan balik evaluasi pelaksanaan bimbingan demi peningkatan mutu pembinaan kemasyarakatan di Pulau Dullah Utara.
-                              </p>
-                              <button
-                                onClick={() => {
-                                  setEvaluasiSubmitted(false);
-                                  setShowEvaluasiModal(true);
-                                }}
-                                className="w-full py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-[10px] font-bold shadow-xs transition-all cursor-pointer text-center flex items-center justify-center gap-1.5 active:scale-97"
-                              >
-                                <ClipboardList className="h-3 w-3" />
-                                <span>Mulai Isi Kuesioner</span>
-                              </button>
-                            </div>
-                          </div>
                         )}
                       </div>
                     </div>
