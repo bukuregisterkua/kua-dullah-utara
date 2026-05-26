@@ -255,23 +255,9 @@ export default function Hero({ settings, setCurrentTab, onAdminClick }: HeroProp
 
                   <div className="w-full h-[1px] bg-slate-100" />
 
-                  {/* Layanan list with Checkmarks */}
-                  <div className="space-y-2">
-                    {[
-                      "Pendaftaran Nikah",
-                      "Konsultasi Keluarga",
-                      "Pelayanan Wakaf",
-                      "Pelayanan Mualaf",
-                      "Administrasi Keagamaan"
-                    ].map((layanan, idx) => (
-                      <div key={idx} className="flex items-start space-x-1.5">
-                        <div className="p-0.5 rounded-full bg-emerald-500/10 text-emerald-600 mt-0.5 shrink-0">
-                          <Check className="h-2.5 w-2.5 text-emerald-600" />
-                        </div>
-                        <span className="text-[10.5px] text-slate-700 font-bold leading-tight">{layanan}</span>
-                      </div>
-                    ))}
-                  </div>
+                  <p className="text-[10.5px] text-slate-500 leading-relaxed font-medium">
+                    Pelayanan administrasi nikah, wakaf, konsultasi keluarga, dan pelayanan mualaf secara penuh.
+                  </p>
                 </div>
                 
                 <div className="mt-4 text-center text-[8.5px] font-black tracking-widest text-[#125B49] bg-[#e6f4f1] border border-emerald-100/50 py-1.5 rounded-lg uppercase">
@@ -295,23 +281,9 @@ export default function Hero({ settings, setCurrentTab, onAdminClick }: HeroProp
 
                   <div className="w-full h-[1px] bg-slate-100" />
 
-                  {/* Layanan list with Checkmarks: Same as morning session as requested */}
-                  <div className="space-y-2">
-                    {[
-                      "Pendaftaran Nikah",
-                      "Konsultasi Keluarga",
-                      "Pelayanan Wakaf",
-                      "Pelayanan Mualaf",
-                      "Administrasi Keagamaan"
-                    ].map((layanan, idx) => (
-                      <div key={idx} className="flex items-start space-x-1.5">
-                        <div className="p-0.5 rounded-full bg-emerald-500/10 text-emerald-600 mt-0.5 shrink-0">
-                          <Check className="h-2.5 w-2.5 text-emerald-600" />
-                        </div>
-                        <span className="text-[10.5px] text-slate-700 font-bold leading-tight">{layanan}</span>
-                      </div>
-                    ))}
-                  </div>
+                  <p className="text-[10.5px] text-slate-500 leading-relaxed font-medium">
+                    Penyuluhan keagamaan, bimbingan pasangan, pengambilan dokumen selesai, dan pelayanan administrasi susulan.
+                  </p>
                 </div>
 
                 <div className="mt-4 text-center text-[8.5px] font-black tracking-widest text-slate-700 bg-slate-50 border border-slate-200/50 py-1.5 rounded-lg uppercase">
