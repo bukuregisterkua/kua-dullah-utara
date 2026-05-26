@@ -63,22 +63,22 @@ export default function Hero({ settings, setCurrentTab, onAdminClick }: HeroProp
       <div className="max-w-4xl mx-auto w-full relative z-10 animate-fade-in space-y-12">
         
         {/* ================= HERO CARD (Card Putih Rounded Besar, Efek Glass) ================= */}
-        <div className="bg-white/95 backdrop-blur-sm border border-emerald-500/10 rounded-[20px] p-6 sm:p-10 shadow-lg relative overflow-hidden text-center flex flex-col items-center">
+        <div className="bg-white rounded-3xl p-6 sm:p-10 shadow-xl border border-emerald-500/10 ring-1 ring-cyan-500/5 relative overflow-hidden text-center flex flex-col items-center">
           
           {/* Welcome Badge with premium modern emerald/cyan aspect */}
-          <span className="text-[10px] font-black tracking-widest text-emerald-700 uppercase bg-emerald-50 border border-emerald-100/60 px-3.5 py-1.5 rounded-full mb-5 shadow-xs flex items-center gap-1.5">
-            <Sparkles className="h-3 w-3 text-emerald-500 animate-pulse" />
+          <span className="text-[10px] font-black tracking-widest text-[#1F8A70] uppercase bg-[#e6f4f1] border border-emerald-250 px-3.5 py-1.5 rounded-full mb-5 shadow-xxs flex items-center gap-1.5">
+            <Sparkles className="h-3 w-3 text-emerald-600 animate-pulse" />
             <span>Selamat Datang di</span>
           </span>
 
           {/* Judul Besar 1 */}
-          <h1 className="text-3xl sm:text-4.5xl font-black text-[#1F8A70] tracking-tight uppercase leading-none font-display mb-6">
+          <h1 className="text-3xl sm:text-4.5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-emerald-800 via-emerald-600 to-teal-700 tracking-tight uppercase leading-none font-display mb-6">
             KUA REVITALISASI
           </h1>
 
           {/* Logo Bulat Kemenag di Tengah (Dengan Border Lingkaran Emerald & Soft Cyan Glow) */}
           <div className="relative mb-6">
-            <div className="w-28 h-28 sm:w-32 sm:h-32 rounded-full border-2 border-emerald-500/30 bg-white shadow-md p-4 flex items-center justify-center overflow-hidden hover:scale-105 transition-all duration-300 ring-4 ring-emerald-500/10">
+            <div className="w-28 h-28 sm:w-32 sm:h-32 rounded-full border border-emerald-500/10 bg-white shadow-lg p-4 flex items-center justify-center overflow-hidden hover:scale-103 transition-transform duration-300 ring-4 ring-emerald-500/5">
               <img 
                 src={settings.logoImg || "/uploads/logokuadullut-1779347095553.png"} 
                 alt="Logo Kementerian Agama Tual" 
@@ -98,7 +98,7 @@ export default function Hero({ settings, setCurrentTab, onAdminClick }: HeroProp
             <p className="text-[10px] sm:text-xs font-black tracking-widest uppercase text-slate-400">
               Kantor Urusan Agama
             </p>
-            <h2 className="text-xl sm:text-2xl font-black text-[#0B1528] tracking-wide uppercase leading-tight">
+            <h2 className="text-xl sm:text-2xl font-black text-[#0B1528] tracking-tight uppercase leading-tight">
               PULAU DULLAH UTARA
             </h2>
             <p className="text-[10px] text-slate-500 font-extrabold tracking-widest uppercase mt-0.5">
@@ -114,12 +114,12 @@ export default function Hero({ settings, setCurrentTab, onAdminClick }: HeroProp
           </p>
 
           {/* Sosial Media (Icon Bulat dengan Outline Emerald & Hover Teal) */}
-          <div className="flex items-center gap-3.5 mb-8">
+          <div className="flex items-center gap-3 w-full justify-center mb-8">
             <a 
               href={fbLink} 
               target="_blank" 
               rel="noopener noreferrer"
-              className="w-9 h-9 rounded-full border border-emerald-500/20 text-emerald-700 hover:bg-emerald-50 hover:border-emerald-500 hover:text-emerald-700 flex items-center justify-center transition-all shadow-xs"
+              className="w-10 h-10 rounded-xl border border-emerald-500/10 text-[#1F8A70] bg-[#e6f4f1]/40 hover:bg-[#1F8A70] hover:text-white flex items-center justify-center transition-all duration-300 shadow-xxs cursor-pointer"
               title="Facebook KUA Pulau Dullah Utara"
             >
               <Facebook className="h-4 w-4" />
@@ -128,7 +128,7 @@ export default function Hero({ settings, setCurrentTab, onAdminClick }: HeroProp
               href={igLink} 
               target="_blank" 
               rel="noopener noreferrer"
-              className="w-9 h-9 rounded-full border border-emerald-500/20 text-emerald-700 hover:bg-emerald-50 hover:border-emerald-500 hover:text-emerald-700 flex items-center justify-center transition-all shadow-xs"
+              className="w-10 h-10 rounded-xl border border-emerald-500/10 text-[#1F8A70] bg-[#e6f4f1]/40 hover:bg-[#1F8A70] hover:text-white flex items-center justify-center transition-all duration-300 shadow-xxs cursor-pointer"
               title="Instagram KUA Pulau Dullah Utara"
             >
               <Instagram className="h-4 w-4" />
@@ -137,7 +137,7 @@ export default function Hero({ settings, setCurrentTab, onAdminClick }: HeroProp
               href={ttLink} 
               target="_blank" 
               rel="noopener noreferrer"
-              className="w-9 h-9 rounded-full border border-emerald-500/20 text-emerald-700 hover:bg-emerald-50 hover:border-emerald-500 hover:text-emerald-700 flex items-center justify-center transition-all shadow-xs"
+              className="w-10 h-10 rounded-xl border border-emerald-500/10 text-[#1F8A70] bg-[#e6f4f1]/40 hover:bg-[#1F8A70] hover:text-white flex items-center justify-center transition-all duration-300 shadow-xxs cursor-pointer"
               title="TikTok KUA Pulau Dullah Utara"
             >
               <Music className="h-4 w-4" />
@@ -147,15 +147,15 @@ export default function Hero({ settings, setCurrentTab, onAdminClick }: HeroProp
           {/* Tombol Utama */}
           <button
             onClick={() => setCurrentTab("layanan-pembuka")}
-            className="py-3.5 px-8 bg-emerald-600 hover:bg-emerald-700 text-white rounded-full text-xs font-bold uppercase tracking-widest shadow-md hover:shadow-lg hover:shadow-emerald-600/10 transition-all flex items-center justify-center space-x-2.5 cursor-pointer active:scale-97 mb-6"
+            className="py-4 px-8 bg-gradient-to-r from-emerald-600 via-[#1F8A70] to-[#125B49] text-white rounded-xl text-xs font-black uppercase tracking-widest shadow-md hover:shadow-lg hover:shadow-emerald-600/15 transition-all flex items-center justify-center space-x-2.5 cursor-pointer active:scale-97 mb-6"
             id="hero-redesign-start-btn"
           >
             <span>Mulai Layanan Online</span>
-            <ChevronRight className="h-4 w-4" />
+            <ChevronRight className="h-4 w-4 shrink-0" />
           </button>
 
           {/* Info Bawah Checklist (100% Gratis, Resmi Kemenag, Cepat & Aman) */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-y-2 gap-x-6 text-[11px] font-bold text-slate-500 pt-2 border-t border-slate-100 w-full max-w-md">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-y-2 gap-x-6 text-[10px] font-black uppercase tracking-wider text-slate-500 pt-4 border-t border-slate-100 w-full max-w-md">
             <span className="flex items-center space-x-1">
               <Check className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
               <span>100% Gratis di KUA</span>
@@ -172,76 +172,166 @@ export default function Hero({ settings, setCurrentTab, onAdminClick }: HeroProp
 
         </div>
 
-        {/* ================= SECTION JAM PELAYANAN ================= */}
-        <div className="space-y-6 pt-2">
-          
-          <div className="flex flex-col items-center justify-center text-center">
-            {/* Sesi Pelayanan Header Tag with Forest Green capsule */}
-            <div className="inline-flex items-center space-x-2 bg-emerald-50/80 border border-emerald-100 text-[#1F8A70] rounded-full px-4 py-1.5 text-[10px] font-black tracking-widest uppercase shadow-xs">
-              <Clock className="h-3.5 w-3.5 text-emerald-500 animate-pulse" />
-              <span>SESI PELAYANAN KANTOR KUA</span>
-            </div>
+        {/* ================= SECTION SESI PELAYANAN KUA ================= */}
+        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-b from-emerald-950/90 via-[#125B49]/95 to-[#092B22]/95 p-6 sm:p-10 border border-emerald-500/20 shadow-2xl space-y-8 animate-fade-in backdrop-blur-md">
+          {/* Subtle gold lights background decoration */}
+          <div className="absolute top-0 right-0 w-64 h-64 rounded-full bg-amber-500/5 blur-3xl pointer-events-none" />
+          <div className="absolute bottom-0 left-0 w-80 h-80 rounded-full bg-emerald-500/10 blur-3xl pointer-events-none" />
+
+          {/* Header section with clean premium government styling */}
+          <div className="text-center space-y-3 relative z-10 animate-fade-in">
+            <span className="text-[10px] font-black tracking-widest text-[#D4AF37] uppercase bg-amber-500/10 border border-[#D4AF37]/30 px-3.5 py-1.5 rounded-full inline-flex items-center gap-1.5 shadow-sm">
+              <Sparkles className="h-3.5 w-3.5 text-[#D4AF37] animate-pulse" />
+              <span>Sesi & Jam Pelayanan Resmi KUA</span>
+            </span>
+            <h3 className="text-2xl sm:text-3.5xl font-black text-white tracking-tight uppercase font-display">
+              Jam & Sesi Pelayanan KUA
+            </h3>
+            <p className="text-emerald-100/80 text-[12px] sm:text-xs leading-relaxed max-w-xl mx-auto font-sans font-medium">
+              Informasi jadwal pelayanan Kantor Urusan Agama untuk memudahkan masyarakat memperoleh layanan secara cepat dan nyaman.
+            </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4" id="operasional-hours-grid">
+          {/* Cards Grid: Tampilan stack vertikal untuk mobile, grid rapi untuk desktop */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 relative z-10">
             
-            {/* CARD 1 (Senin–Kamis) */}
-            <div className="bg-white border border-slate-200/80 p-5 rounded-2xl shadow-sm flex flex-col justify-between hover:border-emerald-200 hover:shadow-md transition-all">
-              <div>
-                <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest block mb-1">Senin s/d Kamis</span>
-                <h4 className="text-xs font-black text-slate-800 uppercase tracking-tight">Hari Kerja Biasa</h4>
-                <p className="text-[11px] text-slate-400 mt-1 leading-normal">
-                  Pelayanan penuh untuk semua urusan administrasi & kepanduan ummat.
-                </p>
+            {/* CARD 1: Jam Operasional */}
+            <div className="bg-white/95 backdrop-blur-sm p-6 rounded-2xl border border-[#D4AF37]/20 flex flex-col justify-between hover:translate-y-[-4px] hover:shadow-xl hover:shadow-emerald-950/20 hover:border-[#D4AF37]/50 transition-all duration-300 shadow-md group">
+              <div className="space-y-4">
+                {/* Header Icon & Title */}
+                <div className="flex items-center space-x-3">
+                  <div className="p-3 rounded-xl bg-gradient-to-br from-[#1F8A70] to-[#125B49] text-white shadow-md group-hover:scale-110 transition-transform duration-300">
+                    <Clock className="h-5 w-5 text-[#D4AF37]" />
+                  </div>
+                  <div>
+                    <h4 className="text-xs font-black text-[#D4AF37] uppercase tracking-wider">Operasional</h4>
+                    <span className="text-sm font-black text-[#0B1528]">Jam Kerja Kantor</span>
+                  </div>
+                </div>
+
+                <div className="w-full h-[1px] bg-slate-100" />
+
+                {/* Content list */}
+                <div className="space-y-3 text-slate-700">
+                  <div className="flex justify-between items-center py-0.5">
+                    <span className="text-xs font-black text-slate-500 uppercase tracking-wide">Senin — Kamis</span>
+                    <span className="text-xs font-mono font-bold text-slate-900 bg-slate-100 px-2 py-1 rounded">08.00 - 16.00 WIB</span>
+                  </div>
+                  <div className="flex justify-between items-center py-0.5">
+                    <span className="text-xs font-black text-slate-500 uppercase tracking-wide">Jumat</span>
+                    <span className="text-xs font-bold text-emerald-700 bg-[#e6f4f1] border border-emerald-100 px-2 py-0.5 rounded">WFA (Anywhere)</span>
+                  </div>
+                  <div className="flex justify-between items-center py-0.5">
+                    <span className="text-xs font-black text-slate-500 uppercase tracking-wide">Sabtu & Minggu</span>
+                    <span className="text-xs font-bold text-rose-600 bg-rose-50 border border-rose-100 px-2 py-0.5 rounded">Tutup</span>
+                  </div>
+                </div>
               </div>
-              <div className="mt-4 pt-4 border-t border-slate-100">
-                <div className="flex items-center justify-between text-xs font-mono font-black text-[#1F8A70]">
-                  <span>JAM LAYANAN:</span>
-                </div>
-                <div className="text-[13px] font-mono font-black text-slate-800 mt-0.5">
-                  08:00 - 16:30 WIT
-                </div>
+
+              {/* Keterangan Kecil */}
+              <div className="mt-6 pt-4 border-t border-slate-100 bg-slate-50/50 -mx-6 -mb-6 p-4 rounded-b-2xl">
+                <p className="text-[10.5px] text-slate-500 font-bold leading-relaxed">
+                  💡 <span className="text-[#1F8A70] font-black uppercase">Keterangan:</span> Pelayanan hari Jumat dilakukan secara fleksibel melalui layanan online dan koordinasi petugas.
+                </p>
               </div>
             </div>
 
-            {/* CARD 2 (Jumat) */}
-            <div className="bg-white border border-slate-200/80 p-5 rounded-2xl shadow-sm flex flex-col justify-between hover:border-emerald-200 hover:shadow-md transition-all">
-              <div>
-                <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest block mb-1">Hari Jumat</span>
-                <h4 className="text-xs font-black text-slate-800 uppercase tracking-tight">Hari Kerja Pendek</h4>
-                <p className="text-[11px] text-slate-400 mt-1 leading-normal">
-                  Diselingi ibadah shalat Jumat bersama warga Pulau Dullah Utara.
-                </p>
+            {/* CARD 2: Sesi Pagi */}
+            <div className="bg-white/95 backdrop-blur-sm p-6 rounded-2xl border border-slate-100 flex flex-col justify-between hover:translate-y-[-4px] hover:shadow-xl hover:shadow-emerald-950/20 hover:border-emerald-500/20 transition-all duration-300 shadow-md group">
+              <div className="space-y-4">
+                {/* Header Icon & Title */}
+                <div className="flex items-center space-x-3">
+                  <div className="p-3 rounded-xl bg-emerald-50 text-[#1F8A70] border border-emerald-100 group-hover:scale-110 transition-transform duration-300">
+                    <Check className="h-5 w-5 text-emerald-600" />
+                  </div>
+                  <div>
+                    <h4 className="text-xs font-black text-[#1F8A70] uppercase tracking-wider">Sesi Pagi</h4>
+                    <span className="text-sm font-black text-[#0B1528]">08.00 — 12.00 WIB</span>
+                  </div>
+                </div>
+
+                <div className="w-full h-[1px] bg-slate-100" />
+
+                {/* Layanan list with Checkmarks */}
+                <div className="space-y-2.5">
+                  {[
+                    "Pendaftaran Nikah",
+                    "Konsultasi Keluarga",
+                    "Pelayanan Wakaf",
+                    "Pelayanan Mualaf",
+                    "Administrasi Keagamaan"
+                  ].map((layanan, idx) => (
+                    <div key={idx} className="flex items-start space-x-2">
+                      <div className="p-0.5 rounded-full bg-emerald-500/10 text-emerald-600 mt-0.5 shrink-0">
+                        <Check className="h-3 w-3 text-emerald-600" />
+                      </div>
+                      <span className="text-xs text-slate-700 font-bold leading-tight">{layanan}</span>
+                    </div>
+                  ))}
+                </div>
               </div>
-              <div className="mt-4 pt-4 border-t border-slate-100">
-                <div className="flex items-center justify-between text-xs font-mono font-black text-[#1F8A70]">
-                  <span>JAM LAYANAN:</span>
-                </div>
-                <div className="text-[13px] font-mono font-black text-slate-800 mt-0.5">
-                  08:30 - 17:00 WIT
-                </div>
+              
+              <div className="mt-6 text-center text-[9px] font-black tracking-widest text-[#125B49] bg-[#e6f4f1] border border-emerald-100/50 py-2 rounded-xl uppercase">
+                Aktif Pelayanan Prima
               </div>
             </div>
 
-            {/* CARD 3 (Weekend) */}
-            <div className="bg-white border border-slate-200/80 p-5 rounded-2xl shadow-sm flex flex-col justify-between hover:border-rose-200 hover:shadow-md transition-all">
-              <div>
-                <span className="text-[9px] font-black text-rose-500 uppercase tracking-widest block mb-1">Sabtu & Minggu</span>
-                <h4 className="text-xs font-black text-slate-800 uppercase tracking-tight">Akhir Pekan</h4>
-                <p className="text-[11px] text-slate-400 mt-1 leading-normal">
-                  Kantor tutup, namun pendaftaran SIMKAH online tetap aktif 24 jam.
-                </p>
+            {/* CARD 3: Sesi Siang */}
+            <div className="bg-white/95 backdrop-blur-sm p-6 rounded-2xl border border-slate-100 flex flex-col justify-between hover:translate-y-[-4px] hover:shadow-xl hover:shadow-emerald-950/20 hover:border-amber-500/20 transition-all duration-300 shadow-md group">
+              <div className="space-y-4">
+                {/* Header Icon & Title */}
+                <div className="flex items-center space-x-3">
+                  <div className="p-3 rounded-xl bg-amber-50 text-amber-600 border border-amber-100 group-hover:scale-110 transition-transform duration-300">
+                    <Check className="h-5 w-5 text-amber-600" />
+                  </div>
+                  <div>
+                    <h4 className="text-xs font-black text-amber-600 uppercase tracking-wider">Sesi Siang</h4>
+                    <span className="text-sm font-black text-[#0B1528]">13.00 — 16.00 WIB</span>
+                  </div>
+                </div>
+
+                <div className="w-full h-[1px] bg-slate-100" />
+
+                {/* Layanan list with Checkmarks */}
+                <div className="space-y-2.5">
+                  {[
+                    "Penyuluhan Agama",
+                    "Bimbingan Perkawinan",
+                    "Pengambilan Dokumen",
+                    "Konsultasi Keagamaan",
+                    "Pelayanan Administrasi"
+                  ].map((layanan, idx) => (
+                    <div key={idx} className="flex items-start space-x-2">
+                      <div className="p-0.5 rounded-full bg-amber-500/10 text-amber-600 mt-0.5 shrink-0">
+                        <Check className="h-3 w-3 text-amber-500" />
+                      </div>
+                      <span className="text-xs text-slate-700 font-bold leading-tight">{layanan}</span>
+                    </div>
+                  ))}
+                </div>
               </div>
-              <div className="mt-4 pt-4 border-t border-slate-100">
-                <div className="flex items-center justify-between text-xs font-mono font-black text-rose-500">
-                  <span>STATUS LAYANAN:</span>
-                </div>
-                <div className="text-[13px] font-mono font-black text-rose-600 mt-0.5 uppercase">
-                  Tutup Pelayanan
-                </div>
+
+              <div className="mt-6 text-center text-[9px] font-black tracking-widest text-amber-800 bg-amber-50 border border-amber-100/50 py-2 rounded-xl uppercase">
+                Aktif Pelayanan Sore
               </div>
             </div>
 
+          </div>
+
+          {/* Action Buttons: Tombol kecil Hubungi KUA & Lihat Layanan */}
+          <div className="flex flex-wrap items-center justify-center gap-3 pt-4 relative z-10 border-t border-emerald-500/10">
+            <button
+              onClick={() => setCurrentTab("kontak")}
+              className="px-5 py-2.5 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-950 font-black uppercase text-[10px] tracking-widest rounded-xl shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer flex items-center gap-1.5 active:scale-97 border border-amber-400"
+            >
+              <span>Hubungi KUA</span>
+            </button>
+            <button
+              onClick={() => setCurrentTab("layanan-pembuka")}
+              className="px-5 py-2.5 bg-white/10 hover:bg-white/20 text-white font-black uppercase text-[10px] tracking-widest rounded-xl backdrop-blur-xs transition-all duration-300 cursor-pointer flex items-center gap-1.5 active:scale-97 border border-white/20"
+            >
+              <span>Lihat Layanan</span>
+            </button>
           </div>
         </div>
 

@@ -36,19 +36,13 @@ export default function SplashScreen({ logoUrl, onComplete }: SplashScreenProps)
 
   return (
     <div
-      className="fixed inset-0 z-[9999] bg-gradient-to-br from-[#091524] via-[#082d23] to-[#021410] flex flex-col items-center justify-between py-12 px-6 select-none overflow-hidden text-white"
+      className="fixed inset-0 z-[9999] bg-gradient-to-br from-[#091524] via-[#082d23] to-[#021410] flex flex-col items-center justify-center py-12 px-6 select-none overflow-hidden text-white"
       id="kua-splash-screen"
     >
-      {/* Upper Subtle Branding Bar */}
-      <div className="flex flex-col items-center opacity-90 mt-2">
-        <div className="inline-flex items-center space-x-1.5 bg-white/5 border border-white/10 text-emerald-300 px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-widest backdrop-blur-xs shadow-sm">
-          <Sparkles className="h-3.5 w-3.5 text-amber-400 animate-pulse" />
-          <span>Sistem Informasi Terpadu Mandiri</span>
-        </div>
-      </div>
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(16,185,129,0.07)_0%,transparent_70%)] pointer-events-none" />
 
       {/* Main Focus: Logo, Titles and Interactive Trigger */}
-      <div className="flex flex-col items-center max-w-sm w-full text-center">
+      <div className="flex flex-col items-center max-w-sm w-full text-center relative z-10">
         
         {/* Interactive Helper Text - Tap Prompt (Positioned ABOVE logo) */}
         {!isTapped && (
@@ -130,13 +124,6 @@ export default function SplashScreen({ logoUrl, onComplete }: SplashScreenProps)
           </motion.div>
         )}
 
-      </div>
-
-      {/* Footer Branding Area - Simplified to Kementerian Agama Kota Tual */}
-      <div className="text-center opacity-70">
-        <p className="text-[10px] tracking-widest text-slate-400 uppercase font-black">
-          Kementerian Agama Kota Tual
-        </p>
       </div>
     </div>
   );

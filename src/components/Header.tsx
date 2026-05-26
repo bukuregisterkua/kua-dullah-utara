@@ -60,7 +60,7 @@ export default function Header({
   ];
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-white/85 backdrop-blur-md border-b border-slate-200/80 text-slate-800 shadow-sm">
+    <header className="sticky top-0 z-50 w-full bg-white/90 backdrop-blur-md border-b border-slate-100/80 text-slate-800 shadow-sm transition-all duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
           
@@ -71,33 +71,33 @@ export default function Header({
             id="brand-logo-container"
           >
             {secondaryLogoImg ? (
-              <div className="w-10 h-10 flex items-center justify-center overflow-hidden">
+              <div className="w-10 h-10 flex items-center justify-center overflow-hidden rounded-xl bg-slate-50 border border-emerald-550/10 shadow-xxs">
                 <img 
                   src={secondaryLogoImg} 
                   alt="Logo Kantor" 
-                  className="w-full h-full object-contain" 
+                  className="w-full h-full object-contain p-1.5" 
                   referrerPolicy="no-referrer"
                 />
               </div>
             ) : logoImg ? (
-              <div className="w-10 h-10 flex items-center justify-center overflow-hidden">
+              <div className="w-10 h-10 flex items-center justify-center overflow-hidden rounded-xl bg-slate-50 border border-emerald-550/10 shadow-xxs">
                 <img 
                   src={logoImg} 
                   alt="Logo Kantor" 
-                  className="w-full h-full object-contain" 
+                  className="w-full h-full object-contain p-1.5" 
                   referrerPolicy="no-referrer"
                 />
               </div>
             ) : (
-              <div className="p-2 bg-[#1F8A70] text-white rounded-lg">
+              <div className="p-2.5 bg-gradient-to-br from-emerald-600 to-[#1F8A70] text-white rounded-xl shadow-md shadow-emerald-600/10">
                 <BookOpen className="h-5 w-5" id="brand-logo-icon" />
               </div>
             )}
             <div>
-              <h1 className="text-base font-black text-[#1F8A70] leading-tight tracking-tight uppercase">
-                KUA DULLAH UTARA
+              <h1 className="text-sm sm:text-base font-black text-[#0B1528] tracking-tight uppercase leading-none">
+                KUA <span className="text-[#1F8A70]">DULLAH UTARA</span>
               </h1>
-              <p className="text-[9px] font-bold tracking-wider text-slate-500 uppercase mt-0.5">
+              <p className="text-[9px] font-black tracking-widest text-slate-400 uppercase mt-1">
                 Kementerian Agama Kota Tual
               </p>
             </div>
@@ -110,14 +110,14 @@ export default function Header({
                 const isActive = currentTab === item.id || (item.id === "beranda" && currentTab === "layanan-pembuka");
                 
                 const btnStyle = isActive
-                  ? "bg-emerald-600 text-white shadow-sm ring-1 ring-emerald-400/20"
-                  : "text-slate-600 hover:text-emerald-700 hover:bg-emerald-50/60";
+                  ? "bg-gradient-to-r from-[#1F8A70] to-[#125B49] text-white shadow-md shadow-emerald-700/10 border border-emerald-600/20"
+                  : "text-slate-600 hover:text-emerald-700 hover:bg-emerald-50/50";
 
                 return (
                   <button
                     key={item.id}
                     onClick={() => setCurrentTab(item.id)}
-                    className={`px-3 py-2 rounded-lg text-xs font-bold transition-all cursor-pointer ${btnStyle}`}
+                    className={`px-3.5 py-2 rounded-xl text-xs font-black uppercase tracking-wider transition-all duration-250 cursor-pointer ${btnStyle}`}
                   >
                     {item.label}
                   </button>
@@ -125,18 +125,18 @@ export default function Header({
               })}
             </nav>
 
-            <div className="h-8 w-[1px] bg-slate-200"></div>
+            <div className="h-8 w-[1px] bg-slate-200/60"></div>
 
             {/* Live Clock & Admin Trigger */}
             <div className="flex items-center space-x-3">
               {/* Official-style modern premium beige clock card */}
-              <div className="bg-emerald-50/50 border border-emerald-100/60 rounded-lg px-2.5 py-1.5 flex items-center space-x-2 select-none shadow-xs">
-                <Clock className="h-3.5 w-3.5 text-[#1F8A70] shrink-0 animate-pulse" />
+              <div className="bg-emerald-50/50 border border-emerald-100 rounded-xl px-3 py-1.5 flex items-center space-x-2.5 select-none shadow-xxs">
+                <Clock className="h-4 w-4 text-[#1F8A70] shrink-0 animate-pulse" />
                 <div className="text-left font-mono">
-                  <div className="text-[11px] font-black text-emerald-800 leading-tight">
+                  <div className="text-xs font-black text-emerald-950 leading-tight">
                     {witTime}
                   </div>
-                  <div className="text-[9px] text-slate-500 font-sans font-bold leading-none mt-0.5 truncate max-w-[120px]">
+                  <div className="text-[9px] text-slate-400 font-sans font-bold leading-none mt-0.5 truncate max-w-[125px] uppercase tracking-wider">
                     {currentDate}
                   </div>
                 </div>
@@ -146,14 +146,14 @@ export default function Header({
                 <div className="flex items-center space-x-2">
                   <button
                     onClick={() => setCurrentTab("admin")}
-                    className="flex items-center space-x-1 px-3 py-2 bg-emerald-100 hover:bg-emerald-200 text-emerald-950 rounded-lg text-xs font-bold cursor-pointer"
+                    className="flex items-center space-x-1.5 px-3.5 py-2.5 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 text-[#125B49] rounded-xl text-xs font-bold transition-all cursor-pointer"
                   >
-                    <Shield className="h-3.5 w-3.5 text-emerald-800" />
+                    <Shield className="h-3.5 w-3.5 text-[#1F8A70]" />
                     <span>Panel Admin</span>
                   </button>
                   <button
                     onClick={onLogout}
-                    className="px-3 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-xs font-bold cursor-pointer"
+                    className="px-3.5 py-2.5 bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-700 rounded-xl text-xs font-bold transition-all cursor-pointer"
                   >
                     Keluar
                   </button>
@@ -161,10 +161,10 @@ export default function Header({
               ) : (
                 <button
                   onClick={onAdminClick}
-                  className="flex items-center space-x-1.5 px-3.5 py-2 bg-slate-900 text-white hover:bg-emerald-800 rounded-lg text-xs font-bold transition-all cursor-pointer shadow-xs"
+                  className="flex items-center space-x-2 px-4 py-2.5 bg-slate-900 text-white hover:bg-[#125B49] rounded-xl text-xs font-black uppercase tracking-widest transition-all duration-300 cursor-pointer shadow-md hover:shadow-emerald-700/10 active:scale-97"
                   id="header-admin-login-btn"
                 >
-                  <Shield className="h-3.5 w-3.5 text-white" />
+                  <Shield className="h-3.5 w-3.5 text-white/90" />
                   <span>Login Admin</span>
                 </button>
               )}

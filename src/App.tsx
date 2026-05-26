@@ -1598,43 +1598,44 @@ export default function App() {
               className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16"
             >
               <div className="text-center max-w-3xl mx-auto mb-16">
-                <span className="text-xs font-bold uppercase tracking-widest text-emerald-700 bg-emerald-100/50 px-3 py-1 rounded-full">
+                <span className="text-xs font-black uppercase tracking-widest text-[#1F8A70] bg-emerald-50 border border-emerald-100 px-3.5 py-1.5 rounded-full shadow-xxxs">
                   Mengenal Kami
                 </span>
-                <h2 className="text-4xl font-extrabold font-display text-emerald-950 mt-2">
+                <h2 className="text-3xl sm:text-4xl font-black font-display text-[#0B1528] tracking-tight uppercase mt-4">
                   Profil KUA Pulau Dullah Utara
                 </h2>
-                <p className="text-sm text-slate-500 mt-3 leading-relaxed">
+                <p className="text-xs sm:text-sm text-slate-500 mt-3 max-w-xl mx-auto leading-relaxed">
                   Melayani Administrasi Nikah, Pencatatan Rujuk, Wakaf Tanah, Pembinaan Kerukunan Umat Beragama di wilayah hukum Kecamatan Pulau Dullah Utara, Kota Tual.
                 </p>
               </div>
 
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center mb-20">
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center mb-20 animate-fade-in">
                 <div className="lg:col-span-5 relative">
-                  <div className="bg-white rounded-2xl text-slate-800 relative shadow-md overflow-hidden min-h-[500px] max-w-[325px] mx-auto w-full flex flex-col justify-between group select-none border border-slate-200">
+                  <div className="bg-white rounded-3xl text-slate-800 relative shadow-xl overflow-hidden min-h-[500px] max-w-[325px] mx-auto w-full flex flex-col justify-between group select-none border border-emerald-500/10 ring-1 ring-cyan-500/5">
                     
-                    {/* Vertically elongated photo integrated directly at the top of the card */}
-                    <div className="w-full h-[320px] relative overflow-hidden bg-slate-50 border-b border-slate-100">
+                    {/* Vertically elongated photo integrated directly at the top of the card with cool overlay gradient */}
+                    <div className="w-full h-[320px] relative overflow-hidden bg-slate-50 border-b border-light/10">
                       <img 
                         src={defaultSettings.kepalaKuaImg || kepalaKuaPlaceholder} 
                         alt={defaultSettings.kepalaKuaName || "Kepala Kantor KUA"} 
-                        className="w-full h-full object-cover object-top"
+                        className="w-full h-full object-cover object-top hover:scale-105 transition-transform duration-700"
                         referrerPolicy="no-referrer"
                       />
+                      <div className="absolute inset-0 bg-gradient-to-t from-emerald-950/20 to-transparent pointer-events-none" />
                     </div>
                     
                     {/* Writing content - beautiful, official light design */}
                     <div className="relative z-10 text-center px-6 pb-6 pt-4">
-                      <h4 className="text-xl font-extrabold font-display tracking-tight text-slate-900">
+                      <h4 className="text-xl font-black font-display tracking-tight text-slate-900">
                         {defaultSettings.kepalaKuaName || "H. Ahmad, S.Ag."}
                       </h4>
-                      <p className="text-xs text-emerald-800 mt-1 uppercase font-black tracking-widest">
+                      <p className="text-xs text-emerald-700 mt-1 uppercase font-black tracking-widest">
                         Kepala Kantor Urusan Agama
                       </p>
-                      <p className="text-[10px] text-slate-500 font-extrabold uppercase tracking-widest mt-0.5">
+                      <p className="text-[10px] text-slate-400 font-extrabold uppercase tracking-widest mt-0.5">
                         Kec. Pulau Dullah Utara
                       </p>
-                      <hr className="border-slate-100 my-3" />
+                      <hr className="border-emerald-500/5 my-3" />
                       <p className="text-[11px] text-slate-600 italic leading-relaxed font-sans max-w-sm mx-auto px-1">
                         "Pelayanan digital modern ini diluncurkan untuk mempermudah, mempercepat, dan menjamin keterbukaan urusan dokumen keagamaan bagi seluruh ummat di Pulau Dullah Utara."
                       </p>
@@ -1643,40 +1644,40 @@ export default function App() {
                 </div>
 
                 <div className="lg:col-span-7 space-y-6">
-                  <h3 className="text-2xl font-bold text-slate-900 font-display">Tugas & Fungsi Kantor Urusan Agama</h3>
-                  <p className="text-sm text-slate-600 leading-relaxed">
+                  <h3 className="text-xl sm:text-2xl font-black text-[#0B1528] font-display uppercase tracking-tight">Tugas & Fungsi Kantor Urusan Agama</h3>
+                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
                     Berdasarkan Peraturan Menteri Agama Republik Indonesia, Kantor Urusan Agama Kecamatan bertugas melaksanakan tugas umum pemerintahan tertentu di bidang pelayanan hukum Islam dan urusan keagamaan Islam di tingkat kecamatan.
                   </p>
                   
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="p-5 bg-white border border-slate-100 rounded-2xl shadow-xxs">
-                      <h5 className="font-bold text-emerald-900 mb-1 flex items-center space-x-1.5">
-                        <CheckCircle2 className="h-4.5 w-4.5 text-emerald-600 shrink-0" />
-                        <span>Pelayanan Nikah & Rujuk</span>
+                    <div className="p-5 bg-white border border-emerald-500/10 rounded-2xl shadow-md hover:shadow-lg hover:border-emerald-500/20 transition-all ring-1 ring-cyan-500/5">
+                      <h5 className="font-extrabold text-slate-900 mb-1 flex items-center space-x-1.5">
+                        <CheckCircle2 className="h-4.5 w-4.5 text-emerald-500 shrink-0" />
+                        <span className="text-xs uppercase tracking-tight">Pelayanan Nikah & Rujuk</span>
                       </h5>
                       <p className="text-xs text-slate-500 leading-relaxed">Mulai dari pendaftaran, koreksi, pemeriksanaan saksi & berkas, pelaksanaan akad nikah hingga penyerahan buku nikah resmi.</p>
                     </div>
 
-                    <div className="p-5 bg-white border border-slate-100 rounded-2xl shadow-xxs">
-                      <h5 className="font-bold text-emerald-900 mb-1 flex items-center space-x-1.5">
-                        <CheckCircle2 className="h-4.5 w-4.5 text-emerald-600 shrink-0" />
-                        <span>Sertifikasi Kemaslahatan Wakaf</span>
+                    <div className="p-5 bg-white border border-emerald-500/10 rounded-2xl shadow-md hover:shadow-lg hover:border-emerald-500/20 transition-all ring-1 ring-cyan-500/5">
+                      <h5 className="font-extrabold text-slate-900 mb-1 flex items-center space-x-1.5">
+                        <CheckCircle2 className="h-4.5 w-4.5 text-emerald-500 shrink-0" />
+                        <span className="text-xs uppercase tracking-tight">Sertifikasi Kemaslahatan Wakaf</span>
                       </h5>
                       <p className="text-xs text-slate-500 leading-relaxed">Melakukan pendataan saksi, menyelenggarakan majelis ikrar wakaf, menyusun AIW, dan integrasi pendaftaran digital SIWAK.</p>
                     </div>
 
-                    <div className="p-5 bg-white border border-slate-100 rounded-2xl shadow-xxs">
-                      <h5 className="font-bold text-emerald-900 mb-1 flex items-center space-x-1.5">
-                        <CheckCircle2 className="h-4.5 w-4.5 text-emerald-600 shrink-0" />
-                        <span>Muallaf Center</span>
+                    <div className="p-5 bg-white border border-emerald-500/10 rounded-2xl shadow-md hover:shadow-lg hover:border-emerald-500/20 transition-all ring-1 ring-cyan-500/5">
+                      <h5 className="font-extrabold text-slate-900 mb-1 flex items-center space-x-1.5">
+                        <CheckCircle2 className="h-4.5 w-4.5 text-emerald-500 shrink-0" />
+                        <span className="text-xs uppercase tracking-tight">Muallaf Center</span>
                       </h5>
                       <p className="text-xs text-slate-500 leading-relaxed">Membimbing penyyahadatan secara verbal, membuat arsip konversi keyakinan, dan melakukan syiar bimbingan tarbiyah muallaf baru.</p>
                     </div>
 
-                    <div className="p-5 bg-white border border-slate-100 rounded-2xl shadow-xxs">
-                      <h5 className="font-bold text-emerald-900 mb-1 flex items-center space-x-1.5">
-                        <CheckCircle2 className="h-4.5 w-4.5 text-emerald-600 shrink-0" />
-                        <span>Kemitraan & Syiar Islam</span>
+                    <div className="p-5 bg-white border border-emerald-500/10 rounded-2xl shadow-md hover:shadow-lg hover:border-emerald-500/20 transition-all ring-1 ring-cyan-500/5">
+                      <h5 className="font-extrabold text-slate-900 mb-1 flex items-center space-x-1.5">
+                        <CheckCircle2 className="h-4.5 w-4.5 text-emerald-500 shrink-0" />
+                        <span className="text-xs uppercase tracking-tight">Kemitraan & Syiar Islam</span>
                       </h5>
                       <p className="text-xs text-slate-500 leading-relaxed">Pembinaan produk jaminan halal, kemaslahatan masjid takmir, pembinaan hisab rukyat, serta bimbingan haji dan umrah.</p>
                     </div>
@@ -1685,27 +1686,27 @@ export default function App() {
               </div>
 
               {/* Visi & Misi Canvas */}
-              <div className="bg-emerald-50/50 rounded-3xl p-8 sm:p-12 border border-emerald-100 shadow-xxs">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 divide-y md:divide-y-0 md:divide-x divide-emerald-200">
+              <div className="bg-gradient-to-br from-[#fafbfc] to-[#f0fbf8] rounded-3xl p-8 sm:p-12 border border-emerald-500/10 shadow-lg ring-1 ring-cyan-500/5">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 divide-y md:divide-y-0 md:divide-x divide-emerald-550/10">
                   <div className="md:pr-8">
-                    <h4 className="text-2xl font-bold font-display text-emerald-900 mb-4 uppercase tracking-wider">Visi</h4>
-                    <p className="text-sm text-slate-700 leading-relaxed font-semibold">
+                    <h4 className="text-xl font-black font-display text-emerald-800 mb-4 uppercase tracking-widest">Visi</h4>
+                    <p className="text-sm text-slate-700 leading-relaxed font-bold">
                       "Terwujudnya Masyarakat Pulau Dullah Utara yang Taat Beragama, Rukun, Cerdas, dan Sejahtera Lahir Batin dalam Pelayanan Publik yang Handal, Bersih, dan Berwibawa."
                     </p>
                   </div>
                   <div className="md:pl-8 pt-8 md:pt-0">
-                    <h4 className="text-2xl font-bold font-display text-emerald-900 mb-4 uppercase tracking-wider">Misi</h4>
-                    <ul className="space-y-3 text-sm text-slate-600">
+                    <h4 className="text-xl font-black font-display text-emerald-800 mb-4 uppercase tracking-widest">Misi</h4>
+                    <ul className="space-y-4 text-xs sm:text-sm text-slate-600">
                       <li className="flex items-start">
-                        <span className="w-5 h-5 bg-emerald-600 text-white rounded-full flex items-center justify-center font-mono text-xs font-bold mr-2 shrink-0 mt-0.5">1</span>
+                        <span className="w-5 h-5 bg-emerald-600 text-white rounded-full flex items-center justify-center font-mono text-xs font-bold mr-2.5 shrink-0 mt-0.5 shadow-xs">1</span>
                         <span>Meningkatkan kualitas kerukunan dan pemahaman moderasi beragama bagi seluruh masyarakat kecamatan.</span>
                       </li>
                       <li className="flex items-start">
-                        <span className="w-5 h-5 bg-emerald-600 text-white rounded-full flex items-center justify-center font-mono text-xs font-bold mr-2 shrink-0 mt-0.5">2</span>
+                        <span className="w-5 h-5 bg-emerald-600 text-white rounded-full flex items-center justify-center font-mono text-xs font-bold mr-2.5 shrink-0 mt-0.5 shadow-xs">2</span>
                         <span>Memberikan kemudahan pelayanan pencatatan nikah yang transparan, kredibel, akuntabel melalui instrumen IT mutakhir.</span>
                       </li>
                       <li className="flex items-start">
-                        <span className="w-5 h-5 bg-emerald-600 text-white rounded-full flex items-center justify-center font-mono text-xs font-bold mr-2 shrink-0 mt-0.5">3</span>
+                        <span className="w-5 h-5 bg-emerald-600 text-white rounded-full flex items-center justify-center font-mono text-xs font-bold mr-2.5 shrink-0 mt-0.5 shadow-xs">3</span>
                         <span>Mengakselerasi legalitas serta ketertiban administrasi tanah wakaf demi keselamatan kemaslahatan aset umat Islam.</span>
                       </li>
                     </ul>
@@ -2397,11 +2398,9 @@ export default function App() {
 
                 {/* Right side contact information / sidebar widget instructions */}
                 <div className="lg:col-span-4 space-y-6">
-                  
-                  {/* Category Fast Information Form */}
                   {currentTab !== "nikah" && (
-                    <div className="bg-white rounded-3xl p-6 border border-slate-150 shadow-xs">
-                      <h4 className="text-sm font-extrabold uppercase tracking-wide text-slate-400 mb-4">
+                    <div className="bg-white rounded-3xl p-6 border border-emerald-500/10 shadow-md ring-1 ring-cyan-500/5">
+                      <h4 className="text-[10px] font-black uppercase tracking-wider text-slate-400 mb-4">
                         {currentTab === "penyuluhan" ? "Pembinaan & Evaluasi" : "Layanan Cepat"}
                       </h4>
                       <div className="space-y-4">
@@ -2412,7 +2411,7 @@ export default function App() {
                               <a
                                 href="https://siwak.kemenag.go.id"
                                 target="_blank"
-                                className="block p-3 bg-emerald-50 hover:bg-emerald-100 border border-emerald-100 rounded-xl text-xs font-bold text-emerald-800 text-center"
+                                className="block p-3 bg-emerald-50 hover:bg-emerald-100 border border-emerald-100 rounded-xl text-xs font-bold text-emerald-800 text-center transition-all"
                               >
                                 🌍 Daftar Online di SIWAK
                               </a>
@@ -2422,7 +2421,7 @@ export default function App() {
                               <a
                                 href={`https://wa.me/${defaultSettings.whatsappNumber}`}
                                 target="_blank"
-                                className="block p-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold text-center flex items-center justify-center space-x-1"
+                                className="block p-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold text-center flex items-center justify-center space-x-1 transition-all"
                               >
                                 <MessageSquare className="h-4 w-4" />
                                 <span>Hubungi Adm. Wakaf (WA)</span>
@@ -2438,7 +2437,7 @@ export default function App() {
                               <a
                                 href={defaultSettings.googleFormMuallaf}
                                 target="_blank"
-                                className="block p-3 bg-sky-50 hover:bg-sky-100 border border-sky-150 rounded-xl text-xs font-bold text-sky-800 text-center"
+                                className="block p-3 bg-teal-50 hover:bg-teal-100 border border-teal-100 rounded-xl text-xs font-bold text-teal-850 text-center transition-all"
                               >
                                 ✏️ Google Form Pendaftaran
                               </a>
@@ -2448,7 +2447,7 @@ export default function App() {
                               <a
                                 href={`https://wa.me/${defaultSettings.whatsappNumber}`}
                                 target="_blank"
-                                className="block p-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold text-center flex items-center justify-center space-x-1"
+                                className="block p-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold text-center flex items-center justify-center space-x-1 transition-all"
                               >
                                 <MessageSquare className="h-4 w-4 animate-bounce" />
                                 <span>Bimbingan & Konseling</span>
@@ -2460,12 +2459,12 @@ export default function App() {
                         {currentTab === "penyuluhan" && (
                           <div className="space-y-4">
                             {/* Card 2: Kuisioner Evaluasi */}
-                            <div className="bg-[#fffbeb] p-4 border border-amber-200 rounded-2xl">
+                            <div className="bg-teal-50/50 p-4 border border-teal-100/60 rounded-2xl">
                               <div className="flex items-center gap-2 mb-2">
-                                <div className="w-8 h-8 rounded-lg bg-amber-100 flex items-center justify-center text-amber-800">
+                                <div className="w-8 h-8 rounded-lg bg-teal-100/60 flex items-center justify-center text-teal-850">
                                   <ClipboardList className="h-4 w-4" />
                                 </div>
-                                <h5 className="text-[11px] font-extrabold text-amber-950 uppercase tracking-wide">
+                                <h5 className="text-[11px] font-black text-teal-900 uppercase tracking-widest">
                                   Kuesioner Evaluasi Layanan
                                 </h5>
                               </div>
@@ -2477,7 +2476,7 @@ export default function App() {
                                   setEvaluasiSubmitted(false);
                                   setShowEvaluasiModal(true);
                                 }}
-                                className="w-full py-2 bg-amber-600 hover:bg-amber-700 text-white rounded-xl text-[10px] font-bold shadow-xs transition-colors cursor-pointer text-center flex items-center justify-center gap-1.5"
+                                className="w-full py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-[10px] font-bold shadow-xs transition-all cursor-pointer text-center flex items-center justify-center gap-1.5 active:scale-97"
                               >
                                 <ClipboardList className="h-3 w-3" />
                                 <span>Mulai Isi Kuesioner</span>
@@ -2491,14 +2490,14 @@ export default function App() {
 
                   {/* Operation Hour Badge */}
                   {currentTab !== "nikah" && (
-                    <div className="p-3 bg-slate-50 border border-slate-100 rounded-2xl" id="sidebar-operating-hours-container">
-                      <h4 className="text-[10px] font-extrabold uppercase text-emerald-950 tracking-wider mb-1.5 flex items-center space-x-1">
-                        <Clock className="h-3.5 w-3.5 text-emerald-800" />
+                    <div className="p-4 bg-slate-50 border border-emerald-500/10 rounded-2xl" id="sidebar-operating-hours-container">
+                      <h4 className="text-[10px] font-black uppercase text-emerald-950 tracking-widest mb-2 flex items-center space-x-1">
+                        <Clock className="h-3.5 w-3.5 text-[#1F8A70]" />
                         <span>Sesi Pelayanan Kantor</span>
                       </h4>
-                      <ul className="space-y-1.5 text-[10.5px] text-slate-600 font-mono">
-                        <li className="flex justify-between"><span>Senin - Kamis</span> <span className="font-bold text-slate-800">08:00 - 16:00 WIT</span></li>
-                        <li className="flex justify-between"><span>Jumat (WFA Online)</span> <span className="font-bold text-emerald-700">08:30 - 17:00 WIT</span></li>
+                      <ul className="space-y-1.5 text-[10.5px] text-slate-650 font-mono">
+                        <li className="flex justify-between border-b border-slate-100 pb-1"><span>Senin - Kamis</span> <span className="font-bold text-slate-800">08:00 - 16:00 WIT</span></li>
+                        <li className="flex justify-between border-b border-slate-100 pb-1"><span>Jumat (WFA Online)</span> <span className="font-bold text-emerald-700">08:30 - 17:00 WIT</span></li>
                         <li className="flex justify-between"><span>Sabtu & Minggu</span> <span className="text-emerald-600 font-bold">Online 24 Jam</span></li>
                       </ul>
                     </div>
@@ -2534,13 +2533,13 @@ export default function App() {
               className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12"
             >
               <div className="text-center max-w-3xl mx-auto mb-12">
-                <span className="text-xs font-bold uppercase tracking-widest text-emerald-700 bg-emerald-100/50 px-3 py-1 rounded-full">
+                <span className="text-[10px] font-black uppercase tracking-widest text-[#1F8A70] bg-[#e6f4f1] border border-emerald-200/50 px-3.5 py-1.5 rounded-full">
                   Papan Informasi
                 </span>
-                <h2 className="text-3xl font-extrabold font-display text-emerald-950 mt-2">
+                <h2 className="text-3xl font-extrabold font-display text-[#0B1528] mt-4 uppercase tracking-tight">
                   Pengumuman Resmi KUA Pulau Dullah Utara
                 </h2>
-                <p className="text-sm text-slate-500 mt-2">
+                <p className="text-xs text-slate-500 mt-2">
                   Temukan maklumat publikasi terbaru, perubahan struktur kepemimpinan, juknis bimbingan, dsb.
                 </p>
                 
@@ -2551,7 +2550,7 @@ export default function App() {
                     placeholder="Cari judul atau isi pengumuman..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="w-full px-4 py-3 bg-white border border-emerald-100 rounded-2xl text-xs font-bold shadow-xxs focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                    className="w-full px-4 py-3.5 bg-white border border-emerald-500/10 rounded-2xl text-xs font-bold shadow-sm ring-1 ring-cyan-500/5 focus:outline-none focus:border-emerald-600 focus:ring-2 focus:ring-emerald-500/15 placeholder-slate-400 transition-all"
                   />
                 </div>
               </div>
@@ -2566,11 +2565,11 @@ export default function App() {
                   .map((ann) => (
                     <div 
                       key={ann.id} 
-                      className="bg-white rounded-3xl border border-slate-100/80 hover:border-emerald-200/60 shadow-xxs transition-all overflow-hidden flex flex-col md:flex-row group"
+                      className="bg-white rounded-3xl border border-emerald-500/10 hover:border-emerald-500/20 shadow-md hover:shadow-lg hover:shadow-emerald-950/5 ring-1 ring-cyan-500/5 transition-all duration-300 overflow-hidden flex flex-col md:flex-row group"
                     >
                       {ann.image ? (
                         <div 
-                          className="md:w-1/3 h-52 md:h-auto overflow-hidden relative cursor-zoom-in shrink-0 bg-slate-50"
+                          className="md:w-1/3 h-52 md:h-auto overflow-hidden relative cursor-zoom-in shrink-0 bg-slate-50 border-r border-emerald-500/5"
                           onClick={() => {
                             setActiveMediaPreview({
                               type: "image",
@@ -2862,13 +2861,13 @@ export default function App() {
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
                   
                   {/* Form Create / Edit Layanan */}
-                  <div id="form-layanan-edit" className="lg:col-span-5 bg-white p-6 rounded-3xl border border-emerald-50 shadow-xxs scroll-mt-24">
-                    <h3 className="text-sm font-extrabold uppercase tracking-widest text-emerald-800 mb-4 flex items-center justify-between">
+                  <div id="form-layanan-edit" className="lg:col-span-5 bg-white p-6 rounded-3xl border border-emerald-500/10 shadow-md ring-1 ring-cyan-500/5 scroll-mt-24">
+                    <h3 className="text-xs font-black uppercase tracking-widest text-[#0B1528] mb-4 flex items-center justify-between">
                       <span>{editingLayanan?.id ? "Edit Item Layanan" : "Tambah Item Layanan"}</span>
                       {editingLayanan && (
                         <button 
                           onClick={() => { setEditingLayanan(null); setLayananFormContentInput(""); }}
-                          className="text-[10px] bg-slate-100 hover:bg-slate-205 text-slate-600 font-bold p-1 px-2 rounded-md"
+                          className="text-[10px] bg-slate-100 hover:bg-slate-205 text-slate-600 font-bold p-1.5 px-2.5 rounded-lg transition-colors cursor-pointer"
                         >
                           Batal
                         </button>
@@ -2877,38 +2876,38 @@ export default function App() {
 
                     <div className="space-y-4">
                       <div>
-                        <label className="block text-[11px] font-bold text-slate-700 mb-1">Judul Layanan</label>
+                        <label className="block text-[10px] font-black uppercase tracking-wider text-slate-500 mb-1">Judul Layanan</label>
                         <input
                           type="text"
                           required
                           placeholder="Contoh: Berkas Pas foto Nikah"
                           value={editingLayanan?.title || ""}
                           onChange={(e) => setEditingLayanan({ ...(editingLayanan || {}), title: e.target.value })}
-                          className="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs focus:ring-1 focus:ring-emerald-500 focus:outline-none"
+                          className="w-full px-3 py-2.5 bg-slate-50/50 border border-slate-200 rounded-xl text-xs focus:bg-white focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500/20 focus:outline-none transition-all"
                         />
                       </div>
 
                       <div className="grid grid-cols-2 gap-3">
                         <div>
-                          <label className="block text-[11px] font-bold text-slate-700 mb-1">Kategori</label>
+                          <label className="block text-[10px] font-black uppercase tracking-wider text-slate-500 mb-1">Kategori</label>
                           <select
                             value={editingLayanan?.category || "nikah"}
                             onChange={(e) => setEditingLayanan({ ...(editingLayanan || {}), category: e.target.value as any })}
-                            className="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs focus:ring-1 focus:ring-emerald-500 focus:outline-none"
+                            className="w-full px-3 py-2.5 bg-slate-50/50 border border-slate-200 rounded-xl text-xs focus:bg-white focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500/20 focus:outline-none transition-all"
                           >
                             <option value="nikah">💍 Nikah</option>
                             <option value="wakaf">📜 Wakaf</option>
                             <option value="muallaf">🕌 Muallaf</option>
-                            <option value="penyuluhan">📢 Penyuluhan Agama Islam</option>
+                            <option value="penyuluhan">📢 Penyuluhan</option>
                           </select>
                         </div>
 
                         <div>
-                          <label className="block text-[11px] font-bold text-slate-700 mb-1">Tipe Aksi / Rendering</label>
+                          <label className="block text-[10px] font-black uppercase tracking-wider text-slate-500 mb-1">Tipe Aksi</label>
                           <select
                             value={editingLayanan?.type || "info"}
                             onChange={(e) => setEditingLayanan({ ...(editingLayanan || {}), type: e.target.value as any })}
-                            className="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs focus:ring-1 focus:ring-emerald-500 focus:outline-none"
+                            className="w-full px-3 py-2.5 bg-slate-50/50 border border-slate-200 rounded-xl text-xs focus:bg-white focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500/20 focus:outline-none transition-all"
                           >
                             <option value="info">Info / Persyaratan Dokumen</option>
                             <option value="flow">Alur Tahapan Registrasi</option>
@@ -2920,11 +2919,11 @@ export default function App() {
                       </div>
 
                       <div>
-                        <label className="block text-[11px] font-bold text-slate-700 mb-1">Pilih Icon Tampilan</label>
+                        <label className="block text-[10px] font-black uppercase tracking-wider text-slate-500 mb-1">Pilih Icon Tampilan</label>
                         <select
                           value={editingLayanan?.icon || "file-text"}
                           onChange={(e) => setEditingLayanan({ ...(editingLayanan || {}), icon: e.target.value })}
-                          className="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs focus:ring-1 focus:ring-emerald-500 focus:outline-none"
+                          className="w-full px-3 py-2.5 bg-slate-50/50 border border-slate-200 rounded-xl text-xs focus:bg-white focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500/20 focus:outline-none transition-all"
                         >
                           <option value="file-text">Memo / Lembar Dokumen</option>
                           <option value="git-commit">Alur / Rantai Alur</option>
@@ -2937,29 +2936,29 @@ export default function App() {
                       </div>
 
                       <div>
-                        <label className="block text-[11px] font-bold text-slate-700 mb-1">Tautan URL (SIMKAH/SIWAK/YT/Google Form)</label>
+                        <label className="block text-[10px] font-black uppercase tracking-wider text-slate-500 mb-1">Tautan URL (SIMKAH/SIWAK/YT/Google Form)</label>
                         <input
                           type="text"
                           placeholder="https://..."
                           value={editingLayanan?.url || ""}
                           onChange={(e) => setEditingLayanan({ ...(editingLayanan || {}), url: e.target.value })}
-                          className="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs focus:ring-1 focus:ring-emerald-500 focus:outline-none"
+                          className="w-full px-3 py-2.5 bg-slate-50/50 border border-slate-200 rounded-xl text-xs focus:bg-white focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500/20 focus:outline-none transition-all"
                         />
                       </div>
 
                       <div>
-                        <label className="block text-[11px] font-bold text-slate-700 mb-1">Deskripsi Ringkas</label>
+                        <label className="block text-[10px] font-black uppercase tracking-wider text-slate-500 mb-1">Deskripsi Ringkas</label>
                         <textarea
                           rows={2}
                           placeholder="Keterangan singkat tentang relevansi item layanan ini..."
                           value={editingLayanan?.description || ""}
                           onChange={(e) => setEditingLayanan({ ...(editingLayanan || {}), description: e.target.value })}
-                          className="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs focus:ring-1 focus:ring-emerald-500 focus:outline-none"
+                          className="w-full px-3 py-2.5 bg-slate-50/50 border border-slate-200 rounded-xl text-xs focus:bg-white focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500/20 focus:outline-none transition-all"
                         />
                       </div>
 
                       <div>
-                        <label className="block text-[11px] font-bold text-slate-700 mb-1">
+                        <label className="block text-[10px] font-black uppercase tracking-wider text-slate-500 mb-1">
                           Dokumen / Alur (Satu baris per entri, pisah dengan ENTER)
                         </label>
                         <textarea
@@ -2967,13 +2966,13 @@ export default function App() {
                           placeholder="Contoh:&#10;KTP Suami&#10;Surat Rekomendasi RT&#10;Melunasi Adm Kantor"
                           value={layananFormContentInput}
                           onChange={(e) => setLayananFormContentInput(e.target.value)}
-                          className="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs focus:ring-1 focus:ring-emerald-500 focus:outline-none font-mono text-[11px]"
+                          className="w-full px-3 py-2.5 bg-slate-50/50 border border-slate-200 rounded-xl text-xs focus:bg-white focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500/20 focus:outline-none transition-all font-mono"
                         />
                       </div>
 
                       {/* Image uploader file area */}
                       <div>
-                        <label className="block text-[11px] font-bold text-slate-700 mb-1">Visual Poster / Alur (Format .JPG maks 3MB)</label>
+                        <label className="block text-[10px] font-black uppercase tracking-wider text-slate-500 mb-1">Visual Poster / Alur (Format .JPG maks 3MB)</label>
                         <div className="flex items-center space-x-2">
                           <input
                             type="file"
@@ -2981,11 +2980,11 @@ export default function App() {
                             onChange={(e) => handleImageUpload(e, "layanan", (url) => {
                               setEditingLayanan({ ...(editingLayanan || {}), image: url });
                             })}
-                            className="block w-full text-xs text-slate-500 file:mr-2 file:py-1.5 file:px-3 file:rounded-xl file:border-0 file:text-[10px] file:font-semibold file:bg-emerald-50 file:text-emerald-700 hover:file:bg-emerald-100"
+                            className="block w-full text-xs text-slate-500 file:mr-2 file:py-1.5 file:px-3 file:rounded-xl file:border-0 file:text-[10px] file:font-bold file:bg-[#e6f4f1] file:text-emerald-850 hover:file:bg-[#d5ebd8] transition-all"
                           />
                         </div>
                         {editingLayanan?.image && (
-                          <div className="mt-2 text-[11px] text-green-700 bg-green-50 p-2 rounded-lg flex items-center justify-between">
+                          <div className="mt-2 text-[11px] text-[#1F8A70] bg-[#e6f4f1]/50 border border-emerald-100 p-2 rounded-xl flex items-center justify-between">
                             <span className="truncate">Telah terpilih: {editingLayanan.image}</span>
                             <button 
                               onClick={() => setEditingLayanan({ ...(editingLayanan || {}), image: "" })}
@@ -3000,10 +2999,10 @@ export default function App() {
                       <button
                         onClick={saveLayanan}
                         disabled={isSubmitting}
-                        className="w-full py-3 bg-emerald-700 hover:bg-emerald-800 disabled:bg-slate-350 text-white rounded-xl text-xs font-bold transition-all shadow-md flex items-center justify-center space-x-1 cursor-pointer"
+                        className="w-full py-3.5 bg-emerald-600 hover:bg-emerald-700 disabled:bg-slate-300 text-white rounded-xl text-xs font-bold uppercase tracking-widest shadow-md hover:shadow-emerald-600/10 active:scale-97 transition-all cursor-pointer flex items-center justify-center space-x-2"
                       >
-                        <Save className="h-4 w-4" />
-                        <span>{isSubmitting ? "Menyimpan perubahan..." : "Simpan Layanan"}</span>
+                        <Save className="h-4 w-4 shrink-0" />
+                        <span>{isSubmitting ? "Menyimpan..." : "Simpan Layanan"}</span>
                       </button>
                     </div>
 
