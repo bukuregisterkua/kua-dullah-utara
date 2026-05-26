@@ -181,10 +181,6 @@ export default function Hero({ settings, setCurrentTab, onAdminClick }: HeroProp
 
             {/* Header section with clean premium government styling */}
             <div className="text-center space-y-2 relative z-10 animate-fade-in">
-              <span className="text-[9px] font-black tracking-widest text-[#D4AF37] uppercase bg-amber-500/10 border border-[#D4AF37]/30 px-3 py-1 rounded-full inline-flex items-center gap-1 shadow-sm">
-                <Sparkles className="h-3 w-3 text-[#D4AF37] animate-pulse" />
-                <span>Sesi & Jam Pelayanan Resmi KUA</span>
-              </span>
               <h3 className="text-lg sm:text-2xl font-black text-white tracking-tight uppercase font-display">
                 Jam & Sesi Pelayanan KUA
               </h3>
@@ -237,16 +233,22 @@ export default function Hero({ settings, setCurrentTab, onAdminClick }: HeroProp
                 </div>
               </div>
 
-              {/* CARD 2: Sesi Pagi */}
-              <div className="bg-white/95 backdrop-blur-sm p-4.5 rounded-xl border border-slate-100 flex flex-col justify-between hover:translate-y-[-2px] hover:shadow-lg hover:shadow-emerald-950/20 hover:border-emerald-500/20 transition-all duration-300 shadow-sm group">
+              {/* CARD 2: Sesi Pagi - Dominan Pelayanan */}
+              <div className="bg-white/95 backdrop-blur-sm p-4.5 rounded-xl border-2 border-emerald-500/85 flex flex-col justify-between hover:translate-y-[-2px] hover:shadow-lg hover:shadow-emerald-950/20 transition-all duration-300 shadow-md group relative">
+                {/* Visual Highlight Badge */}
+                <span className="absolute -top-2 px-2.5 py-0.5 right-3 bg-gradient-to-r from-[#1F8A70] to-[#125B49] text-[8px] font-black uppercase tracking-widest text-white rounded-full shadow-sm">
+                  Pelayanan Utama
+                </span>
                 <div className="space-y-3">
                   {/* Header Icon & Title */}
                   <div className="flex items-center space-x-2.5">
-                    <div className="p-2 rounded-lg bg-emerald-50 text-[#1F8A70] border border-emerald-100 group-hover:scale-105 transition-transform duration-300">
-                      <Check className="h-4 w-4 text-emerald-600" />
+                    <div className="p-2 rounded-lg bg-emerald-500 text-white group-hover:scale-105 transition-transform duration-300">
+                      <Check className="h-4 w-4" />
                     </div>
                     <div>
-                      <h4 className="text-[9px] font-black text-[#1F8A70] uppercase tracking-wider">Sesi Pagi</h4>
+                      <h4 className="text-[9px] font-black text-[#1F8A70] uppercase tracking-wider flex items-center gap-1">
+                        Sesi Pagi <span className="text-[8px] text-amber-600 font-extrabold">(Dominan)</span>
+                      </h4>
                       <span className="text-xs font-black text-[#0B1528]">08.00 — 12.00 WIB</span>
                     </div>
                   </div>
@@ -278,33 +280,33 @@ export default function Hero({ settings, setCurrentTab, onAdminClick }: HeroProp
               </div>
 
               {/* CARD 3: Sesi Siang */}
-              <div className="bg-white/95 backdrop-blur-sm p-4.5 rounded-xl border border-slate-100 flex flex-col justify-between hover:translate-y-[-2px] hover:shadow-lg hover:shadow-emerald-950/20 hover:border-amber-500/20 transition-all duration-300 shadow-sm group">
+              <div className="bg-white/95 backdrop-blur-sm p-4.5 rounded-xl border border-slate-100 flex flex-col justify-between hover:translate-y-[-2px] hover:shadow-lg hover:shadow-emerald-950/20 hover:border-emerald-500/20 transition-all duration-300 shadow-sm group">
                 <div className="space-y-3">
                   {/* Header Icon & Title */}
                   <div className="flex items-center space-x-2.5">
-                    <div className="p-2 rounded-lg bg-amber-50 text-amber-600 border border-amber-100 group-hover:scale-105 transition-transform duration-300">
-                      <Check className="h-4 w-4 text-amber-600" />
+                    <div className="p-2 rounded-lg bg-emerald-50 text-[#1F8A70] border border-emerald-100 group-hover:scale-105 transition-transform duration-300">
+                      <Check className="h-4 w-4 text-emerald-600" />
                     </div>
                     <div>
-                      <h4 className="text-[9px] font-black text-amber-600 uppercase tracking-wider">Sesi Siang</h4>
+                      <h4 className="text-[9px] font-black text-[#1F8A70] uppercase tracking-wider">Sesi Siang</h4>
                       <span className="text-xs font-black text-[#0B1528]">13.00 — 16.00 WIB</span>
                     </div>
                   </div>
 
                   <div className="w-full h-[1px] bg-slate-100" />
 
-                  {/* Layanan list with Checkmarks */}
+                  {/* Layanan list with Checkmarks: Same as morning session as requested */}
                   <div className="space-y-2">
                     {[
-                      "Penyuluhan Agama",
-                      "Bimbingan Perkawinan",
-                      "Pengambilan Dokumen",
-                      "Konsultasi Keagamaan",
-                      "Pelayanan Administrasi"
+                      "Pendaftaran Nikah",
+                      "Konsultasi Keluarga",
+                      "Pelayanan Wakaf",
+                      "Pelayanan Mualaf",
+                      "Administrasi Keagamaan"
                     ].map((layanan, idx) => (
                       <div key={idx} className="flex items-start space-x-1.5">
-                        <div className="p-0.5 rounded-full bg-amber-500/10 text-amber-600 mt-0.5 shrink-0">
-                          <Check className="h-2.5 w-2.5 text-amber-600" />
+                        <div className="p-0.5 rounded-full bg-emerald-500/10 text-emerald-600 mt-0.5 shrink-0">
+                          <Check className="h-2.5 w-2.5 text-emerald-600" />
                         </div>
                         <span className="text-[10.5px] text-slate-700 font-bold leading-tight">{layanan}</span>
                       </div>
@@ -312,27 +314,11 @@ export default function Hero({ settings, setCurrentTab, onAdminClick }: HeroProp
                   </div>
                 </div>
 
-                <div className="mt-4 text-center text-[8.5px] font-black tracking-widest text-amber-800 bg-amber-50 border border-amber-100/50 py-1.5 rounded-lg uppercase">
+                <div className="mt-4 text-center text-[8.5px] font-black tracking-widest text-slate-700 bg-slate-50 border border-slate-200/50 py-1.5 rounded-lg uppercase">
                   Aktif Pelayanan Sore
                 </div>
               </div>
 
-            </div>
-
-            {/* Action Buttons: Tombol kecil Hubungi KUA & Lihat Layanan */}
-            <div className="flex flex-wrap items-center justify-center gap-2.5 pt-3.5 relative z-10 border-t border-emerald-500/10">
-              <button
-                onClick={() => setCurrentTab("kontak")}
-                className="px-4 py-2 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-950 font-black uppercase text-[9px] tracking-widest rounded-lg shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer flex items-center gap-1 active:scale-97 border border-amber-400"
-              >
-                <span>Hubungi KUA</span>
-              </button>
-              <button
-                onClick={() => setCurrentTab("layanan-pembuka")}
-                className="px-4 py-2 bg-white/10 hover:bg-white/20 text-white font-black uppercase text-[9px] tracking-widest rounded-lg backdrop-blur-xs transition-all duration-300 cursor-pointer flex items-center gap-1 active:scale-97 border border-white/20"
-              >
-                <span>Lihat Layanan</span>
-              </button>
             </div>
           </div>
         </div>
