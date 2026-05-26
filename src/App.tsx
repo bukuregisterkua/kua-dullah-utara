@@ -1293,12 +1293,13 @@ export default function App() {
   }
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.4, ease: "easeOut" }}
-    >
-      <div className="min-h-screen flex flex-col justify-between no-print">
+    <>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.4, ease: "easeOut" }}
+      >
+        <div className="min-h-screen flex flex-col justify-between no-print">
       
       {/* Dynamic Header */}
       <Header 
@@ -4907,6 +4908,7 @@ export default function App() {
       </AnimatePresence>
 
     </div>
+    </motion.div>
 
     {/* ========================================================
         HIGH-FIDELITY FLUID 2-PAGE PRINTABLE OFFICIAL KUA FORM
@@ -5158,6 +5160,6 @@ export default function App() {
         </motion.div>
       )}
     </AnimatePresence>
-    </motion.div>
+    </>
   );
 }
