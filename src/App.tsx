@@ -1336,14 +1336,6 @@ export default function App() {
               {/* STATISTIK SECTION */}
               <section className="bg-slate-50 py-10 border-b border-slate-100 animate-fade-in" id="section-statistik">
                 <div className="max-w-4xl mx-auto px-4 flex flex-col items-center">
-                  <div className="text-center mb-6">
-                    <span className="text-[10px] font-extrabold text-emerald-800 bg-emerald-100 px-2.5 py-0.5 rounded-full inline-block uppercase tracking-wider">
-                      DATA & STATISTIK
-                    </span>
-                    <h3 className="text-xl font-black text-slate-800 mt-1.5 uppercase tracking-tight">
-                      Infografis Pelayanan Kantor KUA
-                    </h3>
-                  </div>
                   <div className="w-full relative overflow-hidden rounded-xl border border-slate-200 bg-white p-1.5 flex justify-center shadow-xs">
                     <img 
                       src={defaultSettings.statistikImg || statistikKuaPlaceholder} 
