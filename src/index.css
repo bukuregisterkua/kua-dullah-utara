@@ -39,7 +39,7 @@
   .no-print {
     display: none !important;
   }
-  #kua-print-document {
+  #kua-print-document, #kua-print-document-modal {
     display: block !important;
     position: absolute !important;
     left: 0;
@@ -71,7 +71,7 @@ body.printing-kua-active {
 body.printing-kua-active .no-print {
   display: none !important;
 }
-body.printing-kua-active #kua-print-document {
+body.printing-kua-active #kua-print-document, body.printing-kua-active #kua-print-document-modal {
   display: block !important;
   position: absolute !important;
   left: 0 !important;

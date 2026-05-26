@@ -1,0 +1,137 @@
+import penyuluhPria1 from "../assets/images/penyuluh_pria_1_1779371506296.png";
+import penyuluhWanita1 from "../assets/images/penyuluh_wanita_1_1779371527770.png";
+import penyuluhPria2 from "../assets/images/penyuluh_pria_2_1779371547245.png";
+import penyuluhWanita2 from "../assets/images/penyuluh_wanita_2_1779371567528.png";
+import penyuluhPria3 from "../assets/images/penyuluh_pria_3_1779372465474.png";
+import penyuluhWanita3 from "../assets/images/penyuluh_wanita_3_1779372486923.png";
+import penyuluhWanita4 from "../assets/images/penyuluh_wanita_4_1779372505456.png";
+import { Penyuluh } from "../types";
+
+export const PENYULUH_AGAMA_LIST: Penyuluh[] = [
+  {
+    id: "p1",
+    name: "H. Kamaruddin, SH",
+    nip: "197208152003121001",
+    role: "Penyuluh Agama Islam",
+    jabatan: "Penyuluh Agama Islam Madya",
+    pangkat: "Penata / IVa",
+    tempat: "KUA Pulau Dullah Utara",
+    kua: "KUA Pulau Dullah Utara",
+    avatar: "🧔",
+    contact: "6281240912842",
+    schedule: "Senin & Selasa (09:00 - 14:00 WIT)",
+    specialty: "Sakinah Law & Fiqh Pernikahan",
+    gender: "male",
+    phone: "6281240912842",
+    photo: "/uploads/penyuluh_pria_1_1779371506296.png",
+    fallbackPhoto: penyuluhPria1
+  },
+  {
+    id: "p2",
+    name: "Khadijah Al-Munawwarah, M.Ag",
+    nip: "198004122008012015",
+    role: "Penyuluh Agama Islam",
+    jabatan: "Penyuluh Agama Islam Muda",
+    pangkat: "Penata Muda / IX",
+    tempat: "KUA Pulau Dullah Utara",
+    kua: "KUA Pulau Dullah Utara",
+    avatar: "🧕",
+    contact: "6281240912842",
+    schedule: "Rabu (10:00 - 15:00 WIT)",
+    specialty: "Psikologi & Komunikasi Keluarga",
+    gender: "female",
+    phone: "6281240912842",
+    photo: "/uploads/penyuluh_wanita_1_1779371527770.png",
+    fallbackPhoto: penyuluhWanita1
+  },
+  {
+    id: "p3",
+    name: "Ustadz H. Abdullah, Lc",
+    role: "Penyuluh Agama Islam",
+    nip: "197811052006041003",
+    jabatan: "Penyuluh Agama Islam Pertama",
+    pangkat: "Penata / IVa",
+    tempat: "KUA Pulau Dullah Utara",
+    kua: "KUA Pulau Dullah Utara",
+    avatar: "🧔",
+    contact: "6281240912842",
+    schedule: "Kamis (09:30 - 14:30 WIT)",
+    specialty: "Aqidah & Pemahaman Syariah",
+    gender: "male",
+    phone: "6281240912842",
+    photo: "/uploads/penyuluh_pria_3_1779372465474.png",
+    fallbackPhoto: penyuluhPria3
+  },
+  {
+    id: "p4",
+    name: "Siti Rahmawati, S.Sos",
+    role: "Penyuluh Agama Islam",
+    nip: "198305142010012022",
+    jabatan: "Penyuluh Agama Islam Pertama",
+    pangkat: "Penata Muda / IX",
+    tempat: "KUA Pulau Dullah Utara",
+    kua: "KUA Pulau Dullah Utara",
+    avatar: "🧕",
+    contact: "6281240912842",
+    schedule: "Jumat (08:30 - 11:30 WIT)",
+    specialty: "Resolusi Konflik Bimbingan",
+    gender: "female",
+    phone: "6281240912842",
+    photo: "/uploads/penyuluh_wanita_3_1779372486923.png",
+    fallbackPhoto: penyuluhWanita3
+  },
+  {
+    id: "p5",
+    name: "Ahmad Fauzan, S.Pd.I",
+    role: "Penyuluh Agama Islam",
+    nip: "198501272025211002",
+    jabatan: "Penyuluh Agama Islam Pertama",
+    pangkat: "Penata Muda / IX",
+    tempat: "KUA Pulau Dullah Utara",
+    kua: "KUA Pulau Dullah Utara",
+    avatar: "🧔",
+    contact: "6281240912842",
+    schedule: "Senin - Selasa (13:00 - 16:00 WIT)",
+    specialty: "Bimbingan Mental & Konseling",
+    gender: "male",
+    phone: "6281240912842",
+    photo: "/uploads/penyuluh_pria_2_1779371547245.png",
+    fallbackPhoto: penyuluhPria2
+  },
+  {
+    id: "p6",
+    name: "Dr. Maryam Shofia, S.Th.I",
+    role: "Penyuluh Agama Islam",
+    nip: "197509202005012008",
+    jabatan: "Penyuluh Agama Islam Madya",
+    pangkat: "Penata Muda / IX",
+    tempat: "KUA Pulau Dullah Utara",
+    kua: "KUA Pulau Dullah Utara",
+    avatar: "🧕",
+    contact: "6281240912842",
+    schedule: "Rabu (13:00 - 16:00 WIT)",
+    specialty: "Pemberdayaan Wanita Syariah",
+    gender: "female",
+    phone: "6281240912842",
+    photo: "/uploads/penyuluh_wanita_2_1779371567528.png",
+    fallbackPhoto: penyuluhWanita2
+  },
+  {
+    id: "p7",
+    name: "Aisyah Humaira, S.Th.I",
+    role: "Penyuluh Agama Islam",
+    nip: "198812252014022011",
+    jabatan: "Penyuluh Agama Islam Pertama",
+    pangkat: "Penata Muda / IX",
+    tempat: "KUA Pulau Dullah Utara",
+    kua: "KUA Pulau Dullah Utara",
+    avatar: "🧕",
+    contact: "6281240912842",
+    schedule: "Kamis (11:00 - 15:30 WIT)",
+    specialty: "Sakinah Law & Dakwah Kreatif",
+    gender: "female",
+    phone: "6281240912842",
+    photo: "/uploads/penyuluh_wanita_4_1779372505456.png",
+    fallbackPhoto: penyuluhWanita4
+  }
+];
