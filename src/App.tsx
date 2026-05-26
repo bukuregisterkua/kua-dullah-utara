@@ -1885,8 +1885,8 @@ export default function App() {
                   })()}
 
                   {currentTab === "nikah" && (
-                    <div className="bg-white rounded-3xl p-6 border border-slate-100 shadow-xxs animate-fade-in">
-                      <div className="flex flex-col md:flex-row items-center gap-5">
+                    <div className="bg-white rounded-3xl p-6 border border-slate-100 shadow-xxs animate-fade-in space-y-5">
+                      <div className="flex flex-col md:flex-row items-start md:items-center gap-5">
                         <div className="w-12 h-12 rounded-2xl bg-teal-50 text-teal-700 flex items-center justify-center shrink-0 border border-teal-100/60 shadow-sm">
                           <ClipboardList className="h-6 w-6 text-emerald-600" />
                         </div>
@@ -1898,18 +1898,55 @@ export default function App() {
                             Kuesioner Evaluasi Pelayanan Nikah & Pranikah
                           </h4>
                           <p className="text-xs text-slate-500 leading-relaxed font-sans font-medium">
-                            Bagi calon pengantin yang telah mengikuti bimbingan perkawinan di KUA Pulau Dullah Utara, silakan mengisi kuesioner evaluasi ini demi peningkatan mutu pelayanan kami secara berkelanjutan. Hasil kuesioner dapat diunduh/dicetak langsung dalam format PDF resmi Kemenag.
+                            Bagi calon pengantin yang telah mengikuti bimbingan perkawinan di KUA Pulau Dullah Utara, silakan mengisi atau langsung mengunduh kuesioner evaluasi ini demi peningkatan mutu pelayanan kami secara berkelanjutan. Hasil kuesioner dapat diunduh/dicetak dalam format PDF resmi Kementerian Agama (Kemenag).
                           </p>
                         </div>
+                      </div>
+
+                      {/* Download Instructions / Perintah dan Langkah Unduh */}
+                      <div className="bg-emerald-50/60 border border-emerald-100/80 rounded-2xl p-4 space-y-2">
+                        <h5 className="text-[11px] font-extrabold text-emerald-900 flex items-center gap-1.5 uppercase tracking-wide">
+                          <Printer className="h-3.5 w-3.5 text-emerald-700" /> 
+                          <span>Petunjuk Mengunduh & Mencetak PDF Surat Evaluasi:</span>
+                        </h5>
+                        <ol className="list-decimal list-inside text-[11px] text-slate-650 space-y-1.5 leading-relaxed font-semibold">
+                          <li>Klik tombol <strong className="text-emerald-800">"Mulai Isi Kuesioner"</strong> atau <strong className="text-emerald-800">"Unduh PDF Langsung"</strong> di bawah.</li>
+                          <li>Saat jendela pratinjau dokumen terbuka, tekan tombol <strong className="text-slate-900">"Cetak Dokumen"</strong>.</li>
+                          <li>Pada kotak dialog print browser Anda:
+                            <ul className="list-disc list-inside ml-4 mt-0.5 space-y-0.5 text-[#125B49] font-medium">
+                              <li>Ubah <strong className="text-slate-900">Tujuan (Destination)</strong> menjadi <strong className="text-emerald-700">"Simpan sebagai PDF" (Save as PDF)</strong>.</li>
+                              <li>Centang pilihan <strong className="text-slate-900">"Grafik Latar Belakang" (Background Graphics)</strong> agar tampilan kop surat dan tabel berwarna sempurna.</li>
+                            </ul>
+                          </li>
+                          <li>Klik tombol <strong className="text-emerald-700">"Simpan" / "Save"</strong> untuk mengunduh dokumen secara aman ke perangkat Anda.</li>
+                        </ol>
+                      </div>
+
+                      {/* Action Buttons */}
+                      <div className="flex flex-col sm:flex-row gap-3">
                         <button
                           onClick={() => {
                             setEvaluasiSubmitted(false);
                             setShowEvaluasiModal(true);
                           }}
-                          className="w-full md:w-auto px-5 py-3 bg-emerald-700 hover:bg-emerald-800 text-white rounded-xl text-xs font-bold shadow-md transition-all shrink-0 cursor-pointer flex items-center justify-center gap-1.5 active:scale-97"
+                          className="flex-1 px-5 py-3 bg-emerald-750 hover:bg-emerald-800 text-white rounded-xl text-xs font-bold shadow-md transition-all cursor-pointer flex items-center justify-center gap-2 active:scale-97"
                         >
                           <ClipboardList className="h-4 w-4" />
                           <span>Mulai Isi Kuesioner</span>
+                        </button>
+                        <button
+                          onClick={() => {
+                            setEvaluasiSubmitted(false);
+                            setShowEvaluasiModal(true);
+                            // Auto print directly with a short delay
+                            setTimeout(() => {
+                              handlePrintDirect();
+                            }, 600);
+                          }}
+                          className="px-5 py-3 bg-[#e6f4f1] border border-emerald-200/60 hover:bg-emerald-100 text-[#125B49] rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-2 active:scale-97 shadow-sm"
+                        >
+                          <Download className="h-4 w-4" />
+                          <span>Unduh PDF Langsung</span>
                         </button>
                       </div>
                     </div>
